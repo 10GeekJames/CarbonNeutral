@@ -6,8 +6,6 @@ public static class RegisterLazyServices
         static void RegisterLazyServices(WebAssemblyHostBuilder builder)
         {
             RegisterLazyServicesWsk.RegisterModules(builder);
-            //RegisterLazyServicesYmi();
-            RegisterLazyServicesWsk.RegisterModules(builder);
         }
     }
 }

@@ -1,8 +1,0 @@
-@use './base/_variables' as v;
-@use './base/mixins' as m;
-
-@import './base/_imports';
-
-SidewaysList ul {
-    @include m.horizontal-list;
-}

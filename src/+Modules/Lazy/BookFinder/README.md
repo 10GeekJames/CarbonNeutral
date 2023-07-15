@@ -1,3 +1,0 @@
-# WordSearchKingdom
-
-test

@@ -98,52 +98,6 @@
             "terminals": [
                 {
                     "name": "WskCore.UnitTests",
-                    "path": "./src/+Modules/Lazy/WordSearchKingdom/____Core/_WskCore.UnitTests/src",
-                    "cmd": [
-                        "dotnet test"
-                    ],
-                    "num": 4
-                },
-                {
-                    "name": "WskInfrastructure.IntegrationTests",
-                    "path": "./src/+Modules/Lazy/WordSearchKingdom/___Infrastructure/WskInfrastructure.IntegrationTests/src",
-                    "cmd": [
-                        "dotnet test"
-                    ],
-                    "num": 4
-                },
-                {
-                    "name": "WskApplication.FeatureTests",
-                    "path": "./src/+Modules/Lazy/WordSearchKingdom/_Application/WskApplication.FeatureTests/src",
-                    "cmd": [
-                        "dotnet test"
-                    ],
-                    "num": 4
-                },
-                {
-                    "name": "WskApi.FunctionalTests",
-                    "path": "./src/+Modules/Lazy/WordSearchKingdom/+Api/WskApi.FunctionalTests/src",
-                    "cmd": [
-                        "dotnet test"
-                    ],
-                    "num": 4
-                }   ,
-                {
-                    "name": "WskApi",                      
-                    "path": "./src/+Modules/Lazy/WordSearchKingdom/+Api/WskApi/src",
-                    "cmd": [
-                        "dotnet watch run"
-                    ],
-                    "num": 4
-                }             
-            ]
-        },
-        {
-            "name": "WskCore",
-            "enabled": true,
-            "terminals": [
-                {
-                    "name": "WskCore.UnitTests",
                     "path": "./src/+Modules/Games/WordSearchKingdom/____Core/_WskCore.UnitTests/src",
                     "cmd": [
                         "dotnet test"

@@ -118,33 +118,6 @@
         // \AccountModule
         
         // WordSearchKingdom
-        if (uriPath.Contains("public/"))
-        {
-            var assemblies = await AssemblyLoader.LoadAssembliesAsync(new List<string> { "WskBlazorModule.dll" });
-            LoadedAssemblies.AddRange(assemblies);
-        }
-        else if (uriPath.Contains("private/"))
-        {
-            var assemblies = await AssemblyLoader.LoadAssembliesAsync(new List<string> { "WskBlazorModuleAdmin.dll" });
-            LoadedAssemblies.AddRange(assemblies);
-        }
-        // \WordSearchKingdom
-
-        // YourMainIdea
-        @* if (uriPath.Contains("ymi/"))
-        {
-            var assemblies = await AssemblyLoader.LoadAssembliesAsync(new List<string> { "YmiBlazorModule.dll" });
-            LoadedAssemblies.AddRange(assemblies);
-        }
-        else if (uriPath.Contains("ymi-admin/"))
-        {
-            var assemblies = await AssemblyLoader.LoadAssembliesAsync(new List<string> {
-                "YmiBlazorModuleAdmin.dll"});
-            LoadedAssemblies.AddRange(assemblies);
-        } *@
-        // \YourMainIdea
-
-        // WordSearchKingdom
         if (uriPath.Contains("wsk/"))
         {
             var assemblies = await AssemblyLoader.LoadAssembliesAsync(new List<string> { "WskBlazorModule.dll" });
