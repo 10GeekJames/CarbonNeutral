@@ -12,15 +12,15 @@
   </Choose>
 
   <ItemGroup>
-    <ProjectReference Include="./../../../../+Modules/Games/WordSearchKingdom/____Core/WskCore.WskTestData/src/WskCore.WskTestData.csproj" />
-    <ProjectReference Include="./../../../../+Modules/Games/WordSearchKingdom/___Infrastructure/WskInfrastructure/src/WskInfrastructure.csproj" />    
-    <ProjectReference Include="./../../../../+Modules/Games/WordSearchKingdom/_Application/_WskApplication.Shared/src/WskApplication.Shared.csproj" />
-    <ProjectReference Include="./../../../../+Modules/Games/WordSearchKingdom/UI/_WskModuleClientServiceLoader/src/WskModuleClientServiceLoader.csproj" />
+    <ProjectReference Include="./../../../../+Modules/Lazy/WordSearchKingdom/____Core/WskCore.WskTestData/src/WskCore.WskTestData.csproj" />
+    <ProjectReference Include="./../../../../+Modules/Lazy/WordSearchKingdom/___Infrastructure/WskInfrastructure/src/WskInfrastructure.csproj" />    
+    <ProjectReference Include="./../../../../+Modules/Lazy/WordSearchKingdom/_Application/_WskApplication.Shared/src/WskApplication.Shared.csproj" />
+    <ProjectReference Include="./../../../../+Modules/Lazy/WordSearchKingdom/UI/_WskModuleClientServiceLoader/src/WskModuleClientServiceLoader.csproj" />
     
-    <ProjectReference Include="./../../../../+Modules/Games/WordSearchKingdom/UI/WskBlazorModule/src/WskBlazorModule.csproj" />      
+    <ProjectReference Include="./../../../../+Modules/Lazy/WordSearchKingdom/UI/WskBlazorModule/src/WskBlazorModule.csproj" />      
     <BlazorWebAssemblyLazyLoad Include="WskBlazorModule.dll" />
 
-    <ProjectReference Include="./../../../../+Modules/Games/WordSearchKingdom/UI/WskBlazorModuleAdmin/src/WskBlazorModuleAdmin.csproj" />      
+    <ProjectReference Include="./../../../../+Modules/Lazy/WordSearchKingdom/UI/WskBlazorModuleAdmin/src/WskBlazorModuleAdmin.csproj" />      
     <BlazorWebAssemblyLazyLoad Include="WskBlazorModuleAdmin.dll" />
   </ItemGroup>
 

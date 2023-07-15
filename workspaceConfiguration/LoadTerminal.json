@@ -98,7 +98,7 @@
             "terminals": [
                 {
                     "name": "WskCore.UnitTests",
-                    "path": "./src/+Modules/Games/WordSearchKingdom/____Core/_WskCore.UnitTests/src",
+                    "path": "./src/+Modules/Lazy/WordSearchKingdom/____Core/_WskCore.UnitTests/src",
                     "cmd": [
                         "dotnet test"
                     ],
@@ -106,7 +106,7 @@
                 },
                 {
                     "name": "WskInfrastructure.IntegrationTests",
-                    "path": "./src/+Modules/Games/WordSearchKingdom/___Infrastructure/WskInfrastructure.IntegrationTests/src",
+                    "path": "./src/+Modules/Lazy/WordSearchKingdom/___Infrastructure/WskInfrastructure.IntegrationTests/src",
                     "cmd": [
                         "dotnet test"
                     ],
@@ -114,7 +114,7 @@
                 },
                 {
                     "name": "WskApplication.FeatureTests",
-                    "path": "./src/+Modules/Games/WordSearchKingdom/_Application/WskApplication.FeatureTests/src",
+                    "path": "./src/+Modules/Lazy/WordSearchKingdom/_Application/WskApplication.FeatureTests/src",
                     "cmd": [
                         "dotnet test"
                     ],
@@ -122,7 +122,7 @@
                 },
                 {
                     "name": "WskApi.FunctionalTests",
-                    "path": "./src/+Modules/Games/WordSearchKingdom/+Api/WskApi.FunctionalTests/src",
+                    "path": "./src/+Modules/Lazy/WordSearchKingdom/+Api/WskApi.FunctionalTests/src",
                     "cmd": [
                         "dotnet test"
                     ],
@@ -130,7 +130,7 @@
                 }   ,
                 {
                     "name": "WskApi",                      
-                    "path": "./src/+Modules/Games/WordSearchKingdom/+Api/WskApi/src",
+                    "path": "./src/+Modules/Lazy/WordSearchKingdom/+Api/WskApi/src",
                     "cmd": [
                         "dotnet watch run"
                     ],
