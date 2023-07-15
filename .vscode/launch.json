@@ -1,0 +1,90 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "DrawProjectFolders",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-DrawProjectFolders",
+            "program": "${workspaceFolder}\\utilities\\DrawProjectFolders\\bin\\Debug\\net7.0\\DrawProjectFolders.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}\\utilities\\DrawProjectFolders",
+            "console": "internalConsole",
+            "stopAtEntry": false
+        },
+        {
+            "name": "DPF.Application.Testing",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-DPF.Application.Testing",
+            "program": "${workspaceFolder}\\utilities\\DrawProjectFolders\\src\\_Application\\DPF.Application.FeatureTests\\bin\\Debug\\net7.0\\DPF.Application.FeatureTests.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}\\utilities\\DrawProjectFolders\\src\\_Application\\DPF.Application.FeatureTests",
+            "console": "internalConsole",
+            "stopAtEntry": false
+        },
+        {
+            "name": "WskCore.Tests",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}\\_WskCore\\tests\\WskCore.Tests\\bin\\Debug\\net7.0\\WskCore.UnitTests.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}\\_WskCore\\tests\\WskCore.Tests",
+            "console": "internalConsole",
+            "stopAtEntry": false
+        },
+        {
+            "name": "API.WskApi",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-API.WskApi",
+            "program": "${workspaceFolder}\\src\\+Modules\\Required\\WordSearchKingdom\\+Api\\API.WskApi\\src\\bin\\Debug\\net7.0\\API.WskApi.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}\\src\\+Modules\\Required\\WordSearchKingdom\\+Api\\API.WskApi\\src\\",
+            "console": "internalConsole",
+            "stopAtEntry": false,
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            }
+        },
+        {
+            "name": ".NET Core Attach",
+            "type": "coreclr",
+            "request": "attach"
+        },
+        {
+            "name": "CarbonNeutral.BlazorClient",
+            "type": "blazorwasm",
+            "request": "launch",
+            "preLaunchTask": "build-CarbonNeutral.BlazorClient",
+            "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}",
+            "program": "${workspaceFolder}/src/UI/Client/CarbonNeutral.BlazorClient/src/bin/Debug/net7.0/CarbonNeutral.BlazorClient.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/UI/Client/CarbonNeutral.BlazorClient/src",
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        },
+        {
+            "name": "AccountModuleApi",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-AccountModuleApi",
+            "program": "${workspaceFolder}/src/+Modules/Required/AccountModule/+API/+AccountModuleApi/src/bin/Debug/net7.0/AccountModuleApi.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/+Modules/Required/AccountModule/+API/+AccountModuleApi/src",
+            "stopAtEntry": false,
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/src/+Modules/Required/AccountModule/+API/+AccountModuleApi/src/Views"
+            }
+        }
+    ]
+}

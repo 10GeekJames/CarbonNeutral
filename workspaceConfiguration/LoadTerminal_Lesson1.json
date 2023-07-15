@@ -1,0 +1,49 @@
+{
+    "version": "1.2.1",
+    "groups": [
+        {
+            "name": "CarbonNeutral.KernelShared",
+            "enabled": true,
+            "terminals": [
+                {
+                    "name": "CarbonNeutral.KernelShared",
+                    "path": "./src/__Kernel/CarbonNeutral.KernelShared/src",
+                    "cmd": [
+                        "dotnet build"
+                    ],
+                    "num": 0
+                }
+            ]
+        },
+        {
+            "name": "YmiCore",
+            "enabled": true,
+            "terminals": [
+                {
+                    "name": "YmiCore",
+                    "path": "./src/+Modules/Lazy/YourMainIdea/____Core/_YmiCore/src",
+                    "cmd": [
+                        ""
+                    ],
+                    "num": 1
+                },
+                {
+                    "name": "YmiCore.UnitTests",
+                    "path": "./src/+Modules/Lazy/YourMainIdea/____Core/_YmiCore.UnitTests/src",
+                    "cmd": [
+                        ""
+                    ],
+                    "num": 2
+                },
+                {
+                    "name": "YmiCore.TestData",
+                    "path": "./src/+Modules/Lazy/YourMainIdea/____Core/_YmiCore.TestData/src",
+                    "cmd": [
+                        ""
+                    ],
+                    "num": 2
+                }
+            ]
+        }
+    ]
+}

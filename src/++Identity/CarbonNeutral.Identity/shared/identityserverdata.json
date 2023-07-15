@@ -1,0 +1,136 @@
+﻿{
+    "IdentityServerData": {
+        "IdentityResources": [
+            {
+                "Name": "roles",
+                "Enabled": true,
+                "DisplayName": "Roles",
+                "UserClaims": [
+                    "role"
+                ]
+            },
+            {
+                "Name": "openid",
+                "Enabled": true,
+                "Required": true,
+                "DisplayName": "Your user identifier",
+                "UserClaims": [
+                    "sub"
+                ]
+            },
+            {
+                "Name": "profile",
+                "Enabled": true,
+                "DisplayName": "User profile",
+                "Description": "Your user profile information (first name, last name, etc.)",
+                "Emphasize": true,
+                "UserClaims": [
+                    "name",
+                    "family_name",
+                    "given_name",
+                    "middle_name",
+                    "nickname",
+                    "preferred_username",
+                    "email",
+                    "email_verified",
+                    "profile",
+                    "picture",
+                    "website",
+                    "gender",
+                    "birthdate",
+                    "zoneinfo",
+                    "locale",
+                    "updated_at"
+                ]
+            },
+            {
+                "Name": "email",
+                "Enabled": true,
+                "DisplayName": "Your email address",
+                "Emphasize": true,
+                "UserClaims": [
+                    "email",
+                    "email_verified"
+                ]
+            },
+            {
+                "Name": "address",
+                "Enabled": true,
+                "DisplayName": "Your address",
+                "Emphasize": true,
+                "UserClaims": [
+                    "address"
+                ]
+            }
+        ],
+        "ApiScopes": [
+            {
+                "Name": "RdyBlazorClient_api",
+                "DisplayName": "RdyBlazorClient_api",
+                "Required": true,
+                "UserClaims": [
+                    "role",
+                    "name"
+                ]
+            }
+        ],
+        "ApiResources": [
+            {
+                "Name": "RdyBlazorClient_api",
+                "Scopes": [
+                    "RdyBlazorClient_api"
+                ]
+            }
+        ],
+        "Clients": [
+            {
+                "ClientId": "RdyBlazorClient",
+                "ClientName": "RdyBlazorClient",
+                "ClientUri": "https://admin.skoruba.local",
+                "AllowedGrantTypes": [
+                    "authorization_code"
+                ],
+                "RequirePkce": true,
+                "ClientSecrets": [
+                    {
+                        "Value": "Le!t!sT!hi!sD!o1!23!456"
+                    }
+                ],
+                "RedirectUris": [
+                    "https://admin.skoruba.local/signin-oidc"
+                ],
+                "FrontChannelLogoutUri": "https://admin.skoruba.local/signout-oidc",
+                "PostLogoutRedirectUris": [
+                    "https://admin.skoruba.local/signout-callback-oidc"
+                ],
+                "AllowedCorsOrigins": [
+                    "https://admin.skoruba.local"
+                ],
+                "AllowedScopes": [
+                    "openid",
+                    "email",
+                    "profile",
+                    "roles"
+                ]
+            },
+            {
+                "ClientId": "RdyBlazorClient_api_swaggerui",
+                "ClientName": "RdyBlazorClient_api_swaggerui",
+                "AllowedGrantTypes": [
+                    "authorization_code"
+                ],
+                "RequireClientSecret": false,
+                "RequirePkce": true,
+                "RedirectUris": [
+                    "https://admin-api.skoruba.local/swagger/oauth2-redirect.html"
+                ],
+                "AllowedScopes": [
+                    "RdyBlazorClient_api"
+                ],
+                "AllowedCorsOrigins": [
+                    "https://admin-api.skoruba.local"
+                ]
+            }
+        ]
+    }
+}

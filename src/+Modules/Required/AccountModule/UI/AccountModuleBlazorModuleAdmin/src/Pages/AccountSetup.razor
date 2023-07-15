@@ -1,0 +1,82 @@
+@page "/Account/AccountSetup"
+@layout MainLayout
+@inject IStringLocalizer<AccountSetup> Localize
+
+@* @attribute [Authorize] *@
+<MudGrid Spacing="0" style="min-height: 100vh;">
+    <MudItem xs="12" Fixed="true" Style=@RandomBackgroundGradientStyle() Class="flex-wrap flex-grow-1 gap-0 d-flex justify-center align-content-center">
+        <div style="flex:none; text-align: center;">
+            <PageTitle>New Account Setup</PageTitle>
+            <MudPaper>
+                <MudStack>
+                    <MudText Class="pa-4" Typo="Typo.h4">Hello Friend!</MudText>
+                    <MudText Typo="Typo.subtitle1">What should we call you?</MudText>
+                    <AuthorizeView>
+                        <div style="width: 400px" Class="justify-center align-content-center pa-4">
+                            <div style="ma-5 pa-5">
+                                @*<input @bind="Name" />*@
+                            </div>
+                            <MudTextField @bind-Value="_name" placeholder="Name..." Variant="Variant.Filled">
+                            </MudTextField>
+                            <div style="ma-5 pa-5">
+                                @*<input @bind-value="Email" />*@
+                            </div>
+                            <MudButton Class="ma-4" Variant="Variant.Filled" Color="Color.Primary" @onclick="SaveUserRecord">Save Name</MudButton>
+                        </div>
+                    </AuthorizeView>
+                </MudStack>
+            </MudPaper>
+        </div>
+    </MudItem>
+
+</MudGrid>
+@code {
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+    private IEnumerable<Claim> _claims = Enumerable.Empty<Claim>();
+    private string _name;
+    private string _email;
+    private ClaimsPrincipal _user;
+    private bool _isAuthenticated = false;
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        var authstate = await authenticationStateTask;
+        _user = authstate.User;   
+        _isAuthenticated = (_user?.Identity?.IsAuthenticated == true);
+        _claims = _user.Claims;
+        while (!PlatformCacheService.AppDataIsReady)
+        {
+            Console.WriteLine("A.S. OnInitializedAsync Waiting on AppData is Ready");
+            await Task.Delay(100);
+        }
+        
+        _email = _claims.FirstOrDefault(rs=>rs.Type == "email").Value;
+
+        if(_name != "" && _name != null) {
+            NavigationManager.NavigateTo("/");
+        }
+    }
+
+    private async Task SaveUserRecord()
+    {
+        Console.WriteLine($"SaveUserRecord email => {_email}");
+        Console.WriteLine($"SaveUserRecord name => {_name}");
+
+        var createKnownAccountRequest = new KnownUserUpdateAccountRequest(_name, _email);
+        var knownUser = await AccountModuleHttpClient.KnownUserUpdateAccountAsync(createKnownAccountRequest);
+
+        PlatformCacheService.KnownUser = knownUser;
+
+        NavigationManager.NavigateTo("/");
+    }
+
+    public string RandomBackgroundGradientStyle()
+    {
+        var rnd = new Random();
+        var color1 = String.Format("#{0:X6}", rnd.Next(0x1000000));
+        var color2 = String.Format("#{0:X6}", rnd.Next(0x1000000)); 
+        return $"background: linear-gradient({color1}, {color2});";
+    }
+}

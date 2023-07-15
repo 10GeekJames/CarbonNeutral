@@ -1,0 +1,62 @@
+@inject IViewLocalizer Localizer
+@using Microsoft.AspNetCore.Mvc.Localization
+@model CarbonNeutral.Identity.STS.Identity.ViewModels.Account.RegisterViewModel
+@{
+    ViewData["Title"] = Localizer["Title"];
+}
+
+@* <h2>@ViewData["Title"]</h2> *@
+
+@await Html.PartialAsync("_ValidationSummary")
+
+<div class="container-fluid">
+    <div class="row register-center">
+        <div class="col-sm-6 register-container">
+            <form asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]"
+                method="post" class="w-form-horizontal">
+                <h4 class="ml-3">@Localizer["SubTitle"]</h4>
+                <hr />
+                <div class="form-group mx-auto">
+                    <label asp-for="UserName" class="col-md-2 control-label">@Localizer["UserName"]</label>
+                    <div class="col-md-12">
+                        <input asp-for="UserName" class="form-control" />
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group mx-auto">
+                    <label asp-for="Email" class="col-md-2 control-label">@Localizer["Email"]</label>
+                    <div class="col-md-12">
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group mx-auto">
+                    <label asp-for="Password" class="col-md-2 control-label">@Localizer["Password"]</label>
+                    <div class="col-md-12">
+                        <input asp-for="Password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group mx-auto">
+                    <label asp-for="ConfirmPassword"
+                        class="col-md-6 control-label">@Localizer["ConfirmPassword"]</label>
+                    <div class="col-md-12">
+                        <input asp-for="ConfirmPassword" class="form-control" />
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group mx-auto">
+                    <div class="col-md-offset-2 col-md-12">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">@Localizer["Button"]</button>
+                    </div>
+                </div>
+                <div class="form-group mx-auto">
+                    <div class="col-md-offset-2 col-md-12">
+                        @* change this to be dynamic *@
+                        <a href="/Account/Login" class="nav-link btn btn-outline-primary">@Localizer["Back to Login"]</a> 
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,56 @@
+@inject IStringLocalizer<SubNavMenu> Localize
+
+<div class="header-bar">
+    <MudMenu>
+        @foreach(var menuItem in SubMenuItems) {
+            <MudMenuItem OnClick="()=>NavigateToPage(menuItem.Url)">@menuItem.Text</MudMenuItem>
+        }
+    </MudMenu>
+</div>
+
+@code {
+    SubMenuItem SelectedItem { get; set; }
+    List<SubMenuItem> SubMenuItems { get; set; } = new List<SubMenuItem>
+    {
+        new SubMenuItem { Text = "Dashboard", Url = "/", Icon = "toc-section-level" },
+        new SubMenuItem { Text = "Graph", Url = "/graph", Icon = "chart-line-stacked" },
+        new SubMenuItem { Text = "Assets", Url = "/assets", Icon = "chart-rose" },
+        new SubMenuItem { Text = "Vulnerabilities", Url = "/programbasics/vuln", Icon = "chart-rose" },
+        new SubMenuItem { Text = "LandingPages", Url = "/landingpages", Icon = "chart-rose" },
+        new SubMenuItem { Text = "Risks", Url = "/risks", Icon = "data" },
+        new SubMenuItem { Text = "Reporting", Url = "/reporting", Icon = "parameters" },
+        new SubMenuItem { Text = "Integrations", Url = "/integrations", Icon = "media-manager" },
+        new SubMenuItem { Text = "Account", Url = "/authentication/login", Icon = "accessibility"}
+    };
+
+     
+    public string GetCurrentPage()
+    
+    {
+        string uriWithoutQueryString =  NavigationManager.Uri.Split("?")[0];
+        string currPage = uriWithoutQueryString.Substring(Math.Min( NavigationManager.Uri.Length,
+         NavigationManager.BaseUri.Length));
+        return string.IsNullOrWhiteSpace(currPage) ? "/" : currPage;
+    }
+    public string GetSelectedItemClass(SubMenuItem item)
+    {
+        if (SelectedItem == null)
+        {
+            return string.Empty;
+        }
+        return SelectedItem.Text.ToLowerInvariant().Equals(item.Text.ToLowerInvariant()) ? "text-info" : "";
+    }
+    public class SubMenuItem
+    {
+        public string Text { get; set; }
+        public string Url { get; set; }
+        public string Icon { get; set; }
+        public bool IsSeparator { get; set; }
+        public List<SubMenuItem> Items = new();
+    }  
+     public async Task NavigateToPage(string url)
+    {
+         NavigationManager.NavigateTo(url);
+         await Task.Yield();
+    }
+}

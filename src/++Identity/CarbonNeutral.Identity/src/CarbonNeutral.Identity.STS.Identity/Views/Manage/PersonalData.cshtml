@@ -1,0 +1,49 @@
+﻿@inject IViewLocalizer Localizer
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@{
+    ViewData["Title"] = Localizer["Title"];
+}
+
+<h4 class="my-5 text-white">@ViewData["Title"]</h4>
+
+@* <div class="row">
+    <div class="col-md-6">
+        <div class="alert alert-info" role="alert">
+            @Localizer["Info"]
+        </div>
+        <form asp-action="DownloadPersonalData" method="post" class="form-group">
+            <button class="btn btn-primary" type="submit">@Localizer["Download"]</button>
+        </form>
+        <div class="alert alert-danger" role="alert">
+            
+        </div>
+        <div>
+            <a asp-action="DeletePersonalData" class="btn btn-primary">@Localizer["Delete"]</a>
+        </div>
+    </div>
+</div> *@
+
+
+<div class="row mt-3 mb-5">
+    <div class="mb-5 col-md-6 col-sm-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Download Data</h5>
+                <p class="card-text">@Localizer["Info"]</p>
+                 <form asp-action="DownloadPersonalData" method="post" class="form-group">
+                <button class="btn btn-primary" type="submit">@Localizer["Download"]</button>
+                 </form>
+            </div>
+        </div>
+        </div>
+    <div class="col-md-6 col-sm-12 mb-5">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Delete Profile</h5>
+                <p class="card-text">@Localizer["Warning"]</p>
+                <a asp-action="DeletePersonalData" class="btn btn-outline-primary">@Localizer["Delete"]</a>
+            </div>
+        </div>
+    </div>
+</div>

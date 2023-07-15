@@ -1,0 +1,67 @@
+﻿@inherits LayoutComponentBase
+
+<MudThemeProvider @ref="@_mudThemeProvider" Theme="_selectedMudTheme" @bind-IsDarkMode="@_isDarkMode" />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+
+<MudLayout>
+    <MudAppBar Elevation="1" Dense="true" Color="Color.Primary">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start"
+            OnClick="@((e) => DrawerToggle())" />
+        <MudSpacer />
+        <span>Toggle @(_isDarkMode ? "Light Mode" : "Dark Mode")</span>
+        <MudToggleIconButton @bind-Toggled="@_isDarkMode" Icon="@Icons.Material.Filled.DarkMode" Color="@Color.Info"
+            Title="Dark Mode" ToggledIcon="@Icons.Material.Filled.LightMode" ToggledColor="Color.Warning"
+            ToggledTitle="Light Mode" />
+
+        <MudMenu Icon="@Icons.Material.Filled.Menu" AnchorOrigin="Origin.BottomLeft" Edge="Edge.End"
+            Color="Color.Inherit" FullWidth="false">
+            <MudMenuItem>Sign out</MudMenuItem>
+        </MudMenu>
+    </MudAppBar>
+    <MudDrawer @bind-Open="@_drawerOpen" ClipMode="DrawerClipMode.Always" DisableOverlay="false" Elevation="2"
+        Variant="@DrawerVariant.Mini">
+        <NavMenu />
+    </MudDrawer>
+
+    <MudMainContent>
+        <MudContainer Full="true">
+            <Breadcrumb />
+            @Body
+            <ModuleNav />
+            <ModuleSettings />
+
+            
+            <ModuleNav />
+            <ModuleSettings />
+
+        </MudContainer>
+    </MudMainContent>
+
+</MudLayout>
+
+
+@code {
+    bool _drawerOpen = true;
+    private bool _isDarkMode;
+    private MudThemeProvider _mudThemeProvider;
+    MudTheme _selectedMudTheme;
+
+    void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        _mudThemeProvider = _mudThemeProvider ?? new MudThemeProvider();
+        _selectedMudTheme = MudStaticDefaultTheme.Default;
+        if (firstRender)
+        {
+            _isDarkMode = await _mudThemeProvider.GetSystemPreference();            
+            StateHasChanged();
+        }
+    }
+ 
+}

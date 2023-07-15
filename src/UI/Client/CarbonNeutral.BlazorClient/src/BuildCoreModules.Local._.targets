@@ -1,0 +1,5 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="BuildCoreModules.Local.Accounts.targets" />
+  <Import Project="BuildCoreModules.Local.FinancialAccounts.targets" />
+  <Import Project="BuildCoreModules.Local.LiveRooms.targets"  />
+</Project>

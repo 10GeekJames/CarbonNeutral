@@ -1,0 +1,21 @@
+version: '3.4'
+  db:
+    image: 'mcr.microsoft.com/mssql/server:2017-CU20-ubuntu-16.04'
+    ports:
+      - '7900:1433'
+    container_name: skoruba-duende-identityserver-db
+    environment:
+      SA_PASSWORD: '${DB_PASSWORD:-JK3LS23JK1J_34Slkj2lJ_KLsdf12333}'
+      ACCEPT_EULA: 'Y'
+    volumes:
+      - 'dbdata:/var/opt/mssql'
+    networks:
+      identityserverui: null
+volumes:
+  dbdata:
+    driver: local
+networks:
+  proxy:
+    driver: bridge
+  identityserverui:
+    driver: bridge

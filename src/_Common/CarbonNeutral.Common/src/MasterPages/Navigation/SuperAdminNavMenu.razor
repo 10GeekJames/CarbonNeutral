@@ -1,0 +1,46 @@
+@inject IStringLocalizer<NavMenuAccount> Localize
+<MudMenu Class=@Class Label="Admin" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomLeft"
+    EndIcon="@Icons.Filled.KeyboardArrowDown">
+    @foreach (var menuItem in MenuItems)
+    {
+        <MudMenuItem OnClick="()=>NavigateToPage(menuItem.Url)">@menuItem.Text</MudMenuItem>
+    }
+</MudMenu>
+@code {
+    [Parameter]
+    public string Class { get; set; }
+    public List<MenuItem> MenuItems { get; set; }
+    public MenuItem SelectedMenuItem { get; set; }
+    protected override void OnInitialized()
+    {
+        MenuItems = new List<MenuItem>()
+{
+new MenuItem { Text = "Website", Url = "/KnownAccounts/Website" },
+new MenuItem { Text = "Web Pages", Url = "/KnownAccounts/Webpages" },
+new MenuItem { Text = "Users", Url = "/KnownAccounts/Users" },
+new MenuItem { Text = "SignalR", Url = "/KnownAccounts/SignalR" }
+};
+        base.OnInitialized();
+    }
+    public async Task NavigateToPage(string url)
+    {
+        NavigationManager.NavigateTo(url);
+        await Task.Yield();
+    }
+    private bool CompareCurrentPageUrl(string urlToCopmare)
+    {
+        return NavigationManager.Uri.Substring(NavigationManager.BaseUri.Length - 1).Equals(urlToCopmare);
+    }
+    private bool IsInternalPage(string url)
+    {
+        if (string.IsNullOrEmpty(url))
+        {
+            return false;
+        }
+        return !(url.StartsWith("http"));
+    }
+    private bool IsChildMenuItem(MenuItem menuItem)
+    {
+        return menuItem.Level == 0;
+    }
+}

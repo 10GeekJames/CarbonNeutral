@@ -1,0 +1,50 @@
+<div>
+    <MudGrid>
+        <MudItem xs="12">
+            <MudTextField @bind-Value="@_currentSelectedWebsitePage.PageTitle" Label="Title" />
+        </MudItem>
+        <MudItem xs="12">
+            <MudTextField @bind-Value="@_currentSelectedWebsitePage.WebPageUrl" Label="Url" />
+        </MudItem>
+        <MudItem xs="12">
+            <MudTextField @bind-Value="@_currentSelectedWebsitePage.NavText" Label="Nav Text" />
+        </MudItem>
+        <MudItem xs="12">
+            <MudTextField @bind-Value="@_currentSelectedWebsitePage.NavIcon" Label="Icon" />
+        </MudItem>
+        <MudItem>
+            <MudCheckBox @bind-Checked="@_currentSelectedWebsitePage.IsVirtual">Virtual</MudCheckBox>
+        </MudItem>
+        <MudItem>
+            <MudCheckBox @bind-Checked="@_currentSelectedWebsitePage.IsInNavigation">Display In Menu</MudCheckBox>
+        </MudItem>
+    </MudGrid>
+</div>
+<div>
+    @if (!WebpageToEdit.IsVirtual)
+    {
+        <TinyMCE.Blazor.Editor ApiKey="8j83pouj505gq665ec4e9h36ysz3dpuu3tj82a97ubvexgo9" @bind-Value="@_currentSelectedWebsitePage.WebsitePageContent" Conf="@editorConf" />
+    }
+</div>
+@code {
+    [Parameter]
+    public WebsitePageViewModel WebpageToEdit 
+    {
+        get => _currentSelectedWebsitePage;
+        set
+        {
+            if (_currentSelectedWebsitePage == value ) return;
+            _currentSelectedWebsitePage = value;
+            WebpageToEditChanged.InvokeAsync(value);
+        }
+    }
+    [Parameter]
+    public EventCallback<WebsitePageViewModel> WebpageToEditChanged { get; set; } 
+    private WebsitePageViewModel _currentSelectedWebsitePage;    
+     private Dictionary<string, object> editorConf = new Dictionary<string, object>{
+        { "menubar", true },
+        { "plugins", "table advtable mediaembed searchreplace spellchecker preview link image code imagetools lists advlist media" },
+        { "toolbar", "undo redo | styleselect | forecolor | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | link image | code" },
+        { "mediaembed_max_width", 450 }
+    };
+}

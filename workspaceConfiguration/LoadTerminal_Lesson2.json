@@ -1,0 +1,65 @@
+{
+    "version": "1.2.1",
+    "groups": [
+        {
+            "name": "CarbonNeutral.KernelShared",
+            "enabled": true,
+            "terminals": [
+                {
+                    "name": "CarbonNeutral.KernelShared",
+                    "path": "./src/__Kernel/CarbonNeutral.KernelShared/src",
+                    "cmd": [
+                        "dotnet build"
+                    ],
+                    "num": 0
+                }
+            ]
+        },
+        {
+            "name": "YmiCore",
+            "enabled": true,
+            "terminals": [
+                {
+                    "name": "YmiCore",
+                    "path": "./src/+Modules/Required/YourMainIdea/____Core/_YmiCore/src",
+                    "cmd": [
+                        ""
+                    ],
+                    "num": 1
+                },
+                {
+                    "name": "YmiCore.UnitTests",
+                    "path": "./src/+Modules/Required/YourMainIdea/____Core/_YmiCore.UnitTests/src",
+                    "cmd": [
+                        "dotnet test"
+                    ],
+                    "num": 2
+                }
+            ]
+        },
+        {
+            "name": "YmiInfrastructure",
+            "description": "Infrastructure and Tests",
+            "enabled": true,
+            "terminals": [
+                {
+                    "name": "YmiInfrastructure",
+                    "path": "./src/+Modules/Required/YourMainIdea/___Infrastructure/YmiInfrastructure/src",
+                    "cmd": [
+                        ""
+                    ],
+                    "num": 4
+                },
+                {
+                    "name": "YmiInfrastructure.IntegrationTests",
+                    "path": "./src/+Modules/Required/YourMainIdea/___Infrastructure/YmiInfrastructure.IntegrationTests/src",
+                    "cmd": [
+                        "ping 127.0.0.1 -n 5",
+                        "dotnet test"
+                    ],
+                    "num": 5
+                }
+            ]
+        }
+    ]
+}

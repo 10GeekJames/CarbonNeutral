@@ -1,0 +1,30 @@
+@page "/wsk/allgames"
+
+@inject IStringLocalizer<AllGames> Localize
+
+<PageTitle>Word Search Kingdom - General Lazy Game Module</PageTitle>
+
+<MudContainer>
+
+<MudTable Id="AllGamesStaticTable" Items="@WskGameTestData.AllGames" Hover="true" Breakpoint="Breakpoint.Sm" LoadingProgressColor="Color.Info">
+    <HeaderContent>
+        <MudTh>Title</MudTh>
+        
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Nr">@context.Title</MudTd>
+        
+    </RowTemplate>
+</MudTable>
+
+<AllGamesComponent />
+
+</MudContainer>
+
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+    }
+}

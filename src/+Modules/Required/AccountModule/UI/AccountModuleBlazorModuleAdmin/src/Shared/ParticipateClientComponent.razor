@@ -1,0 +1,32 @@
+@inject IStringLocalizer<ParticipateClientComponent> Localize
+
+<ShowAccountModule />
+
+<MudContainer>
+    <p>Welcome to the Lazy Known Accounts</p>
+    <MudTextField @bind-Value="_newKnownAccountName" Label="Your account name" HelperText="Acct" Variant="Variant.Text" />
+    <MudButton OnClick="CreateNewKnownAccount">Click to Create</MudButton>    
+</MudContainer>
+
+@code {
+    private List<string> _signalRMessages = new();
+    public string _newKnownAccountName = "";
+    private IDisposable hubReceiveMessage;
+    
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();                     
+    }
+    private async Task CreateNewKnownAccount(){
+        try
+        {
+            var createKnownAccountRequest = new KnownAccountAddRequest(_newKnownAccountName, "test@test.com");
+            await AccountModuleHttpClient.KnownAccountAddAsync(createKnownAccountRequest);
+        }
+        catch(Exception )
+        {
+            
+        } 
+        
+    }
+}

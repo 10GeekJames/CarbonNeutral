@@ -1,0 +1,188 @@
+{
+    "version": "1.2.1",
+    "groups": [
+        {
+            "name": "CarbonNeutral.Identity",
+            "enabled": true,
+            "terminals": [
+                {
+                    "name": "CarbonNeutral.Identity",
+                    "path": "./src/++Identity/CarbonNeutral.Identity/src/CarbonNeutral.Identity.STS.Identity/",
+                    "cmd": [
+                        "dotnet watch run"
+                    ],
+                    "num": 1
+                }
+            ]            
+        },
+        {
+            "name": "CarbonNeutral.Client.BlazorClient",
+            "enabled": true,
+            "terminals": [
+                {
+                    "name": "CarbonNeutral.Client.BlazorClient",
+                    "path": "./src/UI/Client/CarbonNeutral.BlazorClient/src",
+                    "cmd": [
+                        "dotnet watch run"
+                    ],
+                    "num": 2
+                },
+                {
+                    "name": "CarbonNeutral.BlazorClient.UITests",
+                    "path": "./src/UI/Client/CarbonNeutral.BlazorClient.UITests/src",
+                    "cmd": [
+                        "ping 127.0.0.1 -n 20",
+                        "dotnet test"
+                    ],
+                    "num": 2
+                },
+                {
+                    "name": "CarbonNeutral.BlazorClient.UIUnitTests",
+                    "path": "./src/UI/Client/CarbonNeutral.BlazorClient.UIUnitTests/src",
+                    "cmd": [
+                        "dotnet test"
+                    ],
+                    "num": 2
+                }
+            ]
+        },        
+        {
+            "name": "AccountModuleCore",
+            "enabled": true,
+            "terminals": [
+                {
+                    "name": "AccountModuleCore.UnitTests",
+                    "path": "./src/+Modules/Required/AccountModule/____Core/AccountModuleCore.UnitTests/src",
+                    "cmd": [
+                        "dotnet test"
+                    ],
+                    "num": 3
+                },
+                {
+                    "name": "AccountModuleInfrastructure.IntegrationTests",
+                    "path": "./src/+Modules/Required/AccountModule/___Infrastructure/AccountModuleInfrastructure.IntegrationTests/src",
+                    "cmd": [
+                        "dotnet test"
+                    ],
+                    "num": 3
+                },
+                {
+                    "name": "AccountModuleApplication.FeatureTests",
+                    "path": "./src/+Modules/Required/AccountModule/_Application/AccountModuleApplication.FeatureTests/src",
+                    "cmd": [
+                        "dotnet test"
+                    ],
+                    "num": 3
+                },
+                {
+                    "name": "AccountModuleApi.FunctionalTests",
+                    "path": "./src/+Modules/Required/AccountModule/+API/AccountModuleApi.FunctionalTests/src",
+                    "cmd": [
+                        "echo build this"
+                    ],
+                    "num": 3
+                }   ,
+                {
+                    "name": "AccountModuleApi",                      
+                    "path": "./src/+Modules/Required/AccountModule/+API/+AccountModuleApi/src",
+                    "cmd": [
+                        "dotnet watch run"
+                    ],
+                    "num": 3
+                }             
+            ]
+        },
+        {
+            "name": "WskCore",
+            "enabled": true,
+            "terminals": [
+                {
+                    "name": "WskCore.UnitTests",
+                    "path": "./src/+Modules/Lazy/WordSearchKingdom/____Core/_WskCore.UnitTests/src",
+                    "cmd": [
+                        "dotnet test"
+                    ],
+                    "num": 4
+                },
+                {
+                    "name": "WskInfrastructure.IntegrationTests",
+                    "path": "./src/+Modules/Lazy/WordSearchKingdom/___Infrastructure/WskInfrastructure.IntegrationTests/src",
+                    "cmd": [
+                        "dotnet test"
+                    ],
+                    "num": 4
+                },
+                {
+                    "name": "WskApplication.FeatureTests",
+                    "path": "./src/+Modules/Lazy/WordSearchKingdom/_Application/WskApplication.FeatureTests/src",
+                    "cmd": [
+                        "dotnet test"
+                    ],
+                    "num": 4
+                },
+                {
+                    "name": "WskApi.FunctionalTests",
+                    "path": "./src/+Modules/Lazy/WordSearchKingdom/+Api/WskApi.FunctionalTests/src",
+                    "cmd": [
+                        "dotnet test"
+                    ],
+                    "num": 4
+                }   ,
+                {
+                    "name": "WskApi",                      
+                    "path": "./src/+Modules/Lazy/WordSearchKingdom/+Api/WskApi/src",
+                    "cmd": [
+                        "dotnet watch run"
+                    ],
+                    "num": 4
+                }             
+            ]
+        },
+        {
+            "name": "WskCore",
+            "enabled": true,
+            "terminals": [
+                {
+                    "name": "WskCore.UnitTests",
+                    "path": "./src/+Modules/Games/WordSearchKingdom/____Core/_WskCore.UnitTests/src",
+                    "cmd": [
+                        "dotnet test"
+                    ],
+                    "num": 5
+                },
+                {
+                    "name": "WskInfrastructure.IntegrationTests",
+                    "path": "./src/+Modules/Games/WordSearchKingdom/___Infrastructure/WskInfrastructure.IntegrationTests/src",
+                    "cmd": [
+                        "dotnet test"
+                    ],
+                    "num": 5
+                },
+                {
+                    "name": "WskApplication.FeatureTests",
+                    "path": "./src/+Modules/Games/WordSearchKingdom/_Application/WskApplication.FeatureTests/src",
+                    "cmd": [
+                        "dotnet test"
+                    ],
+                    "num": 5
+                },
+                {
+                    "name": "WskApi.FunctionalTests",
+                    "path": "./src/+Modules/Games/WordSearchKingdom/+Api/WskApi.FunctionalTests/src",
+                    "cmd": [
+                        "dotnet test"
+                    ],
+                    "num": 5
+                }   ,
+                {
+                    "name": "WskApi",                      
+                    "path": "./src/+Modules/Games/WordSearchKingdom/+Api/WskApi/src",
+                    "cmd": [
+                        "dotnet watch run"
+                    ],
+                    "num": 5
+                }             
+            ]
+        }
+    ]
+}

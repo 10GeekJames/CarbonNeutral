@@ -1,0 +1,46 @@
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.AspNetCore.Components.WebAssembly.Services
+@using Microsoft.Extensions.Localization
+@using Microsoft.JSInterop
+@using Microsoft.AspNetCore.Components.Web
+@using System.Web
+
+@using CarbonNeutral.KernelShared.Configuration
+
+@using CarbonNeutral.BlazorClient.Shared
+
+@using CarbonNeutral.Common
+
+@using CarbonNeutral.Common.Interfaces
+@using CarbonNeutral.Common.MasterPages
+@using CarbonNeutral.Common.MasterPages.Layouts
+@using CarbonNeutral.Common.MasterPages.Footer
+@using CarbonNeutral.Common.MasterPages.Errors
+@using CarbonNeutral.Common.MasterPages.Navigation
+@using CarbonNeutral.Common.MasterPageSetters
+@using CarbonNeutral.Common.Models
+@using CarbonNeutral.Common.Services
+@using CarbonNeutral.Common.Shared
+
+@using MudBlazor
+@using Blazored.FluentValidation
+
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject SignOutSessionStateManager SignOutManager
+@inject FeatureFlags FeatureFlags
+@inject LazyAssemblyLoader AssemblyLoader
+@inject NavigationManager NavigationManager
+@inject PlatformStateCacheService PlatformStateCacheService
+@inject PlatformCacheService PlatformCacheService
+@* @inject SignOutSessionStateManager SignOutManager *@
+@inject IJSRuntime JSRuntime
+@inject IStringLocalizer<SharedLanguageBase> LocalizeShared
+@inject RandomizerService RandomizerService
+
+@*AccountModule*@
+@inject IAccountModuleDataService AccountModuleDataService
+@*/AccountModule*@
+
+

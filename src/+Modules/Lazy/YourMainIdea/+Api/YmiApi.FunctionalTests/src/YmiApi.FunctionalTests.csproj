@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsPackable>false</IsPackable>
+    <PackageId>YmiApi.FunctionalTests</PackageId>
+    <Version>1.01.02.003</Version>
+    <Authors>10GeekJames</Authors>
+    <Company>10GeekJames</Company>
+    <DefaultNamespace>YmiApi.FunctionalTests</DefaultNamespace> 
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Ardalis.HttpClientTestExtensions" Version="4.1.0" />
+    <PackageReference Include="FluentAssertions" Version="6.11.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.3" />
+    <PackageReference Include="xunit" Version="2.4.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="coverlet.collector" Version="6.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.8" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />    
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="CarbonNeutral.KernelShared">
+      <HintPath>.\..\..\..\..\..\..\..\src\__Kernel\CarbonNeutral.KernelShared\src\bin\Debug\net7.0\CarbonNeutral.KernelShared.dll</HintPath>
+    </Reference>
+    <ProjectReference Include="./../../../____Core/_YmiCore/src/YmiCore.csproj" />
+    <ProjectReference Include="./../../../____Core/YmiCore.YmiTestData/src/YmiCore.YmiTestData.csproj" />
+    <ProjectReference Include="./../../../___Infrastructure/YmiInfrastructure/src/YmiInfrastructure.csproj" />
+    <ProjectReference Include="./../../../_Application/YmiApplication/src/YmiApplication.csproj" />
+    <ProjectReference Include="./../../../__Data/YmiApplication.Data/src/YmiApplication.Data.csproj" />
+    <ProjectReference Include="./../../../+Api/YmiApi/src/YmiApi.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,16 @@
+@inject IStringLocalizer<ModuleTestComponent> Localize
+
+<h2>Module Test Component</h2>
+<MudButton OnClick=FetchSomeData>Click Me</MudButton>
+{@knownUser?}
+@code {
+    protected KnownUserViewModel? knownUser { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+    }
+
+    protected async Task FetchSomeData() {
+        var knownUser = await AccountModuleHttpClient.KnownUserGetAsync();
+    }
+}

@@ -1,0 +1,28 @@
+{
+	"Book": {
+        "Properties": [
+            "(s)Isbn",
+            "(s)Name",
+            "(i)PublicationYear=-1",
+            "(i)PageCount=-1"
+        ],
+        "Categories": [ ],
+        "Conditions": [ ],
+        "AdminUIGeneratorProperties" : {
+        }
+        
+	},
+    "Author": {
+        "Properties": [
+            "NameVO"
+        ]
+    },
+    "ValueObjects" : {
+        "NameVO": {
+            "Properties" : [
+                "FirstName",
+                "LastName"
+            ]
+        }
+    }    
+}

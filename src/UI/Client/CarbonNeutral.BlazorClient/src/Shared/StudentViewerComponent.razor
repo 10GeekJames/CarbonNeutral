@@ -1,0 +1,20 @@
+<MudPaper Elevation="0">
+    <MudGrid Spacing="0">
+        <MudItem xs="12" md="6" lg="3">
+            <MudText Typo="Typo.h1">StudentViewer</MudText>
+            <MudDivider DividerType="DividerType.Middle" Class="my-6" />
+            <MudTextField @bind-Value="studentModuleName" Label="Module Name" />
+        </MudItem>
+        <MudItem xs="12" md="6" lg="3" RightToLeft="true">
+            <MudButton OnClick="NavigateToStudentModule">Naviagate To [@studentModuleName]</MudButton>
+        </MudItem>
+    </MudGrid>
+</MudPaper>
+@code {
+    protected string studentModuleName = "ymi/";
+
+    protected void NavigateToStudentModule()
+    {
+        NavigationManager.NavigateTo(studentModuleName);
+    }
+}

@@ -1,0 +1,9 @@
+@inject IStringLocalizer<NavMenuAuthed> Localize
+
+<ParticipateHostComponent roomName="@roomName" />
+
+@code {
+
+    [Parameter]
+    public string roomName { get; set; }
+}

@@ -1,0 +1,33 @@
+@page "/public/order"
+
+<PageTitle>Order</PageTitle>
+
+<MudText Typo="Typo.h1">Order</MudText>
+
+<MudPaper Width="100%" Elevation="0">
+    <MudContainer Full="true" Elevation="0">
+        <MudGrid>
+        <MudItem xs="6">
+            <MudPaper Class="d-flex align-center justify-center mud-width-full py-8">xs=6</MudPaper>
+        </MudItem>
+        <MudItem xs="6">
+            <MudPaper Class="d-flex flex-column align-center justify-center mud-width-full px-8 py-8">
+                <MudTextField @bind-Value="TextValue1" Label="Outlined" Width="100%" Variant="Variant.Outlined"></MudTextField>
+                <MudTextField @bind-Value="TextValue2" Label="Outlined" Width="100%" Variant="Variant.Outlined"></MudTextField>
+                <MudTextField @bind-Value="TextValue3" Label="Outlined" Width="100%" Variant="Variant.Outlined"></MudTextField>
+                <MudTextField @bind-Value="TextValue4" Label="Outlined" Width="100%" Variant="Variant.Outlined"></MudTextField>
+                <MudTextField @bind-Value="TextValue5" Label="Outlined" Width="100%" Variant="Variant.Outlined"></MudTextField>
+
+            </MudPaper>
+        </MudItem>
+        </MudGrid>
+    </MudContainer>
+</MudPaper>
+
+@code {
+    public string TextValue1 { get; set; }
+    public string TextValue2 { get; set; }
+    public string TextValue3 { get; set; }
+    public string TextValue4 { get; set; }
+    public string TextValue5 { get; set; }
+}

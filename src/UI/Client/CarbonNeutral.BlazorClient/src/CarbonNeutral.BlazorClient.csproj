@@ -1,0 +1,79 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsPackable>false</IsPackable>
+    <BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
+    <DefaultNamespace>CarbonNeutral.BlazorClient</DefaultNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BlazorAnimate" Version="3.0.0" />
+    <PackageReference Include="Blazor.Extensions.Canvas" Version="1.1.1" />
+    <PackageReference Include="Blazored.FluentValidation" Version="2.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="7.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="7.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.8" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="7.0.8" />
+    <PackageReference Include="Microsoft.Extensions.Localization" Version="7.0.8" />
+    <PackageReference Include="MudBlazor" Version="6.6.0" />
+  </ItemGroup>
+
+  <Choose>
+    <When Condition="'$(Configuration)' == 'Release'">
+      <ItemGroup>
+        <PackageReference Include="CarbonNeutral.KernelShared" />
+      </ItemGroup>
+    </When>
+  </Choose>
+  <ItemGroup>
+    <!-- <Reference Include="CarbonNeutral.KernelShared">
+      <HintPath>.\..\..\..\..\..\src\__Kernel\CarbonNeutral.KernelShared\src\bin\Debug\net7.0\CarbonNeutral.KernelShared.dll</HintPath>
+    </Reference> -->
+    <ProjectReference Include=".\..\..\..\..\..\src\__Kernel\CarbonNeutral.KernelShared\src\CarbonNeutral.KernelShared.csproj" />
+
+    <!-- <ProjectReference Include="./../../../../_Common/CarbonNeutral.Common/src/CarbonNeutral.Common.csproj" /> -->
+    <Reference Include="CarbonNeutral.Common">
+      <HintPath>.\..\..\..\..\src\__Kernel\CarbonNeutral.Common\src\bin\Debug\net7.0\CarbonNeutral.Common.dll</HintPath>
+    </Reference>
+    <ProjectReference Include=".\..\..\..\..\..\src\+Modules\Required\AccountModule\____Core\_AccountModuleCore.TestData\src\AccountModuleCore.TestData.csproj" />
+    <ProjectReference Include=".\..\..\..\..\..\src\+Modules\Required\AccountModule\_Application\_AccountModuleApplication.Shared\src\AccountModuleApplication.Shared.csproj" />
+    <ProjectReference Include=".\..\..\..\..\..\src\+Modules\Required\AccountModule\UI\_AccountModuleClientServiceLoader\src\AccountModuleClientServiceLoader.csproj" />
+  </ItemGroup>
+
+  <Import Project="BuildCoreModules.Local._.targets" Condition="'$(Configuration)' != 'Release'" />
+  <Import Project="BuildLazyModules.Local._.targets" Condition="'$(Configuration)' != 'Release'" />
+
+  <Import Project="BuildCoreModules.Deploy._.targets" Condition="'$(Configuration)' == 'Release'" />
+  <Import Project="BuildLazyModules.Deploy._.targets" Condition="'$(Configuration)' == 'Release'" />
+
+
+  <ItemGroup>
+    <Watch Remove="**/*.css" />
+    <Watch Include="**/*.scss" />
+    <Watch Include="**/*.sass" />
+  </ItemGroup>
+
+  <Target Name="SassCheck" BeforeTargets="AfterBuild">
+    <Exec Command="sass --version" ContinueOnError="true">
+      <Output TaskParameter="ExitCode" PropertyName="ErrorCodeSass" />
+    </Exec>
+    <Error Condition="'$(ErrorCodeSass)' != '0'" Text="Dart-sass is required for this project. Install globally with 'npm i -g sass' " />
+  </Target>
+
+  <Target Name="SassBuild" BeforeTargets="AfterBuild">
+    <Exec Command="sass Styles:wwwroot/ --embed-source-map Shared:Shared --style=compressed --load-path=Styles --update" ContinueOnError="false">
+      <Output TaskParameter="ExitCode" PropertyName="ErrorCodeSass" />
+    </Exec>
+    <Error Condition="'$(ErrorCodeSass)' != '0'" Text="Dart-sass is unhappy about something " />
+  </Target>
+  <Target Name="PushPackage" AfterTargets="Publish" Condition="'$(Configuration)' == 'Release'">
+    <Exec Command="dotnet pack -c Release" />
+    <Exec Command="dotnet nuget push &quot;$(MSBuildProjectDirectory)\bin\$(Configuration)\$(AssemblyName).$(Version).nupkg&quot; -s LocalNuggget" />
+  </Target>
+
+</Project>

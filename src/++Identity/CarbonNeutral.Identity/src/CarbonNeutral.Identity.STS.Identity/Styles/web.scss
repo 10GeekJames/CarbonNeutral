@@ -1,0 +1,182 @@
+@import "common/all.scss";
+@import "controls/all.scss";
+@import "pages/all.scss";
+// Path: src/++CarbonNeutral.Identity/CarbonNeutral.Identity/src/CarbonNeutral.Identity.STS.Identity/Styles/common/all.scss
+
+
+
+// General Styles
+
+html,
+body {
+    background: #000;
+}
+
+.menu-button {
+    display: none;
+}
+
+.nav-link.btn {
+    line-height: 2rem;
+}
+
+.nav-link.btn-dark {
+    padding: 0.5rem 4rem;
+}
+
+.overlay-menu {
+    background: #fff;
+    z-index: 3;
+    position: relative;
+    width: 100vw;
+}
+
+.heroimg {
+    z-index: 1;
+    width: 640px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    background-image: url('/images/cheerful.png');
+    background-color: #3B85BA99;
+    background-blend-mode: multiply;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+// Login Styles
+
+.login-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    margin-top: 15%;
+    z-index: 2;
+}
+
+.login-nav {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .nav-item {
+        margin: 0;
+
+        &:last-of-type .btn-dark {
+            padding: 0.5rem 4rem;
+        }
+    }
+}
+
+.login-forget {
+    margin: 1rem 1rem 0 1rem;
+    width: 100%;
+}
+
+// Container Styles
+
+.layout-container, .manage-container, .change-password, .grants-container, .logout-container {
+    padding: 2rem;
+    margin-top: 6rem;
+    background-color: #fff;
+    height: 100%;
+}
+
+.tfa-container {
+    padding: 2rem;
+    padding-top: 0;
+    background-color: #fff;
+    height: 100%;
+}
+
+// Manage Styles
+
+.manage-container button.manage-submit {
+    margin-bottom: 1rem !important;
+}
+
+// Register Styles
+
+.register-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    margin-top: 25%;
+    z-index: 2;
+
+    .register-container {
+        background: #fff;
+
+        form {
+            padding: 2rem;
+
+            h4 {
+                text-align: center;
+            }
+
+            .form-group button[type="submit"].btn-lg {
+                padding: 1rem 2rem;
+            }
+        }
+    }
+}
+
+// Logout Styles
+
+.logout-container {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    .page-header {
+        text-align:center;
+    }
+    .row {
+        margin: 0 auto;
+        text-align:center;
+    }
+
+    .btn.btn-primary {
+        width: 50%;
+    }
+}
+
+
+// Logged Out Styles
+
+.logged-out-container {
+    h1 {
+        display:flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+// Global styles & media queries
+
+@media (max-width: 993px) {
+    .heroimg {
+        width: 100vw;
+    }
+
+    .login-center {
+        min-width: 100%;
+        margin-top: 50%;
+    }
+}
+
+@media (max-width: 639px) {
+    .login-center {
+        min-width: 100%;
+    }
+}

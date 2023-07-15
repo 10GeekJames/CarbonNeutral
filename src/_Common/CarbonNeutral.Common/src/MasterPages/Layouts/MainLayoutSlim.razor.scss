@@ -1,0 +1,25 @@
+.menu-link-text {
+    color: #222;
+}
+.menu-link-text[href^="/auth"] {
+    color: #fff;
+}
+.main-content {height: 100%}
+/* 
+.subMenu {
+    background: #ddd;
+    padding: 1rem 0 0;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    color: #222;
+} */
+.subMenu .menu-link-text {
+    color: #333;
+}
+.subMenu .in .icon .i-inherited {
+    color: #444 !important;
+}

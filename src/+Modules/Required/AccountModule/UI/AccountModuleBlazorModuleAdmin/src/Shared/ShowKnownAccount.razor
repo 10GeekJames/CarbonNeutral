@@ -1,0 +1,22 @@
+@inject IStringLocalizer<ShowKnownAccount> Localize
+
+<MudContainer>
+        
+        <h1>@KnownAccount.Name</h1>
+        
+        <h2>:Players:</h2>
+        
+
+        <h2>:Games:</h2>
+        
+
+</MudContainer>
+
+@code {
+    [Parameter]
+    public KnownAccountViewModel KnownAccount { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();        
+    }
+}

@@ -1,0 +1,16 @@
+@page "/public/primaryparticipate"
+
+@inject IStringLocalizer<Participate> Localize
+
+<PageTitle>WordSearchKingdom - General Lazy Module</PageTitle>
+
+<div style="margin-left: 15px; margin-top: 15px;">
+    <ParticipateClientComponent />
+</div>
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+    }
+}

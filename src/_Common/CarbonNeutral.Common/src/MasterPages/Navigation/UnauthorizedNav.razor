@@ -1,0 +1,43 @@
+@inject IStringLocalizer<UnauthorizedNav> Localize
+<MudAppBar Class="py-1" Fixed="true" Bottom="false">
+    <a href="/" class="navmenu-logo">
+        @* <img src=@($"/i{PlatformCacheService.KnownBusinessWebsite.KnownBusinessWebsiteProfile.LogoImage}") width="160"
+            alt="" /> *@
+    </a>
+    <MudSpacer />
+    <div Class="d-flex justify-end flex-grow-1 gap-2 pa-2">
+        <div class="d-inline pa-2">
+            @foreach (var item in LandingMenu)
+            {
+                <AnchorLink class="link-item" href="@item.Url">@item.Text</AnchorLink>
+            }
+        </div>
+    </div>
+</MudAppBar>
+@code {
+    MenuItem SelectedItem { get; set; }
+    List<MenuItem> LandingMenu { get; set; } = new List<MenuItem>
+{
+new MenuItem { Text = "Login", Url = "/authentication/login"}
+};
+    public void NavigateToPage(MenuItem item)
+    {
+        SelectedItem = item;
+        NavigationManager.NavigateTo(SelectedItem.Url);
+    }
+    public string GetCurrentPage()
+    {
+        string uriWithoutQueryString = NavigationManager.Uri.Split("?")[0];
+        string currPage = uriWithoutQueryString.Substring(Math.Min(NavigationManager.Uri.Length,
+        NavigationManager.BaseUri.Length));
+        return string.IsNullOrWhiteSpace(currPage) ? "/" : currPage;
+    }
+    public string GetSelectedItemClass(MenuItem item)
+    {
+        if (SelectedItem == null)
+        {
+            return string.Empty;
+        }
+        return SelectedItem.Text.ToLowerInvariant().Equals(item.Text.ToLowerInvariant()) ? "text-info" : "";
+    }
+}

@@ -1,0 +1,70 @@
+@inherits LayoutComponentBase
+@inject IStringLocalizer<MainLayoutSlim> Localize
+@* @attribute [Authorize] *@
+<MudLayout>
+    <div class="py-8 my-8 mx-8">
+        @Body
+    </div>
+    @* </CascadingAuthenticationState> *@
+</MudLayout>
+@code {
+    @* [CascadingParameter]
+public Task<AuthenticationState> authenticationStateTask { get; set; } *@
+    public string roomName { get; set; }
+    @* public ClaimsPrincipal User { get; set; } *@
+    public RenderFragment moduleAdminContent { get; set; }
+
+    protected override async Task OnInitializedAsync()
+
+    {
+        @* User = (await authenticationStateTask).User; *@
+        await base.OnInitializedAsync();
+
+    }
+
+    public void SetModuleAdminContent(RenderFragment moduleAdminContent)
+
+    {
+
+        this.moduleAdminContent = moduleAdminContent;
+
+        StateHasChanged();
+
+    }
+
+    protected override async Task OnParametersSetAsync()
+
+    {
+
+        //object slug = null;
+
+        // can parse out useful slug data and retain it.
+
+        object slug = null;
+
+        if ((this.Body.Target as RouteView)?.RouteData.RouteValues?.TryGetValue("roomName", out slug) == true)
+
+        {
+
+            this.roomName = slug?.ToString();
+
+        }
+
+        await base.OnParametersSetAsync();
+
+    }
+
+    bool expandNavMenu = false;
+
+    void ToggleNavMenu()
+
+    {
+
+        expandNavMenu = !expandNavMenu;
+
+    }
+
+    bool DrawerExpanded { get; set; } = true;
+
+    MudDrawer DrawerRef { get; set; }
+}

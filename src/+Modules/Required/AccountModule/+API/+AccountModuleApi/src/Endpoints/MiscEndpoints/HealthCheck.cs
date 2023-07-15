@@ -1,0 +1,4 @@
+namespace AccountModuleApi.Endpoints.MiscEndpoints
+{
+
+}

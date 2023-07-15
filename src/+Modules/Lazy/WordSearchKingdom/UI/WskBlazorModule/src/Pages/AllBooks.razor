@@ -1,0 +1,30 @@
+@page "/public/allbooks"
+
+@inject IStringLocalizer<AllBooks> Localize
+
+<PageTitle>WordSearchKingdom - General Lazy Module</PageTitle>
+
+<MudContainer>
+
+<MudTable Id="AllBooksStaticTable" Items="@BookWskTestData.AllBooks" Hover="true" Breakpoint="Breakpoint.Sm" LoadingProgressColor="Color.Info">
+    <HeaderContent>
+        <MudTh>Title</MudTh>
+        
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Nr">@context.Title</MudTd>
+        
+    </RowTemplate>
+</MudTable>
+
+<AllBooksComponent />
+
+</MudContainer>
+
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+    }
+}

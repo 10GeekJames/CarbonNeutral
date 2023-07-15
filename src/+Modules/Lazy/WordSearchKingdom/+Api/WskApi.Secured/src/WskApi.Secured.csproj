@@ -1,0 +1,60 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsPackable>true</IsPackable>
+    <PackageId>WskApi</PackageId>
+    <Version>1.01.02.003</Version>
+    <Authors>10GeekJames</Authors>
+    <Company>10GeekJames</Company>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <DefaultNamespace>WskApi.Secured</DefaultNamespace> 
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Ardalis.HttpClientTestExtensions" Version="4.0.0" />    
+    <PackageReference Include="Ardalis.GuardClauses" Version="4.0.1" />
+    <PackageReference Include="Ardalis.Result" Version="7.1.0" />
+    <PackageReference Include="Ardalis.Specification.EntityFrameworkCore" Version="7.0.0" />
+    <PackageReference Include="Ardalis.EFCore.Extensions" Version="6.0.0" />
+    <PackageReference Include="Autofac" Version="7.0.1" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="Blazored.FluentValidation" Version="2.1.0" />
+    <PackageReference Include="MediatR" Version="12.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.8" />    
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.8" />    
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.5.0" />    
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" PrivateAssets="all" Version="7.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.8" />
+    <PackageReference Include="SQLite" Version="3.13.0" />
+  </ItemGroup>
+
+  <Choose>
+    <When Condition="'$(Configuration)' == 'Release'">
+      <ItemGroup>
+        <PackageReference Include="CarbonNeutral.KernelShared" />
+        <PackageReference Include="WskCore" />
+        <PackageReference Include="WskInfrastructure" />
+        <PackageReference Include="WskApplication" />
+      </ItemGroup>
+    </When>
+  </Choose>
+  <ItemGroup>
+    <Reference Include="CarbonNeutral.KernelShared">
+      <HintPath>.\..\..\..\..\..\..\..\src\__Kernel\CarbonNeutral.KernelShared\src\bin\Debug\net7.0\CarbonNeutral.KernelShared.dll</HintPath>    
+    </Reference>
+   
+    <ProjectReference Include="./../../../____Core/_WskCore/src/WskCore.csproj" />
+    <ProjectReference Include="./../../../___Infrastructure/WskInfrastructure/src/WskInfrastructure.csproj" />
+    <ProjectReference Include="./../../../_Application/_WskApplication.Shared/src/WskApplication.Shared.csproj" />
+    <ProjectReference Include="./../../../_Application/WskApplication/src/WskApplication.csproj" />
+  </ItemGroup>
+
+</Project>

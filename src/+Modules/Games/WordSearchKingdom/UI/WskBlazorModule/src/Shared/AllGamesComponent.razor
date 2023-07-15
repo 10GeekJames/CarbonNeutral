@@ -1,0 +1,25 @@
+@inject IStringLocalizer<AllGamesComponent> Localize
+
+<div>
+    <p>Word Seach Kingdom - General Lazy Module</p>
+    @foreach(var game in _games) {
+        <div>@game.Title</div>        
+    }
+    
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="() => GetAllGames()" >Load Checked</MudButton>    
+</div>
+
+@code {
+    private List<GameViewModel> _games = new();
+    
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();                     
+    }
+
+    protected async Task GetAllGames() {
+        var GamesGetAllQry = new GamesGetAllQry();
+        
+        _games = await WskDataService.GamesGetAllAsync(GamesGetAllQry);
+    }
+}

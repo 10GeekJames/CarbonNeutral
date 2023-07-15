@@ -1,0 +1,23 @@
+@inject IStringLocalizer<ShowAccountModule> Localize
+
+<MudContainer>
+    @foreach (var server in _accountModule)
+    {
+        <MudButton OnClick="() => SelectServerThrowEvent(server)">@server.Name</MudButton>
+    }
+    <ShowSignalRDetector />
+</MudContainer>
+@code {
+    [Parameter]
+    public EventCallback<KnownAccountViewModel> OnServerSelected { get; set; }
+    private List<KnownAccountViewModel> _accountModule = new();
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        _accountModule = await AccountModuleHttpClient.KnownAccountAllAsync();
+    }
+    protected async Task SelectServerThrowEvent(KnownAccountViewModel server)
+    {
+        await OnServerSelected.InvokeAsync(server);
+    }
+}

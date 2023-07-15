@@ -1,0 +1,29 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- The YourMainIdea -->
+  <!-- <Choose>
+    <When Condition="'$(Configuration)' == 'Release'">
+      <ItemGroup>
+        <PackageReference Include="YmiCore" />
+        <PackageReference Include="YmiInfrastructure" />
+        <PackageReference Include="YmiApplication" />
+        <PackageReference Include="YmiBlazorModule" />
+      </ItemGroup>
+    </When>
+  </Choose>
+
+  <ItemGroup>
+    <ProjectReference Include="./../../../../+Modules/Lazy/YourMainIdea/____Core/YmiCore.YmiTestData/src/YmiCore.YmiTestData.csproj" />
+    <ProjectReference Include="./../../../../+Modules/Lazy/YourMainIdea/___Infrastructure/YmiInfrastructure/src/YmiInfrastructure.csproj" />    
+    <ProjectReference Include="./../../../../+Modules/Lazy/YourMainIdea/_Application/_YmiApplication.Shared/src/YmiApplication.Shared.csproj" />
+    <ProjectReference Include="./../../../../+Modules/Lazy/YourMainIdea/UI/_YmiModuleClientServiceLoader/src/YmiModuleClientServiceLoader.csproj" />
+    
+    <ProjectReference Include="./../../../../+Modules/Lazy/YourMainIdea/UI/YmiBlazorModule/src/YmiBlazorModule.csproj" />      
+    <BlazorWebAssemblyLazyLoad Include="YmiBlazorModule.dll" />
+
+    <ProjectReference Include="./../../../../+Modules/Lazy/YourMainIdea/UI/YmiBlazorModuleAdmin/src/YmiBlazorModuleAdmin.csproj" />      
+    <BlazorWebAssemblyLazyLoad Include="YmiBlazorModuleAdmin.dll" />
+  </ItemGroup> -->
+
+  <!-- /The YourMainIdea -->
+
+</Project>

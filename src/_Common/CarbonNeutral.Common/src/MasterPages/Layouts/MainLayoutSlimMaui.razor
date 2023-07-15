@@ -1,0 +1,15 @@
+@inherits LayoutComponentBase
+<MudLayout>
+    <div class="content" style="height: 100%;">
+        <div class="py-8 my-8 mx-8">
+            @Body
+        </div>
+    </div>
+</MudLayout>
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        // User = (await authenticationStateTask).User;
+        await base.OnInitializedAsync();
+    }
+}

@@ -1,0 +1,18 @@
+@page "/public/primary/signalr"
+
+@inject IStringLocalizer<SignalR> Localize
+
+<PageTitle>SignalR</PageTitle>
+
+<SetModuleNav></SetModuleNav>
+<SetModuleSettings></SetModuleSettings>
+
+<p Typo="Typo.h4" Class="mb-8">SignalR</p>
+
+<AuthorizeView>
+    <Authorized Context="authContext">
+        SignalR
+    </Authorized>
+</AuthorizeView>
+@code {
+}

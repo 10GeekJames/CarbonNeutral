@@ -1,0 +1,36 @@
+@import "./base/_variables";
+::deep .mud-button {
+}
+::deep .colored-button-experiment {
+    background-color: #4523bbba !important;
+}
+.mudmenuitem-custom {
+    text-align: center;
+    width:100px;
+}
+
+.red {
+    color: red;
+}
+
+
+@keyframes pulse {
+    from {
+      transform: scale3d(1, 1, 1);
+    }
+  
+    50% {
+      transform: scale3d(1.05, 1.05, 1.05);
+    }
+  
+    to {
+      transform: scale3d(1, 1, 1);
+    }
+  }
+
+  
+  .pulse {
+    animation-name: pulse;
+    animation-duration: 2s;
+    animation-timing-function: ease-in-out;
+  }

@@ -1,0 +1,27 @@
+.header-bar {
+    background:black;
+    padding:1.5em 2rem;
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    justify-content: space-between;
+}
+
+.header-bar .menu:not(.context-menu)>.item {
+    color:#222;   
+}
+
+.header-bar > ul > li:not(:last-child) {
+    margin-right:12px;
+}
+
+.header-bar > ul > li:nth-child(6) {
+    padding:2px 12px;
+    border-radius: 5px;
+    color: #fff !important;
+    background:#8C2A90;
+}
+
+.link-item {
+    color: white !important;
+}

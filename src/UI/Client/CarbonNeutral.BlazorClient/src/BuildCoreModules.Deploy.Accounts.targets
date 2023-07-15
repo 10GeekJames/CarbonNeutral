@@ -1,0 +1,10 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- Known Accounts Module -->
+  <!-- /Known Accounts Module -->
+  
+  <!-- FinancialAccounts Module -->
+  <!-- /FinancialAccounts Module -->  
+
+  <!-- LiveRoom Module -->
+  <!-- /LiveRoom Module -->  
+</Project>

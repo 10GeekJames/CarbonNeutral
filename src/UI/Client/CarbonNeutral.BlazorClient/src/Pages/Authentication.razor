@@ -1,0 +1,26 @@
+﻿@page "/authentication/{action}"
+@layout EmptyLayout
+@inject IStringLocalizer<Authentication> Localize
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+
+<div></div>
+<RemoteAuthenticatorView Action="@Action">
+    <LoggingIn>
+        <div class="alert alert-info" role="alert"> </div>
+    </LoggingIn>
+    <CompletingLoggingIn>
+        <div class="alert alert-success" role="alert"> </div>
+    </CompletingLoggingIn>
+    <LogOut>
+        <div class="alert alert-success" role="alert"> </div>
+    </LogOut>
+</RemoteAuthenticatorView>
+
+@code{
+    [Parameter] public string? Action { get; set; }
+
+    async Task InitializeAsync() {
+        Console.WriteLine($"Here {Action}");
+        await Task.Yield();
+    }
+}

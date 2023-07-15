@@ -1,0 +1,32 @@
+@inject IStringLocalizer<ContextMenu> Localize
+
+@code {
+    // the context menu is a generic component and its type depends on the model it binds to
+    @* MudContextMenu<ContextMenuItem> TheContextMenu { get; set; } *@
+
+    List<ContextMenuItem> MenuItems { get; set; }
+
+    protected override void OnInitialized()
+    {
+
+        MenuItems = new List<ContextMenuItem>()
+        {
+            new ContextMenuItem
+            {
+                Text = "Item 1"
+            },
+            new ContextMenuItem
+            {
+                Text = "Item 2"
+            }
+        };
+
+        base.OnInitialized();
+    }
+
+    public class ContextMenuItem
+    {
+        public string Text { get; set; }
+        public List<ContextMenuItem> Items { get; set; }
+    }
+}

@@ -1,0 +1,52 @@
+@page "/Account/Webpages"
+@inject IStringLocalizer<Website> Localize
+@layout MainLayoutSlim
+
+<PageTitle>Webpages</PageTitle>
+<SetModuleNav></SetModuleNav>
+<SetModuleSettings></SetModuleSettings>
+<p Typo="Typo.h4" Class="mb-8">Webpages </p>
+<AuthorizeView>
+    <Authorized Context="authContext">
+        @if (CurrentSelectedWebsitePage != null)
+        {
+            <h1>@CurrentSelectedWebsitePage.PageTitle</h1>
+        }
+        <MudGrid>
+            <MudItem xs="9">
+                @if (CurrentSelectedWebsitePage == null)
+                {
+                    <div>
+                        Select a page at right to edit, or click add new to begin.
+                    </div>
+                }
+                else
+                {
+                    <WebpageEdit @bind-WebpageToEdit="@CurrentSelectedWebsitePage" />
+                }
+            </MudItem>
+            <MudItem xs="3">
+                <MudButton>Add</MudButton>
+                <WebpageEditNavigator Website="@website" @bind-CurrentSelectedWebsitePage="CurrentSelectedWebsitePage" />
+            </MudItem>
+        </MudGrid>
+        <MudButton OnClick="(() => SaveChanges())">Save Changes</MudButton>
+    </Authorized>
+</AuthorizeView>
+@code {
+    KnownBusinessWebsiteViewModel website = new();
+    protected WebsitePageViewModel CurrentSelectedWebsitePage { get; set; } = null;
+    protected override async Task OnInitializedAsync()
+    {
+        this.website = PlatformCacheService.KnownBusinessWebsite;      
+        await base.OnInitializedAsync();
+    }
+    protected async Task SaveChanges() {
+        var websitePageUpdateRequest = new WebsitePageUpdateRequest(CurrentSelectedWebsitePage);
+        await AccountModuleHttpClient.WebsitePageUpdateAsync(websitePageUpdateRequest);
+        Snackbar.Add("Save successful, well done, you are good at this!");     
+        await PlatformCacheService.InitAppDataAsync(true);
+        PlatformCacheService.UpdateMenu();
+        StateHasChanged();        
+    }    
+}

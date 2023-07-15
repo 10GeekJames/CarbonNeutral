@@ -1,0 +1,52 @@
+<MudTreeView Items="GetRoot()" MultiSelection="false">
+    <ItemTemplate>
+        <MudTreeViewItem T="WebsitePageViewModel" @bind-Expanded="@context.IsExpanded"
+            Items="@GetChildren(context.WebsiteChildPages)" Icon="@context.NavIcon" Text="@context.NavText"
+            EndTextTypo="@Typo.caption" Value="@context">
+            <Content>
+                <MudTreeViewItemToggleButton @bind-Expanded="@context.IsExpanded"
+                    Visible="@(context.WebsiteChildPages.Count() > 0)" />
+                <MudButton OnClick="(() => SetEditPage(context))">@context.NavText</MudButton>
+            </Content>
+        </MudTreeViewItem>
+    </ItemTemplate>
+</MudTreeView>
+@code {
+    [Parameter]
+    public KnownBusinessWebsiteViewModel Website { get; set; }
+    [Parameter]
+    public WebsitePageViewModel CurrentSelectedWebsitePage
+    {
+        get => _currentSelectedWebsitePage;
+        set
+        {
+            if (_currentSelectedWebsitePage == value ) return;
+            _currentSelectedWebsitePage = value;
+            CurrentSelectedWebsitePageChanged.InvokeAsync(value);
+        }
+    }
+    [Parameter]
+    public EventCallback<WebsitePageViewModel> CurrentSelectedWebsitePageChanged { get; set; }  
+    private WebsitePageViewModel _currentSelectedWebsitePage;
+    
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+    }
+    protected bool SetEditPage(WebsitePageViewModel selectedPage)
+    {
+        //NavigationManager.NavigateTo($"/AccountModule/Webpages/{pageUrl}");
+        
+        CurrentSelectedWebsitePage = selectedPage;
+        return true;
+    }
+    protected HashSet<WebsitePageViewModel> GetRoot()
+    {
+        return new HashSet<WebsitePageViewModel>(Website.WebsitePages);
+    }
+    protected HashSet<WebsitePageViewModel> GetChildren(List<WebsitePageViewModel> websitePages)
+    {
+        return new HashSet<WebsitePageViewModel>(websitePages);
+    }
+}

@@ -1,0 +1,16 @@
+@page "/Account/Participate"
+
+@inject IStringLocalizer<Participate> Localize
+
+<PageTitle>Known Accounts</PageTitle>
+
+<div style="margin-left: 15px; margin-top: 15px;">
+    <ParticipateClientComponent />
+</div>
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+    }
+}

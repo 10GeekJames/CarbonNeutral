@@ -1,0 +1,317 @@
+{
+    "version": "1.2.1",
+    "groups": [
+        {
+            "name": "CarbonNeutral.KernelShared",
+            "enabled": true,
+            "terminals": [
+                {
+                    "name": "CarbonNeutral.KernelShared",
+                    "path": "./src/__Kernel/CarbonNeutral.KernelShared/src",
+                    "cmd": [
+                        "dotnet build"
+                    ],
+                    "num": 0
+                }
+            ]
+        },
+        {
+            "name": "CarbonNeutral.UI.Common",
+            "enabled": true,
+            "terminals": [
+                {
+                    "name": "CarbonNeutral.UI.Common",
+                    "path": "./src/_UI.Common/CarbonNeutral.UI.Common/src",
+                    "cmd": [
+                        "dotnet build"
+                    ],
+                    "num": 12
+                }
+            ]
+        },
+        {
+            "name": "CarbonNeutral.UI.Client.BlazorClient",
+            "enabled": true,
+            "terminals": [
+                {
+                    "name": "CarbonNeutral.UI.Client.BlazorClient",
+                    "path": "./src/UI/Client/CarbonNeutral.UI.BlazorClient/src",
+                    "cmd": [
+                        "ping 127.0.0.1 -n 15",
+                        "dotnet watch run"
+                    ],
+                    "num": 12
+                },
+                {
+                    "name": "CarbonNeutral.UI.BlazorClient.UITests",
+                    "path": "./src/UI/Client/CarbonNeutral.UI.BlazorClient.UITests/src",
+                    "cmd": [
+                        "ping 127.0.0.1 -n 60",
+                        "dotnet test"
+                    ],
+                    "num": 12
+                },
+                {
+                    "name": "CarbonNeutral.UI.BlazorClient.UIUnitTests",
+                    "path": "./src/UI/Client/CarbonNeutral.UI.BlazorClient.UIUnitTests/src",
+                    "cmd": [
+                        "dotnet test"
+                    ],
+                    "num": 12
+                }
+            ]
+        },
+        {
+            "name": "WSK.WskCore",
+            "enabled": true,
+            "terminals": [
+                {
+                    "name": "WSK.WskCore",
+                    "path": "./src/+Modules/Required/WordSearchKingdom/____Core/_WSK.WskCore/src",
+                    "cmd": [
+                        ""
+                    ],
+                    "num": 1
+                },
+                {
+                    "name": "WSK.WskCore.UnitTests",
+                    "path": "./src/+Modules/Required/WordSearchKingdom/____Core/_WSK.WskCore.UnitTests/src",
+                    "cmd": [
+                        "dotnet test"
+                    ],
+                    "num": 2
+                }
+            ]
+        },
+        {
+            "name": "WSK.WskInfrastructure",
+            "description": "Infrastructure and Tests",
+            "enabled": true,
+            "terminals": [
+                {
+                    "name": "WSK.WskInfrastructure",
+                    "path": "./src/+Modules/Required/WordSearchKingdom/___Infrastructure/WSK.WskInfrastructure/src",
+                    "cmd": [
+                        ""
+                    ],
+                    "num": 4
+                },
+                {
+                    "name": "WSK.WskInfrastructure.IntegrationTests",
+                    "path": "./src/+Modules/Required/WordSearchKingdom/___Infrastructure/WSK.WskInfrastructure.IntegrationTests/src",
+                    "cmd": [
+                        "ping 127.0.0.1 -n 5",
+                        "dotnet test"
+                    ],
+                    "num": 5
+                }
+            ]
+        },
+        {
+            "name": "WSK.WskApplication",
+            "description": "Application and Tests",
+            "enabled": true,
+            "terminals": [
+                {
+                    "name": "WSK.WskApplication",
+                    "path": "./src/+Modules/Required/WordSearchKingdom/_Application/WSK.WskApplication/src",
+                    "cmd": [
+                        ""
+                    ],
+                    "num": 6
+                },
+                {
+                    "name": "WSK.WskApplication.FeatureTests",
+                    "path": "./src/+Modules/Required/WordSearchKingdom/_Application/WSK.WskApplication.FeatureTests/src",
+                    "cmd": [
+                        "ping 127.0.0.1 -n 10",
+                        "dotnet test"
+                    ],
+                    "num": 7
+                },
+                {
+                    "name": "WSK.WskApplication.Data",
+                    "path": "./src/+Modules/Required/WordSearchKingdom/__Data/WSK.WskApplication.Data/src",
+                    "cmd": [
+                        "dotnet build"
+                    ],
+                    "num": 8
+                }
+            ]
+        },
+        {
+            "name": "WSK.API.WskApi",
+            "description": "WSK  API",
+            "enabled": true,
+            "terminals": [
+                {
+                    "name": "WSK.API.WskApi",
+                    "path": "./src/+Modules/Required/WordSearchKingdom/+Api/WSK.API.WskApi/src",
+                    "cmd": [
+                        "ping 127.0.0.1 -n 15",
+                        "dotnet watch run"
+                    ],
+                    "num": 9
+                },
+                {
+                    "name": "WSK.API.WskApi.FunctionalTests",
+                    "path": "./src/+Modules/Required/WordSearchKingdom/+Api/WSK.API.WskApi.FunctionalTests/src",
+                    "cmd": [
+                        "dotnet test"
+                    ],
+                    "num": 10
+                }
+            ]
+        },
+        {
+            "name": "WSK.WskInfrastructure",
+            "description": "Infrastructure and Tests",
+            "enabled": true,
+            "terminals": [
+                {
+                    "name": "WSK.WskInfrastructure",
+                    "path": "./src/+Modules/Required/WordSearchKingdom/___Infrastructure/WSK.WskInfrastructure/src",
+                    "cmd": [
+                        ""
+                    ],
+                    "num": 4
+                },
+                {
+                    "name": "WSK.WskInfrastructure.IntegrationTests",
+                    "path": "./src/+Modules/Required/WordSearchKingdom/___Infrastructure/WSK.WskInfrastructure.IntegrationTests/src",
+                    "cmd": [
+                        "ping 127.0.0.1 -n 5",
+                        "dotnet test"
+                    ],
+                    "num": 5
+                }
+            ]
+        },
+        {
+            "name": "YMI.YmiCore",
+            "enabled": true,
+            "terminals": [
+                {
+                    "name": "YMI.YmiCore",
+                    "path": "./src/+Modules/Required/YourMainIdea/____Core/_YMI.YmiCore/src",
+                    "cmd": [
+                        ""
+                    ],
+                    "num": 1
+                },
+                {
+                    "name": "YMI.YmiCore.UnitTests",
+                    "path": "./src/+Modules/Required/YourMainIdea/____Core/_YMI.YmiCore.UnitTests/src",
+                    "cmd": [
+                        "dotnet test"
+                    ],
+                    "num": 2
+                }
+            ]
+        },
+        {
+            "name": "YMI.YmiInfrastructure",
+            "description": "Infrastructure and Tests",
+            "enabled": true,
+            "terminals": [
+                {
+                    "name": "YMI.YmiInfrastructure",
+                    "path": "./src/+Modules/Required/YourMainIdea/___Infrastructure/YMI.YmiInfrastructure/src",
+                    "cmd": [
+                        ""
+                    ],
+                    "num": 4
+                },
+                {
+                    "name": "YMI.YmiInfrastructure.IntegrationTests",
+                    "path": "./src/+Modules/Required/YourMainIdea/___Infrastructure/YMI.YmiInfrastructure.IntegrationTests/src",
+                    "cmd": [
+                        "ping 127.0.0.1 -n 5",
+                        "dotnet test"
+                    ],
+                    "num": 5
+                }
+            ]
+        },
+        {
+            "name": "YMI.YmiApplication",
+            "description": "Application and Tests",
+            "enabled": true,
+            "terminals": [
+                {
+                    "name": "YMI.YmiApplication",
+                    "path": "./src/+Modules/Required/YourMainIdea/_Application/YMI.YmiApplication/src",
+                    "cmd": [
+                        ""
+                    ],
+                    "num": 6
+                },
+                {
+                    "name": "YMI.YmiApplication.FeatureTests",
+                    "path": "./src/+Modules/Required/YourMainIdea/_Application/YMI.YmiApplication.FeatureTests/src",
+                    "cmd": [
+                        "ping 127.0.0.1 -n 10",
+                        "dotnet test"
+                    ],
+                    "num": 7
+                },
+                {
+                    "name": "YMI.YmiApplication.Data",
+                    "path": "./src/+Modules/Required/YourMainIdea/__Data/YMI.YmiApplication.Data/src",
+                    "cmd": [
+                        "dotnet build"
+                    ],
+                    "num": 8
+                }
+            ]
+        },
+        {
+            "name": "YMI.API.YmiApi",
+            "description": "YMI  API",
+            "enabled": true,
+            "terminals": [
+                {
+                    "name": "YMI.API.YmiApi",
+                    "path": "./src/+Modules/Required/YourMainIdea/+Api/YMI.API.YmiApi/src",
+                    "cmd": [
+                        "ping 127.0.0.1 -n 15",
+                        "dotnet watch run"
+                    ],
+                    "num": 9
+                },
+                {
+                    "name": "YMI.API.YmiApi.FunctionalTests",
+                    "path": "./src/+Modules/Required/YourMainIdea/+Api/YMI.API.YmiApi.FunctionalTests/src",
+                    "cmd": [
+                        "dotnet test"
+                    ],
+                    "num": 10
+                }
+            ]
+        },
+        {
+            "name": "YMI.YmiInfrastructure",
+            "description": "Infrastructure and Tests",
+            "enabled": true,
+            "terminals": [
+                {
+                    "name": "YMI.YmiInfrastructure",
+                    "path": "./src/+Modules/Required/YourMainIdea/___Infrastructure/YMI.YmiInfrastructure/src",
+                    "cmd": [
+                        ""
+                    ],
+                    "num": 4
+                },
+                {
+                    "name": "YMI.YmiInfrastructure.IntegrationTests",
+                    "path": "./src/+Modules/Required/YourMainIdea/___Infrastructure/YMI.YmiInfrastructure.IntegrationTests/src",
+                    "cmd": [
+                        "ping 127.0.0.1 -n 5",
+                        "dotnet test"
+                    ],
+                    "num": 5
+                }
+            ]
+        }
+    ]
+}

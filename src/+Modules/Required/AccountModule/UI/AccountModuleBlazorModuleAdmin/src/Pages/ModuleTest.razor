@@ -1,0 +1,16 @@
+@page "/Account/ModuleTest"
+
+@inject IStringLocalizer<ModuleTest> Localize
+
+<PageTitle>Module Test</PageTitle>
+<h1>Module Test</h1>
+<div style="margin-left: 15px; margin-top: 15px;">
+    <ModuleTestComponent />
+</div>
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+    }
+}

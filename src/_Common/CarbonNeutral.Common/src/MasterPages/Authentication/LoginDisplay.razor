@@ -1,0 +1,23 @@
+﻿@inject IStringLocalizer<LoginDisplay> Localize
+
+@* <CascadingAuthenticationState>
+    <AuthorizeView>
+        <Authorized>
+                <a name="loggedinUser" target="_blank"
+                    href="https://localhost:44310/Manage/ExternalLogins">@Localize["Manage"]</a>
+                <button name="logout" @onclick="BeginSignOut">@Localize["Logout"]</button>
+        </Authorized>
+        @* <NotAuthorized>
+                <a name="login" class="pa-0 mr-0 ml-auto pl-4" href="authentication/login">Login</a>            
+        </NotAuthorized> * @
+    </AuthorizeView>
+</CascadingAuthenticationState> *@
+
+@code {
+    private async Task BeginSignOut(MouseEventArgs args)
+    {
+        //await SignOutManager.SetSignOutState();
+        
+        NavigationManager.NavigateTo("authentication/logout");
+    }
+}

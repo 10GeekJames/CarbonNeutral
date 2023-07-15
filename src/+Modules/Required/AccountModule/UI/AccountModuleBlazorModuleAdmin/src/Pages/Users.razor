@@ -1,0 +1,18 @@
+@page "/Account/Users"
+
+@inject IStringLocalizer<Website> Localize
+
+<PageTitle>Users</PageTitle>
+
+<SetModuleNav></SetModuleNav>
+<SetModuleSettings></SetModuleSettings>
+
+<p Typo="Typo.h4" Class="mb-8">Users</p>
+
+<AuthorizeView>
+    <Authorized Context="authContext">
+        Users
+    </Authorized>
+</AuthorizeView>
+@code {
+}

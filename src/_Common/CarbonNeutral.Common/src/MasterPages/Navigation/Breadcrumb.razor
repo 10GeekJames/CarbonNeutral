@@ -1,0 +1,30 @@
+@implements IDisposable
+
+@inject IStringLocalizer<Breadcrumb> Localize
+
+
+<MudBreadcrumbs Items="Items">Library &gt;</MudBreadcrumbs>
+    
+@code {
+    public List<BreadcrumbItem> Items { get; set; } = new List<BreadcrumbItem>();
+    protected override void OnInitialized()
+    {
+        var currentUrl = NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
+        Items = currentUrl.Split(Path.PathSeparator).ToList().Select(rs => new BreadcrumbItem(rs, rs)).ToList();
+        NavigationManager.LocationChanged += LocationHasChanged;
+    }
+    private void LocationHasChanged(object sender, LocationChangedEventArgs e)
+    {
+        var currentUrl = NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
+        Items = currentUrl.Split(Path.PathSeparator).ToList().Select(rs => new BreadcrumbItem(rs, rs) ).ToList();
+        StateHasChanged();
+    }
+    private void NavigateToUrl(string url)
+    {
+        NavigationManager.NavigateTo(url);
+    }
+    public void Dispose()
+    {
+        NavigationManager.LocationChanged -= LocationHasChanged;        
+    }
+}

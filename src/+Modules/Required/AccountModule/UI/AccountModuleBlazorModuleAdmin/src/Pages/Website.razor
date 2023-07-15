@@ -1,0 +1,82 @@
+@page "/Account/Website"
+@inject IStringLocalizer<Website> Localize
+@layout MainLayoutSlim
+<PageTitle>Website</PageTitle>
+<SetModuleNav></SetModuleNav>
+<SetModuleSettings></SetModuleSettings>
+<p Typo="Typo.h4" Class="mb-8 d-flex justify-center">Website editor</p>
+<AuthorizeView>
+    <Authorized Context="authContext">
+        <EditForm Model="websiteProfile" OnValidSubmit="OnValidSubmit">
+            <DataAnnotationsValidator />
+            <MudGrid class="d-flex justify-center">
+                <MudItem xs="12" sm="7" class="pb-15 d-flex justify-center">
+                    <MudCard>
+                       
+                        <MudCardActions>
+                            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary"
+                                Class="ml-auto">Save</MudButton>
+                        </MudCardActions>
+                        <MudExpansionPanels>
+                            <MudExpansionPanel Text="URL's">
+                            <MudTextField Label="Landing Url" Class="mt-3" @bind-Value="websiteProfile.LandingUrl"
+                                For="@(() => websiteProfile.LandingUrl)" />
+                            <MudTextField Label="Default Url" Class="mt-3" @bind-Value="websiteProfile.DefaultUrl"
+                                For="@(() => websiteProfile.DefaultUrl)" /></MudExpansionPanel>
+                            
+                            <MudExpansionPanel Text="Primary Attributes">
+                            <MudTextField Label="Logo" Class="mt-3" @bind-Value="websiteProfile.LogoImage"
+                                For="@(() => websiteProfile.LandingUrl)" />
+                            <MudColorPicker Label="TextPrimary" Class="mt-3" ColorPickerView="ColorPickerView.Spectrum"  @bind-Text=websiteProfile.TextPrimary />
+                                
+                            <MudColorPicker Label="Background" Class="mt-3" ColorPickerView="ColorPickerView.Spectrum"  @bind-Text=websiteProfile.Background />
+                                
+                            <MudColorPicker Label="Surface Color" Class="mt-3" ColorPickerView="ColorPickerView.Spectrum"  @bind-Text=websiteProfile.Surface />
+                            <MudColorPicker Label="Primary" Class="mt-3" ColorPickerView="ColorPickerView.Spectrum"  @bind-Text=websiteProfile.Primary />
+                            </MudExpansionPanel>
+                            
+                            <MudExpansionPanel Text="AppBar Attributes">
+                            <MudColorPicker Label="AppbarBackground" Class="mt-3" ColorPickerView="ColorPickerView.Spectrum"  @bind-Text=websiteProfile.AppbarBackground />
+                            <MudColorPicker Label="AppbarText" Class="mt-3" ColorPickerView="ColorPickerView.Spectrum"  @bind-Text=websiteProfile.AppbarText />
+                            <MudColorPicker Label="DrawerText" Class="mt-3" ColorPickerView="ColorPickerView.Spectrum"  @bind-Text=websiteProfile.DrawerText />
+                            </MudExpansionPanel>
+
+                            <MudExpansionPanel Text="Secondary Attributes">
+                            <MudColorPicker Label="Secondary" Class="mt-3" ColorPickerView="ColorPickerView.Spectrum"  @bind-Text=websiteProfile.Secondary />
+                            <MudColorPicker Label="TextSecondary" Class="mt-3" ColorPickerView="ColorPickerView.Spectrum"  @bind-Text=websiteProfile.TextSecondary />
+                            </MudExpansionPanel> 
+                            
+                        </MudExpansionPanels>
+                        <MudCardActions>
+                            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary"
+                                Class="ml-auto">Save</MudButton>
+                        </MudCardActions>
+                         </MudCard>
+                </MudItem>
+            </MudGrid>
+        </EditForm>
+    </Authorized>
+</AuthorizeView>
+@code {
+    private KnownBusinessWebsiteProfileViewModel websiteProfile = new();
+    bool success = false;
+    protected override async Task OnInitializedAsync()
+    {
+        while(!PlatformCacheService.AppDataIsReady) {
+            await Task.Delay(300);
+        }
+        websiteProfile = PlatformCacheService.KnownBusinessWebsite.KnownBusinessWebsiteProfile;
+        
+        await base.OnInitializedAsync();
+    }
+    private async Task OnValidSubmit(EditContext context)
+    {
+        var websiteProfileUpdateRequest = new KnownBusinessWebsiteProfileUpdateRequest(websiteProfile);
+        await AccountModuleHttpClient.KnownBusinessWebsiteProfileUpdateAsync(websiteProfileUpdateRequest);
+        Snackbar.Add("Save successful, well done, you are good at this!");     
+        PlatformCacheService.SetKnownBusinessWebsiteProfile(websiteProfile);
+        PlatformCacheService.UpdateSkin();
+        success = true;
+        StateHasChanged();
+    }
+}

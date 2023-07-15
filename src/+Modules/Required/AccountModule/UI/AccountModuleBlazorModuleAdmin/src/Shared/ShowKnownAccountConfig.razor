@@ -1,0 +1,19 @@
+@inject IStringLocalizer<ShowKnownAccountConfig> Localize
+
+<MudContainer>
+    <h1>@KnownAccount.Name</h1>
+    
+    <MudButton OnClick="Save" Variant="Variant.Outlined">Save</MudButton>
+</MudContainer>
+
+@code {
+    [Parameter]
+    public KnownAccountViewModel KnownAccount { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();        
+    }
+    protected async Task Save() {
+        await Task.Yield();
+    }
+}

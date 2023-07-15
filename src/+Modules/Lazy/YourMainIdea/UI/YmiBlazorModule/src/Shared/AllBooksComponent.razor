@@ -1,0 +1,25 @@
+@inject IStringLocalizer<AllBooksComponent> Localize
+
+<div>
+    <p>WordSearchKingdom - General Lazy Module</p>
+    @foreach(var book in _books) {
+        <div>@book.Title</div>        
+    }
+    
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="() => GetAllBooks()" >Load Checked</MudButton>    
+</div>
+
+@code {
+    private List<BookViewModel> _books = new();
+    
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();                     
+    }
+
+    protected async Task GetAllBooks() {
+        var BooksGetAllQry = new BooksGetAllQry();
+        
+        _books = await YmiDataService.BooksGetAllAsync(BooksGetAllQry);
+    }
+}

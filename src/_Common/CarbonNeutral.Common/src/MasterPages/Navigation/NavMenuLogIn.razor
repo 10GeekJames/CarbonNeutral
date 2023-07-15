@@ -1,0 +1,57 @@
+@inject IStringLocalizer<NavMenuLogIn> Localize
+@foreach (var menuItem in MenuItems)
+{
+    <MudButton Class=@Class Variant="Variant.Outlined" OnClick="()=>NavigateToPage(menuItem.Url)">@menuItem.Text</MudButton>
+}
+@code {
+    @* [CascadingParameter]
+    public Task<AuthenticationState> authenticationStateTask { get; set; } *@
+    [Parameter]
+    public string Class { get; set; }
+    @* public ClaimsPrincipal User { get; set; } *@
+    public List<MenuItem> MenuItems { get; set; }
+    public MenuItem SelectedMenuItem { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        @* User = (await authenticationStateTask).User;
+        if (User.Identity.IsAuthenticated)
+        {
+            MenuItems = new List<MenuItem>()
+            {
+            new MenuItem { Text = "Logout", Url = "/authentication/logout"}
+            };
+        }
+        else
+        { *@
+            MenuItems = new List<MenuItem>()
+            {
+            new MenuItem { Text = "Login", Url = "/authentication/login"}
+            };
+        @* } *@
+        await base.OnInitializedAsync();
+    }
+    public async Task NavigateToPage(string url)
+    {
+        if (url.Contains("/authentication/logout"))
+        {
+            //await SignOutManager.SetSignOutState();
+        }
+         NavigationManager.NavigateTo(url);
+    }
+    private bool CompareCurrentPageUrl(string urlToCopmare)
+    {
+        return  NavigationManager.Uri.Substring( NavigationManager.BaseUri.Length - 1).Equals(urlToCopmare);
+    }
+    private bool IsInternalPage(string url)
+    {
+        if (string.IsNullOrEmpty(url))
+        {
+            return false;
+        }
+        return !(url.StartsWith("http"));
+    }
+    private bool IsChildMenuItem(MenuItem menuItem)
+    {
+        return menuItem.Level == 0;
+    }
+}

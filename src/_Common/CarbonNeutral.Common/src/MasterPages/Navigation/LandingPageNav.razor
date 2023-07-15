@@ -1,0 +1,27 @@
+@inject IStringLocalizer<LandingPageNav> Localize
+<MudContainer class="d-flex absolute align-center mt-4 justify-space-between" MaxWidth="MaxWidth.False">
+    <div style="background-color: rgba(1,1,1,0.5); padding: 6px 12px; border-radius: 12px;">
+        <a class="logo" href="/i/Logo.png">
+            <img width="64px" class="rounded-circle" src="/i/WSKLogo144.png" alt=""/>
+            <img style="filter: drop-shadow(1px 3px 4px #fff) invert(100%); max-width: 350px;" class="rounded-pill img-fluid" src="/i/png" alt=""/>
+        </a>
+    </div>
+
+    @if(!isAuthd) {
+    <MudButton Class="align-self-start" Style="text-transform:none" Variant="Variant.Filled" Color="Color.Primary"
+        Href="/authentication/login">@Localize["Login"]
+    </MudButton>
+    }
+
+</MudContainer>
+@code {
+    @* [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; } *@
+    private bool isAuthd = false;
+    protected override async Task OnInitializedAsync()
+    {
+        @* var authstate = await authenticationStateTask;
+        var _user = authstate.User;   
+        isAuthd = (_user?.Identity?.IsAuthenticated == true);*@
+    } 
+}

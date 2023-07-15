@@ -1,0 +1,60 @@
+@page "/Account/KnownAccount"
+@inject IStringLocalizer<KnownAccount> Localize
+
+@* @attribute [Authorize] *@
+
+<PageTitle>New Account Setup</PageTitle>
+
+<h1>New Account Setup</h1>
+<AuthorizeView>
+    <div>Name</div>
+    <input @bind="Name" />
+    <div>Email</div>
+    <input @bind-value="Email" />
+    <br />
+
+    <button class="btn btn-primary" @onclick="SaveUserRecord">Save Name Email</button>
+</AuthorizeView>
+@code {
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+    
+    private string Name { get; set; }
+    private string Email { get; set; }
+    private ClaimsPrincipal AuthenticationStateUser { get; set; }
+    private ClaimsPrincipal AuthenticationStateProviderUser { get; set; }
+    private AuthenticationState authenticationState;
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        authenticationState = await authenticationStateTask;
+        this.AuthenticationStateUser = authenticationState.User;
+
+        authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        this.AuthenticationStateProviderUser = authenticationState.User;
+
+        Email = AuthenticationStateUser.FindFirstValue("Email");
+
+        if(PlatformCacheService.KnownUser.EmailAddress != "" && PlatformCacheService.KnownUser.EmailAddress != null) {
+            Email = PlatformCacheService.KnownUser.EmailAddress;
+        }
+
+        if(PlatformCacheService.KnownUser.Name != "" && PlatformCacheService.KnownUser.Name != null) {
+            Name = PlatformCacheService.KnownUser.Name;            
+        }
+
+    }
+
+    private async Task SaveUserRecord()
+    {
+        Console.WriteLine($"email => {Email}");
+        Console.WriteLine($"name => {Name}");
+        var createKnownAccountRequest = new KnownUserUpdateAccountRequest(Name, Email);
+        await AccountModuleHttpClient.KnownUserUpdateAccountAsync(createKnownAccountRequest);
+        PlatformCacheService.KnownUser.Name = Name;
+        PlatformCacheService.KnownUser.EmailAddress = Email;
+
+        NavigationManager.NavigateTo("/");
+    }
+}
