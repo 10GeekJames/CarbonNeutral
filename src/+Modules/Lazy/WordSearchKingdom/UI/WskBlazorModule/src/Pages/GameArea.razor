@@ -14,8 +14,8 @@
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        var GamesGetGameQry = new GamesGetGameQry();
-        _chosenGame = await WskDataService.GamesGetGameAsync(GamesGetGameQry);
+        @* var GamesGetGameQry = new GamesGetGameQry();
+        _chosenGame = await WskDataService.GamesGetGameAsync(GamesGetGameQry); *@
     }
 
     public async Task HandleChosenGame(GameViewModel game)
