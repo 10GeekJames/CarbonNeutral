@@ -1,0 +1,89 @@
+@inject IStringLocalizer<GameComponent> Localize
+
+<MudContainer>
+    <style>
+        table {
+            max-height: 20px;
+            height: fit-content;
+            border-collapse: collapse;
+            line-height: 1;
+            margin: 0 auto;
+        }
+        td {
+            border: 1px solid white;
+            @* max-height: 20px;
+            max-width: 20px; *@
+            aspect-ratio: 1 / 1;
+            text-align: center;
+            font-size: 1.4em;
+            font-weight: bolder;
+            user-select: none;
+            padding: 4px 6px;
+            transform: scale(1, 1);
+        }
+        td:hover {
+            background-color: #e0e0e0;
+            color: black;
+            cursor: pointer;
+        }
+    </style>
+    <MudText Typo="Typo.h2" Align="Align.Center">@Game?.Title</MudText>   
+    <MudDivider />
+    <MudStack Row="true" Class="border-solid border-2 mud-border-primary pa-4 rounded">
+        <MudContainer Class="pl-0 pr-0">
+            <table>
+                @for (var x = 0; x < Game.GameGrid.Width; x++) {
+                    <tr >
+                        @for (var y = 0; y < Game.GameGrid.Height; y++) {
+                            var rowCell = Game.GameGrid.RowCells.First(rs => rs.X == x && rs.Y == y);
+                            <td onclick="@HandleCellClick">@rowCell.Letter</td>
+                        }
+                    </tr>
+                }
+            </table>
+        </MudContainer>
+        <MudContainer Class="border-solid border-2 mud-border-primary pa-4 rounded" Style="width: 100%;">
+            <MudText Typo="Typo.h3" Align="Align.Center">
+                Hidden Words
+            </MudText>
+            <MudDivider />
+            <MudStack Class="mt-6">
+                @foreach (var word in Game?.GameGrid.HiddenWords)
+                {
+                    <MudText Typo="Typo.h4" Align="Align.Center">@word.Word</MudText>
+                }
+            </MudStack>
+            <MudButton Style="justify-self: flex-end;" Variant="Variant.Filled" Color="Color.Primary" OnClick="() => EndGame()" FullWidth="true" >End Game</MudButton>    
+        </MudContainer>
+    </MudStack>
+
+</MudContainer>
+
+@code {
+    [Parameter]
+    public GameViewModel? Game { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> OnEndGame { get; set; }
+
+    // delcare first click and second click variables 
+    private string firstClick { get; set; }
+    private string secondClick { get; set; }
+    private string selectedWord {get; set; } = "";
+    
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();                     
+    }
+
+    protected Task EndGame()
+    {
+        return OnEndGame.InvokeAsync();
+    }
+
+    private void HandleCellClick()
+    {
+        Console.WriteLine("Clicked Cell");
+    }
+
+}

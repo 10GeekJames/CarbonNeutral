@@ -2,29 +2,40 @@
 
 @inject IStringLocalizer<AllGames> Localize
 
-<PageTitle>Word Search Kingdom - General Lazy Game Module</PageTitle>
+<PageTitle>Word Search Kingdom - All Games</PageTitle>
 
 <MudContainer>
-
-<MudTable Id="AllGamesStaticTable" Items="@WskGameTestData.AllGames" Hover="true" Breakpoint="Breakpoint.Sm" LoadingProgressColor="Color.Info">
-    <HeaderContent>
-        <MudTh>Title</MudTh>
-        
-    </HeaderContent>
-    <RowTemplate>
-        <MudTd DataLabel="Nr">@context.Title</MudTd>
-        
-    </RowTemplate>
-</MudTable>
-
-<AllGamesComponent />
-
+    @if (_showGame == false)
+    {
+        <AllGamesComponent OnChosenGame="@HandleChosenGame" />
+    }
+    else
+    {
+        <GameComponent Game="@_chosenGame" OnEndGame="@HandleEndGame"  />
+    }
 </MudContainer>
 
 
 @code {
+    private GameViewModel _chosenGame { get; set; }
+    private bool _showGame { get; set; }
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
     }
+
+    public async Task HandleChosenGame(GameViewModel game)
+    {
+        _chosenGame = game;
+        _showGame = true;
+        StateHasChanged();
+    }
+    public async Task HandleEndGame(bool endGame)
+    {
+        _chosenGame = null;
+        _showGame = false;
+        StateHasChanged();
+    }
+
+    
 }

@@ -6,3 +6,9 @@
 SidewaysList ul {
     @include m.horizontal-list;
 }
+
+td {
+    &:hover {
+        background-color: blue;
+    }
+}
