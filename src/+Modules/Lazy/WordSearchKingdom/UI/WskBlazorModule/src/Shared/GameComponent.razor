@@ -1,0 +1,40 @@
+@inject IStringLocalizer<GameComponent> Localize
+
+<MudContainer>
+    <div>@Game?.Title</div>   
+    @foreach (var word in Game?.GameGrid.HiddenWords)
+    {
+        <p>@word.Word</p>
+    }   
+    <table style="border-collapse: collapse; line-height: 1.4;">
+        @for (var x = 0; x < Game.GameGrid.Width; x++) {
+            <tr>
+                @for (var y = 0; y < Game.GameGrid.Height; y++) {
+                    var rowCell = Game.GameGrid.RowCells.First(rs => rs.X == x && rs.Y == y);
+                    <td style="border: 1px solid white; height: 14px; min-width: 14px; text-align: center; user-select: none; padding: 4px; transform: scale(1, 0.8)">@rowCell.Letter</td>
+                }
+            </tr>
+        }
+    </table>  
+    @* <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="() => EndGame()" >End Game</MudButton>     *@
+
+</MudContainer>
+
+@code {
+    [Parameter]
+    public GameViewModel? Game { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> OnEndGame { get; set; }
+    
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();                     
+    }
+
+    protected Task EndGame()
+    {
+        return OnEndGame.InvokeAsync();
+    }
+
+}

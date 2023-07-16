@@ -1,0 +1,26 @@
+@page "/wsk/gamearea/{GameId}"
+
+@inject IStringLocalizer<AllGames> Localize
+
+<PageTitle>Word Search Kingdom - Game Title</PageTitle>
+
+<MudContainer>
+    <GameComponent Game="@_chosenGame" />
+</MudContainer>
+
+
+@code {
+    private GameViewModel _chosenGame { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        var GamesGetGameQry = new GamesGetGameQry();
+        _chosenGame = await WskDataService.GamesGetGameAsync(GamesGetGameQry);
+    }
+
+    public async Task HandleChosenGame(GameViewModel game)
+    {
+        _chosenGame = game;
+        StateHasChanged();
+    }
+}
