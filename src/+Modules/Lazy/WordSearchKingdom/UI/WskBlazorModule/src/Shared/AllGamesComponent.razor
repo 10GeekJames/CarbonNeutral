@@ -3,20 +3,26 @@
 <div>
     <p>Word Seach Kingdom - All Games</p>
 
-    <MudTable Class="mt-4" Id="AllGamesStaticTable" Items="@_games" Hover="true" Breakpoint="Breakpoint.Sm" LoadingProgressColor="Color.Info">
+    <MudTable Class="mt-4" T="GameViewModel" Id="AllGamesStaticTable" Items="@_games" Hover="true" Breakpoint="Breakpoint.Sm" LoadingProgressColor="Color.Info" OnRowClick="HandleGameClick">
         <HeaderContent>
+            <MudTh>Game</MudTh>
             <MudTh>Title</MudTh>
+            <MudTh>ID</MudTh>
         </HeaderContent>
         <RowTemplate>
-            <MudTd DataLabel="Nr">@context.Title</MudTd>
+            <MudTd DataLabel="Game">@context</MudTd>
+            <MudTd DataLabel="Title">@context.Title</MudTd>
+            <MudTd DataLabel="ID">@context.Id</MudTd>
         </RowTemplate>
     </MudTable>
 
-    <MudButton Class="mt-4" Variant="Variant.Filled" Color="Color.Primary" OnClick="() => LoadSelectedGame(_games.FirstOrDefault())" >Load Checked</MudButton>    
+    <MudButton Class="mt-4" Variant="Variant.Filled" Color="Color.Primary" OnClick="() => LoadSelectedGame(_games.Find(rs => rs.Id == _selectedGame.Id))" >Load Checked</MudButton>    
 </div>
 
 @code {
     private List<GameViewModel> _games = new();
+    private GameViewModel _selectedGame { get; set; }
+
     [Parameter]
     public EventCallback<GameViewModel> OnChosenGame { get; set; }
     
@@ -29,5 +35,11 @@
 
     protected Task LoadSelectedGame(GameViewModel game) {
         return OnChosenGame.InvokeAsync(game);
+    }
+
+    private void HandleGameClick(TableRowClickEventArgs<GameViewModel> args)
+    {
+        Console.WriteLine($"Clicked on row {args.Item.Title}");
+        _selectedGame = _games.Find(rs => rs.Id == args.Item.Id);
     }
 }
