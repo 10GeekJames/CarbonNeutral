@@ -5,16 +5,11 @@
 <div>
     <p>Word Seach Kingdom - All Games</p>
 
-<MudContainer>
-    @if (_showGame == false)
-    {
-        <AllGamesComponent OnChosenGame="@HandleChosenGame" />
-    }
-    else
-    {
-        <GameComponent Game="@_chosenGame" OnEndGame="@HandleEndGame"  />
-    }
-</MudContainer>
+    <MudTable Class="mt-4" Id="AllGamesStaticTable" Items="@_games" Hover="true" Breakpoint="Breakpoint.Sm" LoadingProgressColor="Color.Info">
+        <RowTemplate>
+            <MudButton Class="mt-4" Variant="Variant.Filled" Color="Color.Primary" OnClick="() => NavigateToGame(context.Id.ToString())">@context.Title</MudButton>
+        </RowTemplate>
+    </MudTable>
 
   
 </div>
