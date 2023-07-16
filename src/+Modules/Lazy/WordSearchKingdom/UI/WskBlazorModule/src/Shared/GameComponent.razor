@@ -37,7 +37,10 @@
                     <tr >
                         @for (var y = 0; y < Game.GameGrid.Height; y++) {
                             var rowCell = Game.GameGrid.RowCells.First(rs => rs.X == x && rs.Y == y);
-                            <td onclick="@HandleCellClick">@rowCell.Letter</td>
+                            <td>
+                                <RowCellComponent RowCell=rowCell OnClick=@(() => HandleCellClick(rowCell)) />
+                                @* <MudLink OnClick=@(() => HandleCellClick(rowCell.Letter))>@rowCell.Letter</MudLink> *@
+                            </td>
                         }
                     </tr>
                 }
@@ -82,9 +85,9 @@
         return OnEndGame.InvokeAsync();
     }
 
-    private void HandleCellClick()
+    private void HandleCellClick(RowCellViewModel rowCell)
     {
-        Console.WriteLine("Clicked Cell");
+        Console.WriteLine($"Clicked Cell X={rowCell.X} Y={rowCell.Y} {rowCell.Letter}");
     }
 
 }

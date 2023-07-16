@@ -1,0 +1,9 @@
+@inject IStringLocalizer<RowCellComponent> Localize
+<MudLink OnClick=OnClick>@RowCell.Letter</MudLink>
+
+@code {
+    [Parameter]
+    public RowCellViewModel RowCell {get;set;}
+    [Parameter]
+    public Action OnClick { get; set; }    
+}

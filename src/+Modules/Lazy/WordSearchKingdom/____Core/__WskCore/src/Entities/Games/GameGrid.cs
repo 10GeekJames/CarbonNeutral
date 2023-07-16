@@ -49,7 +49,7 @@ public class GameGrid : BaseEntityTracked<Guid>
         {
             for (var w = 0; w < Width; w++)
             {
-                var rowCell = _rowCells.Single(x => x.X == h && x.Y == w);
+                var rowCell = _rowCells.Single(x => x.X == w && x.Y == h);
                 if (rowCell.Letter == ' ')
                 {
                     rowCell.SetLetter(getRandomLetter());
