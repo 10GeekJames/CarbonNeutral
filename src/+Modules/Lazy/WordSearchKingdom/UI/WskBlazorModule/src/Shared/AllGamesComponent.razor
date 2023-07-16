@@ -12,25 +12,6 @@
         </RowTemplate>
     </MudTable>
 
-    @* @foreach(var game in _games) {
-        <div>@game.Title</div>   
-        @foreach (var word in game.GameGrid.HiddenWords)
-        {
-            <p>@word.Word</p>
-        }   
-
-        <table style="border-collapse: collapse; line-height: 1.4;">
-            @for (var x = 0; x < game.GameGrid.Width; x++) {
-                <tr>
-                    @for (var y = 0; y < game.GameGrid.Height; y++) {
-                        var rowCell = game.GameGrid.RowCells.First(rs => rs.X == x && rs.Y == y);
-                        <td style="border: 1px solid white; height: 14px; min-width: 14px; text-align: center; user-select: none; padding: 4px; transform: scale(1, 0.8)">@rowCell.Letter</td>
-                    }
-                </tr>
-            }
-        </table>  
-    } *@
-
     <MudButton Class="mt-4" Variant="Variant.Filled" Color="Color.Primary" OnClick="() => LoadSelectedGame(_games.FirstOrDefault())" >Load Checked</MudButton>    
 </div>
 
