@@ -2,40 +2,31 @@
 
 @inject IStringLocalizer<AllGames> Localize
 
-<PageTitle>Word Search Kingdom - All Games</PageTitle>
+<div>
+    <p>Word Seach Kingdom - All Games</p>
 
-<MudContainer>
-    @if (_showGame == false)
-    {
-        <AllGamesComponent OnChosenGame="@HandleChosenGame" />
-    }
-    else
-    {
-        <GameComponent Game="@_chosenGame" OnEndGame="@HandleEndGame"  />
-    }
-</MudContainer>
+    <MudTable Class="mt-4" Id="AllGamesStaticTable" Items="@_games" Hover="true" Breakpoint="Breakpoint.Sm" LoadingProgressColor="Color.Info">
+        <RowTemplate>
+            <MudButton Class="mt-4" Variant="Variant.Filled" Color="Color.Primary" OnClick="() => NavigateToGame(context.Id.ToString())">@context.Title</MudButton>
+        </RowTemplate>
+    </MudTable>
 
+  
+</div>
 
 @code {
-    private GameViewModel _chosenGame { get; set; }
-    private bool _showGame { get; set; }
+    private List<GameViewModel> _games = new();
+    [Parameter]
+    public EventCallback<GameViewModel> OnChosenGame { get; set; }
+    
     protected override async Task OnInitializedAsync()
     {
-        await base.OnInitializedAsync();
+        await base.OnInitializedAsync();                     
+        _games = await WskDataService.GamesGetAllAsync();
     }
 
-    public async Task HandleChosenGame(GameViewModel game)
+    protected async Task NavigateToGame(string gameId)
     {
-        _chosenGame = game;
-        _showGame = true;
-        StateHasChanged();
+        NavigationManager.NavigateTo($"/wsk/game/{gameId}");
     }
-    public async Task HandleEndGame(bool endGame)
-    {
-        _chosenGame = null;
-        _showGame = false;
-        StateHasChanged();
-    }
-
-    
 }

@@ -2,7 +2,7 @@
 namespace WskApplication.Shared.Services;
 public partial class WskModuleHttpDataService
 {
-    public async Task<List<GameViewModel>?> GamesGetAllAsync(GamesGetAllQry qry)
+    public async Task<List<GameViewModel>?> GamesGetAllAsync()
     {
         var response = await _httpClient.GetAsync(GamesGetAllRequest.BuildRoute());
 
@@ -11,5 +11,5 @@ public partial class WskModuleHttpDataService
         return await response
             .Content
             .ReadFromJsonAsync<List<GameViewModel>>();
-    }     
+    }
 }

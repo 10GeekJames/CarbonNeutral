@@ -26,7 +26,15 @@ public class GameGrid : BaseEntityTracked<Guid>
         _rowCells = setupGrid(height, width);
 
         hideTheWordsOnGrid(hiddenWords);
-        fillEmptySpacesInTheGrid();        
+        fillEmptySpacesInTheGrid();
+    }
+
+    public void RecreateGrid()
+    {
+        clearGrid();
+        _rowCells = setupGrid(Height, Width);
+        hideTheWordsOnGrid(HiddenWords);
+        fillEmptySpacesInTheGrid();
     }
 
     public char[][] ToStringArray()
@@ -41,6 +49,11 @@ public class GameGrid : BaseEntityTracked<Guid>
             }
         }
         return stringArray;
+    }
+
+    private void clearGrid()
+    {
+        _rowCells.Clear();
     }
 
     private void fillEmptySpacesInTheGrid()

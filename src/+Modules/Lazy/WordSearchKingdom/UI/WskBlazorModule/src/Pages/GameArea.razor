@@ -1,26 +1,29 @@
-@page "/wsk/gamearea/{GameId}"
+@page "/wsk/game/{GameId:guid}"
 
-@inject IStringLocalizer<AllGames> Localize
+@inject IStringLocalizer<GameArea> Localize
 
 <PageTitle>Word Search Kingdom - Game Title</PageTitle>
 
 <MudContainer>
-    <GameComponent Game="@_chosenGame" />
+    @if(_chosenGame != null) {
+        <GameComponent Game="@_chosenGame" OnRecreateGame=OnRecreateGame />
+    }
 </MudContainer>
 
 
 @code {
+    [Parameter] 
+    public Guid GameId { get; set; }
     private GameViewModel _chosenGame { get; set; }
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        @* var GamesGetGameQry = new GamesGetGameQry();
-        _chosenGame = await WskDataService.GamesGetGameAsync(GamesGetGameQry); *@
+        var gameGetByIdRequest = new GameGetByIdRequest(GameId);
+        _chosenGame = await WskDataService.GameGetByIdAsync(gameGetByIdRequest);
     }
 
-    public async Task HandleChosenGame(GameViewModel game)
-    {
-        _chosenGame = game;
-        StateHasChanged();
+    public async Task OnRecreateGame(){
+        var request = new GameRecreateGridRequest(_chosenGame.Id);
+        _chosenGame = await WskDataService.GameRecreateGridAsync(request);         
     }
 }

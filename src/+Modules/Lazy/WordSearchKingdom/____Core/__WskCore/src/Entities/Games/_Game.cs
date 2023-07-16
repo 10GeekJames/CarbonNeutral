@@ -12,11 +12,11 @@ public class Game : BaseEntityTracked<Guid>, IAggregateRoot
     private Game() { }
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-    public Game(Guid id, int height, int width, IEnumerable<HiddenWord> hiddenWords, GameDifficulties gameDifficulty, IEnumerable<GameCategory> gameCategories, IEnumerable<GameTag> gameTags) : this (height, width, hiddenWords, gameDifficulty, gameCategories, gameTags) {
+    public Game(Guid id, string title, int height, int width, IEnumerable<HiddenWord> hiddenWords, GameDifficulties gameDifficulty, IEnumerable<GameCategory> gameCategories, IEnumerable<GameTag> gameTags) : this (title, height, width, hiddenWords, gameDifficulty, gameCategories, gameTags) {
         Id = id;
     }
     
-    public Game(int height, int width, IEnumerable<HiddenWord> hiddenWords, GameDifficulties gameDifficulty, IEnumerable<GameCategory> gameCategories, IEnumerable<GameTag> gameTags)
+    public Game(string title, int height, int width, IEnumerable<HiddenWord> hiddenWords, GameDifficulties gameDifficulty, IEnumerable<GameCategory> gameCategories, IEnumerable<GameTag> gameTags)
     {
         GameGrid = new GameGrid(height, width, hiddenWords);
 
@@ -24,6 +24,10 @@ public class Game : BaseEntityTracked<Guid>, IAggregateRoot
         GameCategories = gameCategories;
         GameTags = gameTags;
 
-        Title = "My awesome game!";
+        Title = title;
+    }
+
+    public void RecreateGrid(){
+        GameGrid.RecreateGrid();
     }
 }

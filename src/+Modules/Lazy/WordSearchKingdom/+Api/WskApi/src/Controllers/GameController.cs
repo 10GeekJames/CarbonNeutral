@@ -11,4 +11,20 @@ public class GameController : BaseController
         var response = _mapper.Map<GameViewModel>(result);
         return Ok(response);
     }
+    
+    [HttpPost]
+    public async Task<IActionResult> CreateNew([FromBody]GameCreateNewCmd cmd)
+    {
+        var result = await _mediator.Send(cmd);
+        var response = _mapper.Map<GameViewModel>(result);
+        return Ok(response);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> RecreateGrid([FromBody]GameRecreateGridCmd cmd)
+    {
+        var result = await _mediator.Send(cmd);
+        var response = _mapper.Map<GameViewModel>(result);
+        return Ok(response);
+    }
 }

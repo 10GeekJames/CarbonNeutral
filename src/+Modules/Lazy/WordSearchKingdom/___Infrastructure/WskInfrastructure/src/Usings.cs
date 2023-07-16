@@ -24,5 +24,6 @@ global using CarbonNeutral.KernelShared.Interfaces;
 
 global using WskCore;
 global using WskCore.Entities;
+global using WskCore.Enums;
 global using WskCore.Interfaces;
 global using WskInfrastructure.Data;

@@ -57,7 +57,8 @@
                     <MudText Typo="Typo.h4" Align="Align.Center">@word.Word</MudText>
                 }
             </MudStack>
-            <MudButton Style="justify-self: flex-end;" Variant="Variant.Filled" Color="Color.Primary" OnClick="() => EndGame()" FullWidth="true" >End Game</MudButton>    
+            <MudButton Style="justify-self: flex-end;" Variant="Variant.Filled" Color="Color.Primary" OnClick=OnRecreateGame FullWidth="true" >Recreate Game</MudButton>  
+            <MudButton Style="justify-self: flex-end;" Variant="Variant.Filled" Color="Color.Primary" OnClick=OnEndGame FullWidth="true" >End Game</MudButton>    
         </MudContainer>
     </MudStack>
 
@@ -68,7 +69,10 @@
     public GameViewModel? Game { get; set; }
 
     [Parameter]
-    public EventCallback<bool> OnEndGame { get; set; }
+    public EventCallback OnEndGame { get; set; }
+        
+    [Parameter]
+    public EventCallback OnRecreateGame { get; set; }
 
     // delcare first click and second click variables 
     private string firstClick { get; set; }
@@ -78,11 +82,6 @@
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();                     
-    }
-
-    protected Task EndGame()
-    {
-        return OnEndGame.InvokeAsync();
     }
 
     private void HandleCellClick(RowCellViewModel rowCell)
