@@ -20,13 +20,21 @@
             <MudMenuItem>Sign out</MudMenuItem>
         </MudMenu>
     </MudAppBar>
-    <MudDrawer @bind-Open="@_drawerOpen" ClipMode="DrawerClipMode.Always" DisableOverlay="false" Elevation="2"
-        Variant="@DrawerVariant.Mini">
-        <NavMenu />
-    </MudDrawer>
+    <MudHidden Breakpoint="Breakpoint.SmAndDown">
+        <MudDrawer @bind-Open="@_drawerOpen" ClipMode="DrawerClipMode.Always" DisableOverlay="true" Elevation="2"
+            Variant="@DrawerVariant.Mini">
+            <NavMenu />
+        </MudDrawer>
+    </MudHidden>
+    <MudHidden Breakpoint="Breakpoint.MdAndUp">
+        <MudDrawer @bind-Open="@_drawerOpen" ClipMode="DrawerClipMode.Always" DisableOverlay="true" Elevation="2"
+            Variant="@DrawerVariant.Temporary">
+            <NavMenu />
+        </MudDrawer>
+    </MudHidden>
 
     <MudMainContent>
-        <MudContainer Full="true">
+        <MudContainer MaxWidth="MaxWidth.ExtraExtraLarge" Class="pl-0 pr-0 pr-md-4 pl-md-4">
             <Breadcrumb />
             @Body
             <ModuleNav />
