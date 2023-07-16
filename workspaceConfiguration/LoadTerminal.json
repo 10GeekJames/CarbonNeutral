@@ -15,9 +15,9 @@
                 },
                 {
                     "name": "CarbonNeutral.Common",
-                    "path": "./src/Common/CarbonNeutral.Common/",
+                    "path": "./src/_Common/CarbonNeutral.Common/src/",
                     "cmd": [
-                        "dotnet watch run"
+                        "dotnet watch build"
                     ],
                     "num": 1
                 }
