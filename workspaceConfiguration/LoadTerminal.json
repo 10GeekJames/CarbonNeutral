@@ -12,7 +12,7 @@
                         "dotnet watch run"
                     ],
                     "num": 1
-                }
+                },
                 {
                     "name": "CarbonNeutral.Common",
                     "path": "./src/Common/CarbonNeutral.Common/",

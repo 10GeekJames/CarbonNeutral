@@ -1,4 +1,4 @@
-// ag=yes
+// ag=no
 namespace WskCore.Infrastructure.Data.Config;
 public partial class GameConfiguration : IEntityTypeConfiguration<Game>
 { 

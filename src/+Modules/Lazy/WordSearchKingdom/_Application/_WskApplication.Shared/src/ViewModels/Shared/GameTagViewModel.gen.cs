@@ -4,7 +4,7 @@ public partial class GameTagViewModel : BaseViewModel<Guid>
 { 
 
      public string Title { get; set; } = String.Empty;
-     public List<GameTagViewModel> GameTags { get; set; } = new();
+     public List<GameViewModel> Games { get; set; } = new();
 
 } 
         

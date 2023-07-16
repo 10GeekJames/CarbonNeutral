@@ -4,7 +4,7 @@ public partial class GameCategoryViewModel : BaseViewModel<Guid>
 { 
 
      public string Title { get; set; } = String.Empty;
-     public List<GameCategoryViewModel> GameCategories { get; set; } = new();
+     public List<GameViewModel> Games { get; set; } = new();
 
 } 
         

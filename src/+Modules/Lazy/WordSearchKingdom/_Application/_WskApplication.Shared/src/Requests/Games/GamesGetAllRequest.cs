@@ -1,6 +1,6 @@
-namespace WskApplication.Shared.Requests;
+namespace WskApplication.Shared.Requests; 
 
-public class GamesGetAllRequest : IRoutable
+public class GamesGetAllRequest : IRoutable //List
 {
     protected readonly static string Route = "games/getall";
 
@@ -8,5 +8,5 @@ public class GamesGetAllRequest : IRoutable
     {
         return GamesGetAllRequest.BuildRoute();
     }
-    public static string BuildRoute() { return Route; }
+    public static string BuildRoute() => Route;
 }
