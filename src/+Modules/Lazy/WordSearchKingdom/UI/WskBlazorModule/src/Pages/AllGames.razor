@@ -3,15 +3,17 @@
 @inject IStringLocalizer<AllGames> Localize
 
 <div>
-    <p>Word Seach Kingdom - All Games</p>
-
-    <MudTable Class="mt-4" Id="AllGamesStaticTable" Items="@_games" Hover="true" Breakpoint="Breakpoint.Sm" LoadingProgressColor="Color.Info">
-        <RowTemplate>
-            <MudButton Class="mt-4" Variant="Variant.Filled" Color="Color.Primary" OnClick="() => NavigateToGame(context.Id.ToString())">@context.Title</MudButton>
-        </RowTemplate>
-    </MudTable>
-
-  
+    <MudText Typo="Typo.h4" Align="Align.Center" Style="text-wrap: balance;">Word Seach Kingdom - All Games</MudText>
+    <MudPaper Class="mt-4">
+        <MudGrid Justify="Justify.Center">
+            @foreach (var game in _games)
+            {
+                <MudItem Class="align-self-center">
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="() => NavigateToGame(game.Id.ToString())">@game.Title</MudButton>
+                </MudItem>
+            }
+        </MudGrid>
+    </MudPaper>
 </div>
 
 @code {

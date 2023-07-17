@@ -10,26 +10,33 @@
             margin: 0 auto;
         }
         td {
+            font-family: 'Monaco', monospace;
             border: 1px solid white;
-            @* max-height: 20px;
-            max-width: 20px; *@
-            aspect-ratio: 1 / 1;
+            min-width: 33px;
             text-align: center;
-            font-size: 1.4em;
-            font-weight: bolder;
             user-select: none;
             padding: 4px 6px;
-            transform: scale(1, 1);
+            aspect-ratio: 1 / 1;
+            @* transform: scale(1.5, 1); *@
         }
         td:hover {
             background-color: #e0e0e0;
             color: black;
             cursor: pointer;
         }
+        td .mud-link {
+            aspect-ratio: 1 / 1;
+            font-family: 'Monaco', monospace !important;
+            font-weight: bolder;
+            font-size: 1em;
+        }
+
     </style>
-    <MudText Typo="Typo.h2" Align="Align.Center">@Game?.Title</MudText>   
     <MudDivider />
     <MudStack Row="true" Class="border-solid border-2 mud-border-primary pa-4 rounded">
+        <MudHidden Breakpoint="Breakpoint.SmAndDown">
+            <MudText Typo="Typo.h2" Align="Align.Center" Style="writing-mode: vertical-rl;">@Game?.Title</MudText>   
+        </MudHidden>
         <MudContainer Class="pl-0 pr-0">
             <table>
                 @for (var x = 0; x < Game.GameGrid.Width; x++) {
@@ -38,7 +45,6 @@
                             var rowCell = Game.GameGrid.RowCells.First(rs => rs.X == x && rs.Y == y);
                             <td>
                                 <RowCellComponent RowCell=rowCell OnClick=@(() => HandleCellClick(rowCell)) />
-                                @* <MudLink OnClick=@(() => HandleCellClick(rowCell.Letter))>@rowCell.Letter</MudLink> *@
                             </td>
                         }
                     </tr>
@@ -50,14 +56,18 @@
                 Hidden Words
             </MudText>
             <MudDivider />
-            <MudStack Class="mt-6">
+            <MudStack Class="my-6">
                 @foreach (var word in Game?.GameGrid.HiddenWords)
                 {
-                    <MudText Typo="Typo.h4" Align="Align.Center">@word.Word</MudText>
+                    <MudChip Color="Color.Primary" Size="Size.Large">
+                        <MudText Class="p-8" Typo="Typo.h5" Align="Align.Center">@word.Word</MudText>
+                    </MudChip>
                 }
             </MudStack>
-            <MudButton Style="justify-self: flex-end;" Variant="Variant.Filled" Color="Color.Primary" OnClick=OnRecreateGame FullWidth="true" >Recreate Game</MudButton>  
-            <MudButton Style="justify-self: flex-end;" Variant="Variant.Filled" Color="Color.Primary" OnClick=OnEndGame FullWidth="true" >End Game</MudButton>    
+            <MudStack>
+                <MudButton Style="justify-self: flex-end;" Variant="Variant.Filled" Color="Color.Secondary" OnClick=OnRecreateGame FullWidth="true" >Recreate Game</MudButton>  
+                <MudButton Style="justify-self: flex-end;" Variant="Variant.Filled" Color="Color.Secondary" OnClick=BackToAllGames FullWidth="true" >All Games</MudButton>    
+            </MudStack>
         </MudContainer>
     </MudStack>
 
@@ -66,9 +76,6 @@
 @code {
     [Parameter]
     public GameViewModel? Game { get; set; }
-
-    [Parameter]
-    public EventCallback OnEndGame { get; set; }
         
     [Parameter]
     public EventCallback OnRecreateGame { get; set; }
@@ -86,6 +93,11 @@
     private void HandleCellClick(RowCellViewModel rowCell)
     {
         Console.WriteLine($"Clicked Cell X={rowCell.X} Y={rowCell.Y} {rowCell.Letter}");
+    }
+
+    private void BackToAllGames()
+    {
+        NavigationManager.NavigateTo("/wsk/allgames");
     }
 
 }

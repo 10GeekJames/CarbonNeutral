@@ -3,10 +3,8 @@
 <MudThemeProvider @ref="@_mudThemeProvider" Theme="_selectedMudTheme" @bind-IsDarkMode="@_isDarkMode" />
 <MudDialogProvider />
 <MudSnackbarProvider />
-
-
 <MudLayout>
-    <MudAppBar Elevation="1" Dense="true" Color="Color.Primary">
+    <MudAppBar Elevation="1" Dense="true" Color="Color.Primary" Fixed="true">
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start"
             OnClick="@((e) => DrawerToggle())" />
         <MudSpacer />
@@ -32,21 +30,14 @@
             <NavMenu />
         </MudDrawer>
     </MudHidden>
-
     <MudMainContent>
         <MudContainer MaxWidth="MaxWidth.ExtraExtraLarge" Class="pl-0 pr-0 pr-md-4 pl-md-4">
             <Breadcrumb />
             @Body
             <ModuleNav />
             <ModuleSettings />
-
-            
-            <ModuleNav />
-            <ModuleSettings />
-
         </MudContainer>
     </MudMainContent>
-
 </MudLayout>
 
 
@@ -55,10 +46,16 @@
     private bool _isDarkMode;
     private MudThemeProvider _mudThemeProvider;
     MudTheme _selectedMudTheme;
+    private bool _appBarOpen = true;
 
-    void DrawerToggle()
+    private void DrawerToggle()
     {
         _drawerOpen = !_drawerOpen;
+    }
+
+    private void AppBarToggle()
+    {
+        _appBarOpen = !_appBarOpen;
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -71,5 +68,4 @@
             StateHasChanged();
         }
     }
- 
 }
