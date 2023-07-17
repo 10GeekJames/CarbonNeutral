@@ -49,7 +49,7 @@ RegisterLazyServices.RegisterModules(builder);
 
 builder
                 .Services
-                    .AddHttpClient("WskModuleHttpClient",
+                    .AddHttpClient("WskHttpClient",
                             client =>
                             {
                                 client.BaseAddress = new Uri(appSettings.Endpoints.WskAdminApiUrl);
@@ -67,19 +67,19 @@ builder
                     );
 
             // register the http client factory
-            builder.Services.AddScoped<WskModuleHttpClientFactory>();
+            builder.Services.AddScoped<WskHttpClientFactory>();
 
             // allow the lazy modules an opportunity to participate in Dependency Injection
-            builder.Services.AddWskModuleHttpDataService();
+            builder.Services.AddWskHttpDataService();
 
             // setup the dependency injector to get a new instance of httpclient from the factory you registered above for the authorized calls
             builder.Services.AddScoped<IWskDataService>(x => x
-                .GetServices<WskModuleHttpClientFactory>()
+                .GetServices<WskHttpClientFactory>()
                 .First().Create());
 
             // setup the dependency injector to get a new instance of httpclient from the factory you registered above for the not authorized calls
             builder.Services.AddScoped<IWskDataService>(x => x
-                .GetServices<WskModuleHttpClientFactory>()
+                .GetServices<WskHttpClientFactory>()
                 .First().CreateNotAuthed());
 
 

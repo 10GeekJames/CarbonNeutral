@@ -24,7 +24,8 @@
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();                     
-        _games = await WskDataService.GamesGetAllAsync();
+        var request = new GamesGetAllRequest();
+        _games = await WskDataService.GamesGetAllAsync(request);
     }
 
     protected async Task NavigateToGame(string gameId)

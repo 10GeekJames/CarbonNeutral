@@ -1,11 +1,11 @@
 namespace WskModuleClientServiceLoader
 {
-    public static class WskModuleHttpClientFactoryExtension
+    public static class WskHttpClientFactoryExtension
     {
-        public static void AddWskModuleHttpDataService(this IServiceCollection serviceCollection)
+        public static void AddWskHttpDataService(this IServiceCollection serviceCollection)
         {
-            serviceCollection.AddSingleton<IWskDataService, WskModuleHttpDataService>();
-            serviceCollection.AddSingleton<IWskDataServiceNotAuthed, WskModuleHttpDataService>();
+            serviceCollection.AddSingleton<IWskDataService, WskHttpDataService>();
+            serviceCollection.AddSingleton<IWskDataServiceNotAuthed, WskHttpDataService>();
         }
     }
 }

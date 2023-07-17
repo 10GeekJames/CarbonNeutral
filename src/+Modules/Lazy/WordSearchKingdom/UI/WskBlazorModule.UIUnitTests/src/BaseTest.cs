@@ -62,8 +62,8 @@ public class BaseTest
         var mockIWskDataService = Mock.Create<IWskDataService>();
         ctx.Services.AddSingleton<IWskDataService>(mockIWskDataService);
 
-        var mockWskModuleHttpClientFactory = Mock.Create<WskModuleHttpClientFactory>();
-        ctx.Services.AddSingleton<WskModuleHttpClientFactory>(mockWskModuleHttpClientFactory);
+        var mockWskHttpClientFactory = Mock.Create<WskHttpClientFactory>();
+        ctx.Services.AddSingleton<WskHttpClientFactory>(mockWskHttpClientFactory);
         // \WordSearchKingdom       
 
         ctx.Services.AddSingleton<LazyAssemblyLoader>();

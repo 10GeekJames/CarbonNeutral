@@ -1,21 +1,21 @@
 namespace WskModuleClientServiceLoader
 {
-    public class WskModuleHttpClientFactory
+    public class WskHttpClientFactory
     {
         private readonly IServiceProvider _services;
 
-        public WskModuleHttpClientFactory(IServiceProvider services)
+        public WskHttpClientFactory(IServiceProvider services)
         {
             this._services = services;
         }
 
         public IWskDataService Create()
         {
-            return new WskModuleHttpDataService(this._services.GetRequiredService<IHttpClientFactory>().CreateClient("WskModuleHttpClient"));
+            return new WskHttpDataService(this._services.GetRequiredService<IHttpClientFactory>().CreateClient("WskHttpClient"));
         }
         public IWskDataServiceNotAuthed CreateNotAuthed()
         {
-            return new WskModuleHttpDataService(this._services.GetRequiredService<IHttpClientFactory>().CreateClient("WskNotAuthedHttpClient"));
+            return new WskHttpDataService(this._services.GetRequiredService<IHttpClientFactory>().CreateClient("WskNotAuthedHttpClient"));
         }
     }
 }
