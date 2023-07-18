@@ -1,9 +1,7 @@
 @inject IStringLocalizer<RowCellComponent> Localize
-<MudLink OnClick=OnClick Underline="Underline.None">@RowCell.Letter</MudLink>
+<MudText>@RowCell.Letter</MudText>
 
 @code {
     [Parameter]
-    public RowCellViewModel RowCell {get;set;}
-    [Parameter]
-    public EventCallback OnClick { get; set; }    
+    public RowCellViewModel? RowCell {get;set;}
 }

@@ -13,9 +13,10 @@
             font-family: 'Monaco', monospace;
             border: 1px solid white;
             min-width: 33px;
+            min-height: 33px;
             text-align: center;
             user-select: none;
-            padding: 4px 6px;
+            @* padding: 4px 6px; *@
             aspect-ratio: 1 / 1;
             @* transform: scale(1.5, 1); *@
         }
@@ -44,7 +45,9 @@
                         @for (var y = 0; y < Game.GameGrid.Height; y++) {
                             var rowCell = Game.GameGrid.RowCells.First(rs => rs.X == x && rs.Y == y);
                             <td>
-                                <RowCellComponent RowCell=rowCell OnClick=@(() => HandleCellClick(rowCell)) />
+                                <MudLink OnClick="@((e) => HandleCellClick(e, rowCell))"Underline="Underline.None" >
+                                    <RowCellComponent RowCell=rowCell  />
+                                </MudLink>
                             </td>
                         }
                     </tr>
@@ -81,8 +84,8 @@
     public EventCallback OnRecreateGame { get; set; }
 
     // delcare first click and second click variables 
-    private string firstClick { get; set; }
-    private string secondClick { get; set; }
+    private RowCellViewModel? firstClick { get; set; }
+    private RowCellViewModel? secondClick { get; set; }
     private string selectedWord {get; set; } = "";
     
     protected override async Task OnInitializedAsync()
@@ -90,8 +93,9 @@
         await base.OnInitializedAsync();                     
     }
 
-    private void HandleCellClick(RowCellViewModel rowCell)
+    private void HandleCellClick(MouseEventArgs e, RowCellViewModel rowCell)
     {
+        Console.WriteLine($"Clicked Cell X={rowCell.X} Y={rowCell.Y} {rowCell.Letter}");
         Console.WriteLine($"Clicked Cell X={rowCell.X} Y={rowCell.Y} {rowCell.Letter}");
     }
 
