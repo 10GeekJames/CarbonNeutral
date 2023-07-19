@@ -1,0 +1,76 @@
+@page "/wsk/newgame"
+
+@using System.Text.RegularExpressions
+@using System.ComponentModel.DataAnnotations
+@inject IStringLocalizer<NewGame> Localize
+
+<PageTitle>Word Search Kingdom - Create New Game</PageTitle>
+
+<MudContainer>
+    <MudPaper Class="pa-4">
+        <MudForm @ref="form" @bind-IsValid="@success">
+            <MudTextField @bind-Value=_gameTitle T="string" Label="Game Title" Required="true" RequiredError="Game Title is required!" />
+            <MudNumericField @bind-Value=_gridSize Min=0 Label="Grid Size" Required="true" RequiredError="Grid Size is required!"  />
+            <MudTextField @bind-Value=_wordsToHide T="string" Label="Words To Hide" Lines="6"  Required="true"HelperText="Seperate list by , or new lines" RequiredError="Words are required!"/>
+            <MudSelect @bind-Value=_difficulty T="GameDifficulties" Label="Difficulty" AnchorOrigin="Origin.BottomCenter">
+                <MudSelectItem Value=GameDifficulties.Easy >Easy</MudSelectItem>
+                <MudSelectItem Value=GameDifficulties.Medium >Medium</MudSelectItem>
+                <MudSelectItem Value=GameDifficulties.Hard >Hard</MudSelectItem>
+                <MudSelectItem Value=GameDifficulties.ExtraHard >Extreme</MudSelectItem>
+            </MudSelect>
+            <MudTextField @bind-Value=_categories T="string" Label="Categories" />
+            <MudTextField  @bind-Value=_tags T="string" Label="Tags" />
+            <div class="d-flex align-center justify-space-between">
+                <MudCheckBox T="bool" Required="true" RequiredError="You should double check." Label="Everything is Complete"  />
+                <MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="@(!success)" Class="ml-auto" OnClick=@CreateNewGame>Create Game</MudButton>
+            </div>
+        </MudForm>   
+    </MudPaper>
+</MudContainer>
+
+
+@code {
+    bool success;
+    string _gameTitle { get; set; } = "";
+    int _gridSize { get; set; } = 25;
+    string _wordsToHide { get; set; } = "";
+    GameDifficulties _difficulty { get; set; } = GameDifficulties.Easy;
+    string _categories { get; set; } = "General";
+    string _tags { get; set; } = "General";
+
+    MudForm? form;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+    }
+
+    public async Task CreateNewGame()
+    {
+        form?.Validate();
+        if (_wordsToHide is null)
+        {
+            return;
+        }
+
+        List<HiddenWordViewModel> hiddenWords = _wordsToHide.Split(new[] { "\r\n", "\r", "\n", "," }, StringSplitOptions.RemoveEmptyEntries)
+            .Select(word => new HiddenWordViewModel { Word = word.Trim() })
+            .ToList();
+
+        List<GameCategoryViewModel> categories = _categories.Split(new[] { "\r\n", "\r", "\n", "," }, StringSplitOptions.RemoveEmptyEntries)
+            .Select(category => new GameCategoryViewModel { Title = category.Trim() })
+            .ToList();
+
+        List<GameTagViewModel> tags = _tags.Split(new[] { "\r\n", "\r", "\n", "," }, StringSplitOptions.RemoveEmptyEntries)
+            .Select(tag => new GameTagViewModel { Title = tag.Trim() })
+            .ToList();
+
+        @* Console.WriteLine(hiddenWords.Count());
+        hiddenWords.ForEach(word => Console.WriteLine(word.Word)); *@
+
+        var request = new GameCreateNewRequest(_gameTitle, _gridSize, _gridSize, hiddenWords, _difficulty, categories, tags);
+        GameViewModel game = await WskDataService.GameCreateNewAsync(request); 
+        NavigationManager.NavigateTo($"/wsk/game/{game.Id}"); 
+    }
+
+}

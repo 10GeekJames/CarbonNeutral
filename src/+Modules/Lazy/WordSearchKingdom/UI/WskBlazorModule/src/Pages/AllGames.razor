@@ -14,6 +14,7 @@
             }
         </MudGrid>
     </MudPaper>
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick=@NavigateToNewGame>Create New Game</MudButton>
 </div>
 
 @code {
@@ -31,5 +32,9 @@
     protected async Task NavigateToGame(string gameId)
     {
         NavigationManager.NavigateTo($"/wsk/game/{gameId}");
+    }
+    protected async Task NavigateToNewGame()
+    {
+        NavigationManager.NavigateTo("/wsk/newgame");
     }
 }

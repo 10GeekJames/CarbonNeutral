@@ -4,7 +4,7 @@ public partial class WskHttpDataService
 {
     public async Task<GameViewModel?> GameCreateNewAsync(GameCreateNewRequest request)
     {
-        var response = await _httpClient.GetAsync(request.BuildRouteFrom());
+        var response = await _httpClient.PostAsJsonAsync(request.BuildRouteFrom(), request);
 
         response.EnsureSuccessStatusCode();
 
