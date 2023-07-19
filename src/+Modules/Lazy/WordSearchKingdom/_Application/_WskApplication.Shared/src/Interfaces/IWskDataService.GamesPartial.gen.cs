@@ -6,5 +6,6 @@ public partial interface IWskDataService
     Task<GameViewModel?> GameGetByIdAsync(GameGetByIdRequest request);
     Task<GameViewModel?> GameRecreateGridAsync(GameRecreateGridRequest request);
     Task<List<GameViewModel>?> GamesGetAllAsync(GamesGetAllRequest request);
+    Task<GameViewModel?> GameCheckWordCoordsAsync(GameCheckWordCoordsRequest request);
 
 }

@@ -153,6 +153,9 @@ namespace WskApplication.Data.Migrations
                     b.Property<Guid?>("GameGridId")
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("IsFound")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime>("UpdatedOn")
                         .HasColumnType("TEXT");
 
@@ -178,6 +181,15 @@ namespace WskApplication.Data.Migrations
 
                     b.Property<Guid?>("GameGridId")
                         .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsCompletedSet")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsEndHighlight")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsStartHighlight")
+                        .HasColumnType("INTEGER");
 
                     b.Property<char>("Letter")
                         .HasColumnType("TEXT");

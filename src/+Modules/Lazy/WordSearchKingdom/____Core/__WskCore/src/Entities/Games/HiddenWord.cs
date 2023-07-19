@@ -3,6 +3,7 @@ namespace WskCore.Entities;
 public class HiddenWord : BaseEntityTracked<Guid>
 {
     public string Word { get; private set; }
+    public bool IsFound { get; private set; } = false;
         
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     private HiddenWord() { }
@@ -12,4 +13,7 @@ public class HiddenWord : BaseEntityTracked<Guid>
     {
         Word = word;
     }
+    public void SetFound() => IsFound = true;
+
+    public void ResetFound() => IsFound = false;
 }

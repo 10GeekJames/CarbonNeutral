@@ -35,6 +35,7 @@ public class GameGrid : BaseEntityTracked<Guid>
         _rowCells = setupGrid(Height, Width);
         hideTheWordsOnGrid(HiddenWords);
         fillEmptySpacesInTheGrid();
+        _hiddenWords.ForEach(word => word.ResetFound());
     }
 
     public char[][] ToStringArray()

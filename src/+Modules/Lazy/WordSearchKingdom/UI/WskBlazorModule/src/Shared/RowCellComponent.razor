@@ -1,5 +1,18 @@
 @inject IStringLocalizer<RowCellComponent> Localize
-<MudText>@RowCell.Letter</MudText>
+
+@if (RowCell.IsStartHighlight)
+{
+    <MudText Color="Color.Success">@RowCell.Letter</MudText>
+    
+} else if (RowCell.IsEndHighlight)
+{
+    <MudText Color="Color.Success">@RowCell.Letter</MudText>
+} else if (RowCell.IsCompletedSet)
+{
+    <MudText Color="Color.Warning">@RowCell.Letter</MudText>
+} else {
+    <MudText>@RowCell.Letter</MudText>
+}
 
 @code {
     [Parameter]

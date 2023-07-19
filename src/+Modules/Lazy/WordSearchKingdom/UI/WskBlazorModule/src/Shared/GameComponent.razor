@@ -1,31 +1,27 @@
 @inject IStringLocalizer<GameComponent> Localize
 <MudContainer>
     <style>
-        table {
-            max-height: 20px;
-            max-width: 80%;
-            height: fit-content;
+        .play-area-grid {
+            display: grid;
             border-collapse: collapse;
-            line-height: 1;
-            margin: 0 auto;
         }
-        td {
+        .grid-cell {
             font-family: 'Monaco', monospace;
-            border: 1px solid white;
-            min-width: 33px;
-            min-height: 33px;
+            @* border: 1px solid white; *@
+            width: 33px;
+            height: 33px;
             text-align: center;
             user-select: none;
             @* padding: 4px 6px; *@
             aspect-ratio: 1 / 1;
             @* transform: scale(1.5, 1); *@
         }
-        td:hover {
+        .grid-cell:hover {
             background-color: #e0e0e0;
             color: black;
             cursor: pointer;
         }
-        td .mud-link {
+        .grid-cell .mud-link {
             aspect-ratio: 1 / 1;
             font-family: 'Monaco', monospace !important;
             font-weight: bolder;
@@ -39,20 +35,16 @@
             <MudText Typo="Typo.h2" Align="Align.Center" Style="writing-mode: vertical-rl;">@Game?.Title</MudText>   
         </MudHidden>
         <MudContainer Class="pl-0 pr-0">
-            <table>
+            <div class="play-area-grid" Style="@(($"grid-template-rows: repeat({Game.GameGrid.Width}, 1fr); grid-template-columns: repeat({Game.GameGrid.Height}, 1fr);"))">
                 @for (var x = 0; x < Game.GameGrid.Width; x++) {
-                    <tr >
-                        @for (var y = 0; y < Game.GameGrid.Height; y++) {
-                            var rowCell = Game.GameGrid.RowCells.First(rs => rs.X == x && rs.Y == y);
-                            <td>
-                                <MudLink OnClick="@((e) => HandleCellClick(e, rowCell))"Underline="Underline.None" >
-                                    <RowCellComponent RowCell=rowCell  />
-                                </MudLink>
-                            </td>
-                        }
-                    </tr>
+                    @for (var y = 0; y < Game.GameGrid.Height; y++) {
+                        var rowCell = Game.GameGrid.RowCells.First(rs => rs.X == x && rs.Y == y);
+                            <MudLink Class="grid-cell" OnClick="@((e) => HandleCellClick(e, rowCell))"Underline="Underline.None" >
+                                <RowCellComponent RowCell=rowCell  />
+                            </MudLink>
+                    }
                 }
-            </table>
+            </div>
         </MudContainer>
         <MudContainer Class="border-solid border-2 mud-border-primary pa-4 rounded" Style="width: 100%;">
             <MudText Typo="Typo.h3" Align="Align.Center">
@@ -62,7 +54,7 @@
             <MudStack Class="my-6">
                 @foreach (var word in Game?.GameGrid.HiddenWords)
                 {
-                    <MudChip Color="Color.Primary" Size="Size.Large">
+                    <MudChip Color=@isFoundStyling(word.IsFound) Size="Size.Large">
                         <MudText Class="p-8" Typo="Typo.h5" Align="Align.Center">@word.Word</MudText>
                     </MudChip>
                 }
@@ -79,29 +71,53 @@
 @code {
     [Parameter]
     public GameViewModel? Game { get; set; }
-        
     [Parameter]
     public EventCallback OnRecreateGame { get; set; }
-
-    // delcare first click and second click variables 
     private RowCellViewModel? firstClick { get; set; }
     private RowCellViewModel? secondClick { get; set; }
-    private string selectedWord {get; set; } = "";
+
+    private MudBlazor.Color isFoundStyling(bool isFound) {
+        if (isFound) {
+            return Color.Error;
+        }
+        return Color.Primary;
+    }
     
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();                     
     }
 
-    private void HandleCellClick(MouseEventArgs e, RowCellViewModel rowCell)
+    private async Task HandleCellClick(MouseEventArgs e, RowCellViewModel rowCell)
     {
         Console.WriteLine($"Clicked Cell X={rowCell.X} Y={rowCell.Y} {rowCell.Letter}");
-        Console.WriteLine($"Clicked Cell X={rowCell.X} Y={rowCell.Y} {rowCell.Letter}");
+        Console.WriteLine($"{rowCell.IsStartHighlight}");
+
+        if (firstClick == null)
+        {
+            firstClick = rowCell;
+            firstClick.IsStartHighlight = true;
+        }
+        else if (secondClick == null)
+        {
+            secondClick = rowCell;
+            secondClick.IsEndHighlight = true;
+
+            var request = new GameCheckWordCoordsRequest(Game.Id, firstClick.X, firstClick.Y, secondClick.X, secondClick.Y);
+            Game = await WskDataService.GameCheckWordCoordsAsync(request);
+        }
+        else
+        {
+            firstClick.IsStartHighlight = false;
+            secondClick.IsEndHighlight = false;
+            firstClick = rowCell;
+            firstClick.IsStartHighlight = true;
+            secondClick = null;
+        }
     }
 
     private void BackToAllGames()
     {
         NavigationManager.NavigateTo("/wsk/allgames");
     }
-
 }

@@ -35,21 +35,6 @@
             "stopAtEntry": false
         },
         {
-            "name": "API.WskApi",
-            "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build-API.WskApi",
-            "program": "${workspaceFolder}\\src\\+Modules\\Required\\WordSearchKingdom\\+Api\\API.WskApi\\src\\bin\\Debug\\net7.0\\API.WskApi.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}\\src\\+Modules\\Required\\WordSearchKingdom\\+Api\\API.WskApi\\src\\",
-            "console": "internalConsole",
-            "stopAtEntry": false,
-            "serverReadyAction": {
-                "action": "openExternally",
-                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
-            }
-        },
-        {
             "name": ".NET Core Attach",
             "type": "coreclr",
             "request": "attach"
@@ -84,6 +69,26 @@
             },
             "sourceFileMap": {
                 "/Views": "${workspaceFolder}/src/+Modules/Required/AccountModule/+API/+AccountModuleApi/src/Views"
+            }
+        },
+        {
+            "name": "WskApi",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-WskApi",
+            "program": "${workspaceFolder}/src/+Modules/Lazy/WordSearchKingdom/+Api/WskApi/src/bin/Debug/net7.0/WskApi.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/+Modules/Lazy/WordSearchKingdom/+Api/WskApi/src",
+            "stopAtEntry": false,
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/src/+Modules/Lazy/WordSearchKingdom/+Api/WskApi/src/Views"
             }
         }
     ]

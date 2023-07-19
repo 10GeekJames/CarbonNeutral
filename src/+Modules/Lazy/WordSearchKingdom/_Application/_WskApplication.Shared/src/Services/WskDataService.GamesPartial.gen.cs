@@ -24,7 +24,7 @@ public partial class WskHttpDataService
     }
     public async Task<GameViewModel?> GameRecreateGridAsync(GameRecreateGridRequest request)
     {
-        var response = await _httpClient.GetAsync(request.BuildRouteFrom());
+        var response = await _httpClient.PostAsJsonAsync(request.BuildRouteFrom(), request);
 
         response.EnsureSuccessStatusCode();
 
@@ -41,6 +41,17 @@ public partial class WskHttpDataService
         return await response
             .Content
             .ReadFromJsonAsync<List<GameViewModel>?>();
+    }
+
+    public async Task<GameViewModel?> GameCheckWordCoordsAsync(GameCheckWordCoordsRequest request)
+    {
+        var response = await _httpClient.PostAsJsonAsync(request.BuildRouteFrom(), request);
+
+        response.EnsureSuccessStatusCode();
+
+        return await response
+            .Content
+            .ReadFromJsonAsync<GameViewModel?>();
     }
 
 }

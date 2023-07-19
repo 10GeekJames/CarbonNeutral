@@ -22,5 +22,10 @@ public partial class WskDirectDataService
         var qry = _mapper.Map<GamesGetAllQry>(request);
         return _mapper.Map<List<GameViewModel>?>(await _mediator.Send(qry));
     }
+    public async Task<GameViewModel?> GameCheckWordCoordsAsync(GameCheckWordCoordsRequest request)
+    {
+        var qry = _mapper.Map<GameCheckWordCoordsQry>(request);
+        return _mapper.Map<GameViewModel?>(await _mediator.Send(qry));
+    }
 
 }

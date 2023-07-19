@@ -110,42 +110,6 @@
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "build-API.WskApi",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "build",
-                "${workspaceFolder}\\src\\+Modules\\Required\\WordSearchKingdom\\+Api\\API.WskApi\\src\\API.WskApi.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
-            ],
-            "problemMatcher": "$msCompile"
-        },
-        {
-            "label": "publish-API.WskApi",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "publish",
-                "${workspaceFolder}\\src\\+Modules\\Required\\WordSearchKingdom\\+Api\\API.WskApi\\src\\API.WskApi.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
-            ],
-            "problemMatcher": "$msCompile"
-        },
-        {
-            "label": "watch-API.WskApi",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "watch",
-                "run",
-                "--project",
-                "${workspaceFolder}\\src\\+Modules\\Required\\WordSearchKingdom\\+Api\\API.WskApi\\src\\API.WskApi.csproj"
-            ],
-            "problemMatcher": "$msCompile"
-        },
-        {
             "label": "build-CarbonNeutral.BlazorClient",
             "command": "dotnet",
             "type": "process",
@@ -164,6 +128,18 @@
             "args": [
                 "build",
                 "${workspaceFolder}/src/+Modules/Required/AccountModule/+API/+AccountModuleApi/src/AccountModuleApi.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build-WskApi",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/+Modules/Lazy/WordSearchKingdom/+Api/WskApi/src/WskApi.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],

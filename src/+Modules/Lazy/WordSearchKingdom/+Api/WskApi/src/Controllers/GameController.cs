@@ -27,4 +27,12 @@ public class GameController : BaseController
         var response = _mapper.Map<GameViewModel>(result);
         return Ok(response);
     }
+    [HttpPost]
+    public async Task<IActionResult> CheckWordCoords([FromBody] GameCheckWordCoordsQry qry)
+    {
+        var result = await _mediator.Send(qry);
+        var response = _mapper.Map<GameViewModel>(result);
+        return Ok(response);
+    }
 }
+
