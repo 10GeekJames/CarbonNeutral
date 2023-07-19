@@ -3,7 +3,7 @@
 @inject IStringLocalizer<AllGames> Localize
 
 <div>
-    <MudText Typo="Typo.h4" Align="Align.Center" Style="text-wrap: balance;">Word Seach Kingdom - All Games</MudText>
+    <MudText Typo="Typo.h4" Align="Align.Center" Style="text-wrap: balance;">Word Search Kingdom - All Games</MudText>
     <MudPaper Class="mt-4">
         <MudGrid Justify="Justify.Center">
             @foreach (var game in _games)
@@ -13,8 +13,8 @@
                 </MudItem>
             }
         </MudGrid>
+        <MudButton Class="mt-8" FullWidth="true" Variant="Variant.Filled" Color="Color.Primary" OnClick=@NavigateToNewGame>Create New Game</MudButton>
     </MudPaper>
-    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick=@NavigateToNewGame>Create New Game</MudButton>
 </div>
 
 @code {

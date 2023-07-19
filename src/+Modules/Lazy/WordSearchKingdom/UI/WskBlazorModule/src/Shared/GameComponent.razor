@@ -30,23 +30,22 @@
 
     </style>
     <MudDivider />
-    <MudStack Row="true" Class="border-solid border-2 mud-border-primary pa-4 rounded">
+    <MudBreakpointProvider OnBreakpointChanged="((e) => SetStackDirection(e))"/>
+    <MudStack Row=isRow Class="d-flex flex-row border-md-solid border-xs-none border-xs-0 border-2 mud-border-primary pa-4 rounded">
         <MudHidden Breakpoint="Breakpoint.SmAndDown">
             <MudText Typo="Typo.h2" Align="Align.Center" Style="writing-mode: vertical-rl;">@Game?.Title</MudText>   
         </MudHidden>
-        <MudContainer Class="pl-0 pr-0">
-            <div class="play-area-grid" Style="@(($"grid-template-rows: repeat({Game.GameGrid.Width}, 1fr); grid-template-columns: repeat({Game.GameGrid.Height}, 1fr);"))">
-                @for (var x = 0; x < Game.GameGrid.Width; x++) {
-                    @for (var y = 0; y < Game.GameGrid.Height; y++) {
-                        var rowCell = Game.GameGrid.RowCells.First(rs => rs.X == x && rs.Y == y);
-                            <MudLink Class="grid-cell" OnClick="@((e) => HandleCellClick(e, rowCell))"Underline="Underline.None" >
-                                <RowCellComponent RowCell=rowCell  />
-                            </MudLink>
-                    }
+        <div class="play-area-grid" Style="@(($"grid-template-rows: repeat({Game.GameGrid.Width}, 1fr); grid-template-columns: repeat({Game.GameGrid.Height}, 1fr);"))">
+            @for (var x = 0; x < Game.GameGrid.Width; x++) {
+                @for (var y = 0; y < Game.GameGrid.Height; y++) {
+                    var rowCell = Game.GameGrid.RowCells.First(rs => rs.X == x && rs.Y == y);
+                        <MudLink Class="grid-cell" OnClick="@((e) => HandleCellClick(e, rowCell))"Underline="Underline.None" >
+                            <RowCellComponent RowCell=rowCell  />
+                        </MudLink>
                 }
-            </div>
-        </MudContainer>
-        <MudContainer Class="border-solid border-2 mud-border-primary pa-4 rounded" Style="width: 100%;">
+            }
+        </div>
+        <MudContainer Class="border-solid border-xs-0 border-2 mud-border-primary pa-4 rounded" Style="width: 100%;">
             <MudText Typo="Typo.h3" Align="Align.Center">
                 Hidden Words
             </MudText>
@@ -75,6 +74,21 @@
     public EventCallback OnRecreateGame { get; set; }
     private RowCellViewModel? firstClick { get; set; }
     private RowCellViewModel? secondClick { get; set; }
+    bool isRow { get; set; }
+
+    private void SetStackDirection(MudBlazor.Breakpoint breakpoint)
+    {
+        Console.WriteLine($"breakpoint: {breakpoint}");
+        if (breakpoint == MudBlazor.Breakpoint.Sm || breakpoint == MudBlazor.Breakpoint.Xs)
+        {
+            isRow = false;
+        }
+        else
+        {
+            isRow = true;
+        }
+        Console.WriteLine($"isRow: {isRow}");
+    }
 
     private MudBlazor.Color isFoundStyling(bool isFound) {
         if (isFound) {
