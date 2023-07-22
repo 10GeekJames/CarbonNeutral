@@ -1,5 +1,5 @@
 @inject IStringLocalizer<GameComponent> Localize
-<MudContainer>
+<div class="border-md-solid border-xs-none border-xs-0 border-2 mud-border-primary pa-4 rounded main-game-container">
     <style>
         .play-area-grid {
             display: grid;
@@ -10,6 +10,7 @@
             height: fit-content;
             width: fit-content;
             gap: 0;
+            padding: 0 50px 0 0;
         }
         .grid-cell {
             display: flex;
@@ -37,14 +38,18 @@
             font-weight: bolder;
             font-size: 1em;
         }
+        .main-game-container {
+            width: fit-content;
+            margin: 0 auto;
+        }
 
     </style>
     <MudBreakpointProvider OnBreakpointChanged="((e) => SetStackDirection(e))"/>
-    <MudStack Row=isRow Class="pa-4 rounded" AlignItems="AlignItems.Center">
-        <MudHidden Breakpoint="Breakpoint.SmAndDown">
-            <MudText Typo="Typo.h2" Align="Align.Center" Style="writing-mode: vertical-rl;">@Game?.Title</MudText>   
-        </MudHidden>
-        <div>
+    <MudStack Row=isRow Class="pa-4 rounded" AlignItems="AlignItems.Center" Justify="Justify.Center">
+        <div class="d-flex">
+            <MudHidden Breakpoint="Breakpoint.SmAndDown">
+                <MudText Typo="Typo.h2" Align="Align.Center" Style="writing-mode: vertical-rl;">@Game?.Title</MudText>   
+            </MudHidden>
             <div class="play-area-grid align-items-center" Style="@(($"grid-template-rows: repeat({Game.GameGrid.Width}, 1fr); grid-template-columns: repeat({Game.GameGrid.Height}, 1fr);"))">
                 @for (var x = 0; x < Game.GameGrid.Width; x++) {
                     @for (var y = 0; y < Game.GameGrid.Height; y++) {
@@ -56,7 +61,7 @@
                 }
             </div>
         </div>
-        <MudContainer Class="border-solid border-xs-0 border-2 mud-border-primary pa-4 rounded" Style="width: 100%;">
+        <MudContainer Class="border-solid border-xs-0 border-2 mud-border-primary pa-4 rounded ma-0" Style="max-width: 25%;">
             <MudText Typo="Typo.h3" Align="Align.Center">
                 Hidden Words
             </MudText>
@@ -69,14 +74,14 @@
                     </MudChip>
                 }
             </MudStack>
-            <MudStack>
+            <MudStack Spacing="4">
                 <MudButton Style="justify-self: flex-end;" Variant="Variant.Filled" Color="Color.Tertiary" OnClick=OnRecreateGame FullWidth="true" >Recreate Game</MudButton>  
                 <MudButton Style="justify-self: flex-end;" Variant="Variant.Filled" Color="Color.Tertiary" OnClick=BackToAllGames FullWidth="true" >All Games</MudButton>    
             </MudStack>
         </MudContainer>
     </MudStack>
 
-</MudContainer>
+</div>
 
 @code {
     [Parameter]
