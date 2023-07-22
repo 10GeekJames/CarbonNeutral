@@ -4,7 +4,7 @@
 <MudDialogProvider />
 <MudSnackbarProvider />
 <MudLayout>
-    <MudAppBar Elevation="1" Dense="true" Color="Color.Primary" Fixed="true">
+    <MudAppBar Elevation="1" Dense="true" Fixed="true">
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start"
             OnClick="@((e) => DrawerToggle())" />
         <MudSpacer />
@@ -42,21 +42,16 @@
 
 
 @code {
-    bool _drawerOpen = true;
+    bool _drawerOpen = false;
     private bool _isDarkMode;
     private MudThemeProvider _mudThemeProvider;
-    MudTheme _selectedMudTheme;
-    private bool _appBarOpen = true;
+    MudTheme _selectedMudTheme; 
 
     private void DrawerToggle()
     {
         _drawerOpen = !_drawerOpen;
     }
 
-    private void AppBarToggle()
-    {
-        _appBarOpen = !_appBarOpen;
-    }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {

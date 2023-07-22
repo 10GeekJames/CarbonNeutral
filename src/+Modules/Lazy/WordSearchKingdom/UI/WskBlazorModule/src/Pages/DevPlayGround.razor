@@ -1,0 +1,39 @@
+@page "/wsk/DevPlayGround"
+
+@inject IStringLocalizer<DevPlayGround> Localize
+
+<PageTitle>DevPlayGround</PageTitle>
+
+<MudField Label="Test Ground" Variant="Variant.Outlined">
+    <MudGrid Class="pa-4">
+        <MudTextField T="string" Label="Game Title" Required="true" RequiredError="Game Title is required!" />
+        <MudNumericField Min=0 Label="Grid Size" Required="true" RequiredError="Grid Size is required!"  />
+        <MudTextField T="string" Label="Game Title" Required="true" RequiredError="Game Title is required!" />
+        <MudButton Class="align-self-center" Variant="Variant.Filled" Color="Color.Primary">Create Game</MudButton>
+    </MudGrid>
+</MudField>
+<MudField Label="Test Ground" Variant="Variant.Outlined" Class="pt-16">
+    <MudGrid Class="pa-4">
+        <MudTextField T="string" Label="Game Title" Required="true" RequiredError="Game Title is required!" />
+        <MudNumericField Min=0 Label="Grid Size" Required="true" RequiredError="Grid Size is required!"  />
+        <MudTextField T="string" Label="Game Title" Required="true" RequiredError="Game Title is required!" />
+        <MudButton Class="align-self-center" Variant="Variant.Filled" Color="Color.Primary">Create Game</MudButton>
+    </MudGrid>
+</MudField>
+<MudField Label="Test Ground" Variant="Variant.Outlined">
+    <MudGrid Class="pa-4">
+        <MudTextField T="string" Label="Game Title" Required="true" RequiredError="Game Title is required!" />
+        <MudNumericField Min=0 Label="Grid Size" Required="true" RequiredError="Grid Size is required!"  />
+        <MudTextField T="string" Label="Game Title" Required="true" RequiredError="Game Title is required!" />
+        <MudButton Class="align-self-center" Variant="Variant.Filled" Color="Color.Primary">Create Game</MudButton>
+    </MudGrid>
+</MudField>
+
+@code {
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+    }
+
+}

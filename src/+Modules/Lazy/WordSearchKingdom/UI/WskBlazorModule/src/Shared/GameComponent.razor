@@ -4,14 +4,24 @@
         .play-area-grid {
             display: grid;
             border-collapse: collapse;
+            aspect-ratio: 1 / 1;
+            justify-content: center;
+            align-items: center;
+            height: fit-content;
+            width: fit-content;
+            gap: 0;
         }
         .grid-cell {
+            display: flex;
+            justify-content: center;
+            align-items: center;
             font-family: 'Monaco', monospace;
             @* border: 1px solid white; *@
-            width: 33px;
-            height: 33px;
+            width: 24px;
+            height: 24px;
             text-align: center;
             user-select: none;
+            font-size: 1.5em;
             @* padding: 4px 6px; *@
             aspect-ratio: 1 / 1;
             @* transform: scale(1.5, 1); *@
@@ -29,21 +39,22 @@
         }
 
     </style>
-    <MudDivider />
     <MudBreakpointProvider OnBreakpointChanged="((e) => SetStackDirection(e))"/>
-    <MudStack Row=isRow Class="d-flex flex-row border-md-solid border-xs-none border-xs-0 border-2 mud-border-primary pa-4 rounded">
+    <MudStack Row=isRow Class="pa-4 rounded" AlignItems="AlignItems.Center">
         <MudHidden Breakpoint="Breakpoint.SmAndDown">
             <MudText Typo="Typo.h2" Align="Align.Center" Style="writing-mode: vertical-rl;">@Game?.Title</MudText>   
         </MudHidden>
-        <div class="play-area-grid" Style="@(($"grid-template-rows: repeat({Game.GameGrid.Width}, 1fr); grid-template-columns: repeat({Game.GameGrid.Height}, 1fr);"))">
-            @for (var x = 0; x < Game.GameGrid.Width; x++) {
-                @for (var y = 0; y < Game.GameGrid.Height; y++) {
-                    var rowCell = Game.GameGrid.RowCells.First(rs => rs.X == x && rs.Y == y);
-                        <MudLink Class="grid-cell" OnClick="@((e) => HandleCellClick(e, rowCell))"Underline="Underline.None" >
-                            <RowCellComponent RowCell=rowCell  />
-                        </MudLink>
+        <div>
+            <div class="play-area-grid align-items-center" Style="@(($"grid-template-rows: repeat({Game.GameGrid.Width}, 1fr); grid-template-columns: repeat({Game.GameGrid.Height}, 1fr);"))">
+                @for (var x = 0; x < Game.GameGrid.Width; x++) {
+                    @for (var y = 0; y < Game.GameGrid.Height; y++) {
+                        var rowCell = Game.GameGrid.RowCells.First(rs => rs.X == x && rs.Y == y);
+                            <MudLink Class="grid-cell" OnClick="@((e) => HandleCellClick(e, rowCell))"Underline="Underline.None" >
+                                <RowCellComponent RowCell=rowCell  />
+                            </MudLink>
+                    }
                 }
-            }
+            </div>
         </div>
         <MudContainer Class="border-solid border-xs-0 border-2 mud-border-primary pa-4 rounded" Style="width: 100%;">
             <MudText Typo="Typo.h3" Align="Align.Center">
@@ -59,8 +70,8 @@
                 }
             </MudStack>
             <MudStack>
-                <MudButton Style="justify-self: flex-end;" Variant="Variant.Filled" Color="Color.Secondary" OnClick=OnRecreateGame FullWidth="true" >Recreate Game</MudButton>  
-                <MudButton Style="justify-self: flex-end;" Variant="Variant.Filled" Color="Color.Secondary" OnClick=BackToAllGames FullWidth="true" >All Games</MudButton>    
+                <MudButton Style="justify-self: flex-end;" Variant="Variant.Filled" Color="Color.Tertiary" OnClick=OnRecreateGame FullWidth="true" >Recreate Game</MudButton>  
+                <MudButton Style="justify-self: flex-end;" Variant="Variant.Filled" Color="Color.Tertiary" OnClick=BackToAllGames FullWidth="true" >All Games</MudButton>    
             </MudStack>
         </MudContainer>
     </MudStack>
