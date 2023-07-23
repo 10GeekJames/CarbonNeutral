@@ -2,33 +2,29 @@
 namespace WskApi.Controllers; 
 public partial class GameController : BaseController
 {
-    public GameController(IMediator mediator, IMapper mapper) : base(mediator, mapper) { }
+    public GameController(IMediator mediator, IMapper mapper, IDojoSurveysDataService dataService) : base(mediator, mapper, dataService) { }
     [HttpPost]
-    public async Task<IActionResult> CheckWordCoords(GameCheckWordCoordsQry qry)
+    public async Task<IActionResult> CheckWordCoords(GameCheckWordCoordsRequest request)
     {
-        var result = await _mediator.Send(qry);
-        var response = _mapper.Map<GameViewModel>(result);
+        var response = await _dataService.GameCheckWordCoordsAsync(request);
         return Ok(response);
     }
     [HttpPost]
-    public async Task<IActionResult> CreateNew(GameCreateNewCmd cmd)
+    public async Task<IActionResult> CreateNew(GameCreateNewRequest request)
     {
-        var result = await _mediator.Send(cmd);
-        var response = _mapper.Map<GameViewModel>(result);
+        var response = await _dataService.GameCreateNewAsync(request);
         return Ok(response);
     }
     [HttpPost]
-    public async Task<IActionResult> GetById(GameGetByIdQry qry)
+    public async Task<IActionResult> GetById(GameGetByIdRequest request)
     {
-        var result = await _mediator.Send(qry);
-        var response = _mapper.Map<GameViewModel>(result);
+        var response = await _dataService.GameGetByIdAsync(request);
         return Ok(response);
     }
     [HttpPost]
-    public async Task<IActionResult> RecreateGrid(GameRecreateGridCmd cmd)
+    public async Task<IActionResult> RecreateGrid(GameRecreateGridRequest request)
     {
-        var result = await _mediator.Send(cmd);
-        var response = _mapper.Map<GameViewModel>(result);
+        var response = await _dataService.GameRecreateGridAsync(request);
         return Ok(response);
     }
 

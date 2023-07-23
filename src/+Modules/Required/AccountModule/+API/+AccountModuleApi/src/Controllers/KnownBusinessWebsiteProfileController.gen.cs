@@ -2,12 +2,11 @@
 namespace AccountModuleApi.Controllers; 
 public partial class KnownBusinessWebsiteProfileController : BaseController
 {
-    public KnownBusinessWebsiteProfileController(IMediator mediator, IMapper mapper) : base(mediator, mapper) { }
+    public KnownBusinessWebsiteProfileController(IMediator mediator, IMapper mapper, IDojoSurveysDataService dataService) : base(mediator, mapper, dataService) { }
     [HttpPost]
-    public async Task<IActionResult> Update(KnownBusinessWebsiteProfileUpdateCmd cmd)
+    public async Task<IActionResult> Update(KnownBusinessWebsiteProfileUpdateRequest request)
     {
-        var result = await _mediator.Send(cmd);
-        var response = _mapper.Map<KnownBusinessWebsiteProfileViewModel>(result);
+        var response = await _dataService.KnownBusinessWebsiteProfileUpdateAsync(request);
         return Ok(response);
     }
 

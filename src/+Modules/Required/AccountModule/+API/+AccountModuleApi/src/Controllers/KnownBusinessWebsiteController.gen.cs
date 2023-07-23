@@ -2,26 +2,23 @@
 namespace AccountModuleApi.Controllers; 
 public partial class KnownBusinessWebsiteController : BaseController
 {
-    public KnownBusinessWebsiteController(IMediator mediator, IMapper mapper) : base(mediator, mapper) { }
-    [HttpPost]
-    public async Task<IActionResult> GetByUrl(KnownBusinessWebsiteGetByUrlQry qry)
+    public KnownBusinessWebsiteController(IMediator mediator, IMapper mapper, IDojoSurveysDataService dataService) : base(mediator, mapper, dataService) { }
+    [HttpGet]
+    public async Task<IActionResult> GetByUrl(KnownBusinessWebsiteGetByUrlRequest request)
     {
-        var result = await _mediator.Send(qry);
-        var response = _mapper.Map<KnownBusinessWebsiteViewModel>(result);
+        var response = await _dataService.KnownBusinessWebsiteGetByUrlAsync(request);
         return Ok(response);
     }
     [HttpPost]
-    public async Task<IActionResult> Get(KnownBusinessWebsiteGetQry qry)
+    public async Task<IActionResult> Get(KnownBusinessWebsiteGetRequest request)
     {
-        var result = await _mediator.Send(qry);
-        var response = _mapper.Map<KnownBusinessWebsiteViewModel>(result);
+        var response = await _dataService.KnownBusinessWebsiteGetAsync(request);
         return Ok(response);
     }
     [HttpPost]
-    public async Task<IActionResult> Update(KnownBusinessWebsiteUpdateCmd cmd)
+    public async Task<IActionResult> Update(KnownBusinessWebsiteUpdateRequest request)
     {
-        var result = await _mediator.Send(cmd);
-        var response = _mapper.Map<KnownBusinessWebsiteViewModel>(result);
+        var response = await _dataService.KnownBusinessWebsiteUpdateAsync(request);
         return Ok(response);
     }
 

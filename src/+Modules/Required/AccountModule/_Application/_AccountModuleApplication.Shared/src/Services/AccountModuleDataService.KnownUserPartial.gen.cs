@@ -12,6 +12,16 @@ public partial class AccountModuleHttpDataService
             .Content
             .ReadFromJsonAsync<KnownUserViewModel>();
     }
+    public async Task<KnownUserViewModel?> KnownUserGetByEmailAddressAsync(KnownUserGetByEmailAddressRequest request)
+    {
+        var response = await _httpClient.PostAsJsonAsync(request.BuildRouteFrom(), request);
+
+        response.EnsureSuccessStatusCode();
+
+        return await response
+            .Content
+            .ReadFromJsonAsync<KnownUserViewModel>();
+    }
     public async Task<KnownUserViewModel?> KnownUserGetByUserIdAsync(KnownUserGetByUserIdRequest request)
     {
         var response = await _httpClient.PostAsJsonAsync(request.BuildRouteFrom(), request);

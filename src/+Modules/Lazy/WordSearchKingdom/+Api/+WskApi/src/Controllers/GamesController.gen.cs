@@ -2,12 +2,11 @@
 namespace WskApi.Controllers; 
 public partial class GamesController : BaseController
 {
-    public GamesController(IMediator mediator, IMapper mapper) : base(mediator, mapper) { }
+    public GamesController(IMediator mediator, IMapper mapper, IDojoSurveysDataService dataService) : base(mediator, mapper, dataService) { }
     [HttpPost]
-    public async Task<IActionResult> GetAll(GamesGetAllQry qry)
+    public async Task<IActionResult> GetAll(GamesGetAllRequest request)
     {
-        var result = await _mediator.Send(qry);
-        var response = _mapper.Map<List<GameViewModel>>(result);
+        var response = await _dataService.GamesGetAllAsync(request);
         return Ok(response);
     }
 

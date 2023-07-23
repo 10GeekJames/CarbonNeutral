@@ -2,19 +2,23 @@
 namespace AccountModuleApi.Controllers; 
 public partial class KnownAccountController : BaseController
 {
-    public KnownAccountController(IMediator mediator, IMapper mapper) : base(mediator, mapper) { }
+    public KnownAccountController(IMediator mediator, IMapper mapper, IDojoSurveysDataService dataService) : base(mediator, mapper, dataService) { }
     [HttpPost]
-    public async Task<IActionResult> Add(KnownAccountAddCmd cmd)
+    public async Task<IActionResult> Add(KnownAccountAddRequest request)
     {
-        var result = await _mediator.Send(cmd);
-        var response = _mapper.Map<KnownAccountViewModel>(result);
+        var response = await _dataService.KnownAccountAddAsync(request);
         return Ok(response);
     }
-    [HttpPost]
-    public async Task<IActionResult> GetByEmail(KnownAccountGetByEmailQry qry)
+    [HttpGet]
+    public async Task<IActionResult> GetByEmail(KnownAccountGetByEmailRequest request)
     {
-        var result = await _mediator.Send(qry);
-        var response = _mapper.Map<KnownAccountViewModel>(result);
+        var response = await _dataService.KnownAccountGetByEmailAsync(request);
+        return Ok(response);
+    }
+    [HttpGet]
+    public async Task<IActionResult> GetByName(KnownAccountGetByNameRequest request)
+    {
+        var response = await _dataService.KnownAccountGetByNameAsync(request);
         return Ok(response);
     }
 

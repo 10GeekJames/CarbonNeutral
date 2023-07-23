@@ -2,19 +2,17 @@
 namespace AccountModuleApi.Controllers; 
 public partial class WebsitePageController : BaseController
 {
-    public WebsitePageController(IMediator mediator, IMapper mapper) : base(mediator, mapper) { }
-    [HttpPost]
-    public async Task<IActionResult> GetByUrl(WebsitePageGetByUrlQry qry)
+    public WebsitePageController(IMediator mediator, IMapper mapper, IDojoSurveysDataService dataService) : base(mediator, mapper, dataService) { }
+    [HttpGet]
+    public async Task<IActionResult> GetByUrl(WebsitePageGetByUrlRequest request)
     {
-        var result = await _mediator.Send(qry);
-        var response = _mapper.Map<KnownBusinessWebsiteViewModel>(result);
+        var response = await _dataService.WebsitePageGetByUrlAsync(request);
         return Ok(response);
     }
     [HttpPost]
-    public async Task<IActionResult> Update(WebsitePageUpdateCmd cmd)
+    public async Task<IActionResult> Update(WebsitePageUpdateRequest request)
     {
-        var result = await _mediator.Send(cmd);
-        var response = _mapper.Map<KnownBusinessWebsiteViewModel>(result);
+        var response = await _dataService.WebsitePageUpdateAsync(request);
         return Ok(response);
     }
 

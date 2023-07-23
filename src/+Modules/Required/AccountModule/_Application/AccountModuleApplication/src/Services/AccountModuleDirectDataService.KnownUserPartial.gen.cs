@@ -7,6 +7,11 @@ public partial class AccountModuleDirectDataService
         var cmd = _mapper.Map<KnownUserCreateByUserIdCmd>(request);
         return _mapper.Map<KnownUserViewModel?>(await _mediator.Send(cmd));
     }
+    public async Task<KnownUserViewModel?> KnownUserGetByEmailAddressAsync(KnownUserGetByEmailAddressRequest request)
+    {
+        var qry = _mapper.Map<KnownUserGetByEmailAddressQry>(request);
+        return _mapper.Map<KnownUserViewModel?>(await _mediator.Send(qry));
+    }
     public async Task<KnownUserViewModel?> KnownUserGetByUserIdAsync(KnownUserGetByUserIdRequest request)
     {
         var qry = _mapper.Map<KnownUserGetByUserIdQry>(request);

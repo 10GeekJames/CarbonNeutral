@@ -2,26 +2,23 @@
 namespace AccountModuleApi.Controllers; 
 public partial class KnownBusinessController : BaseController
 {
-    public KnownBusinessController(IMediator mediator, IMapper mapper) : base(mediator, mapper) { }
+    public KnownBusinessController(IMediator mediator, IMapper mapper, IDojoSurveysDataService dataService) : base(mediator, mapper, dataService) { }
     [HttpPost]
-    public async Task<IActionResult> AddChildBusiness(KnownBusinessAddChildBusinessCmd cmd)
+    public async Task<IActionResult> AddChildBusiness(KnownBusinessAddChildBusinessRequest request)
     {
-        var result = await _mediator.Send(cmd);
-        var response = _mapper.Map<KnownBusinessViewModel>(result);
+        var response = await _dataService.KnownBusinessAddChildBusinessAsync(request);
         return Ok(response);
     }
-    [HttpPost]
-    public async Task<IActionResult> GetById(KnownBusinessGetByIdQry qry)
+    [HttpGet]
+    public async Task<IActionResult> GetById(KnownBusinessGetByIdRequest request)
     {
-        var result = await _mediator.Send(qry);
-        var response = _mapper.Map<KnownBusinessViewModel>(result);
+        var response = await _dataService.KnownBusinessGetByIdAsync(request);
         return Ok(response);
     }
-    [HttpPost]
-    public async Task<IActionResult> GetChildBusinesses(KnownBusinessGetChildBusinessesQry qry)
+    [HttpGet]
+    public async Task<IActionResult> GetChildBusinesses(KnownBusinessGetChildBusinessesRequest request)
     {
-        var result = await _mediator.Send(qry);
-        var response = _mapper.Map<List<KnownBusinessViewModel>>(result);
+        var response = await _dataService.KnownBusinessGetChildBusinessesAsync(request);
         return Ok(response);
     }
 
