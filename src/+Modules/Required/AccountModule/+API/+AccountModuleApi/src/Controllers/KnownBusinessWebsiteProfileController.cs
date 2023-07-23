@@ -1,15 +1,8 @@
 namespace AccountModuleApi;
-public class KnownBusinessWebsiteProfileController : BaseApiController
+public class KnownBusinessWebsiteProfileController : BaseController
 {
-    private readonly IMediator _mediator;
-    private readonly IMapper _mapper;
-    public KnownBusinessWebsiteProfileController(IMediator mediator, IMapper mapper)
-    {
-        _mediator = mediator;
-        _mapper = mapper;
-    }
-
-
+    public KnownBusinessWebsiteProfileController(IMediator mediator, IMapper mapper) : base(mediator, mapper) { }
+    
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] KnownBusinessWebsiteProfileUpdateRequest request)
     {

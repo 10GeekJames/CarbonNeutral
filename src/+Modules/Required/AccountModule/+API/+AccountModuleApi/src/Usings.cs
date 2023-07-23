@@ -37,8 +37,7 @@ global using AccountModuleInfrastructure.Data;
 
 global using AccountModuleApplication;
 
-global using AccountModuleApplication.Automaps;
-
+global using AccountModuleApplication.Shared.Automaps;
 global using AccountModuleApplication.Shared.Requests;
 global using AccountModuleApplication.Shared.ViewModels;
 

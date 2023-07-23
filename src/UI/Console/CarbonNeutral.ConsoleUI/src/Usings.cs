@@ -30,7 +30,7 @@ global using WskInfrastructure;
 global using WskInfrastructure.CommandQuery;
 
 global using WskApplication;
-global using WskApplication.Automaps;
+global using WskApplication.Shared.Automaps;
 global using WskApplication.Services;
 
 global using WskApplication.Shared.Interfaces;

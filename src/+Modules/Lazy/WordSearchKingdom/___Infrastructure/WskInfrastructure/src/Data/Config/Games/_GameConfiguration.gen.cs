@@ -1,4 +1,4 @@
-// ag=no
+// ag=yes
 namespace WskCore.Infrastructure.Data.Config;
 public partial class GameConfiguration : IEntityTypeConfiguration<Game>
 { 
@@ -7,10 +7,7 @@ public partial class GameConfiguration : IEntityTypeConfiguration<Game>
         /* builder.Property(p => p.Name)
             .HasMaxLength(100)
             .IsRequired(); */
-        builder.HasMany(g => g.GameTags)
-            .WithMany(rs => rs.Games);
-        builder.HasMany(g => g.GameCategories)
-            .WithMany(rs => rs.Games);
+        
     }
 } 
         

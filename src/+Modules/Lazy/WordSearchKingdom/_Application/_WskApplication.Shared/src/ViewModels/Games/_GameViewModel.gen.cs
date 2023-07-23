@@ -7,5 +7,6 @@ public partial class GameViewModel : BaseViewModel<Guid>
      public GameDifficulties GameDifficulty { get; set; }
      public GameGridViewModel GameGrid { get; set; }
 
+
 } 
         

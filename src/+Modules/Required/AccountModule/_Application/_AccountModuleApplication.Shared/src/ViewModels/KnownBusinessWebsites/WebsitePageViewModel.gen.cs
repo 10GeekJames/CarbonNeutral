@@ -21,5 +21,6 @@ public partial class WebsitePageViewModel : BaseViewModel<Guid>
      [MaxLength(100)]
      public string NavIcon { get; set; } = "";
 
+
 } 
         

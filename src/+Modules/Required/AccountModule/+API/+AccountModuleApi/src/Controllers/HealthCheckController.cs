@@ -1,7 +1,9 @@
 namespace AccountModuleApi
 {
-    public class HealthCheckController : BaseApiController
+    public class HealthCheckController : BaseController
     {
+        public HealthCheckController(IMediator mediator, IMapper mapper) : base(mediator, mapper) { }
+    
         [HttpGet]
         public string Get()
         {

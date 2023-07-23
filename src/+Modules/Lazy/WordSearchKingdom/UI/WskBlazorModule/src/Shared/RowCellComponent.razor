@@ -1,20 +1,22 @@
 @inject IStringLocalizer<RowCellComponent> Localize
 
-@if (RowCell.IsStartHighlight)
+@if (IsSelected)
 {
-    <MudText Color="Color.Success">@RowCell.Letter</MudText>
+    <MudText Color="Color.Success">@RowCell</MudText>
     
-} else if (RowCell.IsEndHighlight)
+} else if (IsCompleted)
 {
-    <MudText Color="Color.Success">@RowCell.Letter</MudText>
-} else if (RowCell.IsCompletedSet)
-{
-    <MudText Color="Color.Warning">@RowCell.Letter</MudText>
+    <MudText Color="Color.Warning">@RowCell</MudText>
 } else {
-    <MudText>@RowCell.Letter</MudText>
+    <MudText>@RowCell</MudText>
 }
 
 @code {
     [Parameter]
-    public RowCellViewModel? RowCell {get;set;}
+    public char RowCell {get;set;}
+    [Parameter]
+    public bool IsSelected {get;set;}= false;
+    [Parameter]
+    public bool IsCompleted {get;set;}= false;
+    
 }

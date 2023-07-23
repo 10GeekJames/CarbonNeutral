@@ -2,7 +2,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 
 namespace AccountModuleCore.Entities;
-public class KnownBusinessWebsiteProfile : BaseEntityTracked<Guid>, IAggregateRoot
+public class KnownBusinessWebsiteProfile : BaseEntityTracked<Guid>
 {
     private KnownBusinessWebsiteProfile() { }
     public KnownBusinessWebsiteProfile(KnownBusinessWebsite knownBusinessWebsite, string defaultUrl, string landingUrl, string logoImage)

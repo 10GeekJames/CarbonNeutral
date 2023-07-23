@@ -8,5 +8,6 @@ public partial class KnownAccountProfileViewModel : BaseViewModel<Guid>
      [MaxLength(101)]
      public string Name { get; set; } = String.Empty;
 
+
 } 
         

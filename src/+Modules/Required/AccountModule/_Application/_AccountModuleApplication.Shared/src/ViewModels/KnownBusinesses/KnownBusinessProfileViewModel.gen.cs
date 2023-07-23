@@ -8,5 +8,6 @@ public partial class KnownBusinessProfileViewModel : BaseViewModel<Guid>
      public Guid KnownBusinessId { get; set; }
      public KnownBusinessViewModel KnownBusiness { get; set; }
 
+
 } 
         

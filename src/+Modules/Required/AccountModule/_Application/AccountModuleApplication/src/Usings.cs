@@ -20,7 +20,7 @@ global using AccountModuleInfrastructure.CommandQuery;
 global using AccountModuleInfrastructure.Data;
  
 
-global using AccountModuleApplication.Automaps;
+global using AccountModuleApplication.Shared.Automaps;
 global using AccountModuleApplication.Shared.Interfaces;
 global using AccountModuleApplication.Shared.Requests;
 global using AccountModuleApplication.Shared.ViewModels;

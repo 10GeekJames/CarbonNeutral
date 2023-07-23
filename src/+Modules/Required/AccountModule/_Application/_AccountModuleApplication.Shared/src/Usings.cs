@@ -4,6 +4,8 @@ global using Ardalis.GuardClauses;
 global using Autofac;
 global using Autofac.Extensions.DependencyInjection;
 
+global using AutoMapper;
+
 global using FluentValidation;
 global using Microsoft.Extensions.DependencyInjection;
 

@@ -20,7 +20,7 @@ public class GameConstructorTests
         var game = new Game(height, width, wordsToHide, gameDifficulty, gameCategories, gameTags);
 
         // print the char[][] array to the console
-        var gridArray = game.GameGrid.ToStringArray();
+        var gridArray = game.GameGrid.RowCellData;
         for (int row = 0; row < gridArray.Length; row++)
         {
             for (int col = 0; col < gridArray[row].Length; col++)

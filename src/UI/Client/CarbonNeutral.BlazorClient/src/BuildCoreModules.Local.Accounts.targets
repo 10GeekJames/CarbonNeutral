@@ -1,8 +1,4 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <ItemGroup>
-    <ProjectReference Include="./../../../../_Common/CarbonNeutral.Common/src/CarbonNeutral.Common.csproj" />
-  </ItemGroup>
-
   <!-- AccountModule -->
   <Choose>
     <When Condition="'$(Configuration)' == 'Release'">

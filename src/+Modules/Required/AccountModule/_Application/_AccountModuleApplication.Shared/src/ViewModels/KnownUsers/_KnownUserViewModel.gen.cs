@@ -13,5 +13,6 @@ public partial class KnownUserViewModel : BaseViewModel<Guid>
      public bool IsJokerFlag { get; set; } = false;
      public List<KnownUserProfileViewModel> KnownUserProfiles { get; set; } = new();
 
+
 } 
         

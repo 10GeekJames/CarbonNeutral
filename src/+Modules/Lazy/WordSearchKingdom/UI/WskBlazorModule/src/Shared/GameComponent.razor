@@ -38,9 +38,13 @@
         <div class="play-area-grid" Style="@(($"grid-template-rows: repeat({Game.GameGrid.Width}, 1fr); grid-template-columns: repeat({Game.GameGrid.Height}, 1fr);"))">
             @for (var x = 0; x < Game.GameGrid.Width; x++) {
                 @for (var y = 0; y < Game.GameGrid.Height; y++) {
-                    var rowCell = Game.GameGrid.RowCells.First(rs => rs.X == x && rs.Y == y);
-                        <MudLink Class="grid-cell" OnClick="@((e) => HandleCellClick(e, rowCell))"Underline="Underline.None" >
-                            <RowCellComponent RowCell=rowCell  />
+                    var rowCell = Game.GameGrid.RowCellsData[x, y];
+                        <MudLink Class="grid-cell" OnClick="@((e) => HandleCellClick(e, rowCell, x, y))"Underline="Underline.None" >
+                            <RowCellComponent 
+                                RowCell=rowCell 
+                                IsCompleted=@Game.GameGrid.CompletedWordCells.Any(rs=>rs.x == x && rs.y==y)  
+                                IsSelected=@((bool)(firstClick.Value.x == x && firstClick.Value.y == y))
+                            />
                         </MudLink>
                 }
             }
@@ -72,9 +76,8 @@
     public GameViewModel? Game { get; set; }
     [Parameter]
     public EventCallback OnRecreateGame { get; set; }
-    private RowCellViewModel? firstClick { get; set; }
-    private RowCellViewModel? secondClick { get; set; }
     bool isRow { get; set; }
+    private (int x, int y)? firstClick { get; set; }
 
     private void SetStackDirection(MudBlazor.Breakpoint breakpoint)
     {
@@ -102,31 +105,17 @@
         await base.OnInitializedAsync();                     
     }
 
-    private async Task HandleCellClick(MouseEventArgs e, RowCellViewModel rowCell)
+    private async Task HandleCellClick(MouseEventArgs e, char letter, int x, int y)
     {
-        Console.WriteLine($"Clicked Cell X={rowCell.X} Y={rowCell.Y} {rowCell.Letter}");
-        Console.WriteLine($"{rowCell.IsStartHighlight}");
-
+        Console.WriteLine($"Clicked Cell X={x} Y={y} {letter}");        
         if (firstClick == null)
         {
-            firstClick = rowCell;
-            firstClick.IsStartHighlight = true;
-        }
-        else if (secondClick == null)
-        {
-            secondClick = rowCell;
-            secondClick.IsEndHighlight = true;
-
-            var request = new GameCheckWordCoordsRequest(Game.Id, firstClick.X, firstClick.Y, secondClick.X, secondClick.Y);
-            Game = await WskDataService.GameCheckWordCoordsAsync(request);
+            firstClick = new(x, y);            
         }
         else
         {
-            firstClick.IsStartHighlight = false;
-            secondClick.IsEndHighlight = false;
-            firstClick = rowCell;
-            firstClick.IsStartHighlight = true;
-            secondClick = null;
+            var request = new GameCheckWordCoordsRequest(Game.Id, firstClick.Value.x, firstClick.Value.y, x, y);
+            Game = await WskDataService.GameCheckWordCoordsAsync(request);
         }
     }
 

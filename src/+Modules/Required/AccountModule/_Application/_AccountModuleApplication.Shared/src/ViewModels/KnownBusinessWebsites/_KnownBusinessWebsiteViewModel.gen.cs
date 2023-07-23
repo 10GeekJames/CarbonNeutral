@@ -13,5 +13,6 @@ public partial class KnownBusinessWebsiteViewModel : BaseViewModel<Guid>
      public List<KnownBusinessWebsiteAliasViewModel> KnownBusinessWebsiteAliases { get; set; } = new();
      public List<WebsitePageViewModel> WebsitePages { get; set; } = new();
 
+
 } 
         

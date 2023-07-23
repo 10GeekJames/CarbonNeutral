@@ -166,5 +166,6 @@ public partial class KnownBusinessWebsiteProfileViewModel : BaseViewModel<Guid>
      public Guid KnownBusinessWebsiteId { get; set; }
      public KnownBusinessWebsiteViewModel? KnownBusinessWebsite { get; set; } = null;
 
+
 } 
         

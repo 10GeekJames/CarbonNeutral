@@ -15,5 +15,6 @@ public partial class KnownBusinessViewModel : BaseViewModel<Guid>
      public List<KnownBusinessWebsiteViewModel> KnownBusinessWebsites { get; set; } = new();
      public List<KnownBusinessViewModel> ChildBusinesses { get; set; } = new();
 
+
 } 
         

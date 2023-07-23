@@ -7,5 +7,6 @@ public partial class WebsitePageContentViewModel : BaseViewModel<Guid>
      [MaxLength(65535)]
      public string HtmlContent { get; set; } = "";
 
+
 } 
         

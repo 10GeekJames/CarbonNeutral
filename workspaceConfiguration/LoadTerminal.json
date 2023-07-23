@@ -138,7 +138,7 @@
                 }   ,
                 {
                     "name": "WskApi",                      
-                    "path": "./src/+Modules/Lazy/WordSearchKingdom/+Api/WskApi/src",
+                    "path": "./src/+Modules/Lazy/WordSearchKingdom/+Api/+WskApi/src",
                     "cmd": [
                         "dotnet watch run"
                     ],

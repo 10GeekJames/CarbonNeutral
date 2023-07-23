@@ -103,11 +103,18 @@ namespace WskApplication.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("CompletedWordCellsAsString")
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Height")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("RowCellDataAsString")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("UpdatedOn")
                         .HasColumnType("TEXT");
@@ -179,9 +186,6 @@ namespace WskApplication.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("GameGridId")
-                        .HasColumnType("TEXT");
-
                     b.Property<bool>("IsCompletedSet")
                         .HasColumnType("INTEGER");
 
@@ -208,8 +212,6 @@ namespace WskApplication.Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("GameGridId");
 
                     b.ToTable("RowCells");
                 });
@@ -262,18 +264,9 @@ namespace WskApplication.Data.Migrations
                         .HasForeignKey("GameGridId");
                 });
 
-            modelBuilder.Entity("WskCore.Entities.RowCell", b =>
-                {
-                    b.HasOne("WskCore.Entities.GameGrid", null)
-                        .WithMany("RowCells")
-                        .HasForeignKey("GameGridId");
-                });
-
             modelBuilder.Entity("WskCore.Entities.GameGrid", b =>
                 {
                     b.Navigation("HiddenWords");
-
-                    b.Navigation("RowCells");
                 });
 #pragma warning restore 612, 618
         }

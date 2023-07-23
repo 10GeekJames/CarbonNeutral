@@ -11,6 +11,6 @@
     }
 
     protected async Task FetchSomeData() {
-        var knownUser = await AccountModuleHttpClient.KnownUserGetAsync();
+        var knownUser = await AccountModuleHttpClient.KnownUserGetAsync(new());
     }
 }

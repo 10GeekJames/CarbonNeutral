@@ -10,5 +10,6 @@ public partial class KnownUserProfileViewModel : BaseViewModel<Guid>
      public Guid KnownBusinessWebsiteId { get; set; } = Guid.Empty;
      public KnownBusinessWebsiteViewModel KnownBusinessWebsite { get; set; }
 
+
 } 
         
