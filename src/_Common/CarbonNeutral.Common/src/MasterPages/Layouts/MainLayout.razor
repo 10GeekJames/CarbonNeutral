@@ -8,10 +8,14 @@
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start"
             OnClick="@((e) => DrawerToggle())" />
         <MudSpacer />
-        <span>Toggle @(_isDarkMode ? "Light Mode" : "Dark Mode")</span>
-        <MudToggleIconButton @bind-Toggled="@_isDarkMode" Icon="@Icons.Material.Filled.DarkMode" Color="@Color.Info"
-            Title="Dark Mode" ToggledIcon="@Icons.Material.Filled.LightMode" ToggledColor="Color.Warning"
-            ToggledTitle="Light Mode" />
+        <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="0">
+            <MudToggleIconButton Class="px-4"  @bind-Toggled="@_isDarkMode" Icon="@Icons.Material.Filled.DarkMode" Color="@Color.Info"
+                Title="Dark Mode" ToggledIcon="@Icons.Material.Filled.LightMode" ToggledColor="Color.Warning"
+                ToggledTitle="Light Mode" />
+            @* @if (!_drawerOpen){
+                <span>Toggle @(_isDarkMode ? "Light Mode" : "Dark Mode")</span>
+            }     *@
+        </MudStack>
 
         <MudMenu Icon="@Icons.Material.Filled.Menu" AnchorOrigin="Origin.BottomLeft" Edge="Edge.End"
             Color="Color.Inherit" FullWidth="false">

@@ -1,28 +1,15 @@
 ﻿<MudNavMenu>
-    @* <MudNavLink Href="/public/search" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Search">Search</MudNavLink> *@
     <MudNavLink Href="/wsk/allgames" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.LibraryBooks">All Games</MudNavLink>
     <MudNavLink Href="/wsk/DevPlayGround" Match="NavLinkMatch.All" Icon="@Icons.Custom.Brands.GitHub">Dev Playground</MudNavLink>
-    @* <MudNavGroup Title="Books" Expanded="false" Icon="@Icons.Material.Filled.MenuBook" HideExpandIcon="true">
-        <MudNavLink Href="/public/allbooks" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.DoneOutline">Available</MudNavLink>
-        <MudNavLink Href="/public/checked" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.BrowserUpdated">Checked</MudNavLink>
-        <MudNavLink Href="/public/returned" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Cached">Returned</MudNavLink>
-    </MudNavGroup> *@
-    @* <MudNavLink Href="/public/order" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Payments">Order</MudNavLink> *@
-    @* <MudNavLink Href="Checked" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Input">Checked</MudNavLink> *@
-    @*
-    <MudNavGroup Title="Demos" Expanded="false" Icon="@Icons.Custom.Uncategorized.ChessKing" HideExpandIcon="true">
-    <MudNavLink Href="pricing" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.AttachMoney">Pricing</MudNavLink>
-    <MudNavLink Href="checkout" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.ShoppingCartCheckout">Checkout</MudNavLink>
-    </MudNavGroup> *@
 </MudNavMenu>
 
 @code {
-    private bool collapseNavMenu = true;
+    @* private bool collapseNavMenu = true;
 
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
-    }
+    } *@
 }

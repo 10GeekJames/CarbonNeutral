@@ -1,17 +1,38 @@
 @inject IStringLocalizer<RowCellComponent> Localize
 
+    <style>
+        .engraved-text-container {
+            color: transparent;
+            background: linear-gradient( #919191 35%, #FFFFFF 52%, #9C9C9C 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            text-shadow: 0px 1px 0px rgba(255,255,255,.3), 0px -1px 0px rgba(0,0,0,.7);
+        }
+        .pop-out-text {
+            text-shadow: 1px 0px 0px rgb(155,155,155), 2px 0px 0px rgb(0,0,0), 3px 3px 5px green;
+        }
+    </style>
+
 @if (RowCell.IsStartHighlight)
 {
-    <MudText Color="Color.Success">@RowCell.Letter</MudText>
+    <div class="engraved-text-container">
+        <MudText Typo="Typo.h6" Color="Color.Success">@RowCell.Letter</MudText>
+    </div>
     
 } else if (RowCell.IsEndHighlight)
 {
-    <MudText Color="Color.Success">@RowCell.Letter</MudText>
+    <div class="engraved-text-container">
+        <MudText Typo="Typo.h6" Color="Color.Success">@RowCell.Letter</MudText>
+    </div>
 } else if (RowCell.IsCompletedSet)
 {
-    <MudText Color="Color.Warning" >@RowCell.Letter</MudText>
+
+        <MudText Class="pop-out-text" Typo="Typo.h6" Color="Color.Warning" >@RowCell.Letter</MudText>
+
 } else {
-    <MudText>@RowCell.Letter</MudText>
+    <div class="engraved-text-container">
+        <MudText Typo="Typo.h6">@RowCell.Letter</MudText>
+    </div>
 }
 
 @code {
