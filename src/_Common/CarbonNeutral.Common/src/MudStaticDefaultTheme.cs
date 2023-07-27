@@ -6,18 +6,18 @@ public static class MudStaticDefaultTheme
     {
         Palette = new PaletteLight()
         {
-            Primary = Colors.Pink.Default,
-            Secondary = Colors.Green.Accent4,
-            AppbarBackground = Colors.Red.Default,
+            // Primary = Colors.Pink.Default,
+            // Secondary = Colors.Green.Accent4,
+            // AppbarBackground = Colors.Red.Default,
         },
         PaletteDark = new PaletteDark()
         {
-            Primary = Colors.Blue.Lighten1
+            // Primary = Colors.Blue.Lighten1
         },
 
         LayoutProperties = new LayoutProperties()
         {
-            DrawerWidthLeft = "260px",
+            DrawerWidthLeft = "200px",
             DrawerWidthRight = "300px"
         },
 

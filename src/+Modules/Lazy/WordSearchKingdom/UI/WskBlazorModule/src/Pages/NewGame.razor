@@ -6,21 +6,40 @@
 
 <PageTitle>Word Search Kingdom - Create New Game</PageTitle>
 
+<style>
+    .mud-input-outlined-border {
+        @* border-color: blue !important; *@
+    }
+
+    .mud-input-outlined-border:hover {
+        border-color: red !important;
+        background-color: blue !important;
+    }
+    .mud-input-label {
+        @* color: hotpink !important; *@
+        @* transition: none !important;
+        animation: none !important; *@
+    }
+</style>
+
+
 <MudContainer>
     <MudPaper Class="pa-4">
         <MudForm @ref="form" @bind-IsValid="@success">
-            <MudTextField @bind-Value=_gameTitle T="string" Label="Game Title" Required="true" RequiredError="Game Title is required!" />
-            <MudNumericField @bind-Value=_gridSize Min=0 Label="Grid Size" Required="true" RequiredError="Grid Size is required!"  />
-            <MudTextField @bind-Value=_wordsToHide T="string" Label="Words To Hide" Lines="6"  Required="true"HelperText="Seperate list by , or new lines" RequiredError="Words are required!"/>
-            <MudSelect @bind-Value=_difficulty T="GameDifficulties" Label="Difficulty" AnchorOrigin="Origin.BottomCenter">
-                <MudSelectItem Value=GameDifficulties.Easy >Easy</MudSelectItem>
-                <MudSelectItem Value=GameDifficulties.Medium >Medium</MudSelectItem>
-                <MudSelectItem Value=GameDifficulties.Hard >Hard</MudSelectItem>
-                <MudSelectItem Value=GameDifficulties.ExtraHard >Extreme</MudSelectItem>
-            </MudSelect>
-            <MudTextField @bind-Value=_categories T="string" Label="Categories" />
-            <MudTextField  @bind-Value=_tags T="string" Label="Tags" />
-            <div class="d-flex align-center justify-space-between">
+            <MudField Label="Game Info" Variant="Variant.Outlined">
+                <MudTextField @bind-Value=_gameTitle T="string" Label="Game Title" Required="true" RequiredError="Game Title is required!" />
+                <MudNumericField @bind-Value=_gridSize Min=0 Max=50 Label="Grid Size" Required="true" RequiredError="Grid Size is required!"  />
+                <MudTextField @bind-Value=_wordsToHide T="string" Label="Words To Hide" Lines="6"  Required="true" HelperText="Seperate list by , or new lines" RequiredError="Words are required!"/>
+                <MudSelect @bind-Value=_difficulty T="GameDifficulties" Label="Difficulty" AnchorOrigin="Origin.BottomCenter">
+                    <MudSelectItem Value=GameDifficulties.Easy >Easy</MudSelectItem>
+                    <MudSelectItem Value=GameDifficulties.Medium >Medium</MudSelectItem>
+                    <MudSelectItem Value=GameDifficulties.Hard >Hard</MudSelectItem>
+                    <MudSelectItem Value=GameDifficulties.ExtraHard >Extreme</MudSelectItem>
+                </MudSelect>
+                <MudTextField @bind-Value=_categories T="string" Label="Categories" />
+                <MudTextField  @bind-Value=_tags T="string" Label="Tags" />
+            </MudField>
+            <div class="d-flex align-center justify-space-between mt-4">
                 <MudCheckBox T="bool" Required="true" RequiredError="You should double check." Label="Everything is Complete"  />
                 <MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="@(!success)" Class="ml-auto" OnClick=@CreateNewGame>Create Game</MudButton>
             </div>
