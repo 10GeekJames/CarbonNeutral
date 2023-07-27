@@ -2,7 +2,7 @@
 namespace AccountModuleApi.Controllers; 
 public partial class KnownBusinessWebsiteController : BaseController
 {
-    public KnownBusinessWebsiteController(IMediator mediator, IMapper mapper, IDojoSurveysDataService dataService) : base(mediator, mapper, dataService) { }
+    public KnownBusinessWebsiteController(IMediator mediator, IMapper mapper, IAccountModuleDataService dataService) : base(mediator, mapper, dataService) { }
     [HttpGet]
     public async Task<IActionResult> GetByUrl(KnownBusinessWebsiteGetByUrlRequest request)
     {

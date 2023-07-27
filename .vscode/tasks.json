@@ -127,7 +127,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/src/+Modules/Required/AccountModule/+API/+AccountModuleApi/src/AccountModuleApi.csproj",
+                "${workspaceFolder}/src/+Modules/Required/AccountModule/+API/+AccountModuleApi/src/+AccountModuleApi.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -139,7 +139,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/src/+Modules/Lazy/WordSearchKingdom/+Api/WskApi/src/WskApi.csproj",
+                "${workspaceFolder}/src/+Modules/Lazy/WordSearchKingdom/+Api/+WskApi/src/+WskApi.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],

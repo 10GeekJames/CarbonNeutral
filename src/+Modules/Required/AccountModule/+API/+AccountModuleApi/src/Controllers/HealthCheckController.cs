@@ -2,7 +2,7 @@ namespace AccountModuleApi
 {
     public class HealthCheckController : BaseController
     {
-        public HealthCheckController(IMediator mediator, IMapper mapper) : base(mediator, mapper) { }
+        public HealthCheckController(IMediator mediator, IMapper mapper, IAccountModuleDataService dataService) : base(mediator, mapper, dataService) { }
     
         [HttpGet]
         public string Get()

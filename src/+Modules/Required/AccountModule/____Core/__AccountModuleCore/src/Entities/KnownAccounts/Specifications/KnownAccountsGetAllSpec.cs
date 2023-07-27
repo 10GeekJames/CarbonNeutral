@@ -1,7 +1,7 @@
 namespace AccountModuleCore.Specifications;
-public class KnownAccountGetAllSpec : Specification<KnownAccount>
+public class KnownAccountsGetAllSpec : Specification<KnownAccount>
 {
-    public KnownAccountGetAllSpec()
+    public KnownAccountsGetAllSpec()
     {
         Query
             .AsNoTracking()

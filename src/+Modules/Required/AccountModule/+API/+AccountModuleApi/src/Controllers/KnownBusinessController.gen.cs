@@ -2,7 +2,7 @@
 namespace AccountModuleApi.Controllers; 
 public partial class KnownBusinessController : BaseController
 {
-    public KnownBusinessController(IMediator mediator, IMapper mapper, IDojoSurveysDataService dataService) : base(mediator, mapper, dataService) { }
+    public KnownBusinessController(IMediator mediator, IMapper mapper, IAccountModuleDataService dataService) : base(mediator, mapper, dataService) { }
     [HttpPost]
     public async Task<IActionResult> AddChildBusiness(KnownBusinessAddChildBusinessRequest request)
     {

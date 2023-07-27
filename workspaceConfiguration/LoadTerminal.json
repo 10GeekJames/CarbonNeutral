@@ -84,7 +84,7 @@
                 },
                 {
                     "name": "AccountModuleApi.FunctionalTests",
-                    "path": "./src/+Modules/Required/AccountModule/+API/AccountModuleApi.FunctionalTests/src",
+                    "path": "./src/+Modules/Required/AccountModule/+API/+AccountModuleApi.FunctionalTests/src",
                     "cmd": [
                         "echo build this"
                     ],
@@ -130,7 +130,7 @@
                 },
                 {
                     "name": "WskApi.FunctionalTests",
-                    "path": "./src/+Modules/Lazy/WordSearchKingdom/+Api/WskApi.FunctionalTests/src",
+                    "path": "./src/+Modules/Lazy/WordSearchKingdom/+Api/+WskApi.FunctionalTests/src",
                     "cmd": [
                         "dotnet test"
                     ],

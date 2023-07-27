@@ -39,7 +39,7 @@
     <ProjectReference Include="./../../../___Infrastructure/AccountModuleInfrastructure/src/AccountModuleInfrastructure.csproj" />
     <ProjectReference Include="./../../../_Application/AccountModuleApplication/src/AccountModuleApplication.csproj" />
     <ProjectReference Include="./../../../__Data/AccountModule.Data/src/AccountModule.Data.csproj" />
-    <ProjectReference Include="./../../../+Api/+AccountModuleApi/src/AccountModuleApi.csproj" />
+    <ProjectReference Include="./../../../+Api/+AccountModuleApi/src/+AccountModuleApi.csproj" />
   </ItemGroup>
 
 </Project>

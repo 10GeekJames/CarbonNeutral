@@ -53,6 +53,7 @@
     <ProjectReference Include="./../../../____Core/__WskCore/src/WskCore.csproj" />
     <ProjectReference Include="./../../../___Infrastructure/WskInfrastructure/src/WskInfrastructure.csproj" />
     <ProjectReference Include="./../../../_Application/_WskApplication.Shared/src/WskApplication.Shared.csproj" />
+    <ProjectReference Include="./../../../_Application/WskApplication/src/WskApplication.csproj" />
   </ItemGroup>
 
 </Project>

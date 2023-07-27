@@ -2,7 +2,7 @@ namespace AccountModuleApi
 {
     public class MetaController : BaseController
     {
-        public MetaController(IMediator mediator, IMapper mapper) : base(mediator, mapper) { }
+        public MetaController(IMediator mediator, IMapper mapper, IAccountModuleDataService dataService) : base(mediator, mapper, dataService) { }
     
         [HttpGet("/info")]
         public ActionResult<string> Info()

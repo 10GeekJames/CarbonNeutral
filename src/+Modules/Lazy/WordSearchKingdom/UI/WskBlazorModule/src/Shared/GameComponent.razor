@@ -44,7 +44,7 @@
         }
 
     </style>
-    <MudBreakpointProvider OnBreakpointChanged="((e) => SetStackDirection(e))"/>
+    <MudBreakpointProvider OnBreakpointChanged="((e) => SetStackDirection(e))" />
     <MudStack Row=isRow Class="pa-4 rounded" AlignItems="AlignItems.Center" Justify="Justify.Center">
         <div class="d-flex">
             <MudHidden Breakpoint="Breakpoint.SmAndDown">
@@ -60,8 +60,9 @@
                                 IsCompleted=@Game.GameGrid.CompletedWordCells.Any(rs=>rs.x == x && rs.y==y)  
                                 IsSelected=@((bool)(firstClick.Value.x == x && firstClick.Value.y == y))
                             />
-                    }
-                }
+                        </MudLink>
+                        }
+                    }                
             </div>
         </div>
         <MudContainer Class="border-solid border-xs-0 border-2 mud-border-primary pa-4 rounded ma-0" Style="max-width: 25%;">
@@ -83,7 +84,6 @@
             </MudStack>
         </MudContainer>
     </MudStack>
-
 </div>
 
 @code {

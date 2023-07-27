@@ -2,7 +2,7 @@
 namespace AccountModuleApi.Controllers; 
 public partial class WebsitePageController : BaseController
 {
-    public WebsitePageController(IMediator mediator, IMapper mapper, IDojoSurveysDataService dataService) : base(mediator, mapper, dataService) { }
+    public WebsitePageController(IMediator mediator, IMapper mapper, IAccountModuleDataService dataService) : base(mediator, mapper, dataService) { }
     [HttpGet]
     public async Task<IActionResult> GetByUrl(WebsitePageGetByUrlRequest request)
     {

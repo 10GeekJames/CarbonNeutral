@@ -1,4 +1,4 @@
-// ag=yes
+// ag=no *******
 namespace WskApplication.Automaps; 
 public partial class GameCheckWordCoordsRequestMap : Profile
 { 
@@ -6,7 +6,7 @@ public partial class GameCheckWordCoordsRequestMap : Profile
     
     public GameCheckWordCoordsRequestMap()
     {
-        CreateMap<GameCheckWordCoordsRequest, GameCheckWordCoordsCmd>()
+        CreateMap<GameCheckWordCoordsRequest, GameCheckWordCoordsQry>()
         .ReverseMap();
     }
 }

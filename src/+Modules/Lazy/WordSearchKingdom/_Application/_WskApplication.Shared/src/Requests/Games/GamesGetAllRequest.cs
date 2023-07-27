@@ -1,6 +1,6 @@
 namespace WskApplication.Shared.Requests;
 
-public class GamesGetAllRequest : IRoutable //List
+public class GamesGetAllRequest : IRoutable //List //Get //[FromQuery]
 {
     protected readonly static string Route = "games/getall";
 

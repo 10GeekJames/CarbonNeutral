@@ -56,7 +56,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build-AccountModuleApi",
-            "program": "${workspaceFolder}/src/+Modules/Required/AccountModule/+API/+AccountModuleApi/src/bin/Debug/net7.0/AccountModuleApi.dll",
+            "program": "${workspaceFolder}/src/+Modules/Required/AccountModule/+API/+AccountModuleApi/src/bin/Debug/net7.0/+AccountModuleApi.dll",
             "args": [],
             "cwd": "${workspaceFolder}/src/+Modules/Required/AccountModule/+API/+AccountModuleApi/src",
             "stopAtEntry": false,
@@ -76,9 +76,9 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build-WskApi",
-            "program": "${workspaceFolder}/src/+Modules/Lazy/WordSearchKingdom/+Api/WskApi/src/bin/Debug/net7.0/WskApi.dll",
+            "program": "${workspaceFolder}/src/+Modules/Lazy/WordSearchKingdom/+Api/+WskApi/src/bin/Debug/net7.0/+WskApi.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/src/+Modules/Lazy/WordSearchKingdom/+Api/WskApi/src",
+            "cwd": "${workspaceFolder}/src/+Modules/Lazy/WordSearchKingdom/+Api/+WskApi/src",
             "stopAtEntry": false,
             "serverReadyAction": {
                 "action": "openExternally",
@@ -88,7 +88,7 @@
                 "ASPNETCORE_ENVIRONMENT": "Development"
             },
             "sourceFileMap": {
-                "/Views": "${workspaceFolder}/src/+Modules/Lazy/WordSearchKingdom/+Api/WskApi/src/Views"
+                "/Views": "${workspaceFolder}/src/+Modules/Lazy/WordSearchKingdom/+Api/+WskApi/src/Views"
             }
         }
     ]

@@ -2,7 +2,7 @@
 namespace AccountModuleApi.Controllers; 
 public partial class KnownBusinessWebsiteProfileController : BaseController
 {
-    public KnownBusinessWebsiteProfileController(IMediator mediator, IMapper mapper, IDojoSurveysDataService dataService) : base(mediator, mapper, dataService) { }
+    public KnownBusinessWebsiteProfileController(IMediator mediator, IMapper mapper, IAccountModuleDataService dataService) : base(mediator, mapper, dataService) { }
     [HttpPost]
     public async Task<IActionResult> Update(KnownBusinessWebsiteProfileUpdateRequest request)
     {

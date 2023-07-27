@@ -1,11 +1,11 @@
-// ag=yes
+// ag=no ******
 namespace WskApplication.Services; 
 public partial class WskDirectDataService
 {
     public async Task<GameViewModel?> GameCheckWordCoordsAsync(GameCheckWordCoordsRequest request)
     {
-        var cmd = _mapper.Map<GameCheckWordCoordsCmd>(request);
-        return _mapper.Map<GameViewModel?>(await _mediator.Send(cmd));
+        var qry = _mapper.Map<GameCheckWordCoordsQry>(request);
+        return _mapper.Map<GameViewModel?>(await _mediator.Send(qry));
     }
     public async Task<GameViewModel?> GameCreateNewAsync(GameCreateNewRequest request)
     {

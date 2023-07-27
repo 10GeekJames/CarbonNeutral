@@ -21,6 +21,9 @@ public class Startup
         
         services
             .AddWskDbContext(connectionString);
+
+        services
+            .AddScoped<IWskDataService, WskDirectDataService>();
         // services.AddDbContext<WskDbContext>(options =>
         //     options.UseSqlite(connectionString, b => b.MigrationsAssembly("WskApplication.Data")));
 

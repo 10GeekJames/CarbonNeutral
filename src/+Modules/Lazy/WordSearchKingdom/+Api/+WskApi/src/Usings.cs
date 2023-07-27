@@ -18,12 +18,15 @@ global using CarbonNeutral.KernelShared.Configuration;
 
 global using WskCore;
 
+global using WskApplication.Services;
 global using WskInfrastructure;
 global using WskInfrastructure.CommandQuery;
 
-
+global using WskApplication.Shared.Requests;
 global using WskApplication.Shared.Automaps;
+global using WskApplication.Shared.Interfaces;
 global using WskApplication.Shared.ViewModels;
+
 
 
 

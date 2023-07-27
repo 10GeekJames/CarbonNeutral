@@ -2,7 +2,7 @@
 namespace AccountModuleApi.Controllers; 
 public partial class KnownUserController : BaseController
 {
-    public KnownUserController(IMediator mediator, IMapper mapper, IDojoSurveysDataService dataService) : base(mediator, mapper, dataService) { }
+    public KnownUserController(IMediator mediator, IMapper mapper, IAccountModuleDataService dataService) : base(mediator, mapper, dataService) { }
     [HttpPost]
     public async Task<IActionResult> CreateByUserId(KnownUserCreateByUserIdRequest request)
     {
