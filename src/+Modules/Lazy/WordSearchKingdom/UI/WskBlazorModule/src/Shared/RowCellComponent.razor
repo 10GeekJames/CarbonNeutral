@@ -18,18 +18,19 @@
     <div class="engraved-text-container">
         <MudText Typo="Typo.h6" Color="Color.Success">@RowCell.Letter</MudText>
     </div>
-    
-} else if (RowCell.IsEndHighlight)
+} 
+else if (RowCell.IsEndHighlight)
 {
     <div class="engraved-text-container">
         <MudText Typo="Typo.h6" Color="Color.Success">@RowCell.Letter</MudText>
     </div>
-} else if (RowCell.IsCompletedSet)
+} 
+else if (RowCell.IsCompletedSet)
 {
-
-        <MudText Class="pop-out-text" Typo="Typo.h6" Color="Color.Warning" >@RowCell.Letter</MudText>
-
-} else {
+    <MudText Class="pop-out-text" Typo="Typo.h6" Color="Color.Warning" >@RowCell.Letter</MudText>
+} 
+else 
+{
     <div class="engraved-text-container">
         <MudText Typo="Typo.h6">@RowCell.Letter</MudText>
     </div>
