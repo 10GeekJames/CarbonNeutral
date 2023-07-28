@@ -14,6 +14,7 @@ public class WskGamesSeedWithData : IWskSeedScript
         {
             if (!dbContext.Games.AsEnumerable().Any(rs => game.Id.Equals(rs.Id)))
             {
+                //game.
                 dbContext.Games.Add(game);
                 logger?.LogInformation($"{game.Title} was created in the database.", game.Title);
             }

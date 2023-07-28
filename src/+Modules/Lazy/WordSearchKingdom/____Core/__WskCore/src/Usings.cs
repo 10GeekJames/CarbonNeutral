@@ -18,6 +18,8 @@ global using System.ComponentModel.DataAnnotations.Schema;
 global using System.Security.Cryptography;
 global using System.Text;
 global using System.Linq;
+global using System.Drawing;
+global using System.Runtime.Serialization;
 
 global using Toolbelt.ComponentModel.DataAnnotations.Schema.V5;
 

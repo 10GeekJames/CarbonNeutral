@@ -21,7 +21,7 @@ public partial class GameCheckWordCoordsQryHandler : IRequestHandler<GameCheckWo
             {
                 for (int x = qry.X1; x <= qry.X2; x++)
                 {
-                    var cell = game.GameGrid.RowCellsData[x, qry.Y1];
+                    var cell = game.GameGrid.RowCellDataArray[x, qry.Y1];
                     foundWord += cell;
                     rowCells.Add((x, qry.Y1));
                 }
@@ -34,7 +34,7 @@ public partial class GameCheckWordCoordsQryHandler : IRequestHandler<GameCheckWo
             {
                 for (int x = qry.X1; x >= qry.X2; x--)
                 {
-                    var cell = game.GameGrid.RowCellsData[x, qry.Y1];
+                    var cell = game.GameGrid.RowCellDataArray[x, qry.Y1];
                     foundWord += cell;
                     rowCells.Add((x, qry.Y1));
                 }
@@ -47,7 +47,7 @@ public partial class GameCheckWordCoordsQryHandler : IRequestHandler<GameCheckWo
             {
                 for (int y = qry.Y1; y <= qry.Y2; y++)
                 {
-                    var cell = game.GameGrid.RowCellsData[qry.X1, y];
+                    var cell = game.GameGrid.RowCellDataArray[qry.X1, y];
                     foundWord += cell;
                     rowCells.Add((qry.X1, y));
                 }
@@ -60,7 +60,7 @@ public partial class GameCheckWordCoordsQryHandler : IRequestHandler<GameCheckWo
             {
                 for (int y = qry.Y1; y >= qry.Y2; y--)
                 {
-                    var cell = game.GameGrid.RowCellsData[qry.X1, y];
+                    var cell = game.GameGrid.RowCellDataArray[qry.X1, y];
                     foundWord += cell;
                     rowCells.Add((qry.X1, y));
                 }
@@ -73,7 +73,7 @@ public partial class GameCheckWordCoordsQryHandler : IRequestHandler<GameCheckWo
             var y = qry.Y1;
             while (x <= qry.X2 && y <= qry.Y2)
             {
-                var cell = game.GameGrid.RowCellsData[x, y];
+                var cell = game.GameGrid.RowCellDataArray[x, y];
                 foundWord += cell;
                 rowCells.Add((x, y));
                 x++;
@@ -88,7 +88,7 @@ public partial class GameCheckWordCoordsQryHandler : IRequestHandler<GameCheckWo
             var y = qry.Y1;
             while (x >= qry.X2 && y <= qry.Y2)
             {
-                var cell = game.GameGrid.RowCellsData[x, y];
+                var cell = game.GameGrid.RowCellDataArray[x, y];
                 foundWord += cell;
                 rowCells.Add((x, y));
                 x--;
@@ -100,8 +100,9 @@ public partial class GameCheckWordCoordsQryHandler : IRequestHandler<GameCheckWo
         {
             var hiddenWord = game.GameGrid.HiddenWords.FirstOrDefault(rs => rs.Word.ToLower() == foundWord.ToLower());
             hiddenWord.SetFound();
-            
-            game.GameGrid.CompletedWordCells.AddRange(rowCells);            
+            foreach(var cell in rowCells) {
+                game.GameGrid.AddColoredCell(cell.x, cell.y);
+            }
 
             // hiddenWord.FoundAt = DateTime.Now;
             // game.Score += hiddenWord.Points;

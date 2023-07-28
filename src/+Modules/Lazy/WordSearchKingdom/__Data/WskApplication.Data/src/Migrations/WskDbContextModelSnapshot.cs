@@ -103,7 +103,8 @@ namespace WskApplication.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("CompletedWordCellsAsString")
+                    b.Property<string>("CompletedWordCellData")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedOn")
@@ -112,7 +113,7 @@ namespace WskApplication.Data.Migrations
                     b.Property<int>("Height")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("RowCellDataAsString")
+                    b.Property<string>("RowCellData")
                         .IsRequired()
                         .HasColumnType("TEXT");
 

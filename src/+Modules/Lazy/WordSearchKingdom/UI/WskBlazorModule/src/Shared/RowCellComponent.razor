@@ -1,10 +1,10 @@
 @inject IStringLocalizer<RowCellComponent> Localize
 
-@if (IsSelected)
+@if (IsSelected == true)
 {
     <MudText Color="Color.Success">@RowCell</MudText>
     
-} else if (IsCompleted)
+} else if (IsCompleted == true)
 {
     <MudText Color="Color.Success">@RowCell</MudText>
 } else {
@@ -15,8 +15,8 @@
     [Parameter]
     public char RowCell {get;set;}
     [Parameter]
-    public bool IsSelected {get;set;}= false;
+    public bool? IsSelected {get;set;} = false;
     [Parameter]
-    public bool IsCompleted {get;set;}= false;
+    public bool? IsCompleted {get;set;} = false;
     
 }

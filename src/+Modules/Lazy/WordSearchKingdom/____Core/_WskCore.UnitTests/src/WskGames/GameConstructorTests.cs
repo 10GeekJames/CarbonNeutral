@@ -17,15 +17,17 @@ public class GameConstructorTests
         var gameTags = new List<GameTag> { new("Fiction"), new("Adventure"), new("Action") }.AsReadOnly();
 
         // When I create a wskgame
-        var game = new Game(height, width, wordsToHide, gameDifficulty, gameCategories, gameTags);
+        var game = new Game("abc", height, width, wordsToHide, gameDifficulty, gameCategories, gameTags);
 
         // print the char[][] array to the console
-        var gridArray = game.GameGrid.RowCellData;
-        for (int row = 0; row < gridArray.Length; row++)
+        var gridArray = game.GameGrid.RowCellDataArray;
+        game.GameGrid.RowCellData.Should().NotBeNullOrWhiteSpace(_reason);
+
+        for (int row = 0; row < game.GameGrid.Height; row++)
         {
-            for (int col = 0; col < gridArray[row].Length; col++)
+            for (int col = 0; col < game.GameGrid.Width; col++)
             {
-                Console.Write(gridArray[row][col] + " ");
+                Console.Write(gridArray[row, col] + " ");
             }
             Console.WriteLine();            
         }
@@ -42,6 +44,6 @@ public class GameConstructorTests
         game.GameGrid.Should().NotBeNull(_reason);
         game.GameGrid.Height.Should().Be(height, _reason);
         game.GameGrid.Width.Should().Be(width, _reason);
-        game.GameGrid.RowCells.Count().Should().BeGreaterThan(0, _reason);
+        game.GameGrid.RowCellData.Length.Should().BeGreaterThan(0, _reason);
     }
 }

@@ -11,8 +11,8 @@ using WskInfrastructure.Data;
 namespace WskApplication.Data.Migrations
 {
     [DbContext(typeof(WskDbContext))]
-    [Migration("20230722023431_init6")]
-    partial class init6
+    [Migration("20230728231945_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -106,7 +106,7 @@ namespace WskApplication.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("CompletedWordCellsAsString")
+                    b.Property<string>("CompletedWordCellData")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -116,7 +116,7 @@ namespace WskApplication.Data.Migrations
                     b.Property<int>("Height")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("RowCellDataAsString")
+                    b.Property<string>("RowCellData")
                         .IsRequired()
                         .HasColumnType("TEXT");
 

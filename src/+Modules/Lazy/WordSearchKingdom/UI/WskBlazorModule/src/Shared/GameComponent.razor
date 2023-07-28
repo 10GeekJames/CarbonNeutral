@@ -45,45 +45,50 @@
 
     </style>
     <MudBreakpointProvider OnBreakpointChanged="((e) => SetStackDirection(e))" />
-    <MudStack Row=isRow Class="pa-4 rounded" AlignItems="AlignItems.Center" Justify="Justify.Center">
-        <div class="d-flex">
-            <MudHidden Breakpoint="Breakpoint.SmAndDown">
-                <MudText Typo="Typo.h2" Align="Align.Center" Style="writing-mode: vertical-rl;">@Game?.Title</MudText>   
-            </MudHidden>
-            <div class="play-area-grid align-items-center" Style="@(($"grid-template-rows: repeat({Game.GameGrid.Width}, 1fr); grid-template-columns: repeat({Game.GameGrid.Height}, 1fr);"))">
-                @for (var x = 0; x < Game.GameGrid.Width; x++) {
-                    @for (var y = 0; y < Game.GameGrid.Height; y++) {
-                        var rowCell = Game.GameGrid.RowCellsData[x, y];
-                        <MudLink Class="grid-cell" OnClick="@((e) => HandleCellClick(e, rowCell, x, y))"Underline="Underline.None" >
-                            <RowCellComponent 
-                                RowCell=rowCell 
-                                IsCompleted=@Game.GameGrid.CompletedWordCells.Any(rs=>rs.x == x && rs.y==y)  
-                                IsSelected=@((bool)(firstClick.Value.x == x && firstClick.Value.y == y))
-                            />
-                        </MudLink>
-                        }
-                    }                
+    @if(Game.GameGrid != null) {
+        <MudStack Row=isRow Class="pa-4 rounded" AlignItems="AlignItems.Center" Justify="Justify.Center">
+            <div class="d-flex">
+                <MudHidden Breakpoint="Breakpoint.SmAndDown">
+                    <MudText Typo="Typo.h2" Align="Align.Center" Style="writing-mode: vertical-rl;">@Game?.Title</MudText>   
+                </MudHidden>
+                <div class="play-area-grid align-items-center" Style="@(($"grid-template-rows: repeat({Game.GameGrid.Width}, 1fr); grid-template-columns: repeat({Game.GameGrid.Height}, 1fr);"))">
+                    @for (var x = 0; x < Game.GameGrid.Width; x++) {
+                        @for (var y = 0; y < Game.GameGrid.Height; y++) {
+                            var storeX = x;
+                            var storeY = y;
+                            char rowCell = SelectedGridCells[storeX,storeY];
+                            List<System.Drawing.Point>? selectedWords = GameGridUtility.ConvertSelectedWordsToPointList(Game.GameGrid.CompletedWordCellData);
+                            <MudLink Class="grid-cell" OnClick=@(e => HandleCellClick(e, rowCell, storeX, storeY)) Underline="Underline.None" >
+                                <RowCellComponent 
+                                    RowCell=rowCell
+                                    IsCompleted=@(selectedWords?.Any(rs=>rs.X == storeX && rs.Y == storeY) ?? false)
+                                    IsSelected=@((bool)(firstClick.HasValue && firstClick.Value.x == storeX && firstClick.Value.y == storeY))
+                                />
+                            </MudLink>
+                            }
+                        }                
+                </div>
             </div>
-        </div>
-        <MudContainer Class="border-solid border-xs-0 border-2 mud-border-primary pa-4 rounded ma-0" Style="max-width: 25%;">
-            <MudText Typo="Typo.h3" Align="Align.Center">
-                Hidden Words
-            </MudText>
-            <MudDivider />
-            <MudStack Class="my-6">
-                @foreach (var word in Game?.GameGrid.HiddenWords)
-                {
-                    <MudChip Color=@isFoundStyling(word.IsFound) Size="Size.Large">
-                        <MudText Class="p-8" Typo="Typo.h5" Align="Align.Center">@word.Word</MudText>
-                    </MudChip>
-                }
-            </MudStack>
-            <MudStack Spacing="4">
-                <MudButton Style="justify-self: flex-end;" Variant="Variant.Filled" Color="Color.Tertiary" OnClick=OnRecreateGame FullWidth="true" >Recreate Game</MudButton>  
-                <MudButton Style="justify-self: flex-end;" Variant="Variant.Filled" Color="Color.Tertiary" OnClick=BackToAllGames FullWidth="true" >All Games</MudButton>    
-            </MudStack>
-        </MudContainer>
-    </MudStack>
+            <MudContainer Class="border-solid border-xs-0 border-2 mud-border-primary pa-4 rounded ma-0" Style="max-width: 25%;">
+                <MudText Typo="Typo.h3" Align="Align.Center">
+                    Hidden Words
+                </MudText>
+                <MudDivider />
+                <MudStack Class="my-6">
+                    @foreach (var word in Game?.GameGrid.HiddenWords)
+                    {
+                        <MudChip Color=@isFoundStyling(word.IsFound) Size="Size.Large">
+                            <MudText Class="p-8" Typo="Typo.h5" Align="Align.Center">@word.Word</MudText>
+                        </MudChip>
+                    }
+                </MudStack>
+                <MudStack Spacing="4">
+                    <MudButton Style="justify-self: flex-end;" Variant="Variant.Filled" Color="Color.Tertiary" OnClick=OnRecreateGame FullWidth="true" >Recreate Game</MudButton>  
+                    <MudButton Style="justify-self: flex-end;" Variant="Variant.Filled" Color="Color.Tertiary" OnClick=BackToAllGames FullWidth="true" >All Games</MudButton>    
+                </MudStack>
+            </MudContainer>
+        </MudStack>
+    }
 </div>
 
 @code {
@@ -91,6 +96,8 @@
     public GameViewModel? Game { get; set; }
     [Parameter]
     public EventCallback OnRecreateGame { get; set; }
+    [Parameter]
+    public char[,] SelectedGridCells { get; set; }
     bool isRow { get; set; }
     private (int x, int y)? firstClick { get; set; }
 
@@ -117,7 +124,8 @@
     
     protected override async Task OnInitializedAsync()
     {
-        await base.OnInitializedAsync();                     
+        await base.OnInitializedAsync();      
+                       
     }
 
     private async Task HandleCellClick(MouseEventArgs e, char letter, int x, int y)
@@ -131,6 +139,7 @@
         {
             var request = new GameCheckWordCoordsRequest(Game.Id, firstClick.Value.x, firstClick.Value.y, x, y);
             Game = await WskDataService.GameCheckWordCoordsAsync(request);
+            firstClick = null;
         }
     }
 
