@@ -25,7 +25,7 @@ public static class GameGridUtility
     {
         if (completedWords.Length > 0)
         {
-            var completedWordsList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Point>?>(completedWords);
+            var completedWordsList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Point>>(completedWords);
             return completedWordsList;
         }
         return new();

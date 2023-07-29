@@ -4,8 +4,10 @@ public class Game : BaseEntityTracked<Guid>, IAggregateRoot
 {
     public string Title { get; private set; }
     public GameDifficulties GameDifficulty { get; private set; }
-    public IEnumerable<GameCategory> GameCategories { get; private set; }
-    public IEnumerable<GameTag> GameTags { get; private set; }
+    private List<GameCategory> _gameCategories = new();
+    public IEnumerable<GameCategory> GameCategories => _gameCategories.AsReadOnly();
+    private List<GameTag> _gameTags = new();
+    public IEnumerable<GameTag> GameTags => _gameTags.AsReadOnly();
     public GameGrid GameGrid { get; private set; }
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
@@ -21,8 +23,8 @@ public class Game : BaseEntityTracked<Guid>, IAggregateRoot
         GameGrid = new GameGrid(height, width, hiddenWords);
 
         GameDifficulty = gameDifficulty;
-        GameCategories = gameCategories;
-        GameTags = gameTags;
+        _gameCategories = gameCategories.ToList();
+        _gameTags = gameTags.ToList();
 
         Title = title;
     }

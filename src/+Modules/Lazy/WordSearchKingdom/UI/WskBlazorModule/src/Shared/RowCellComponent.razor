@@ -1,19 +1,17 @@
 @inject IStringLocalizer<RowCellComponent> Localize
-<MudText Color=colorToUse>@RowCell</MudText>
+<MudText Color=@(GetColorToUse())>@RowCell</MudText>
 @code {
     [Parameter]
     public char RowCell {get;set;}
     [Parameter]
-    public bool? IsSelected {get;set;} = false;
+    public bool IsSelected {get;set;} = false;
     [Parameter]
-    public bool? IsCompleted {get;set;} = false;
+    public bool IsCompleted {get;set;} = false;
     [Parameter]
-    public bool? IsHover {get;set;} = false;
-    Color colorToUse = Color.Default;
-
-    protected override async Task OnInitializedAsync()
-    {
-        await base.OnInitializedAsync();
+    public bool IsHover {get;set;} = false;
+    
+    public Color GetColorToUse(){
+        var colorToUse = Color.Default;
         if(IsSelected == true) {
             colorToUse = Color.Success;
         }
@@ -26,6 +24,13 @@
         else {
             colorToUse = Color.Default;
         }
+        return colorToUse;
     }
-    
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+    }    
+
+
 }

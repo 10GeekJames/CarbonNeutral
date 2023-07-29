@@ -1,4 +1,4 @@
-// ag=yes
+// ag=no
 namespace WskApplication.Shared.Automaps; 
 public partial class GameCategoryMap : Profile
 { 
@@ -7,6 +7,9 @@ public partial class GameCategoryMap : Profile
     public GameCategoryMap()
     {
         CreateMap<GameCategory, GameCategoryViewModel>()
-        .ReverseMap();
+        .ForMember(d => d.Games, opt => opt.Ignore());
+
+        CreateMap<GameCategoryViewModel, GameCategory>()
+        .ForMember(d => d.Games, opt => opt.Ignore());        
     }
 }

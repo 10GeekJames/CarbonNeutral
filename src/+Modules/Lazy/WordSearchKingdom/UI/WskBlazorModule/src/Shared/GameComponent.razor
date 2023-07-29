@@ -53,15 +53,15 @@
                 </MudHidden>
                 <div class="play-area-grid align-items-center" Style="@(($"grid-template-rows: repeat({Game.GameGrid.Width}, 1fr); grid-template-columns: repeat({Game.GameGrid.Height}, 1fr);"))">
                     @for (var x = 0; x < Game.GameGrid.Width; x++) {
-                        @for (var y = 0; y < Game.GameGrid.Height; y++) {
+                        Console.WriteLine(String.Join(",", SelectedGridCellPoints.Select(s=> $"{s.X}x{s.Y}")));
+                        @for (var y = 0; y < Game.GameGrid.Height; y++) {                            
                             var storeX = x;
                             var storeY = y;
                             char rowCell = SelectedGridCells[storeX,storeY];
-                            List<System.Drawing.Point>? selectedWords = GameGridUtility.ConvertSelectedWordsToPointList(Game.GameGrid.CompletedWordCellData);
                             <MudLink Class="grid-cell" OnClick=@(e => HandleCellClick(e, rowCell, storeX, storeY)) Underline="Underline.None" >
                                 <RowCellComponent 
                                     RowCell=rowCell
-                                    IsCompleted=@(selectedWords.Any(rs=>rs.X == storeX && rs.Y == storeY))
+                                    IsCompleted=@(SelectedGridCellPoints.Any(rs=>rs.X == storeX && rs.Y == storeY))
                                     IsSelected=@((bool)(firstClick.HasValue && firstClick.Value.x == storeX && firstClick.Value.y == storeY))
                                 />
                             </MudLink>
@@ -99,7 +99,7 @@
     [Parameter]
     public char[,] SelectedGridCells { get; set; }
     [Parameter]
-    public List<System.Drawing.Point> SelectedGridCellPoints { get; set; }
+    public List<System.Drawing.Point> SelectedGridCellPoints { get; set; } = new();
     bool isRow { get; set; }
     private (int x, int y)? firstClick { get; set; }
 
@@ -142,9 +142,9 @@
             var request = new GameCheckWordCoordsRequest(Game.Id, firstClick.Value.x, firstClick.Value.y, x, y);
             Game = await WskDataService.GameCheckWordCoordsAsync(request);
             SelectedGridCells = GameGridUtility.ConvertRowCellStringToArray(Game.GameGrid.RowCellData);
-            SelectedGridCellPoints = GameGridUtility.ConvertSelectedWordsToPointList(Game.GameGrid.CompletedWordCellData);
-
+            SelectedGridCellPoints = GameGridUtility.ConvertSelectedWordsToPointList(Game.GameGrid.CompletedWordCellData);            
             firstClick = null;
+            StateHasChanged();
         }
     }
 
