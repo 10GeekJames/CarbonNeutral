@@ -61,7 +61,7 @@
                             <MudLink Class="grid-cell" OnClick=@(e => HandleCellClick(e, rowCell, storeX, storeY)) Underline="Underline.None" >
                                 <RowCellComponent 
                                     RowCell=rowCell
-                                    IsCompleted=@(selectedWords?.Any(rs=>rs.X == storeX && rs.Y == storeY) ?? false)
+                                    IsCompleted=@(selectedWords.Any(rs=>rs.X == storeX && rs.Y == storeY))
                                     IsSelected=@((bool)(firstClick.HasValue && firstClick.Value.x == storeX && firstClick.Value.y == storeY))
                                 />
                             </MudLink>
@@ -98,6 +98,8 @@
     public EventCallback OnRecreateGame { get; set; }
     [Parameter]
     public char[,] SelectedGridCells { get; set; }
+    [Parameter]
+    public List<System.Drawing.Point> SelectedGridCellPoints { get; set; }
     bool isRow { get; set; }
     private (int x, int y)? firstClick { get; set; }
 
@@ -139,6 +141,9 @@
         {
             var request = new GameCheckWordCoordsRequest(Game.Id, firstClick.Value.x, firstClick.Value.y, x, y);
             Game = await WskDataService.GameCheckWordCoordsAsync(request);
+            SelectedGridCells = GameGridUtility.ConvertRowCellStringToArray(Game.GameGrid.RowCellData);
+            SelectedGridCellPoints = GameGridUtility.ConvertSelectedWordsToPointList(Game.GameGrid.CompletedWordCellData);
+
             firstClick = null;
         }
     }

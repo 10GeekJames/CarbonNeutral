@@ -6,7 +6,7 @@
 
 <MudContainer MaxWidth="MaxWidth.ExtraExtraLarge">
     @if(_chosenGame != null) {
-        <GameComponent Game="@_chosenGame" OnRecreateGame=OnRecreateGame SelectedGridCells=SelectedGridCells />
+        <GameComponent Game="@_chosenGame" OnRecreateGame=OnRecreateGame SelectedGridCells=SelectedGridCells SelectedGridCellPoints=SelectedGridCellPoints />
     }
 </MudContainer>
 
@@ -16,17 +16,20 @@
     public Guid GameId { get; set; }
     private GameViewModel _chosenGame { get; set; }
     protected char[,] SelectedGridCells { get; set; }
+    protected List<System.Drawing.Point> SelectedGridCellPoints { get; set; } = new();
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
         var gameGetByIdRequest = new GameGetByIdRequest(GameId);
         _chosenGame = await WskDataService.GameGetByIdAsync(gameGetByIdRequest);
         SelectedGridCells = GameGridUtility.ConvertRowCellStringToArray(_chosenGame.GameGrid.RowCellData);
+        SelectedGridCellPoints = GameGridUtility.ConvertSelectedWordsToPointList(_chosenGame.GameGrid.CompletedWordCellData);
     }
 
     public async Task OnRecreateGame(){
         var request = new GameRecreateGridRequest(_chosenGame.Id);
         _chosenGame = await WskDataService.GameRecreateGridAsync(request);         
         SelectedGridCells = GameGridUtility.ConvertRowCellStringToArray(_chosenGame.GameGrid.RowCellData);
+        SelectedGridCellPoints = GameGridUtility.ConvertSelectedWordsToPointList(_chosenGame.GameGrid.CompletedWordCellData);
     }
 }

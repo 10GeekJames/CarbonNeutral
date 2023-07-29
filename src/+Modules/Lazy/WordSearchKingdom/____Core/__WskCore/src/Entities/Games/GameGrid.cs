@@ -48,6 +48,7 @@ public class GameGrid : BaseEntityTracked<Guid>
     private void clearGrid()
     {
         RowCellData = convertRowCellArrayToString(setupGrid(Height, Width));
+        CompletedWordCellData = "[]";
     }
     private void fillEmptySpacesInTheGrid()
     {
@@ -227,8 +228,12 @@ public class GameGrid : BaseEntityTracked<Guid>
         if(selectedCellsPointList == null)
         {
             selectedCellsPointList = new();
-        }   
-        selectedCellsPointList.Add(new(x, y));
+        }
+        if(!selectedCellsPointList.Contains(new(x, y)))
+        {            
+            selectedCellsPointList.Add(new(x, y));
+        }
+        
         CompletedWordCellData = Newtonsoft.Json.JsonConvert.SerializeObject(selectedCellsPointList);
     }
 }
