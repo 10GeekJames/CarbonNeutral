@@ -10,10 +10,16 @@
     .pop-out-text {
         text-shadow: 1px 0px 0px rgb(155,155,155), 2px 0px 0px rgb(0,0,0), 3px 3px 5px green;
     }
+    .selected-letter {
+        transform: scale(2.5);
+    }
+    .found-word {
+        transform: scale(1.5);
+    }
 </style>
 
 
-<MudText Color=@(GetColorToUse())>@RowCell</MudText>
+<MudText Class=@(GetClassToUse()) Color=@(GetColorToUse())>@RowCell</MudText>
 @code {
     [Parameter]
     public char RowCell {get;set;}
@@ -23,22 +29,40 @@
     public bool IsCompleted {get;set;} = false;
     [Parameter]
     public bool IsHover {get;set;} = false;
+
     
     public Color GetColorToUse(){
         var colorToUse = Color.Default;
         if(IsSelected == true) {
-            colorToUse = Color.Success;
+            colorToUse = Color.Secondary;
         }
         else if (IsCompleted == true) {
-            colorToUse = Color.Success;
+            colorToUse = Color.Warning;
         }
         else if (IsHover == true) {
-            colorToUse = Color.Default;
+            colorToUse = Color.Primary;
         }
         else {
             colorToUse = Color.Default;
         }
         return colorToUse;
+    }
+    public string GetClassToUse(){
+        var classToUse = "engraved-text-container";
+        if(IsSelected == true) {
+            classToUse = "engraved-text-container pop-out-text selected-letter";
+        }
+        else if (IsCompleted == true) {
+            classToUse = "pop-out-text found-word";
+
+        }
+        else if (IsHover == true) {
+
+        }
+        else {
+            classToUse = "engraved-text-container";
+        }
+        return classToUse;
     }
 
     protected override async Task OnInitializedAsync()

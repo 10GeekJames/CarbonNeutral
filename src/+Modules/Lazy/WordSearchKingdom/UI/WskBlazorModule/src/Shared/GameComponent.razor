@@ -31,6 +31,8 @@
             background-color: #e0e0e0;
             color: black;
             cursor: pointer;
+            border-radius: 50%;
+            border: 1px solid lime;
         }
         .grid-cell .mud-link {
             aspect-ratio: 1 / 1;
@@ -144,6 +146,7 @@
         if (firstClick == null)
         {
             firstClick = new(x, y);            
+            @* StateHasChanged(); *@
         }
         else
         {
@@ -152,7 +155,7 @@
             SelectedGridCells = GameGridUtility.ConvertRowCellStringToArray(Game.GameGrid.RowCellData);
             SelectedGridCellPoints = GameGridUtility.ConvertSelectedWordsToPointList(Game.GameGrid.CompletedWordCellData);            
             firstClick = null;
-            StateHasChanged();
+            @* StateHasChanged(); *@
         }
     }
 
