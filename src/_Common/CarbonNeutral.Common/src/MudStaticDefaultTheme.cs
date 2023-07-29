@@ -14,13 +14,11 @@ public static class MudStaticDefaultTheme
         {
             // Primary = Colors.Blue.Lighten1
         },
-
         LayoutProperties = new LayoutProperties()
         {
             DrawerWidthLeft = "200px",
             DrawerWidthRight = "300px"
         },
-
         Typography = new Typography()
         {
             H1 = new H1()

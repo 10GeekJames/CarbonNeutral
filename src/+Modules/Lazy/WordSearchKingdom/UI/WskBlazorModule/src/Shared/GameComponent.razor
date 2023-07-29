@@ -1,5 +1,5 @@
 @inject IStringLocalizer<GameComponent> Localize
-<div class="border-md-solid border-xs-none border-xs-0 border-2 mud-border-primary pa-4 rounded main-game-container">
+<div class="border-double border-xs-none border-xs-0 border-4 mud-border-primary pa-4 rounded main-game-container">
     <style>
         .play-area-grid {
             display: grid;
@@ -10,7 +10,7 @@
             height: fit-content;
             width: fit-content;
             gap: 0;
-            padding: 0 50px 0 0;
+            @* padding: 0 50px 0 0; *@
         }
         .grid-cell {
             display: flex;
@@ -43,33 +43,41 @@
             margin: 0 auto;
         }
 
+
     </style>
     <MudBreakpointProvider OnBreakpointChanged="((e) => SetStackDirection(e))" />
     @if(Game.GameGrid != null) {
         <MudStack Row=isRow Class="pa-4 rounded" AlignItems="AlignItems.Center" Justify="Justify.Center">
-            <div class="d-flex">
+            <MudHidden Breakpoint="Breakpoint.MdAndUp">
+            <div class="engraved-text-container d-flex">
+                <MudText  Typo="Typo.h2" Align="Align.Center">@Game?.Title</MudText>   
+            </div>
+        </MudHidden>
+        <div class="d-flex justify-center align-items-center">
                 <MudHidden Breakpoint="Breakpoint.SmAndDown">
-                    <MudText Typo="Typo.h2" Align="Align.Center" Style="writing-mode: vertical-rl;">@Game?.Title</MudText>   
-                </MudHidden>
-                <div class="play-area-grid align-items-center" Style="@(($"grid-template-rows: repeat({Game.GameGrid.Width}, 1fr); grid-template-columns: repeat({Game.GameGrid.Height}, 1fr);"))">
+                    <div class="engraved-text-container d-flex">
+                    <MudText Class="fire" Typo="Typo.h2" Align="Align.Center" Style="writing-mode: vertical-rl;">@Game?.Title</MudText>   
+                    </div>
+            </MudHidden>
+                <div class="play-area-grid align-items-center ma-auto" Style="@(($"grid-template-rows: repeat({Game.GameGrid.Width}, 1fr); grid-template-columns: repeat({Game.GameGrid.Height}, 1fr);"))">
                     @for (var x = 0; x < Game.GameGrid.Width; x++) {
                         Console.WriteLine(String.Join(",", SelectedGridCellPoints.Select(s=> $"{s.X}x{s.Y}")));
                         @for (var y = 0; y < Game.GameGrid.Height; y++) {                            
                             var storeX = x;
                             var storeY = y;
                             char rowCell = SelectedGridCells[storeX,storeY];
-                            <MudLink Class="grid-cell" OnClick=@(e => HandleCellClick(e, rowCell, storeX, storeY)) Underline="Underline.None" >
-                                <RowCellComponent 
+                        <MudLink Class="grid-cell" OnClick=@(e => HandleCellClick(e, rowCell, storeX, storeY)) Underline="Underline.None" >
+                            <RowCellComponent 
                                     RowCell=rowCell
                                     IsCompleted=@(SelectedGridCellPoints.Any(rs=>rs.X == storeX && rs.Y == storeY))
                                     IsSelected=@((bool)(firstClick.HasValue && firstClick.Value.x == storeX && firstClick.Value.y == storeY))
                                 />
-                            </MudLink>
+                        </MudLink>
                             }
                         }                
                 </div>
             </div>
-            <MudContainer Class="border-solid border-xs-0 border-2 mud-border-primary pa-4 rounded ma-0" Style="max-width: 25%;">
+            <MudContainer Class="border-double border-xs-0 border-4 mud-border-primary pa-4 rounded ma-0" >
                 <MudText Typo="Typo.h3" Align="Align.Center">
                     Hidden Words
                 </MudText>
