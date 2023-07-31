@@ -6,17 +6,15 @@
 
 
 <MudLayout>
-    <MudAppBar Class="animate__fadeInDown" Elevation="0" Fixed="false">
+    <MudAppBar Style="Background: transparent;" Class="animate__fadeInDown" Elevation="0" Fixed="false">
         <WskLogo />
-        <MudText Typo="Typo.h5" Class="ml-3 fire">WordSearchKingdom</MudText>
+        <WskNavMenuLanding />
+        @* <MudText Typo="Typo.h5" Class="ml-3 fire">WordSearchKingdom</MudText> *@
         <MudSpacer />
-        <MudToggleIconButton Class="px-4"  @bind-Toggled="@_isDarkMode" Icon="@Icons.Material.Filled.DarkMode" Color="@Color.Info"
+        <WskSubNavMenuLanding />
+        @* <MudToggleIconButton Class="px-4"  @bind-Toggled="@_isDarkMode" Icon="@Icons.Material.Filled.DarkMode" Color="@Color.Info"
             Title="Dark Mode" ToggledIcon="@Icons.Material.Filled.LightMode" ToggledColor="Color.Warning"
-            ToggledTitle="Light Mode" />
-        <MudMenu Icon="@Icons.Material.Filled.Menu" AnchorOrigin="Origin.BottomLeft" Edge="Edge.End" Color="Color.Inherit" FullWidth="false">
-            <MudMenuItem class="mudmenuitem-custom" OnClick=RedirectToLogin>Sign in</MudMenuItem>
-            <MudMenuItem class="mudmenuitem-custom">Support</MudMenuItem>
-        </MudMenu>
+            ToggledTitle="Light Mode" /> *@
     </MudAppBar>
     @Body
 </MudLayout>

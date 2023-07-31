@@ -1,0 +1,35 @@
+@inject IStringLocalizer<WskNavMenuLanding> Localize
+
+<style>
+    .mud-link {
+        color: rgba(216,216,216,0.5) !important;
+        font-weight: 500 !important;
+        text-shadow: 1px 1px 2px black;
+        font-size: 2rem !important;
+    }
+    .selected-link {
+        color: rgba(255,255,255,0.74) !important;
+        text-shadow: 0px 0px 7px lime, 1px 1px 2px black !important;
+    }
+    .selected-scale {
+        transform: scale(1.1) !important;}
+</style>
+
+<MudContainer>
+    <MudStack Row="true" Class="ml-16" Spacing="8">
+        <MudLink Href="/" Underline="Underline.None" Class="selected-link selected-scale">Home</MudLink>
+        <MudLink Href="/wsk/allgames" Underline="Underline.None">Play</MudLink>
+        <MudLink Href="/wsk/help" Underline="Underline.None">Help</MudLink>
+        <MudLink Href="/wsk/about" Underline="Underline.None">About</MudLink>
+    </MudStack>
+</MudContainer>
+
+@code {
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();      
+                       
+    }
+}

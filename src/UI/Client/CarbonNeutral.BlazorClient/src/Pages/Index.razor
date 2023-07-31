@@ -1,12 +1,20 @@
 @page "/"
 @layout MainLayoutLanding
 <PageTitle>WordSearchKingdom</PageTitle>
-<MudContainer>
-    <LandingHero/>
-</MudContainer>
-<MudDivider Class="my-6" />
-<MudContainer>
-    <LandingContent/>
+
+<MudContainer Style="max-width: 90vw;">
+<MudGrid Spacing="8" Class="mt-16">
+    <MudItem xs="12" md="6">
+        <LandingHero/>
+
+    </MudItem>
+
+    <MudItem xs="12" md="5">
+        @* <MudContainer> *@
+            <MudImage Fluid="true" Src="./i/tech.jpg" Alt="Library" Class="d-flex align-center justify-center mud-width-full" />
+        @* </MudContainer> *@
+    </MudItem>
+</MudGrid>
 </MudContainer>
 
 
