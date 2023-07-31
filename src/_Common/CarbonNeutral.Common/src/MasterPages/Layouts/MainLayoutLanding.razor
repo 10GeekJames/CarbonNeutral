@@ -7,6 +7,7 @@
 
 <MudLayout>
     <MudAppBar Class="animate__fadeInDown" Elevation="0" Fixed="false">
+        <WskLogo />
         <MudText Typo="Typo.h5" Class="ml-3 fire">WordSearchKingdom</MudText>
         <MudSpacer />
         <MudToggleIconButton Class="px-4"  @bind-Toggled="@_isDarkMode" Icon="@Icons.Material.Filled.DarkMode" Color="@Color.Info"
@@ -26,6 +27,8 @@
     private bool _isDarkMode;
     private MudThemeProvider _mudThemeProvider;
     private MudTheme _selectedMudTheme;
+
+
     
     void DrawerToggle()
     {

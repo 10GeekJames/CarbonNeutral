@@ -17,18 +17,23 @@ public static class MudStaticDefaultTheme
         LayoutProperties = new LayoutProperties()
         {
             DrawerWidthLeft = "200px",
-            DrawerWidthRight = "300px"
+            DrawerWidthRight = "300px",
+            AppbarHeight = "110px",
         },
         Typography = new Typography()
         {
-            H1 = new H1()
+            Default = new Default()
             {
-                FontFamily = new[] { "Roboto", "Helvetica", "Arial", "sans-serif" },
-                FontSize = "1.25rem",
-                FontWeight = 500,
-                LineHeight = 1.6,
-                LetterSpacing = ".0075em"
-            }
+                FontFamily = new[] { "Courier New", "Helvetica", "Arial", "sans-serif" }
+            },
+            // H1 = new H1()
+            // {
+            //     FontFamily = new[] { "Roboto", "Helvetica", "Arial", "sans-serif" },
+            //     FontSize = "1.25rem",
+            //     FontWeight = 500,
+            //     LineHeight = 1.6,
+            //     LetterSpacing = ".0075em"
+            // }
         }
     };
 }

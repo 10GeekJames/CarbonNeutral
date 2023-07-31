@@ -1,0 +1,78 @@
+@inject IStringLocalizer<WskLogo> Localize
+
+<style>
+    .logo-container {
+        @* display: flex;
+        flex-direction: column;
+        align-items: center;
+        align-items: center;
+        justify-content: center; *@
+        margin-top: 15px;
+        margin-left: 25px;
+        @* margin-bottom: 10px; *@
+    }
+    .logo-grid {
+        display: grid;
+        border-collapse: collapse;
+        aspect-ratio: 1 / 1;
+        @* max-width: 50px;
+        max-height: 50px; *@
+        grid-template-rows: repeat(3, 1fr);
+        grid-template-columns: repeat(3, 1fr);
+        @* justify-content: center;
+        align-items: center; *@
+        @* height: fit-content; *@
+        width: fit-content;
+        gap: 0.2em;
+        margin: 0 auto;
+        @* padding: 0 50px 0 0; *@
+    }
+    .logo-grid-cell {
+        display: flex;
+        @* border: 1px solid rgba(0,0,0,0.2); *@
+        justify-content: center;
+        align-items: center;
+        width: 16px;
+        height: 16px;
+        font-size: 1.2em !important;
+        text-align: center;
+        user-select: none;
+        font-size: 1.5em;
+        aspect-ratio: 1 / 1;
+        background-color: rgba(177,177,177,0.25);
+    }
+
+    .logo-grid-cell:first-of-type {
+        color: lime;
+        font-weight: bold;
+    }
+    .logo-grid-cell:nth-of-type(5) {
+        color: lime;
+        font-weight: bold;
+    }
+    .logo-grid-cell:nth-of-type(9) {
+        color: lime;
+        font-weight: bold;
+    }
+    .logo-text-shadow {
+        color: white;
+        text-shadow: 1px 1px 5px lime;
+        font-weight: 550;
+    }
+</style>
+
+<div class="logo-container">
+    <div class="logo-grid">
+        @foreach (var letter in _logoLetters)
+        {
+            <div class="logo-grid-cell">
+                @letter
+            </div>
+        }
+    </div>
+    <MudText Class="logo-text-shadow" Align="Align.Center" Typo="Typo.h4">WSK</MudText>
+</div>
+
+@code {
+    private string[] _logoLetters = new string[] { "W", "J", "W", "V", "S", "K", "L", "R", "K" };
+}
