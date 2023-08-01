@@ -1,0 +1,31 @@
+@inject IStringLocalizer<WskLoggedInSubNavMenuLanding> Localize
+
+<style>
+    .sub-nav-menu-container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        position: absolute;
+        top: 15px;
+        right: 50px;
+        opacity: 0.75;
+    }
+</style>
+
+<div class="sub-nav-menu-container">
+    <MudStack Row="true" Class="ml-16">
+        <MudButton StartIcon="@Icons.Material.Filled.Logout"><MudText>Logout</MudText></MudButton>
+        <MudButton StartIcon="@Icons.Material.Filled.Share"><MudText Class="selected-link">Share</MudText></MudButton>
+    </MudStack>
+    <MudText Class="mr-2" Typo="Typo.caption">Welcome, @Localize["User"]</MudText>
+</div>
+
+@code {
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();      
+                       
+    }
+}

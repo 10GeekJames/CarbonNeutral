@@ -1,0 +1,56 @@
+﻿@inherits LayoutComponentBase
+
+<MudThemeProvider @ref="@_mudThemeProvider" Theme="_selectedMudTheme" @bind-IsDarkMode="@_isDarkMode" />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+
+<MudLayout>
+    <MudAppBar Style="Background: transparent;" Class="animate__fadeInDown" Elevation="0" Fixed="false">
+        <WskLogo />
+        <WskNavMenuLanding />
+        @* <MudText Typo="Typo.h5" Class="ml-3 fire">WordSearchKingdom</MudText> *@
+        <MudSpacer />
+        <WskLoggedInSubNavMenuLanding />
+        @* <MudToggleIconButton Class="px-4"  @bind-Toggled="@_isDarkMode" Icon="@Icons.Material.Filled.DarkMode" Color="@Color.Info"
+            Title="Dark Mode" ToggledIcon="@Icons.Material.Filled.LightMode" ToggledColor="Color.Warning"
+            ToggledTitle="Light Mode" /> *@
+    </MudAppBar>
+    @Body
+</MudLayout>
+
+
+@code {
+    bool _drawerOpen = true;
+    private bool _isDarkMode;
+    private MudThemeProvider _mudThemeProvider;
+    private MudTheme _selectedMudTheme;
+
+
+    
+    void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+
+    protected void RedirectToLogin() {
+        NavigationManager.NavigateTo($"authentication/login?returnUrl={Uri.EscapeDataString(NavigationManager.Uri)}");
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        
+        _mudThemeProvider = _mudThemeProvider ?? new MudThemeProvider();
+        _selectedMudTheme = MudStaticDefaultTheme.Default;
+        if (firstRender)
+        {
+            _isDarkMode = await _mudThemeProvider.GetSystemPreference();
+            StateHasChanged();
+        }
+    }
+    void Testing()
+    {
+        Console.WriteLine("Clicked the ellipses");
+    }
+ 
+}
