@@ -2,28 +2,20 @@
 @layout MainLayoutLanding
 @inject IStringLocalizer<DemoGames> Localize
 
-<div>
-    <MudText Typo="Typo.h4" Align="Align.Center" Style="text-wrap: balance;">Word Search Kingdom - All Games</MudText>
-    <MudPaper Class="mt-4">
-        <MudGrid Justify="Justify.Center">
-            @foreach (var game in _games)
-            {
-                <MudItem Class="align-self-center">
-                    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="() => NavigateToGame(game.Id.ToString())">@game.Title</MudButton>
-                </MudItem>
-            }
-        </MudGrid>
-    </MudPaper>
-</div>
+
+<MudText Typo="Typo.h4" Align="Align.Center" Style="text-wrap: balance;">Word Search Kingdom - All Games</MudText>
+<MudPaper Class="mt-4">
+    <DemoGamesComponent Games=@_games />
+</MudPaper>
+
 
 @code {
     private List<GameViewModel> _games = new();
-    [Parameter]
-    public EventCallback<GameViewModel> OnChosenGame { get; set; }
     
     protected override async Task OnInitializedAsync()
     {
-        await base.OnInitializedAsync();                     
+        await base.OnInitializedAsync();     
+        @* Make a demogames request to replace*@
         var request = new GamesGetAllRequest();
         _games = await WskDataService.GamesGetAllAsync(request);
     }

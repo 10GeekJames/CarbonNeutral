@@ -2,25 +2,16 @@
 @layout MainLayoutLanding
 @inject IStringLocalizer<AllGames> Localize
 
-<div>
-    <MudText Typo="Typo.h4" Align="Align.Center" Style="text-wrap: balance;">Word Search Kingdom - All Games</MudText>
-    <MudPaper Class="mt-4">
-        <MudGrid Justify="Justify.Center">
-            @foreach (var game in _games)
-            {
-                <MudItem Class="align-self-center">
-                    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="() => NavigateToGame(game.Id.ToString())">@game.Title</MudButton>
-                </MudItem>
-            }
-        </MudGrid>
-        <MudButton Class="mt-8" FullWidth="true" Variant="Variant.Filled" Color="Color.Primary" OnClick=@NavigateToNewGame>Create New Game</MudButton>
-    </MudPaper>
-</div>
+
+<MudText Typo="Typo.h4" Align="Align.Center" Style="text-wrap: balance;">Word Search Kingdom - All Games</MudText>
+<MudPaper Class="mt-4">
+    <AllGamesComponent Games=@_games />
+    <MudButton Class="mt-8" FullWidth="true" Variant="Variant.Filled" Color="Color.Primary" OnClick=@NavigateToNewGame>Create New Game</MudButton>
+</MudPaper>
+
 
 @code {
     private List<GameViewModel> _games = new();
-    [Parameter]
-    public EventCallback<GameViewModel> OnChosenGame { get; set; }
     
     protected override async Task OnInitializedAsync()
     {
@@ -29,10 +20,7 @@
         _games = await WskDataService.GamesGetAllAsync(request);
     }
 
-    protected async Task NavigateToGame(string gameId)
-    {
-        NavigationManager.NavigateTo($"/wsk/game/{gameId}");
-    }
+
     protected async Task NavigateToNewGame()
     {
         NavigationManager.NavigateTo("/wsk/newgame");

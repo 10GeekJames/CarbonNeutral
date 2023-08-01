@@ -1,0 +1,43 @@
+@inject IStringLocalizer<WskNavMenu> Localize
+
+<style>
+    .mud-link {
+        color: rgba(216,216,216,0.5) !important;
+        font-weight: 500 !important;
+        text-shadow: 1px 1px 2px black;
+        font-size: 2rem !important;
+    }
+    .selected-link {
+        color: rgba(255,255,255,0.74) !important;
+        text-shadow: 0px 0px 7px lime, 1px 1px 2px black !important;
+    }
+    .selected-scale {
+        transform: scale(1.1) !important;}
+</style>
+@* Not authenticated *@
+<MudContainer>
+    <MudStack Row="true" Class="ml-16" Spacing="8">
+  <MudLink Href="/" Underline="Underline.None" Class=@(SelectedPageClass == "home" ? "selected-link selected-scale" : "no-class") OnClick="@(() => SetCurrentPageClass("home"))">Home</MudLink>
+        <MudLink Href="/wsk/allgames" Underline="Underline.None" Class=@(SelectedPageClass == "play" ? "selected-link selected-scale" : "no-class") OnClick="@(() => SetCurrentPageClass("play"))">Play</MudLink>
+        <MudLink Href="/wsk/help" Underline="Underline.None" Class=@(SelectedPageClass == "help" ? "selected-link selected-scale" : "no-class") OnClick="@(() => SetCurrentPageClass("help"))">Help</MudLink>
+        <MudLink Href="/wsk/about" Underline="Underline.None" Class=@(SelectedPageClass == "about" ? "selected-link selected-scale" : "no-class") OnClick="@(() => SetCurrentPageClass("about"))">About</MudLink>
+    </MudStack>
+</MudContainer>
+
+@code {
+    [Parameter]
+    public string SelectedPageClass { get; set; }
+
+    [Parameter] 
+    public EventCallback<string> OnPageLinkClick { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();    
+    }
+
+    private void SetCurrentPageClass(string page) {
+        OnPageLinkClick.InvokeAsync(page);
+    }
+
+}

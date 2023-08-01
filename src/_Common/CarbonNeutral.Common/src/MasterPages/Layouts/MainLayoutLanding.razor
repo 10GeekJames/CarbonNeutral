@@ -8,15 +8,24 @@
 <MudLayout>
     <MudAppBar Style="Background: transparent;" Class="animate__fadeInDown" Elevation="0" Fixed="false">
         <WskLogo />
-        <WskNavMenuLanding />
+        <WskNavMenu SelectedPageClass=@selectedPageClass OnPageLinkClick=@SetPageClass />
         @* <MudText Typo="Typo.h5" Class="ml-3 fire">WordSearchKingdom</MudText> *@
         <MudSpacer />
-        <WskSubNavMenuLanding />
+        @* NotAuthenticated *@
+        <WskSubNavMenu />
+        @* NotAuthenticated *@
+
+        @* Authenticated *@
+        @* <WskLoggedInSubNavMenu /> *@
+        @* Authenticated *@
+
         @* <MudToggleIconButton Class="px-4"  @bind-Toggled="@_isDarkMode" Icon="@Icons.Material.Filled.DarkMode" Color="@Color.Info"
             Title="Dark Mode" ToggledIcon="@Icons.Material.Filled.LightMode" ToggledColor="Color.Warning"
             ToggledTitle="Light Mode" /> *@
     </MudAppBar>
-    @Body
+    @* <CascadingValue Value="SetPageClass"> *@
+        @Body
+    @* </CascadingValue> *@
 </MudLayout>
 
 
@@ -25,6 +34,14 @@
     private bool _isDarkMode;
     private MudThemeProvider _mudThemeProvider;
     private MudTheme _selectedMudTheme;
+    private string selectedPageClass = "home";
+
+    public void SetPageClass(string pageClass) 
+    {
+        @* Console.WriteLine($"SetPageClass: {pageClass}"); *@
+        selectedPageClass = pageClass;
+        StateHasChanged();
+    }
 
 
     
