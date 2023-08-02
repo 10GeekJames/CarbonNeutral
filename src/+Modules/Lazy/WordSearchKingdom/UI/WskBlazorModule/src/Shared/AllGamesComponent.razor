@@ -4,11 +4,11 @@
     @foreach (var game in Games)
     {
         <MudItem Class="align-self-center">
-            <MudCard>
+            <MudCard Style="height: 300px; width: 300px;">
                 <MudCardHeader>
                     <MudText Typo="Typo.h6" Class="text-center">@game.Title</MudText>
                 </MudCardHeader>
-                <MudCardContent>
+                <MudCardContent Style="height: 150px;" Class="overflow-y-auto">
                     <MudStack>
                         @foreach (var word in game.GameGrid.HiddenWords)
                         {

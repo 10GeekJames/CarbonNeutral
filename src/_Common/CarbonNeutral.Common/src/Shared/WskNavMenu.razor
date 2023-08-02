@@ -17,17 +17,16 @@
 @* Not authenticated *@
 <MudContainer>
     <MudStack Row="true" Class="ml-16" Spacing="8">
-  <MudLink Href="/" Underline="Underline.None" Class=@(SelectedPageClass == "home" ? "selected-link selected-scale" : "no-class") OnClick="@(() => SetCurrentPageClass("home"))">Home</MudLink>
-        <MudLink Href="/wsk/allgames" Underline="Underline.None" Class=@(SelectedPageClass == "play" ? "selected-link selected-scale" : "no-class") OnClick="@(() => SetCurrentPageClass("play"))">Play</MudLink>
-        <MudLink Href="/wsk/help" Underline="Underline.None" Class=@(SelectedPageClass == "help" ? "selected-link selected-scale" : "no-class") OnClick="@(() => SetCurrentPageClass("help"))">Help</MudLink>
-        <MudLink Href="/wsk/about" Underline="Underline.None" Class=@(SelectedPageClass == "about" ? "selected-link selected-scale" : "no-class") OnClick="@(() => SetCurrentPageClass("about"))">About</MudLink>
+  <MudLink Href="/" Underline="Underline.None" Class=@(SelectedPageClass == "home" ? "selected-link selected-scale" : "") OnClick="@(() => SetCurrentPageClass("home"))">Home</MudLink>
+        <MudLink Href="/wsk/allgames" Underline="Underline.None" Class=@(SelectedPageClass == "play" ? "selected-link selected-scale" : "") OnClick="@(() => SetCurrentPageClass("play"))">Play</MudLink>
+        <MudLink Href="/wsk/help" Underline="Underline.None" Class=@(SelectedPageClass == "help" ? "selected-link selected-scale" : "") OnClick="@(() => SetCurrentPageClass("help"))">Help</MudLink>
+        <MudLink Href="/wsk/about" Underline="Underline.None" Class=@(SelectedPageClass == "about" ? "selected-link selected-scale" : "") OnClick="@(() => SetCurrentPageClass("about"))">About</MudLink>
     </MudStack>
 </MudContainer>
 
 @code {
     [Parameter]
     public string SelectedPageClass { get; set; }
-
     [Parameter] 
     public EventCallback<string> OnPageLinkClick { get; set; }
 

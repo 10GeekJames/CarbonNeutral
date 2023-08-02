@@ -1,48 +1,6 @@
 @inject IStringLocalizer<GameComponent> Localize
 <div class="border-double border-xs-none border-xs-0 border-4 mud-border-primary pa-4 rounded main-game-container">
-    <style>
-        .play-area-grid {
-            display: grid;
-            border-collapse: collapse;
-            aspect-ratio: 1 / 1;
-            justify-content: center;
-            align-items: center;
-            height: fit-content;
-            width: fit-content;
-            gap: 0;
-            @* padding: 0 50px 0 0; *@
-        }
-        .grid-cell {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 24px;
-            height: 24px;
-            text-align: center;
-            user-select: none;
-            font-size: 1.5em;
-            aspect-ratio: 1 / 1;
-        }
-        .grid-cell:hover {
-            background-color: #e0e0e0;
-            color: black;
-            cursor: pointer;
-            border-radius: 50%;
-            border: 1px solid lime;
-        }
-        .grid-cell .mud-link {
-            aspect-ratio: 1 / 1;
-            font-family: 'Monaco', monospace !important;
-            font-weight: bolder;
-            font-size: 1em;
-        }
-        .main-game-container {
-            width: fit-content;
-            margin: 0 auto;
-        }
 
-
-    </style>
     <MudBreakpointProvider OnBreakpointChanged="((e) => SetStackDirection(e))" />
     @if(Game.GameGrid != null) {
         <MudStack Row=isRow Class="pa-4 rounded" AlignItems="AlignItems.Center" Justify="Justify.Center">
