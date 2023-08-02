@@ -4,9 +4,9 @@
     @foreach (var game in Games)
     {
         <MudItem Class="align-self-center">
-            <MudCard Class="border-solid border-2 d-flex flex-column justify-space-around rounded-lg" Style="height: 350px; width: 250px; background: rgba(0, 0, 0, 0.25);">
-                <MudCardHeader>
-                    <MudText Typo="Typo.h6" Class="text-center">@game.Title</MudText>
+            <MudCard Class="border-solid border-2 d-flex flex-column justify-space-around rounded-lg " Style="height: 350px; width: 250px; background: rgba(0, 0, 0, 0.25);">
+                <MudCardHeader Class="justify-center">
+                    <MudText Typo="Typo.h6" Class="overflow-y-hidden align-self-center" Style="max-height: 30px;">@game.Title</MudText>
                 </MudCardHeader>
                 <MudCardContent >
                     <MudStack Style="height: 100px;" Spacing="0" Class="overflow-y-auto">
@@ -17,16 +17,36 @@
                     </MudStack>
                     <MudText Typo="Typo.caption">@Localize["Difficulty"]</MudText>
                     <MudStack Row="true">
-                        @if (game.GameDifficulty == 0)
+                        @if (game.GameDifficulty == GameDifficulties.Easy)
                         {
                             <MudChip Color="Color.Info" Size="Size.Small" Variant="Variant.Outlined">E</MudChip>
 
                         } else {
                             <MudChip Color="Color.Info" Size="Size.Small">E</MudChip>
                         }
-                        <MudChip Color="Color.Primary" Size="Size.Small" >M</MudChip>
-                        <MudChip Color="Color.Warning" Size="Size.Small" >H</MudChip>
-                        <MudChip Color="Color.Error" Size="Size.Small" >Ex</MudChip>
+                        @if (game.GameDifficulty == GameDifficulties.Medium)
+                        {
+                            <MudChip Color="Color.Success" Size="Size.Small" Variant="Variant.Outlined">M</MudChip>
+
+                        } else {
+                            <MudChip Color="Color.Success" Size="Size.Small" >M</MudChip>
+                        }
+                        @if (game.GameDifficulty == GameDifficulties.Hard)
+                        {
+                            <MudChip Color="Color.Warning" Size="Size.Small" Variant="Variant.Outlined">H</MudChip>
+
+                        } else {
+                            <MudChip Color="Color.Warning" Size="Size.Small">H</MudChip>
+
+                        }
+                        @if (game.GameDifficulty == GameDifficulties.ExtraHard)
+                        {
+                            <MudChip Color="Color.Error" Size="Size.Small" Variant="Variant.Outlined">Ex</MudChip>
+                        } else {
+                            <MudChip Color="Color.Error" Size="Size.Small">Ex</MudChip>
+                        }
+                        
+                        
                     </MudStack>
                 </MudCardContent>
                 <MudCardActions>
