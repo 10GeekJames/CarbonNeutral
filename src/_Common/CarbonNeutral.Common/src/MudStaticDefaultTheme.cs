@@ -12,7 +12,7 @@ public static class MudStaticDefaultTheme
         },
         PaletteDark = new PaletteDark()
         {
-            // Primary = Colors.Blue.Lighten1
+            // Primary = "green",
         },
         LayoutProperties = new LayoutProperties()
         {

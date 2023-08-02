@@ -1,25 +1,36 @@
 @inject IStringLocalizer<AllGamesComponent> Localize
 
-<MudGrid Justify="Justify.Center">
+<MudGrid Class="pa-4" Justify="Justify.Center">
     @foreach (var game in Games)
     {
         <MudItem Class="align-self-center">
-            <MudCard Style="height: 300px; width: 300px;">
+            <MudCard Class="border-solid border-2 d-flex flex-column justify-space-around rounded-lg" Style="height: 350px; width: 250px; background: rgba(0, 0, 0, 0.25);">
                 <MudCardHeader>
                     <MudText Typo="Typo.h6" Class="text-center">@game.Title</MudText>
                 </MudCardHeader>
-                <MudCardContent Style="height: 150px;" Class="overflow-y-auto">
-                    <MudStack>
+                <MudCardContent >
+                    <MudStack Style="height: 100px;" Spacing="0" Class="overflow-y-auto">
                         @foreach (var word in game.GameGrid.HiddenWords)
                         {
-
-                            <MudText Typo="Typo.body2" Class="text-center">@word.Word</MudText>
-
+                            <MudChip Color=@isFoundStyling(word.IsFound) Class="m-1" Size="Size.Small">@word.Word</MudChip>
                         }
+                    </MudStack>
+                    <MudText Typo="Typo.caption">@Localize["Difficulty"]</MudText>
+                    <MudStack Row="true">
+                        @if (game.GameDifficulty == 0)
+                        {
+                            <MudChip Color="Color.Info" Size="Size.Small" Variant="Variant.Outlined">E</MudChip>
+
+                        } else {
+                            <MudChip Color="Color.Info" Size="Size.Small">E</MudChip>
+                        }
+                        <MudChip Color="Color.Primary" Size="Size.Small" >M</MudChip>
+                        <MudChip Color="Color.Warning" Size="Size.Small" >H</MudChip>
+                        <MudChip Color="Color.Error" Size="Size.Small" >Ex</MudChip>
                     </MudStack>
                 </MudCardContent>
                 <MudCardActions>
-                    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="() => NavigateToGame(game.Id.ToString())">@Localize["Play"]</MudButton>
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="() => NavigateToGame(game.Id.ToString())" FullWidth="true">@Localize["Play"]</MudButton>
                 </MudCardActions>
             </MudCard>
         </MudItem>
@@ -39,4 +50,17 @@
     {
         NavigationManager.NavigateTo($"/wsk/game/{gameId}");
     }
+
+    private MudBlazor.Color isFoundStyling(bool isFound) {
+        if (isFound) {
+            return Color.Success;
+        }
+        return Color.Primary;
+    }
+    @* private MudBlazor.Variant isSelectedDifficulty(bool isFound) {
+        if (isFound) {
+            return Variant.Outlined;
+        }
+        return Variant.Filled;
+    } *@
 }
