@@ -5,6 +5,8 @@
 <MudSnackbarProvider />
 
 
+<div style="background-image: url(_Content/CarbonNeutral.Common/i/knight_bg.jpg); min-height: 100vh; width: 100%; position: absolute; top: 0; left: 0; z-index: -5;">
+<MudOverlay Visible="true" DarkBackground="true" ZIndex="-2" Style="backdrop-filter: blur(10px); background-color: rgba(0,0,0,0.75); "/>
 <MudLayout>
     <MudAppBar Style="Background: transparent;" Class="animate__fadeInDown" Elevation="0" Fixed="false">
         @* <MudImage Src="_Content/CarbonNeutral.Common/i/WskLogo.svg"  /> *@
@@ -24,10 +26,10 @@
             Title="Dark Mode" ToggledIcon="@Icons.Material.Filled.LightMode" ToggledColor="Color.Warning"
             ToggledTitle="Light Mode" /> *@
     </MudAppBar>
-    @* <CascadingValue Value="SetPageClass"> *@
         @Body
-    @* </CascadingValue> *@
+
 </MudLayout>
+</div>
 
 
 @code {
@@ -35,7 +37,7 @@
     private bool _isDarkMode;
     private MudThemeProvider _mudThemeProvider;
     private MudTheme _selectedMudTheme;
-    private string selectedPageClass = "home";
+    private string selectedPageClass = "";
 
     public void SetPageClass(string pageClass) 
     {

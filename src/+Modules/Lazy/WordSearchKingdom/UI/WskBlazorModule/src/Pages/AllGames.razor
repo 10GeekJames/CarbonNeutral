@@ -4,10 +4,12 @@
 
 
 <MudText Typo="Typo.h4" Align="Align.Center" Style="text-wrap: balance;">Word Search Kingdom - All Games</MudText>
-<MudPaper Class="mt-4">
-    <MudButton Class="mt-8" FullWidth="true" Variant="Variant.Filled" Color="Color.Primary" OnClick=@NavigateToNewGame>Create New Game</MudButton>
-    <AllGamesComponent Games=@_games />
-</MudPaper>
+<MudContainer>
+    <MudPaper Class="mt-4 pa-4 border-double border-4 rounded-lg" Style="background: transparent;">
+        <MudButton Class="mt-8" FullWidth="true" Variant="Variant.Filled" Color="Color.Primary" OnClick=@NavigateToNewGame>Create New Game</MudButton>
+        <AllGamesComponent Games=@_games />
+    </MudPaper>
+</MudContainer>
 
 
 @code {
