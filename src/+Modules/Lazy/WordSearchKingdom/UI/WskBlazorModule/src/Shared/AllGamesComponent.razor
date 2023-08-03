@@ -17,36 +17,10 @@
                     </MudStack>
                     <MudText Typo="Typo.caption">@Localize["Difficulty"]</MudText>
                     <MudStack Row="true">
-                        @if (game.GameDifficulty == GameDifficulties.Easy)
-                        {
-                            <MudChip Color="Color.Info" Size="Size.Small" Variant="Variant.Outlined">E</MudChip>
-
-                        } else {
-                            <MudChip Color="Color.Info" Size="Size.Small">E</MudChip>
-                        }
-                        @if (game.GameDifficulty == GameDifficulties.Medium)
-                        {
-                            <MudChip Color="Color.Success" Size="Size.Small" Variant="Variant.Outlined">M</MudChip>
-
-                        } else {
-                            <MudChip Color="Color.Success" Size="Size.Small" >M</MudChip>
-                        }
-                        @if (game.GameDifficulty == GameDifficulties.Hard)
-                        {
-                            <MudChip Color="Color.Warning" Size="Size.Small" Variant="Variant.Outlined">H</MudChip>
-
-                        } else {
-                            <MudChip Color="Color.Warning" Size="Size.Small">H</MudChip>
-
-                        }
-                        @if (game.GameDifficulty == GameDifficulties.ExtraHard)
-                        {
-                            <MudChip Color="Color.Error" Size="Size.Small" Variant="Variant.Outlined">Ex</MudChip>
-                        } else {
-                            <MudChip Color="Color.Error" Size="Size.Small">Ex</MudChip>
-                        }
-                        
-                        
+                        <MudChip Color="Color.Info" Size="Size.Small" Variant="@isSelectedDifficulty(game.GameDifficulty, "Easy")">E</MudChip>
+                        <MudChip Color="Color.Success" Size="Size.Small" Variant="@isSelectedDifficulty(game.GameDifficulty, "Medium")">M</MudChip>
+                        <MudChip Color="Color.Warning" Size="Size.Small" Variant="@isSelectedDifficulty(game.GameDifficulty, "Hard")">H</MudChip>
+                        <MudChip Color="Color.Error" Size="Size.Small" Variant="@isSelectedDifficulty(game.GameDifficulty, "ExtraHard")">Ex</MudChip>
                     </MudStack>
                 </MudCardContent>
                 <MudCardActions>
@@ -77,10 +51,10 @@
         }
         return Color.Primary;
     }
-    @* private MudBlazor.Variant isSelectedDifficulty(bool isFound) {
-        if (isFound) {
+    private MudBlazor.Variant isSelectedDifficulty(GameDifficulties difficulty, string chipDifficulty) {
+        if (difficulty.ToString() == chipDifficulty) {
             return Variant.Outlined;
         }
         return Variant.Filled;
-    } *@
+    }
 }
