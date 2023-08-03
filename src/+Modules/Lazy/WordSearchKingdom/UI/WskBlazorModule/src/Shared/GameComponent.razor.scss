@@ -36,6 +36,8 @@
 .main-game-container {
     width: fit-content; 
     margin: 0 auto;
+    background-color: rgba(0,0,0,0.50);
+    backdrop-filter: blur(50px);
 }
 ::deep .engraved-text-container {
     color: transparent;
