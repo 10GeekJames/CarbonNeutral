@@ -1,0 +1,26 @@
+@inject IStringLocalizer<WskLogo> Localize
+
+
+
+<div class="logo-container">
+    <div class="logo-grid">
+        @foreach (var letter in _logoLetters)
+        {
+            <div class="logo-grid-cell">
+                @letter
+            </div>
+        }
+    </div>
+    <MudText Class="logo-text-shadow" Align="Align.Center" Typo="Typo.h4">WSK</MudText>
+</div>
+@* <MudImage Class="ml-3" Src="../wwwroot/i/WskLogo.svg" /> *@
+
+@code {
+    private string[] _logoLetters = new string[] { "W", "J", "W", "V", "S", "K", "L", "R", "K" };
+
+        protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();      
+                       
+    }
+}

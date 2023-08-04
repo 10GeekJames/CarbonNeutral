@@ -1,0 +1,28 @@
+@page "/wsk/demogames"
+@layout MainLayoutLanding
+@inject IStringLocalizer<DemoGames> Localize
+
+
+<MudText Typo="Typo.h4" Align="Align.Center" Style="text-wrap: balance;">Word Search Kingdom - All Games</MudText>
+<MudPaper Class="mt-4">
+    <DemoGamesComponent Games=@_games />
+</MudPaper>
+
+
+@code {
+    private List<GameViewModel> _games = new();
+    
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();     
+        @* Make a demogames request to replace*@
+        var request = new GamesGetAllRequest();
+        _games = await WskDataService.GamesGetAllAsync(request);
+    }
+
+    protected async Task NavigateToGame(string gameId)
+    {
+        NavigationManager.NavigateTo($"/wsk/game/{gameId}");
+    }
+
+}

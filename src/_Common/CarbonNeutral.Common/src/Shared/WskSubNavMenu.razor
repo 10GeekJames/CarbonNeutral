@@ -1,0 +1,27 @@
+@inject IStringLocalizer<WskSubNavMenu> Localize
+
+<style>
+    .sub-nav-menu-container {
+        position: absolute;
+        top: 15px;
+        right: 50px;
+        opacity: 0.75;
+    }
+</style>
+
+<div class="sub-nav-menu-container">
+    <MudStack Row="true" Class="ml-16">
+        <MudButton StartIcon="@Icons.Material.Filled.Login"><MudText>Login</MudText></MudButton>
+        <MudButton StartIcon="@Icons.Material.Filled.ShoppingCart"><MudText Class="selected-link">Buy</MudText></MudButton>
+    </MudStack>
+</div>
+
+@code {
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();      
+                       
+    }
+}

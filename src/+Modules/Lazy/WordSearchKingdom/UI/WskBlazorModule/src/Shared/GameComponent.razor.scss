@@ -1,0 +1,57 @@
+.play-area-grid {
+    display: grid;
+    border-collapse: collapse;
+    aspect-ratio: 1 / 1;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+    width: fit-content;
+    gap: 0;
+}
+.grid-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Monaco', monospace;
+    width: 24px;
+    height: 24px;
+    text-align: center;
+    user-select: none;
+    font-size: 1.5em;
+    aspect-ratio: 1 / 1;
+}
+.grid-cell:hover {
+    background-color: #e0e0e0;
+    color: black;
+    cursor: pointer;
+    border-radius: 50%;
+    border: 1px solid lime;
+}
+.grid-cell .mud-link {
+    aspect-ratio: 1 / 1;
+    font-family: 'Monaco', monospace !important;
+    font-weight: bolder;
+    font-size: 1em;
+}
+.main-game-container {
+    width: fit-content; 
+    margin: 0 auto;
+    background-color: rgba(0,0,0,0.50);
+    backdrop-filter: blur(50px);
+}
+::deep .engraved-text-container {
+    color: transparent;
+    background: linear-gradient( #919191 35%, #FFFFFF 52%, #9C9C9C 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-shadow: 0px 1px 0px rgba(255,255,255,.3), 0px -1px 0px rgba(0,0,0,.7);
+}
+::deep .pop-out-text {
+    text-shadow: 1px 0px 0px rgb(155,155,155), 2px 0px 0px rgb(0,0,0), 3px 3px 5px green;
+}
+::deep .selected-letter {
+    transform: scale(2.5);
+}
+::deep .found-word {
+    transform: scale(1.5);
+}

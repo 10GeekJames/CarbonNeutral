@@ -1,75 +1,39 @@
 @inject IStringLocalizer<GameComponent> Localize
-<div class="border-md-solid border-xs-none border-xs-0 border-2 mud-border-primary pa-4 rounded main-game-container">
-    <style>
-        .play-area-grid {
-            display: grid;
-            border-collapse: collapse;
-            aspect-ratio: 1 / 1;
-            justify-content: center;
-            align-items: center;
-            height: fit-content;
-            width: fit-content;
-            gap: 0;
-            padding: 0 50px 0 0;
-        }
-        .grid-cell {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Monaco', monospace;
-            @* border: 1px solid white; *@
-            width: 24px;
-            height: 24px;
-            text-align: center;
-            user-select: none;
-            font-size: 1.5em;
-            @* padding: 4px 6px; *@
-            aspect-ratio: 1 / 1;
-            @* transform: scale(1.5, 1); *@
-        }
-        .grid-cell:hover {
-            background-color: #e0e0e0;
-            color: black;
-            cursor: pointer;
-        }
-        .grid-cell .mud-link {
-            aspect-ratio: 1 / 1;
-            font-family: 'Monaco', monospace !important;
-            font-weight: bolder;
-            font-size: 1em;
-        }
-        .main-game-container {
-            width: fit-content;
-            margin: 0 auto;
-        }
+<div class="border-double border-xs-none border-xs-0 border-4 mud-border-primary pa-4 rounded main-game-container">
 
-    </style>
     <MudBreakpointProvider OnBreakpointChanged="((e) => SetStackDirection(e))" />
     @if(Game.GameGrid != null) {
         <MudStack Row=isRow Class="pa-4 rounded" AlignItems="AlignItems.Center" Justify="Justify.Center">
-            <div class="d-flex">
+            <MudHidden Breakpoint="Breakpoint.MdAndUp">
+            <div class="engraved-text-container d-flex">
+                <MudText Class="selected-link"  Typo="Typo.h2" Align="Align.Center">@Game?.Title</MudText>   
+            </div>
+        </MudHidden>
+        <div class="d-flex justify-center align-items-center">
                 <MudHidden Breakpoint="Breakpoint.SmAndDown">
-                    <MudText Typo="Typo.h2" Align="Align.Center" Style="writing-mode: vertical-rl;">@Game?.Title</MudText>   
-                </MudHidden>
-                <div class="play-area-grid align-items-center" Style="@(($"grid-template-rows: repeat({Game.GameGrid.Width}, 1fr); grid-template-columns: repeat({Game.GameGrid.Height}, 1fr);"))">
+                    <div class="engraved-text-container d-flex">
+                    <MudText Class="selected-link" Typo="Typo.h2" Align="Align.Center" Style="writing-mode: vertical-rl;">@Game?.Title</MudText>   
+                    </div>
+            </MudHidden>
+                <div class="play-area-grid align-items-center ma-auto" Style="@(($"grid-template-rows: repeat({Game.GameGrid.Width}, 1fr); grid-template-columns: repeat({Game.GameGrid.Height}, 1fr);"))">
                     @for (var x = 0; x < Game.GameGrid.Width; x++) {
                         @for (var y = 0; y < Game.GameGrid.Height; y++) {                            
                             var storeX = x;
                             var storeY = y;
                             char rowCell = SelectedGridCells[storeX,storeY];
-                            <MudLink Class="grid-cell" OnClick=@(e => HandleCellClick(e, rowCell, storeX, storeY)) Underline="Underline.None" >
-                                <RowCellComponent 
+                        <MudLink Class="grid-cell" OnClick=@(e => HandleCellClick(e, rowCell, storeX, storeY)) Underline="Underline.None" >
+                            <RowCellComponent 
                                     RowCell=rowCell
                                     IsCompleted=@(SelectedGridCellPoints.Any(rs=>rs.X == storeX && rs.Y == storeY))
                                     IsSelected=@((bool)(firstClick.HasValue && firstClick.Value.x == storeX && firstClick.Value.y == storeY))
                                 />
-                            </MudLink>
+                        </MudLink>
                             }
                         }                
                 </div>
             </div>
-            <MudContainer Class="border-solid border-xs-0 border-2 mud-border-primary pa-4 rounded ma-0" Style="max-width: 25%;">
-                <MudText Typo="Typo.h3" Align="Align.Center">
+            <MudContainer Class="border-double border-xs-0 border-4 mud-border-primary pa-4 rounded ma-0" >
+                <MudText Class="selected-link" Typo="Typo.h3" Align="Align.Center">
                     Hidden Words
                 </MudText>
                 <MudDivider />
@@ -135,6 +99,7 @@
         if (firstClick == null)
         {
             firstClick = new(x, y);            
+            @* StateHasChanged(); *@
         }
         else
         {
@@ -143,7 +108,7 @@
             SelectedGridCells = GameGridUtility.ConvertRowCellStringToArray(Game.GameGrid.RowCellData);
             SelectedGridCellPoints = GameGridUtility.ConvertSelectedWordsToPointList(Game.GameGrid.CompletedWordCellData);            
             firstClick = null;
-            StateHasChanged();
+            @* StateHasChanged(); *@
         }
     }
 

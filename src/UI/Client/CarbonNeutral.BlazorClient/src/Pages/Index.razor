@@ -1,10 +1,17 @@
 @page "/"
 @layout MainLayoutLanding
 <PageTitle>WordSearchKingdom</PageTitle>
-<LandingHero/>
-<MudDivider Class="my-6" />
-<MudContainer>
-    <LandingContent/>
+
+<MudContainer Style="max-width: 90vw;">
+<MudGrid Spacing="8" Class="mt-16" Justify="Justify.Center">
+    <MudItem xs="12" md="6">
+        <LandingHero/>
+    </MudItem>
+
+    <MudItem xs="12" md="5">
+        <MudImage Fluid="true" Src="./i/wskKnight(500px).jpg" Alt="Library" Class="rounded-xl" />
+    </MudItem>
+</MudGrid>
 </MudContainer>
 
 

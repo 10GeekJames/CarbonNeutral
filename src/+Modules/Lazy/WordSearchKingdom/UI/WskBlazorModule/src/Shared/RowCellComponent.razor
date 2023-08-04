@@ -1,5 +1,7 @@
 @inject IStringLocalizer<RowCellComponent> Localize
-<MudText Color=@(GetColorToUse())>@RowCell</MudText>
+
+
+<MudText Typo="Typo.h6" Class=@(GetClassToUse()) Color=@(GetColorToUse())>@RowCell</MudText>
 @code {
     [Parameter]
     public char RowCell {get;set;}
@@ -9,22 +11,40 @@
     public bool IsCompleted {get;set;} = false;
     [Parameter]
     public bool IsHover {get;set;} = false;
+
     
     public Color GetColorToUse(){
         var colorToUse = Color.Default;
         if(IsSelected == true) {
-            colorToUse = Color.Success;
+            colorToUse = Color.Secondary;
         }
         else if (IsCompleted == true) {
-            colorToUse = Color.Success;
+            colorToUse = Color.Warning;
         }
         else if (IsHover == true) {
-            colorToUse = Color.Default;
+            colorToUse = Color.Primary;
         }
         else {
             colorToUse = Color.Default;
         }
         return colorToUse;
+    }
+    public string GetClassToUse(){
+        var classToUse = "engraved-text-container";
+        if(IsSelected == true) {
+            classToUse = "engraved-text-container pop-out-text selected-letter";
+        }
+        else if (IsCompleted == true) {
+            classToUse = "pop-out-text found-word";
+
+        }
+        else if (IsHover == true) {
+
+        }
+        else {
+            classToUse = "engraved-text-container";
+        }
+        return classToUse;
     }
 
     protected override async Task OnInitializedAsync()

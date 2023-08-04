@@ -13,6 +13,9 @@
     color: red;
 }
 
+body {
+  font-family: 'Courier New', Courier, monospace; /* Monospace font */
+}
 
 @keyframes pulse {
     from {
@@ -34,3 +37,79 @@
     animation-duration: 2s;
     animation-timing-function: ease-in-out;
   }
+
+
+.fire {
+  color: #f5f5f5; /* Light text color */
+  //text-align:center; /* Center alignment of text */
+  font-family: 'Courier New', Courier, monospace; /* Monospace font */
+  //font-size: 80px; /* Text size */
+  /* Multi-layered text-shadow for fire effect */
+  text-shadow:
+  0px -1px 3px #fff, /* Innermost layer - intense heat (white) */
+  0px -2px 6px #FF3, /* Second layer - core of flame (yellow) */
+  0px -6px 12px #F90, /* Middle layer - body of flame (orange) */
+  0px -10px 20px #C33; /* Outermost layer - edges of flame (red) */
+  animation: flicker 2s infinite;
+}
+/* Define the animation named "flicker" */
+@keyframes flicker {
+    /* Initial state of animation */
+    0%, 
+    /* Final state of animation */
+    100% { 
+        text-shadow: 
+            0 -1px 3px #fff, /* Innermost layer - intense heat (white) */
+            0 -2px 6px #FF3, /* Second layer - core of flame (yellow) */
+            0 -6px 12px #F90, /* Middle layer - body of flame (orange) */
+            0 -10px 20px #C33; /* Outermost layer - edges of flame (red) */
+    }
+    /* Middle state of animation */
+    50% { 
+        text-shadow: 
+            0 -2px 6px #fff, /* Innermost layer - intense heat (white) */
+            0 -4px 12px #FF3, /* Second layer - core of flame (yellow) */
+            0 -8px 16px #F90, /* Middle layer - body of flame (orange) */
+            0 -12px 24px #C33; /* Outermost layer - edges of flame (red) */
+    }
+}  
+
+.play-area-grid {
+  display: grid;
+  border-collapse: collapse;
+  aspect-ratio: 1 / 1;
+  justify-content: center;
+  align-items: center;
+  height: fit-content;
+  width: fit-content;
+  gap: 0;
+}
+.grid-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Monaco', monospace;
+  width: 24px;
+  height: 24px;
+  text-align: center;
+  user-select: none;
+  font-size: 1.5em;
+  aspect-ratio: 1 / 1;
+}
+.grid-cell:hover {
+  background-color: #e0e0e0;
+  color: black;
+  cursor: pointer;
+  border-radius: 50%;
+  border: 1px solid lime;
+}
+.grid-cell .mud-link {
+  aspect-ratio: 1 / 1;
+  font-family: 'Monaco', monospace !important;
+  font-weight: bolder;
+  font-size: 1em;
+}
+.main-game-container {
+  width: fit-content;
+  margin: 0 auto;
+}
