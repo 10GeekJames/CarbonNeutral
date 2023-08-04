@@ -21,6 +21,11 @@ global using WskCore;
 global using WskApplication.Services;
 global using WskInfrastructure;
 global using WskInfrastructure.CommandQuery;
+global using WskInfrastructure.Data;
+
+global using WskApplication.Data;
+global using WskApplication.Data.Interfaces;
+global using WskApplication.Data.SeedScripts;
 
 global using WskApplication.Shared.Requests;
 global using WskApplication.Shared.Automaps;

@@ -6,11 +6,11 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <IsPackable>true</IsPackable>
     <PackageId>CarbonNeutral.KernelShared</PackageId>
-    <Version>1.01.02.003</Version>
+    <Version>1.1.2.3</Version>
     <Authors>10GeekJames</Authors>
     <Company>10GeekJames</Company>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <DefaultNamespace>CarbonNeutral.KernelShared</DefaultNamespace>
+    <DefaultNamespace>CarbonNeutral.KernelShared</DefaultNamespace>    
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,4 +21,8 @@
     <PackageReference Include="Toolbelt.EntityFrameworkCore.IndexAttribute.SqlServer" Version="5.0.1" />
   </ItemGroup>
 
+<!--   <Target Name="PushPackage" AfterTargets="Publish" Condition="'$(Configuration)' == 'Release'">
+    <Exec Command="dotnet pack -c Release" />
+    <Exec Command="dotnet nuget push &quot;$(MSBuildProjectDirectory)/bin/$(Configuration)/$(AssemblyName).$(Version).nupkg&quot; -s LocalNuggget" />
+  </Target> -->
 </Project>

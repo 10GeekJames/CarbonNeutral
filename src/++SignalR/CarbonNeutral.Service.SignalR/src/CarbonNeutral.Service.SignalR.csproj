@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <IsPackable>false</IsPackable>
     <PackageId>CarbonNeutral.Services.Signalr</PackageId>
-    <Version>1.01.02.003</Version>
+    <Version>1.1.2.3</Version>
     <Authors>10GeekJames</Authors>
     <Company>10GeekJames</Company>
     <DefaultNamespace>CarbonNeutral.Services.Signalr</DefaultNamespace>

@@ -31,7 +31,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WskApi", "src\+Modules\Lazy
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WskApi.FunctionalTests", "src\+Modules\Lazy\WordSearchKingdom\+Api\WskApi.FunctionalTests\src\WskApi.FunctionalTests.csproj", "{3F3F30C7-E19A-49F8-8DB8-498A994F14A3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WskModuleClientServiceLoader", "src\+Modules\Lazy\WordSearchKingdom\UI\_WskModuleClientServiceLoader\src\WskModuleClientServiceLoader.csproj", "{D7B61904-29B3-4B57-91B0-25027AF86118}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WordSearchKingdomClientServiceLoader", "src\+Modules\Lazy\WordSearchKingdom\UI\_WordSearchKingdomClientServiceLoader\src\WordSearchKingdomClientServiceLoader.csproj", "{D7B61904-29B3-4B57-91B0-25027AF86118}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WskBlazorModule", "src\+Modules\Lazy\WordSearchKingdom\UI\WskBlazorModule\src\WskBlazorModule.csproj", "{4CFFDCB3-B8B8-4F33-87CC-1D920BC56070}"
 EndProject

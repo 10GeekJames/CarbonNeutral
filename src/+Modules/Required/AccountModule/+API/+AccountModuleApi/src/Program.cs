@@ -11,14 +11,12 @@ public static class Program
             var services = scope.ServiceProvider;
             var configuration = GetConfiguration(args);
             var appSettings = configuration.Get<AppSettings>();
-
-            /* context.Database.EnsureCreated();
-            //context.Database.Migrate();
+            /* context.Database.Migrate();
+            context.Database.EnsureCreated();            
 
             var seedAccountModuleData = services.GetRequiredService<SeedAccountModuleData>();
             var mediator = services.GetRequiredService<IMediator>();
-            seedAccountModuleData.Initialize(services, mediator).GetAwaiter().GetResult();
- */
+            seedAccountModuleData.Initialize(services, mediator).GetAwaiter().GetResult();  */
         }
 
         host.Run();

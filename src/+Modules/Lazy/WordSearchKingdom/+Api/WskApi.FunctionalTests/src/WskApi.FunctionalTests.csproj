@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <IsPackable>false</IsPackable>
     <PackageId>WskApi.FunctionalTests</PackageId>
-    <Version>1.01.02.003</Version>
+    <Version>1.1.2.3</Version>
     <Authors>10GeekJames</Authors>
     <Company>10GeekJames</Company>
     <DefaultNamespace>WskApi.FunctionalTests</DefaultNamespace> 
@@ -32,7 +32,7 @@
 
   <ItemGroup>
     <Reference Include="CarbonNeutral.KernelShared">
-      <HintPath>.\..\..\..\..\..\..\..\src\__Kernel\CarbonNeutral.KernelShared\src\bin\Debug\net7.0\CarbonNeutral.KernelShared.dll</HintPath>
+      <HintPath>./../../../../../../__Kernel/CarbonNeutral.KernelShared/src/bin/Debug/net7.0/CarbonNeutral.KernelShared.dll</HintPath>
     </Reference>
     <ProjectReference Include="./../../../____Core/__WskCore/src/WskCore.csproj" />
     <ProjectReference Include="./../../../____Core/WskCore.WskTestData/src/WskCore.WskTestData.csproj" />

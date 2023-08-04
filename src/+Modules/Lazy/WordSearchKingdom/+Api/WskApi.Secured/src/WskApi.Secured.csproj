@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <IsPackable>true</IsPackable>
     <PackageId>WskApi</PackageId>
-    <Version>1.01.02.003</Version>
+    <Version>1.1.2.3</Version>
     <Authors>10GeekJames</Authors>
     <Company>10GeekJames</Company>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
@@ -35,7 +35,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.8" />
     <PackageReference Include="SQLite" Version="3.13.0" />
   </ItemGroup>
-
+<!-- 
   <Choose>
     <When Condition="'$(Configuration)' == 'Release'">
       <ItemGroup>
@@ -45,10 +45,10 @@
         <PackageReference Include="WskApplication" />
       </ItemGroup>
     </When>
-  </Choose>
+  </Choose> -->
   <ItemGroup>
     <Reference Include="CarbonNeutral.KernelShared">
-      <HintPath>.\..\..\..\..\..\..\..\src\__Kernel\CarbonNeutral.KernelShared\src\bin\Debug\net7.0\CarbonNeutral.KernelShared.dll</HintPath>    
+      <HintPath>./../../../../../../__Kernel/CarbonNeutral.KernelShared/src/bin/Debug/net7.0/CarbonNeutral.KernelShared.dll</HintPath>    
     </Reference>
    
     <ProjectReference Include="./../../../____Core/__WskCore/src/WskCore.csproj" />

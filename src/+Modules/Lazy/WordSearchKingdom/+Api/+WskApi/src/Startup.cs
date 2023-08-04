@@ -1,4 +1,5 @@
 namespace WskApi;
+using System.Reflection;
 public class Startup
 {
     private readonly IWebHostEnvironment _env;
@@ -15,15 +16,25 @@ public class Startup
             Configuration.GetConnectionString("Active") ?? "";
 
         var appSettings = Configuration.Get<AppSettings>();
-        
+
         services
             .AddSingleton<AppSettings>(appSettings!);
-        
+
         services
             .AddWskDbContext(connectionString);
 
         services
             .AddScoped<IWskDataService, WskDirectDataService>();
+
+        foreach (var seedData in Assembly
+                   .GetExecutingAssembly()
+                   .GetTypes()
+                   .Where(x => x.IsAssignableTo(typeof(IWskSeedScript)) && x.IsClass)
+                   .OrderBy(rs => rs.Name))
+        {
+            services.AddSingleton(seedData);
+        }
+
         // services.AddDbContext<WskDbContext>(options =>
         //     options.UseSqlite(connectionString, b => b.MigrationsAssembly("WskApplication.Data")));
 

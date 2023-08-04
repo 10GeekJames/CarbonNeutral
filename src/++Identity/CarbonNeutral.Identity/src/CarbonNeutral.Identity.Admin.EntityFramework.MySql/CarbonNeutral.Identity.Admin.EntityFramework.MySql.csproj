@@ -11,7 +11,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\CarbonNeutral.Identity.Admin.EntityFramework.Shared\CarbonNeutral.Identity.Admin.EntityFramework.Shared.csproj" />
+		<ProjectReference Include="../CarbonNeutral.Identity.Admin.EntityFramework.Shared/CarbonNeutral.Identity.Admin.EntityFramework.Shared.csproj" />
 	</ItemGroup>
 
 </Project>

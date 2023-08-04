@@ -1,5 +1,5 @@
 namespace AccountModuleCore.Entities;
-public class WebsitePageGetByUrlSpec : Specification<KnownBusinessWebsite>, ISingleResultSpecification
+public class WebsitePageGetByUrlSpec : Specification<KnownBusinessWebsite>, ISingleResultSpecification<KnownBusinessWebsite>
 {
     public WebsitePageGetByUrlSpec(string url)
     {

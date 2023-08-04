@@ -11,10 +11,25 @@ public class Program
             var services = scope.ServiceProvider;
             var configuration = GetConfiguration(args);
             var appSettings = configuration.Get<AppSettings>();
+            
+            var context = services.GetRequiredService<WskDbContext>();
+            
+            //context.Database.Migrate();
+            context.Database.EnsureCreated();
 
+           /*  context.Database.EnsureCreated();
+            var seedDataAssembly = Assembly.GetAssembly(typeof(RunBaseSeedData));
+            foreach (var seedData in seedDataAssembly!
+                .GetTypes()
+                .Where(x => x.IsAssignableTo(typeof(IWskSeedScript)) && x.IsClass)
+                .OrderBy(rs => rs.Name))
+            {
+                services.AddSingleton(seedData);
+            } */
+           /*  var runBaseSeedData = new RunBaseSeedData();
+                runBaseSeedData.Initialize(services).GetAwaiter().GetResult(); */
             // feel free to do work here
             // Add services to the container.   
-
             
         }
 

@@ -3,9 +3,9 @@
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
         <UserSecretsId>9c91d295-54c5-4d09-9bd6-fa56fb74011b</UserSecretsId>
-        <DockerComposeProjectPath>..\..\docker-compose.dcproj</DockerComposeProjectPath>
+        <DockerComposeProjectPath>../../docker-compose.dcproj</DockerComposeProjectPath>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-        <DockerfileContext>..\..</DockerfileContext>
+        <DockerfileContext>../..</DockerfileContext>
     </PropertyGroup>
 
     <ItemGroup>
@@ -55,8 +55,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\CarbonNeutral.Identity.Admin.EntityFramework.Shared\CarbonNeutral.Identity.Admin.EntityFramework.Shared.csproj" />
-        <ProjectReference Include="..\CarbonNeutral.Identity.Shared\CarbonNeutral.Identity.Shared.csproj" />
+        <ProjectReference Include="../CarbonNeutral.Identity.Admin.EntityFramework.Shared/CarbonNeutral.Identity.Admin.EntityFramework.Shared.csproj" />
+        <ProjectReference Include="../CarbonNeutral.Identity.Shared/CarbonNeutral.Identity.Shared.csproj" />
     </ItemGroup>
 <ItemGroup>
     <!-- <Watch Remove="**/*.css" /> -->
@@ -79,34 +79,34 @@
     <Error Condition="'$(ErrorCodeSass)' != '0'" Text="Dart-sass is unhappy about something " />
   </Target>
     <ItemGroup>
-        <EmbeddedResource Update="Resources\Views\Account\RegisterConfirmation.ru.resx">
+        <EmbeddedResource Update="Resources/Views/Account/RegisterConfirmation.ru.resx">
             <Generator>ResXFileCodeGenerator</Generator>
         </EmbeddedResource>
-        <EmbeddedResource Update="Resources\Views\Account\RegisterConfirmation.zh.resx">
+        <EmbeddedResource Update="Resources/Views/Account/RegisterConfirmation.zh.resx">
             <Generator>ResXFileCodeGenerator</Generator>
         </EmbeddedResource>
-        <EmbeddedResource Update="Resources\Views\Account\RegisterConfirmation.sv.resx">
+        <EmbeddedResource Update="Resources/Views/Account/RegisterConfirmation.sv.resx">
             <Generator>ResXFileCodeGenerator</Generator>
         </EmbeddedResource>
-        <EmbeddedResource Update="Resources\Views\Account\RegisterConfirmation.fi.resx">
+        <EmbeddedResource Update="Resources/Views/Account/RegisterConfirmation.fi.resx">
             <Generator>ResXFileCodeGenerator</Generator>
         </EmbeddedResource>
-        <EmbeddedResource Update="Resources\Views\Account\RegisterConfirmation.fr.resx">
+        <EmbeddedResource Update="Resources/Views/Account/RegisterConfirmation.fr.resx">
             <Generator>ResXFileCodeGenerator</Generator>
         </EmbeddedResource>
-        <EmbeddedResource Update="Resources\Views\Account\RegisterConfirmation.fa.resx">
+        <EmbeddedResource Update="Resources/Views/Account/RegisterConfirmation.fa.resx">
             <Generator>ResXFileCodeGenerator</Generator>
         </EmbeddedResource>
-        <EmbeddedResource Update="Resources\Views\Account\RegisterConfirmation.es.resx">
+        <EmbeddedResource Update="Resources/Views/Account/RegisterConfirmation.es.resx">
             <Generator>ResXFileCodeGenerator</Generator>
         </EmbeddedResource>
-        <EmbeddedResource Update="Resources\Views\Account\RegisterConfirmation.de.resx">
+        <EmbeddedResource Update="Resources/Views/Account/RegisterConfirmation.de.resx">
             <Generator>ResXFileCodeGenerator</Generator>
         </EmbeddedResource>
-        <EmbeddedResource Update="Resources\Views\Account\RegisterConfirmation.da.resx">
+        <EmbeddedResource Update="Resources/Views/Account/RegisterConfirmation.da.resx">
             <Generator>ResXFileCodeGenerator</Generator>
         </EmbeddedResource>
-        <EmbeddedResource Update="Resources\Views\Account\RegisterConfirmation.en.resx">
+        <EmbeddedResource Update="Resources/Views/Account/RegisterConfirmation.en.resx">
             <Generator>ResXFileCodeGenerator</Generator>
         </EmbeddedResource>
     </ItemGroup>

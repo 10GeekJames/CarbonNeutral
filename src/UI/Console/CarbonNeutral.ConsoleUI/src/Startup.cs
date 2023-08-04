@@ -16,8 +16,8 @@ public class Startup
                 .AddJsonFile($"appsettings.{environment}.json", optional: true)
                 .AddEnvironmentVariables()
                 .Build();
+        
         bool useSqlite = configuration.GetValue<bool>(nameof(useSqlite));
-
        
 
         // WordSearchKingdom

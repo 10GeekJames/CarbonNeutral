@@ -127,7 +127,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/src/+Modules/Required/AccountModule/+API/+AccountModuleApi/src/+AccountModuleApi.csproj",
+                "${workspaceFolder}/src/+Modules/Required/AccountModule/+Api/+AccountModuleApi/src/+AccountModuleApi.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],

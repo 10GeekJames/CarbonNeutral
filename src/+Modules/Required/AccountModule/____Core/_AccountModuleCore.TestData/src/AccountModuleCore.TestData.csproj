@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <IsPackable>true</IsPackable>
     <PackageId>AccountModuleCore.TestData</PackageId>
-    <Version>1.01.02.003</Version>
+    <Version>1.1.2.3</Version>
     <Authors>10GeekJames</Authors>
     <Company>10GeekJames</Company>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
@@ -25,8 +25,8 @@
   
   <ItemGroup>
     <Reference Include="CarbonNeutral.KernelShared">
-      <HintPath>.\..\..\..\..\..\..\..\src\__Kernel\CarbonNeutral.KernelShared\src\bin\Debug\net7.0\CarbonNeutral.KernelShared.dll</HintPath>
+      <HintPath>./../../../../../../__Kernel/CarbonNeutral.KernelShared/src/bin/Debug/net7.0/CarbonNeutral.KernelShared.dll</HintPath>
     </Reference>
-    <ProjectReference Include=".\..\..\__AccountModuleCore\src\AccountModuleCore.csproj" />    
+    <ProjectReference Include="./../../__AccountModuleCore/src/AccountModuleCore.csproj" />    
   </ItemGroup>
 </Project>

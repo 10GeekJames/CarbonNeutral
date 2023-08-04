@@ -25,22 +25,21 @@
     <PackageReference Include="SQLite" Version="3.13.0" />
     <PackageReference Include="MediatR" Version="12.0.1" />
   </ItemGroup>
-  <Choose>
+<!--   <Choose>
     <When Condition="'$(Configuration)' == 'Release'">
       <ItemGroup>
-        <PackageReference Include="Kernel" />
-        <PackageReference Include="AccountModuleCore" />
+        <PackageReference Include="CarbonNeutral.Kernel" />
       </ItemGroup>
     </When>
-  </Choose>
+  </Choose> -->
   <ItemGroup>
     <Reference Include="CarbonNeutral.KernelShared">
-      <HintPath>.\..\..\..\..\..\..\..\src\__Kernel\CarbonNeutral.KernelShared\src\bin\Debug\net7.0\CarbonNeutral.KernelShared.dll</HintPath>
+      <HintPath>./../../../../../../__Kernel/CarbonNeutral.KernelShared/src/bin/Debug/net7.0/CarbonNeutral.KernelShared.dll</HintPath>
     </Reference>
     <ProjectReference Include="./../../../____Core/__AccountModuleCore/src/AccountModuleCore.csproj" />
   </ItemGroup>
-  <Target Name="PushPackage" AfterTargets="Publish" Condition="'$(Configuration)' == 'Release'">
+<!--   <Target Name="PushPackage" AfterTargets="Publish" Condition="'$(Configuration)' == 'Release'">
     <Exec Command="dotnet pack -c Release" />
-    <Exec Command="dotnet nuget push &quot;$(MSBuildProjectDirectory)\bin\$(Configuration)\$(AssemblyName).$(Version).nupkg&quot; -s LocalNuggget" />
-  </Target>
+    <Exec Command="dotnet nuget push &quot;$(MSBuildProjectDirectory)/bin/$(Configuration)/$(AssemblyName).$(Version).nupkg&quot; -s LocalNuggget" />
+  </Target> -->
 </Project>

@@ -17,18 +17,18 @@
     <PackageReference Include="Microsoft.Extensions.Localization" Version="7.0.8" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
   </ItemGroup>
-  <Choose>
+ <!--  <Choose>
     <When Condition="'$(Configuration)' == 'Release'">
       <ItemGroup>
         <PackageReference Include="WskApplication" />
       </ItemGroup>
     </When>
-  </Choose>
+  </Choose> -->
   <ItemGroup>
     <ProjectReference Include="./../../../_Application/_WskApplication.Shared/src/WskApplication.Shared.csproj" />
   </ItemGroup>
-  <Target Name="PushPackage" AfterTargets="Publish" Condition="'$(Configuration)' == 'Release'">
+<!--   <Target Name="PushPackage" AfterTargets="Publish" Condition="'$(Configuration)' == 'Release'">
     <Exec Command="dotnet pack -c Release" />
-    <Exec Command="dotnet nuget push &quot;$(MSBuildProjectDirectory)\bin\$(Configuration)\$(AssemblyName).$(Version).nupkg&quot; -s LocalNuggget" />
-  </Target>
+    <Exec Command="dotnet nuget push &quot;$(MSBuildProjectDirectory)/bin/$(Configuration)/$(AssemblyName).$(Version).nupkg&quot; -s LocalNuggget" />
+  </Target> -->
 </Project>

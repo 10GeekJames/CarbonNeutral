@@ -53,7 +53,6 @@
                 </MudHidden>
                 <div class="play-area-grid align-items-center" Style="@(($"grid-template-rows: repeat({Game.GameGrid.Width}, 1fr); grid-template-columns: repeat({Game.GameGrid.Height}, 1fr);"))">
                     @for (var x = 0; x < Game.GameGrid.Width; x++) {
-                        Console.WriteLine(String.Join(",", SelectedGridCellPoints.Select(s=> $"{s.X}x{s.Y}")));
                         @for (var y = 0; y < Game.GameGrid.Height; y++) {                            
                             var storeX = x;
                             var storeY = y;

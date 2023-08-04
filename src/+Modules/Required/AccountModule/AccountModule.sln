@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.001.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "+API", "+API", "{C96C6392-154F-43AD-A181-54D8CAFF3FD2}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "+Api", "+Api", "{C96C6392-154F-43AD-A181-54D8CAFF3FD2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "+AccountModuleApi", "+AccountModuleApi", "{4D7DF3D4-C851-4FE8-9C34-9496F9E43C84}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccountModuleApi", "+API\+AccountModuleApi\src\AccountModuleApi.csproj", "{EB6E158D-98E0-4D33-A573-6433F2EDD738}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccountModuleApi", "+Api\+AccountModuleApi\src\AccountModuleApi.csproj", "{EB6E158D-98E0-4D33-A573-6433F2EDD738}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{83D28CD2-0C90-49F6-99E7-970F647D785C}"
 EndProject

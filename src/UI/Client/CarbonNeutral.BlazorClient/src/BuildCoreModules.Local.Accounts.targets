@@ -1,22 +1,11 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <!-- AccountModule -->
-  <Choose>
-    <When Condition="'$(Configuration)' == 'Release'">
-      <ItemGroup>
-        <PackageReference Include="AccountModuleCore" />
-        <PackageReference Include="AccountModuleInfrastructure" />
-        <PackageReference Include="AccountModuleApplication" />
-        <PackageReference Include="AccountModuleBlazorModuleAdmin" />
-      </ItemGroup>
-    </When>
-  </Choose>
-
-  <ItemGroup>                                         
+  <ItemGroup>
     <ProjectReference Include="./../../../../+Modules/Required/AccountModule/____Core/_AccountModuleCore.TestData/src/AccountModuleCore.TestData.csproj" />
-    <ProjectReference Include="./../../../../+Modules/Required/AccountModule/___Infrastructure/AccountModuleInfrastructure/src/AccountModuleInfrastructure.csproj" />    
+    <ProjectReference Include="./../../../../+Modules/Required/AccountModule/___Infrastructure/AccountModuleInfrastructure/src/AccountModuleInfrastructure.csproj" />
     <ProjectReference Include="./../../../../+Modules/Required/AccountModule/_Application/_AccountModuleApplication.Shared/src/AccountModuleApplication.Shared.csproj" />
-    <ProjectReference Include="./../../../../+Modules/Required/AccountModule/UI/_AccountModuleClientServiceLoader/src/AccountModuleClientServiceLoader.csproj" />    
-    <ProjectReference Include="./../../../../+Modules/Required/AccountModule/UI/AccountModuleBlazorModuleAdmin/src/AccountModuleBlazorModuleAdmin.csproj" />      
+    <ProjectReference Include="./../../../../+Modules/Required/AccountModule/UI/_AccountModuleClientServiceLoader/src/AccountModuleClientServiceLoader.csproj" />
+    <ProjectReference Include="./../../../../+Modules/Required/AccountModule/UI/AccountModuleBlazorModuleAdmin/src/AccountModuleBlazorModuleAdmin.csproj" />
     <BlazorWebAssemblyLazyLoad Include="AccountModuleBlazorModuleAdmin.dll" />
   </ItemGroup>
   <!-- /AccountModule -->

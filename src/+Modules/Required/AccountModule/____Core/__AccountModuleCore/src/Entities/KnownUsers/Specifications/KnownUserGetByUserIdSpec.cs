@@ -1,5 +1,5 @@
 namespace AccountModuleCore.Entities;
-public class KnownUserGetByUserIdSpec : Specification<KnownUser>, ISingleResultSpecification
+public class KnownUserGetByUserIdSpec : Specification<KnownUser>, ISingleResultSpecification<KnownUser>
 {
     public KnownUserGetByUserIdSpec(Guid userId)
     {

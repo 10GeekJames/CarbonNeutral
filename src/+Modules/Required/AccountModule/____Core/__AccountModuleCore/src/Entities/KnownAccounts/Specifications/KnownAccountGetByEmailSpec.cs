@@ -1,5 +1,5 @@
 namespace AccountModuleCore.Entities;
-public class KnownAccountGetByEmailSpec : Specification<KnownAccount>, ISingleResultSpecification
+public class KnownAccountGetByEmailSpec : Specification<KnownAccount>, ISingleResultSpecification<KnownAccount>
 {
     public KnownAccountGetByEmailSpec(string emailAddress)
     {
