@@ -2,8 +2,8 @@
 FROM nginx:alpine as base
 
 WORKDIR /usr/share/nginx/html
-COPY ./build/local-reverse-proxy/Domain.crt .
-COPY ./build/local-reverse-proxy/Domain.key .
+COPY ./build/local-reverse-proxy/domain.crt .
+COPY ./build/local-reverse-proxy/domain.rsa .
 
 WORKDIR /
 COPY ./build/local-reverse-proxy/ngix.conf /etc/nginx/nginx.conf

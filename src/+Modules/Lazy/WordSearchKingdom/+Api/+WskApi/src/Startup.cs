@@ -13,7 +13,7 @@ public class Startup
     {
 
         string connectionString =
-            Configuration.GetConnectionString("Active") ?? "";
+            Configuration.GetConnectionString("WskSqlite") ?? "";
 
         var appSettings = Configuration.Get<AppSettings>();
 
