@@ -30,7 +30,7 @@
 
   <ItemGroup>
     <Reference Include="CarbonNeutral.KernelShared">
-      <HintPath>.\..\..\..\..\..\..\..\src\__Kernel\CarbonNeutral.KernelShared\src\bin\Debug\net7.0\CarbonNeutral.KernelShared.dll</HintPath>
+      <HintPath>./../../../../../../__Kernel/CarbonNeutral.KernelShared/src/bin/Debug/net7.0/CarbonNeutral.KernelShared.dll</HintPath>
     </Reference>
     <ProjectReference Include="./../../../____Core/__WskCore/src/WskCore.csproj" />
     <ProjectReference Include="./../../../____Core/WskCore.WskTestData/src/WskCore.WskTestData.csproj" />

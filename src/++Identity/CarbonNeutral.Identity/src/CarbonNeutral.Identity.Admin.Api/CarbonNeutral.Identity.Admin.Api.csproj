@@ -4,9 +4,9 @@
 	    <TargetFramework>net6.0</TargetFramework>
 		<AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
        <UserSecretsId>9c91d295-54c5-4d09-9bd6-fa56fb74011b</UserSecretsId>
-        <DockerComposeProjectPath>..\..\docker-compose.dcproj</DockerComposeProjectPath>
+        <DockerComposeProjectPath>../../docker-compose.dcproj</DockerComposeProjectPath>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-        <DockerfileContext>..\..</DockerfileContext>
+        <DockerfileContext>../..</DockerfileContext>
     </PropertyGroup>
 
     <ItemGroup>
@@ -46,14 +46,14 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\CarbonNeutral.Identity.Admin.EntityFramework.MySql\CarbonNeutral.Identity.Admin.EntityFramework.MySql.csproj" />
-        <ProjectReference Include="..\CarbonNeutral.Identity.Admin.EntityFramework.PostgreSQL\CarbonNeutral.Identity.Admin.EntityFramework.PostgreSQL.csproj" />
-        <ProjectReference Include="..\CarbonNeutral.Identity.Admin.EntityFramework.SqlServer\CarbonNeutral.Identity.Admin.EntityFramework.SqlServer.csproj" />
-        <ProjectReference Include="..\CarbonNeutral.Identity.Shared\CarbonNeutral.Identity.Shared.csproj" />
+        <ProjectReference Include="../CarbonNeutral.Identity.Admin.EntityFramework.MySql/CarbonNeutral.Identity.Admin.EntityFramework.MySql.csproj" />
+        <ProjectReference Include="../CarbonNeutral.Identity.Admin.EntityFramework.PostgreSQL/CarbonNeutral.Identity.Admin.EntityFramework.PostgreSQL.csproj" />
+        <ProjectReference Include="../CarbonNeutral.Identity.Admin.EntityFramework.SqlServer/CarbonNeutral.Identity.Admin.EntityFramework.SqlServer.csproj" />
+        <ProjectReference Include="../CarbonNeutral.Identity.Shared/CarbonNeutral.Identity.Shared.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-        <Compile Update="Resources\ApiErrorResource.Designer.cs">
+        <Compile Update="Resources/ApiErrorResource.Designer.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
             <DependentUpon>ApiErrorResource.resx</DependentUpon>
@@ -61,14 +61,14 @@
     </ItemGroup>
 
     <ItemGroup>
-        <EmbeddedResource Update="Resources\ApiErrorResource.resx">
+        <EmbeddedResource Update="Resources/ApiErrorResource.resx">
             <Generator>ResXFileCodeGenerator</Generator>
             <LastGenOutput>ApiErrorResource.Designer.cs</LastGenOutput>
         </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Dtos\Key\" />
+      <Folder Include="Dtos/Key/" />
     </ItemGroup>
 
 </Project>

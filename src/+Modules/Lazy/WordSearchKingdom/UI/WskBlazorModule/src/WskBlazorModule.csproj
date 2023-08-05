@@ -29,7 +29,7 @@
     <PackageReference Include="System.Net.Http.Json" Version="7.0.1" />
     <PackageReference Include="MudBlazor" Version="6.6.0" />
   </ItemGroup>
-  <Choose>
+ <!--  <Choose>
     <When Condition="'$(Configuration)' == 'Release'">
       <ItemGroup>
         <PackageReference Include="CarbonNeutral.KernelShared" />
@@ -39,13 +39,13 @@
         <PackageReference Include="WskModuleClientServiceLoader" />
       </ItemGroup>
     </When>
-  </Choose>
+  </Choose> -->
   <ItemGroup>
     <Reference Include="CarbonNeutral.KernelShared">
-      <HintPath>.\..\..\..\..\..\..\..\src\__Kernel\CarbonNeutral.KernelShared\src\bin\Debug\net7.0\CarbonNeutral.KernelShared.dll</HintPath>
+      <HintPath>./../../../../../../__Kernel/CarbonNeutral.KernelShared/src/bin/Debug/net7.0/CarbonNeutral.KernelShared.dll</HintPath>
     </Reference>
     <Reference Include="CarbonNeutral.Common">
-      <HintPath>./../../../../../../_Common/CarbonNeutral.Common/src/bin\Debug\net7.0\CarbonNeutral.Common.dll</HintPath>
+      <HintPath>./../../../../../../_Common/CarbonNeutral.Common/src/bin/Debug/net7.0/CarbonNeutral.Common.dll</HintPath>
     </Reference>
     <ProjectReference Include="./../../../____Core/WskCore.WskTestData/src/WskCore.WskTestData.csproj" />
     <ProjectReference Include="./../../../_Application/_WskApplication.Shared/src/WskApplication.Shared.csproj" />
@@ -72,8 +72,8 @@
     </Exec>
     <Error Condition="'$(ErrorCodeSass)' != '0'" Text="Dart-sass is unhappy about something " />
   </Target>
-  <Target Name="PushPackage" AfterTargets="Publish" Condition="'$(Configuration)' == 'Release'">
+<!--   <Target Name="PushPackage" AfterTargets="Publish" Condition="'$(Configuration)' == 'Release'">
     <Exec Command="dotnet pack -c Release" />
-    <Exec Command="dotnet nuget push &quot;$(MSBuildProjectDirectory)\bin\$(Configuration)\$(AssemblyName).$(Version).nupkg&quot; -s LocalNuggget" />
-  </Target>
+    <Exec Command="dotnet nuget push &quot;$(MSBuildProjectDirectory)/bin/$(Configuration)/$(AssemblyName).$(Version).nupkg&quot; -s LocalNuggget" />
+  </Target> -->
 </Project>

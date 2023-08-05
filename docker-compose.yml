@@ -1,0 +1,94 @@
+version: "3.9"
+services:
+  wordsearchkingdom-shared-base:
+    build:
+      context: ./
+      dockerfile: ./build/local-shared-base/Dockerfile
+    image: local:wordsearchkingdom-shared-base
+  id-wordsearchkingdom:
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-file: 5
+        max-size: 10m
+    build:
+      context: ./
+      dockerfile: ./src/++Identity/CarbonNeutral.Identity/src/CarbonNeutral.Identity.STS.Identity/Dockerfile
+    ports:
+      - "44310:44310"
+    depends_on:
+      - wordsearchkingdom-shared-base
+    environment:
+      - VIRTUAL_HOST=id.WordSearchKingdom.com:44310
+      - 'AdminConfiguration__IdentityAdminBaseUrl=https://id.WordSearchKingdom.com'
+      - 'AdvancedConfiguration__IssuerUri=https://id.WordSearchKingdom.com'
+      - DockerConfiguration__UpdateCaCertificate=true
+      - ASPNETCORE_ENVIRONMENT=Development
+  account-api-wordsearchkingdom:
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-file: 5
+        max-size: 10m
+    build:
+      context: ./
+      dockerfile: ./src/+Modules/Required/AccountModule/+Api/+AccountModuleApi/src/Dockerfile
+    ports:
+      - "5278:5278"
+    depends_on:
+      - wordsearchkingdom-shared-base
+      - id-wordsearchkingdom
+  wsk-api-wordsearchkingdom:
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-file: 5
+        max-size: 10m
+    build:
+      context: ./
+      dockerfile: ./src/+Modules/Lazy/WordSearchKingdom/+Api/+WskApi/src/Dockerfile
+    ports:
+      - "5290:5290"
+    depends_on:
+      - wordsearchkingdom-shared-base
+      - id-wordsearchkingdom
+  wordsearchkingdom-blazor-client:
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-file: 5
+        max-size: 10m
+    build:
+      context: ./
+      dockerfile: ./src/UI/Client/CarbonNeutral.BlazorClient/src/Dockerfile
+    ports:
+      - "5020:5020"
+      - "5021:5021"
+    depends_on:
+      - wordsearchkingdom-shared-base
+      - id-wordsearchkingdom
+      - account-api-wordsearchkingdom
+      - wsk-api-wordsearchkingdom
+  wordsearchkingdom-blazor-reverse-proxy:
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-file: 5
+        max-size: 10m
+    build:
+      context: ./
+      dockerfile: ./build/local-reverse-proxy/Dockerfile
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - wordsearchkingdom-shared-base
+      - id-wordsearchkingdom
+      - account-api-wordsearchkingdom
+      - wsk-api-wordsearchkingdom
+      - wordsearchkingdom-blazor-client

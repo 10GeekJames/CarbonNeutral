@@ -1,5 +1,5 @@
 namespace AccountModuleCore.Entities;
-public class KnownBusinessWebsiteProfileGetByIdSpec : Specification<KnownBusinessWebsiteProfile>, ISingleResultSpecification
+public class KnownBusinessWebsiteProfileGetByIdSpec : Specification<KnownBusinessWebsiteProfile>, ISingleResultSpecification<KnownBusinessWebsiteProfile>
 {
     public KnownBusinessWebsiteProfileGetByIdSpec(Guid id)
     {

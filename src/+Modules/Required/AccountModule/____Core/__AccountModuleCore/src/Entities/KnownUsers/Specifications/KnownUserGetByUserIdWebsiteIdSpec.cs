@@ -1,6 +1,6 @@
 using System.Security.Cryptography;
 namespace AccountModuleCore.Entities;
-public class KnownUserGetByUserIdWebsiteIdSpec : Specification<KnownUser>, ISingleResultSpecification
+public class KnownUserGetByUserIdWebsiteIdSpec : Specification<KnownUser>, ISingleResultSpecification<KnownUser>
 {
     public KnownUserGetByUserIdWebsiteIdSpec(Guid knownUserId, Guid knownBusinessWebsiteId)
     {

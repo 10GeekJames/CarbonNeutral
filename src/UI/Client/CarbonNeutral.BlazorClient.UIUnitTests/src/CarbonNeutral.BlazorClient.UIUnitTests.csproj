@@ -47,9 +47,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include=".\..\..\CarbonNeutral.BlazorClient\src\CarbonNeutral.BlazorClient.csproj" />
-    <ProjectReference Include=".\..\../../../+Modules/Required/AccountModule/UI/_AccountModuleClientServiceLoader/src/AccountModuleClientServiceLoader.csproj" />
-    <ProjectReference Include=".\..\../../../+Modules/Required/AccountModule/_Application/_AccountModuleApplication.Shared/src/AccountModuleApplication.Shared.csproj" />    
+    <ProjectReference Include="./../../CarbonNeutral.BlazorClient/src/CarbonNeutral.BlazorClient.csproj" />
+    <ProjectReference Include="./../../../../+Modules/Required/AccountModule/UI/_AccountModuleClientServiceLoader/src/AccountModuleClientServiceLoader.csproj" />
+    <ProjectReference Include="./../../../../+Modules/Required/AccountModule/_Application/_AccountModuleApplication.Shared/src/AccountModuleApplication.Shared.csproj" />    
   </ItemGroup>
 
 

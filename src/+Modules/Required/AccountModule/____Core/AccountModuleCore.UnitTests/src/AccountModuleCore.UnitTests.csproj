@@ -30,11 +30,11 @@
 
 
   <ItemGroup>
-    <ProjectReference Include=".\..\..\__AccountModuleCore\src\AccountModuleCore.csproj" />
-    <ProjectReference Include=".\..\..\_AccountModuleCore.TestData\src\AccountModuleCore.TestData.csproj" />
+    <ProjectReference Include="./../../__AccountModuleCore/src/AccountModuleCore.csproj" />
+    <ProjectReference Include="./../../_AccountModuleCore.TestData/src/AccountModuleCore.TestData.csproj" />
 
     <Reference Include="CarbonNeutral.KernelShared">
-      <HintPath>.\..\..\..\..\..\..\..\src\__Kernel\CarbonNeutral.KernelShared\src\bin\Debug\net7.0\CarbonNeutral.KernelShared.dll</HintPath>
+      <HintPath>./../../../../../../__Kernel/CarbonNeutral.KernelShared/src/bin/Debug/net7.0/CarbonNeutral.KernelShared.dll</HintPath>
     </Reference>
   </ItemGroup>
 

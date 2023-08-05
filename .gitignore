@@ -399,3 +399,5 @@ FodyWeavers.xsd
 **nul
 *.DS_Store
 .gitignore
+
+/local-nuget/**

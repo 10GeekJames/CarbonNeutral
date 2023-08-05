@@ -31,7 +31,7 @@
   
   <ItemGroup>
     <Reference Include="CarbonNeutral.KernelShared">
-      <HintPath>.\..\..\..\..\..\..\..\src\__Kernel\CarbonNeutral.KernelShared\src\bin\Debug\net7.0\CarbonNeutral.KernelShared.dll</HintPath>
+      <HintPath>./../../../../../../__Kernel/CarbonNeutral.KernelShared/src/bin/Debug/net7.0/CarbonNeutral.KernelShared.dll</HintPath>
     </Reference>
     <ProjectReference Include="./../../../../../../_Common/CarbonNeutral.Common/src/CarbonNeutral.Common.csproj" />
     <ProjectReference Include="./../../../____Core/_AccountModuleCore.TestData/src/AccountModuleCore.TestData.csproj" />
@@ -51,7 +51,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include=".\..\..\AccountModuleBlazorModuleAdmin\src\AccountModuleBlazorModuleAdmin.csproj" />
+    <ProjectReference Include="./../../AccountModuleBlazorModuleAdmin/src/AccountModuleBlazorModuleAdmin.csproj" />
   </ItemGroup>
 
 

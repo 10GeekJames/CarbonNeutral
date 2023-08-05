@@ -19,18 +19,12 @@
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
   </ItemGroup>
-  <Choose>
-    <When Condition="'$(Configuration)' == 'Release'">
-      <ItemGroup>
-        <PackageReference Include="AccountModuleApplication.Shared" Version="1.0.71.176" />
-      </ItemGroup>
-    </When>
-  </Choose>
+
   <ItemGroup>                                       
     <ProjectReference Include="./../../../_Application/_AccountModuleApplication.Shared/src/AccountModuleApplication.Shared.csproj" />
   </ItemGroup>
-  <Target Name="PushPackage" AfterTargets="Publish" Condition="'$(Configuration)' == 'Release'">
+<!--   <Target Name="PushPackage" AfterTargets="Publish" Condition="'$(Configuration)' == 'Release'">
     <Exec Command="dotnet pack -c Release" />
-    <Exec Command="dotnet nuget push &quot;$(MSBuildProjectDirectory)\bin\$(Configuration)\$(AssemblyName).$(Version).nupkg&quot; -s LocalNuggget" />
-  </Target>
+    <Exec Command="dotnet nuget push &quot;$(MSBuildProjectDirectory)/bin/$(Configuration)/$(AssemblyName).$(Version).nupkg&quot; -s LocalNuggget" />
+  </Target> -->
 </Project>

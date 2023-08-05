@@ -1,5 +1,5 @@
 namespace WskCore.Entities;
-public class GameGetByIdSpec : Specification<Game>, ISingleResultSpecification
+public class GameGetByIdSpec : Specification<Game>, ISingleResultSpecification<Game>
 {
     public GameGetByIdSpec(Guid id)
     {

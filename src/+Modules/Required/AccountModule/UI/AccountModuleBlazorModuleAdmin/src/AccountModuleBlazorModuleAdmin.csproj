@@ -31,16 +31,6 @@
     <PackageReference Include="MudBlazor" Version="6.6.0" />
     <PackageReference Include="TinyMCE.Blazor" Version="1.0.4" />
   </ItemGroup>
-  <Choose>
-    <When Condition="'$(Configuration)' == 'Release'">
-      <ItemGroup>
-        <PackageReference Include="CarbonNeutral.Common" Version="1.0.71.176" />
-        <PackageReference Include="AccountModuleApplication.Shared" Version="1.0.71.176" />
-        <PackageReference Include="ModuleClientService" Version="1.0.71.176" />
-        <PackageReference Include="ModuleClientServiceLoader" Version="1.0.71.176" />
-      </ItemGroup>
-    </When>
-  </Choose>
   <ItemGroup>                                              
     <ProjectReference Include="./../../../../../../_Common/CarbonNeutral.Common/src/CarbonNeutral.Common.csproj" Private="true" />
     <ProjectReference Include="./../../../_Application/_AccountModuleApplication.Shared/src/AccountModuleApplication.Shared.csproj" />
@@ -66,8 +56,8 @@
     </Exec>
     <Error Condition="'$(ErrorCodeSass)' != '0'" Text="Dart-sass is unhappy about something " />
   </Target>
-  <Target Name="PushPackage" AfterTargets="Publish" Condition="'$(Configuration)' == 'Release'">
+<!--   <Target Name="PushPackage" AfterTargets="Publish" Condition="'$(Configuration)' == 'Release'">
     <Exec Command="dotnet pack -c Release" />
-    <Exec Command="dotnet nuget push &quot;$(MSBuildProjectDirectory)\bin\$(Configuration)\$(AssemblyName).$(Version).nupkg&quot; -s LocalNuggget" />
-  </Target>
+    <Exec Command="dotnet nuget push &quot;$(MSBuildProjectDirectory)/bin/$(Configuration)/$(AssemblyName).$(Version).nupkg&quot; -s LocalNuggget" />
+  </Target> -->
 </Project>

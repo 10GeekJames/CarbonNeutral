@@ -59,7 +59,7 @@ public class Startup
                     .AddDefaultPolicy(builder =>
                     {
                         builder
-                            .WithOrigins("https://carbonNeutral.com", "http://carbonNeutral.com:5020", "http://localhost:5020")
+                            .WithOrigins("https://WordSearchKingdom.com", "http://WordSearchKingdom.com:5020", "http://localhost:5020")
                             .AllowAnyHeader()
                             .AllowAnyMethod()
                             .WithExposedHeaders("*");

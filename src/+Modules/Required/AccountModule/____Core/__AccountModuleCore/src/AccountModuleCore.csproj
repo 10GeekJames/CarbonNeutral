@@ -11,13 +11,13 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <DefaultNamespace>AccountModuleCore</DefaultNamespace>
   </PropertyGroup>
-  <Choose>
+<!--   <Choose>
     <When Condition="'$(Configuration)' == 'Release'">
       <ItemGroup>
-        <PackageReference Include="CarbonNeutral.Kernel" Version="1.0.71.176" />
+        <PackageReference Include="CarbonNeutral.Kernel" />
       </ItemGroup>
     </When>
-  </Choose>
+  </Choose> -->
   <ItemGroup>
     <ProjectReference Include="./../../../../../../__Kernel/CarbonNeutral.KernelShared/src/CarbonNeutral.KernelShared.csproj" />
   </ItemGroup>
@@ -29,8 +29,8 @@
     <PackageReference Include="Ardalis.GuardClauses" Version="4.0.1" />
     <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="7.0.8" />
   </ItemGroup>
-  <Target Name="PushPackage" AfterTargets="Publish" Condition="'$(Configuration)' == 'Release'">
+<!--   <Target Name="PushPackage" AfterTargets="Publish" Condition="'$(Configuration)' == 'Release'">
     <Exec Command="dotnet pack -c Release" />
-    <Exec Command="dotnet nuget push &quot;$(MSBuildProjectDirectory)\bin\$(Configuration)\$(AssemblyName).$(Version).nupkg&quot; -s LocalNuggget" />
-  </Target>
+    <Exec Command="dotnet nuget push &quot;$(MSBuildProjectDirectory)/bin/$(Configuration)/$(AssemblyName).$(Version).nupkg&quot; -s LocalNuggget" />
+  </Target> -->
 </Project>
