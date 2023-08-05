@@ -25,7 +25,7 @@
                         
                             <RowCellComponent 
                                 RowCell=rowCell
-                                OnCellClick="HandleCellClickAsync"
+                                OnCellClick="HandleCellClick"
                                 X=storeX
                                 Y=storeY
                                 IsCompleted=@(SelectedGridCellPoints.Any(rs=>rs.X == storeX && rs.Y == storeY))
@@ -97,7 +97,7 @@
                        
     }
 
-    private async Task HandleCellClickAsync((MouseEventArgs, char, int, int) args)
+    private async Task HandleCellClick((MouseEventArgs, char, int, int) args)
     {
         var (e, letter, x, y) = args;
         Console.WriteLine($"Clicked Cell X={x} Y={y} {letter}");        
