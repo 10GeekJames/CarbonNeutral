@@ -1,0 +1,15 @@
+@import "./base/_variables";
+::deep .mud-button {
+}
+::deep .colored-button-experiment {
+    background-color: #4523bbba !important;
+}
+
+::deep .highlight-shadow {
+    color: rgba(255,255,255,0.74) !important;
+    text-shadow: 0px 0px 7px lime, 1px 1px 2px black !important;
+}
+
+::deep .selected-scale {
+    transform: scale(1.1) !important;
+}

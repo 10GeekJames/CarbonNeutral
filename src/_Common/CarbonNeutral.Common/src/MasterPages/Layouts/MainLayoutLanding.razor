@@ -26,6 +26,12 @@
             Title="Dark Mode" ToggledIcon="@Icons.Material.Filled.LightMode" ToggledColor="Color.Warning"
             ToggledTitle="Light Mode" /> *@
     </MudAppBar>
+    @* <MudHidden Breakpoint="Breakpoint.SmAndDown">
+        <MudDrawer @bind-Open="@_drawerOpen" ClipMode="DrawerClipMode.Always" DisableOverlay="true" Elevation="2"
+            Variant="@DrawerVariant.Mini">
+            <NavMenu />
+        </MudDrawer>
+    </MudHidden> *@
         @Body
 
 </MudLayout>
