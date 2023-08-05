@@ -11,7 +11,7 @@
     <MudAppBar Style="Background: transparent;" Class="animate__fadeInDown" Elevation="0" Fixed="false">
         @* <MudImage Src="_Content/CarbonNeutral.Common/i/WskLogo.svg"  /> *@
         <WskLogo />
-        <MudHidden Breakpoint="Breakpoint.SmAndDown">
+        @* <MudHidden Breakpoint="Breakpoint.SmAndDown"> *@
             <WskNavMenu SelectedPageClass=@selectedPageClass OnPageLinkClick=@SetPageClass />
             @* <MudText Typo="Typo.h5" Class="ml-3 fire">WordSearchKingdom</MudText> *@
             <MudSpacer />
@@ -25,20 +25,17 @@
                     </NotAuthorized>
                 </AuthorizeView>
             </CascadingAuthenticationState> 
-        </MudHidden>
-        <MudHidden Breakpoint="Breakpoint.MdAndUp">
-            <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Primary" OnClick="@DrawerToggle" />
-        </MudHidden>
+        @* </MudHidden> *@
 
     </MudAppBar>
-    <MudHidden Breakpoint="Breakpoint.MdAndUp">
-        <MudDrawer @bind-Open="@_drawerOpen" ClipMode="DrawerClipMode.Always" DisableOverlay="true" Elevation="2"
+    @* <MudHidden Breakpoint="Breakpoint.MdAndUp">
+        <MudIconButton Style="position: absolute; top: 0; right: 0; z-index: 500;" Icon="@Icons.Material.Filled.Menu" OnClick="@DrawerToggle" />
+        <MudDrawer Style="background: rgba(0,0,0,0.75); backdrop-filter: blur(15px);" @bind-Open="@_drawerOpen" ClipMode="DrawerClipMode.Always" DisableOverlay="true" Elevation="2"
             Variant="@DrawerVariant.Temporary">
             <WskNavMenu SelectedPageClass=@selectedPageClass OnPageLinkClick=@SetPageClass />
         </MudDrawer>
-    </MudHidden>
+    </MudHidden> *@
         @Body
-
 </MudLayout>
 </div>
 
