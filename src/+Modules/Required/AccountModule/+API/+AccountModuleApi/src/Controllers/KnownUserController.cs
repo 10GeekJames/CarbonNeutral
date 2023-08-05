@@ -1,14 +1,6 @@
-/* namespace AccountModuleApi;
-public class KnownUserController : BaseController
+namespace AccountModuleApi.Controllers;
+public partial class KnownUserController : BaseController
 {
-    private readonly IMediator _mediator;
-    private readonly IMapper _mapper;
-    public KnownUserController(IMediator mediator, IMapper mapper)
-    {
-        _mediator = mediator;
-        _mapper = mapper;
-    }
-
     [HttpGet, Authorize]
     public async Task<IActionResult> Get()
     {
@@ -59,5 +51,3 @@ public class KnownUserController : BaseController
         return Ok(_mapper.Map<KnownUserViewModel>(result));
     }
 }
-
- */

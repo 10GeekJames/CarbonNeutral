@@ -15,6 +15,8 @@ global using AccountModuleCore;
 global using AccountModuleCore.Entities;
 global using AccountModuleCore.Interfaces;
 
+global using AccountModuleCore.TestData.Entities;
+
 global using AccountModuleInfrastructure;
 global using AccountModuleInfrastructure.CommandQuery;
 global using AccountModuleInfrastructure.Data;

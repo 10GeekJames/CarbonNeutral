@@ -1,18 +1,19 @@
 namespace AccountModule.Data.SeedScripts;
-public class KnownAccountsSeedWithData : IWskSeedScript
+public class KnownAccountSeedWithData : IAccountModuleSeedScript
 {
-    public async Task PopulateWskTestData(IServiceProvider serviceProvider)
+    public async Task PopulateAccountModuleTestData(IServiceProvider serviceProvider)
     {
         var mediator = serviceProvider.GetRequiredService<IMediator>();
         var logger = serviceProvider.GetRequiredService<ILogger<KnownAccountSeedWithData>>();
         using var dbContext =
-                new WskDbContext(serviceProvider
-                        .GetRequiredService<DbContextOptions<WskDbContext>>(
+                new AccountModuleDbContext(serviceProvider
+                        .GetRequiredService<DbContextOptions<AccountModuleDbContext>>(
                         ), mediator);
         
         foreach (var knownAccount in KnownAccountTestData.AllKnownAccounts)
         {
-            if (!dbContext.KnownAccounts.AsEnumerable().Any(rs => knownAccount.Isbn.Equals(rs.Isbn)))
+            logger?.LogInformation("I was here ;)");
+            /* if (!dbContext.KnownAccounts.AsEnumerable().Any(rs => knownAccount.Isbn.Equals(rs.Isbn)))
             {
                 dbContext.KnownAccounts.Add(knownAccount);
                 logger?.LogInformation("{knownAccount.Title} was created in the database.", knownAccount.Title);
@@ -20,7 +21,7 @@ public class KnownAccountsSeedWithData : IWskSeedScript
             else
             {
                 logger?.LogInformation("{knownAccount.Title} already exist in the database.", knownAccount.Title);
-            }
+            } */
             await dbContext.SaveChangesAsync();
         }
     }

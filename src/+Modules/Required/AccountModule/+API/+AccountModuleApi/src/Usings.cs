@@ -36,6 +36,7 @@ global using AccountModuleInfrastructure.CommandQuery;
 global using AccountModuleInfrastructure.Data;
 
 global using AccountModuleApplication;
+global using AccountModuleApplication.Services;
 
 global using AccountModuleApplication.Shared.Automaps;
 global using AccountModuleApplication.Shared.Requests;

@@ -18,7 +18,7 @@ public class Startup
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-        // default to WSKAccountModuleConnectionString ENVVAR
+        // default to AccountModuleAccountModuleConnectionString ENVVAR
         string connectionString =
             Configuration.GetConnectionString("Active"); //Configuration.GetConnectionString("DefaultConnection");
         var appSettings = Configuration.Get<AppSettings>();
@@ -29,10 +29,11 @@ public class Startup
         /* services.AddSingleton<SeedAccountModuleLandingPagesData>();
         services.AddSingleton<SeedAccountModuleAgileDojos>();
         services.AddSingleton<SeedAccountModuleDataRoot>();
-        services.AddSingleton<SeedAccountModuleDataWSKClients>();
+        services.AddSingleton<SeedAccountModuleDataAccountModuleClients>();
         services.AddSingleton<SeedAccountModuleBBQGeorge>();
         services.AddSingleton<SeedAccountModuleWestCoastFire>(); */
         services.AddAccountModuleDbContext(connectionString);
+        services.AddSingleton<IAccountModuleDataService, AccountModuleDirectDataService>();
         services.AddHttpContextAccessor();
         /* services
             .AddControllersWithViews()
