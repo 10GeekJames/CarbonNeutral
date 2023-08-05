@@ -5,13 +5,13 @@
     @if(Game.GameGrid != null) {
         <MudStack Row=isRow Class="pa-4 rounded" AlignItems="AlignItems.Center" Justify="Justify.Center">
             <MudHidden Breakpoint="Breakpoint.MdAndUp">
-            <div class="engraved-text-container d-flex">
+            <div class="grid-cell__engraved-text-container d-flex">
                 <MudText Class="highlight-shadow"  Typo="Typo.h2" Align="Align.Center">@Game?.Title</MudText>   
             </div>
         </MudHidden>
         <div class="d-flex justify-center align-items-center">
                 <MudHidden Breakpoint="Breakpoint.SmAndDown">
-                    <div class="engraved-text-container d-flex">
+                    <div class="grid-cell__engraved-text-container d-flex">
                     <MudText Class="highlight-shadow" Typo="Typo.h2" Align="Align.Center" Style="writing-mode: vertical-rl;">@Game?.Title</MudText>   
                     </div>
             </MudHidden>
@@ -81,7 +81,7 @@
         {
             isRow = true;
         }
-        Console.WriteLine($"isRow: {isRow}");
+        @* Console.WriteLine($"isRow: {isRow}"); *@
     }
 
     private MudBlazor.Color isFoundStyling(bool isFound) {
