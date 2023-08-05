@@ -14,7 +14,7 @@ export function importCss() {
   link.type = "text/css";
   link.rel = "stylesheet";
   link.media = "screen,print";
-  link.href = "./_content/CarbonNeutral.Common/app.css";
+  link.href = "./_content/CarbonNeutral.Common/common.css";
   document.getElementsByTagName("head")[0].appendChild(link);
 }
 /* 

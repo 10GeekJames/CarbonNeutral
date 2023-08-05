@@ -14,7 +14,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Monaco', monospace;
+    font-family: "Monaco", monospace;
     width: 24px;
     height: 24px;
     text-align: center;
@@ -27,21 +27,16 @@
     background-color: #e0e0e0;
     color: black;
     cursor: pointer;
-    border-radius: 25%;
-    // border: 1px outset lime;
+    border-radius: 50%;
+    border: 1px solid lime;
 }
-
-::deep .grid-cell:active {
-    background-color: #e0e0e0;
-    color: black;
-    cursor: pointer;
-    border-radius: 25%;
-    border: 1px outset lime;
+::deep .grid-cell .mud-link:first-child:hover {
+    transform: scale(2.5);
 }
 
 ::deep .grid-cell .mud-link {
     aspect-ratio: 1 / 1;
-    font-family: 'Monaco', monospace !important;
+    font-family: "Monaco", monospace !important;
     font-weight: bolder;
     font-size: 1em;
 }
@@ -49,16 +44,18 @@
 .main-game-container {
     width: fit-content; 
     margin: 0 auto;
-    background-color: rgba(0,0,0,0.50);
+    background-color: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(50px);
 }
 
 ::deep .grid-cell__engraved-text-container {
     color: transparent;
-    background: linear-gradient( #919191 35%, #FFFFFF 52%, #9C9C9C 100%);
+    background: linear-gradient(#919191 35%, #ffffff 52%, #9c9c9c 100%);
     -webkit-background-clip: text;
     background-clip: text;
-    text-shadow: 0px 1px 0px rgba(255,255,255,.3), 0px -1px 0px rgba(0,0,0,.7);
+    text-shadow:
+        0px 1px 0px rgba(255, 255, 255, 0.3),
+        0px -1px 0px rgba(0, 0, 0, 0.7);
 }
 
 ::deep .grid-cell__pop-out-text {
@@ -68,11 +65,9 @@
 ::deep .grid-cell__selected-letter {
     transform: scale(2.5);
 }
-
-::deep .grid-cell__selected-scale {
-    transform: scale(1.1) !important;
-}
-
-::deep .grid-cell__found-word {
+::deep .grid-cell__found-word  {
     transform: scale(1.5);
 }
+
+
+
