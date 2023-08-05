@@ -4,37 +4,40 @@
 <MudDialogProvider />
 <MudSnackbarProvider />
 
-
 <div style="background:url(_Content/CarbonNeutral.Common/i/knight_bg.jpg) no-repeat fixed center / cover; min-height: 100vh; width: 100%; position: absolute; top: 0; left: 0; z-index: -5;">
 <MudOverlay Visible="true" DarkBackground="true" ZIndex="-2" Style="backdrop-filter: blur(10px); background-color: rgba(0,0,0,0.75); "/>
 <MudLayout>
-    <MudAppBar Style="Background: transparent;" Class="animate__fadeInDown" Elevation="0" Fixed="false">
+    <MudAppBar Style="Background: rgba(0,0,0,0.25); z-index: 40;" Class="animate__fadeInDown" Elevation="0" Fixed="false">
         @* <MudImage Src="_Content/CarbonNeutral.Common/i/WskLogo.svg"  /> *@
         <WskLogo />
-        @* <MudHidden Breakpoint="Breakpoint.SmAndDown"> *@
+        <MudHidden Breakpoint="Breakpoint.SmAndDown">
             <WskNavMenu SelectedPageClass=@selectedPageClass OnPageLinkClick=@SetPageClass />
-            @* <MudText Typo="Typo.h5" Class="ml-3 fire">WordSearchKingdom</MudText> *@
             <MudSpacer />
-            <CascadingAuthenticationState>
-                <AuthorizeView>
-                    <Authorized>
-                        <WskLoggedInSubNavMenu />
-                    </Authorized>
-                    <NotAuthorized>
-                        <WskSubNavMenu />
-                    </NotAuthorized>
-                </AuthorizeView>
-            </CascadingAuthenticationState> 
-        @* </MudHidden> *@
-
+            <WskSubNavMenu />
+        </MudHidden>
     </MudAppBar>
-    @* <MudHidden Breakpoint="Breakpoint.MdAndUp">
-        <MudIconButton Style="position: absolute; top: 0; right: 0; z-index: 500;" Icon="@Icons.Material.Filled.Menu" OnClick="@DrawerToggle" />
+    @* <MudHidden Breakpoint="Breakpoint.Md" Invert="true">
+        <div style="position: absolute; top: 25px; right: 25px; z-index: 50;">
+            <MudIconButton  Icon="@Icons.Material.Filled.Menu" OnClick="@DrawerToggle" />
+        </div>
         <MudDrawer Style="background: rgba(0,0,0,0.75); backdrop-filter: blur(15px);" @bind-Open="@_drawerOpen" ClipMode="DrawerClipMode.Always" DisableOverlay="true" Elevation="2"
             Variant="@DrawerVariant.Temporary">
             <WskNavMenu SelectedPageClass=@selectedPageClass OnPageLinkClick=@SetPageClass />
+            <WskSubNavMenu />
         </MudDrawer>
     </MudHidden> *@
+    <MudHidden Breakpoint="Breakpoint.MdAndUp">
+        <div style="position: absolute; top: 25px; right: 25px; z-index: 50;">
+            <MudIconButton  Icon="@Icons.Material.Filled.Menu" OnClick="@DrawerToggle" />
+        </div>
+        <MudDrawer Style="background: rgba(0,0,0,0.75); backdrop-filter: blur(15px);" @bind-Open="@_drawerOpen" ClipMode="DrawerClipMode.Always" DisableOverlay="true" Elevation="2"
+            Variant="@DrawerVariant.Temporary">
+            <div class="mt-16">
+                <WskNavMenu SelectedPageClass=@selectedPageClass OnPageLinkClick=@SetPageClass />
+            </div>
+            <WskSubNavMenu />
+        </MudDrawer>
+    </MudHidden>
         @Body
 </MudLayout>
 </div>
