@@ -1,3 +1,7 @@
+| _ | _ | _ |
+| _ | _ | _ |
+| x | _ | _ |
+
 # WordSearchKingdom
 
 Welcome to CarbonNeutral (to be named later) and WordSearchKingdom!
