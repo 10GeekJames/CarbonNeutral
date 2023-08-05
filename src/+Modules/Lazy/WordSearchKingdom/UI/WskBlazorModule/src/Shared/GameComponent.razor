@@ -21,13 +21,17 @@
                             var storeX = x;
                             var storeY = y;
                             char rowCell = SelectedGridCells[storeX,storeY];
-                        <MudLink Class="grid-cell" OnClick=@(e => HandleCellClick(e, rowCell, storeX, storeY)) Underline="Underline.None" >
+                        @* <MudLink Class="grid-cell" OnClick=@(e => HandleCellClick(e, rowCell, storeX, storeY)) Underline="Underline.None" > *@
+                        
                             <RowCellComponent 
-                                    RowCell=rowCell
-                                    IsCompleted=@(SelectedGridCellPoints.Any(rs=>rs.X == storeX && rs.Y == storeY))
-                                    IsSelected=@((bool)(firstClick.HasValue && firstClick.Value.x == storeX && firstClick.Value.y == storeY))
-                                />
-                        </MudLink>
+                                RowCell=rowCell
+                                OnCellClick="HandleCellClickAsync"
+                                X=storeX
+                                Y=storeY
+                                IsCompleted=@(SelectedGridCellPoints.Any(rs=>rs.X == storeX && rs.Y == storeY))
+                                IsSelected=@((bool)(firstClick.HasValue && firstClick.Value.x == storeX && firstClick.Value.y == storeY))
+                            />
+
                             }
                         }                
                 </div>
@@ -93,8 +97,9 @@
                        
     }
 
-    private async Task HandleCellClick(MouseEventArgs e, char letter, int x, int y)
+    private async Task HandleCellClickAsync((MouseEventArgs, char, int, int) args)
     {
+        var (e, letter, x, y) = args;
         Console.WriteLine($"Clicked Cell X={x} Y={y} {letter}");        
         if (firstClick == null)
         {

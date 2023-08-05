@@ -1,7 +1,9 @@
 @inject IStringLocalizer<RowCellComponent> Localize
 
+<MudLink Class="grid-cell" Style=@(SetLinkZIndex()) OnClick=@(e => CellClicked(e, RowCell, X, Y)) Underline="Underline.None" >
+    <MudText Typo="Typo.h6" Class=@(GetClassToUse()) Color=@(GetColorToUse())>@RowCell</MudText>
+</MudLink>
 
-<MudText Typo="Typo.h6" Class=@(GetClassToUse()) Color=@(GetColorToUse())>@RowCell</MudText>
 @code {
     [Parameter]
     public char RowCell {get;set;}
@@ -10,7 +12,11 @@
     [Parameter]
     public bool IsCompleted {get;set;} = false;
     [Parameter]
-    public bool IsHover {get;set;} = false;
+    public int X {get;set;}
+    [Parameter]
+    public int Y {get;set;}
+    [Parameter]
+    public EventCallback<(MouseEventArgs, char, int, int)> OnCellClick { get; set; }
 
     
     public Color GetColorToUse(){
@@ -20,9 +26,6 @@
         }
         else if (IsCompleted == true) {
             colorToUse = Color.Warning;
-        }
-        else if (IsHover == true) {
-            colorToUse = Color.Primary;
         }
         else {
             colorToUse = Color.Default;
@@ -38,13 +41,27 @@
             classToUse = "pop-out-text found-word";
 
         }
-        else if (IsHover == true) {
-
-        }
         else {
             classToUse = "engraved-text-container";
         }
         return classToUse;
+    }
+    public string SetLinkZIndex(){
+        var zIndex = "z-index: 1;";
+        if(IsSelected == true) {
+            zIndex = "z-index: -10;";
+        }
+        else if (IsCompleted == true) {
+            zIndex = "z-index: -10;";
+        }
+        else {
+            zIndex = "z-index: 1;";
+        }
+        return zIndex;
+    }
+    public async Task CellClicked(MouseEventArgs e, char letter, int x, int y)
+    {
+        await OnCellClick.InvokeAsync((e, letter, x, y));
     }
 
     protected override async Task OnInitializedAsync()

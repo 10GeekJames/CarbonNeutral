@@ -401,3 +401,6 @@ FodyWeavers.xsd
 .gitignore
 
 /local-nuget/**
+
+# Db
+src/+Modules/Lazy/WordSearchKingdom/__Data/Database/WskData.db
