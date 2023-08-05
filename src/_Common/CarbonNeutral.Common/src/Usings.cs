@@ -17,5 +17,14 @@ global using CarbonNeutral.Common;
 global using CarbonNeutral.Common.Interfaces;
 global using CarbonNeutral.Common.MasterPageSetters;
 
+global using CarbonNeutral.Common.MasterPages.Navigation;
+global using CarbonNeutral.Common.MasterPages.Authentication;
+global using CarbonNeutral.Common.MasterPages.Layouts;
+global using CarbonNeutral.Common.MasterPages.Footer;
+global using CarbonNeutral.Common.MasterPages.Errors;
+global using CarbonNeutral.Common.Shared;
+
+
+
 global using AccountModuleApplication.Shared.Interfaces;
 global using AccountModuleApplication.Shared.ViewModels;

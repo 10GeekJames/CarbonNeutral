@@ -11,22 +11,23 @@
     <MudAppBar Style="Background: transparent;" Class="animate__fadeInDown" Elevation="0" Fixed="false">
         @* <MudImage Src="_Content/CarbonNeutral.Common/i/WskLogo.svg"  /> *@
         <WskLogo />
-        <MudHidden Breakpoint="Breakpoint.SmAndDown">
-            <WskNavMenu SelectedPageClass=@selectedPageClass OnPageLinkClick=@SetPageClass />
-            @* <MudText Typo="Typo.h5" Class="ml-3 fire">WordSearchKingdom</MudText> *@
-            <MudSpacer />
-            @* NotAuthenticated *@
-            <WskSubNavMenu />
-            @* NotAuthenticated *@
+        <WskNavMenu SelectedPageClass=@selectedPageClass OnPageLinkClick=@SetPageClass />
+        @* <MudText Typo="Typo.h5" Class="ml-3 fire">WordSearchKingdom</MudText> *@
+        <MudSpacer />
+        <CascadingAuthenticationState>
+            <AuthorizeView>
+                <Authorized>
+                    <WskLoggedInSubNavMenu />
+                </Authorized>
+                <NotAuthorized>
+                    <WskSubNavMenu />
+                </NotAuthorized>
+            </AuthorizeView>
+        </CascadingAuthenticationState> 
 
-            @* Authenticated *@
-            @* <WskLoggedInSubNavMenu /> *@
-            @* Authenticated *@
-        </MudHidden>
-        <MudHidden Breakpoint="Breakpoint.MdAndUp">
-            <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Primary" OnClick="@DrawerToggle" />
-        </MudHidden>
-
+        @* <MudToggleIconButton Class="px-4"  @bind-Toggled="@_isDarkMode" Icon="@Icons.Material.Filled.DarkMode" Color="@Color.Info"
+            Title="Dark Mode" ToggledIcon="@Icons.Material.Filled.LightMode" ToggledColor="Color.Warning"
+            ToggledTitle="Light Mode" /> *@
     </MudAppBar>
     <MudHidden Breakpoint="Breakpoint.MdAndUp">
         <MudDrawer @bind-Open="@_drawerOpen" ClipMode="DrawerClipMode.Always" DisableOverlay="true" Elevation="2"
