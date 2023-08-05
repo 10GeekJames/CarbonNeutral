@@ -2,29 +2,16 @@
 
 <style>
     .mud-link {
-        color: rgba(216,216,216,0.5) !important;
+        color: rgba(216,216,216,0.75) !important;
         font-weight: 500 !important;
         text-shadow: 1px 1px 2px black;
         font-size: 2rem !important;
     }
-    .mud-link:hover {
-        color: rgba(255,255,255,0.74) !important;
-        text-shadow: 0px 0px 7px deepskyblue, 1px 1px 2px black !important;
-    }
-    .mud-button:hover {
-        color: rgba(255,255,255,0.74) !important;
-        text-shadow: 0px 0px 7px deepskyblue !important;
-    }
-    @* .highlight-shadow {
-        color: rgba(255,255,255,0.74) !important;
-        text-shadow: 0px 0px 7px lime, 1px 1px 2px black !important;
-    }
-    .grid-cell__selected-scale {
-        transform: scale(1.1) !important;} *@
 </style>
 @* Not authenticated *@
+<MudBreakpointProvider OnBreakpointChanged="((e) => SetStackDirection(e))" />
 <MudContainer>
-    <MudStack Row="true" Class="ml-16" Spacing="8">
+    <MudStack Row=isRow Class="ml-16" Spacing="8">
         <MudLink Href="/" Underline="Underline.None" Class=@(SelectedPageClass == "home" ? "highlight-shadow grid-cell__selected-scale" : "") OnClick="@(() => SetCurrentPageClass("home"))">Home</MudLink>
         <MudLink Href="/wsk/allgames" Underline="Underline.None" Class=@(SelectedPageClass == "play" ? "highlight-shadow grid-cell__selected-scale" : "") OnClick="@(() => SetCurrentPageClass("play"))">Play</MudLink>
         <MudLink Href="/wsk/help" Underline="Underline.None" Class=@(SelectedPageClass == "help" ? "highlight-shadow grid-cell__selected-scale" : "") OnClick="@(() => SetCurrentPageClass("help"))">Help</MudLink>
@@ -37,6 +24,7 @@
     public string SelectedPageClass { get; set; }
     [Parameter] 
     public EventCallback<string> OnPageLinkClick { get; set; }
+    bool isRow { get; set; } = true;
 
     protected override async Task OnInitializedAsync()
     {
@@ -53,7 +41,19 @@
             SetCurrentPageClass("home");
         };
     }
-
+    private void SetStackDirection(MudBlazor.Breakpoint breakpoint)
+    {
+        Console.WriteLine($"breakpoint: {breakpoint}");
+        if (breakpoint == MudBlazor.Breakpoint.Sm || breakpoint == MudBlazor.Breakpoint.Xs)
+        {
+            isRow = false;
+        }
+        else
+        {
+            isRow = true;
+        }
+        Console.WriteLine($"isRow: {isRow}");
+    }
     private void SetCurrentPageClass(string page) {
         OnPageLinkClick.InvokeAsync(page);
     }

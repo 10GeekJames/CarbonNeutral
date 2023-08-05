@@ -101,3 +101,12 @@ a,
     transform: scale(1.1) !important;
 }
 
+.mud-link:hover {
+    color: rgba(255,255,255,0.74) !important;
+    text-shadow: 0px 0px 7px deepskyblue, 1px 1px 2px black !important;
+}
+.mud-button:hover {
+    color: rgba(255,255,255,0.74) !important;
+    text-shadow: 0px 0px 7px deepskyblue !important;
+}
+
