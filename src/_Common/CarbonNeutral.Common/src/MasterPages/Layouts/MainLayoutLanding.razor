@@ -15,13 +15,17 @@
         @* <MudText Typo="Typo.h5" Class="ml-3 fire">WordSearchKingdom</MudText> *@
         <MudSpacer />
         @* NotAuthenticated *@
-        <WskSubNavMenu />
-        @* NotAuthenticated *@
-
-        @* Authenticated *@
-        @* <WskLoggedInSubNavMenu /> *@
-        @* Authenticated *@
-
+        <CascadingAuthenticationState>
+            <AuthorizeView>
+                <Authorized>
+                    <WskLoggedInSubNavMenu />
+                </Authorized>
+                <NotAuthorized>
+                    <WskSubNavMenu />
+                </NotAuthorized>
+            </AuthorizeView>
+        </CascadingAuthenticationState>        
+      
         @* <MudToggleIconButton Class="px-4"  @bind-Toggled="@_isDarkMode" Icon="@Icons.Material.Filled.DarkMode" Color="@Color.Info"
             Title="Dark Mode" ToggledIcon="@Icons.Material.Filled.LightMode" ToggledColor="Color.Warning"
             ToggledTitle="Light Mode" /> *@
