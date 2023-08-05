@@ -19,16 +19,16 @@
         color: rgba(255,255,255,0.74) !important;
         text-shadow: 0px 0px 7px lime, 1px 1px 2px black !important;
     }
-    .selected-scale {
+    .grid-cell__selected-scale {
         transform: scale(1.1) !important;} *@
 </style>
 @* Not authenticated *@
 <MudContainer>
     <MudStack Row="true" Class="ml-16" Spacing="8">
-        <MudLink Href="/" Underline="Underline.None" Class=@(SelectedPageClass == "home" ? "highlight-shadow selected-scale" : "") OnClick="@(() => SetCurrentPageClass("home"))">Home</MudLink>
-        <MudLink Href="/wsk/allgames" Underline="Underline.None" Class=@(SelectedPageClass == "play" ? "highlight-shadow selected-scale" : "") OnClick="@(() => SetCurrentPageClass("play"))">Play</MudLink>
-        <MudLink Href="/wsk/help" Underline="Underline.None" Class=@(SelectedPageClass == "help" ? "highlight-shadow selected-scale" : "") OnClick="@(() => SetCurrentPageClass("help"))">Help</MudLink>
-        <MudLink Href="/wsk/about" Underline="Underline.None" Class=@(SelectedPageClass == "about" ? "highlight-shadow selected-scale" : "") OnClick="@(() => SetCurrentPageClass("about"))">About</MudLink>
+        <MudLink Href="/" Underline="Underline.None" Class=@(SelectedPageClass == "home" ? "highlight-shadow grid-cell__selected-scale" : "") OnClick="@(() => SetCurrentPageClass("home"))">Home</MudLink>
+        <MudLink Href="/wsk/allgames" Underline="Underline.None" Class=@(SelectedPageClass == "play" ? "highlight-shadow grid-cell__selected-scale" : "") OnClick="@(() => SetCurrentPageClass("play"))">Play</MudLink>
+        <MudLink Href="/wsk/help" Underline="Underline.None" Class=@(SelectedPageClass == "help" ? "highlight-shadow grid-cell__selected-scale" : "") OnClick="@(() => SetCurrentPageClass("help"))">Help</MudLink>
+        <MudLink Href="/wsk/about" Underline="Underline.None" Class=@(SelectedPageClass == "about" ? "highlight-shadow grid-cell__selected-scale" : "") OnClick="@(() => SetCurrentPageClass("about"))">About</MudLink>
     </MudStack>
 </MudContainer>
 
