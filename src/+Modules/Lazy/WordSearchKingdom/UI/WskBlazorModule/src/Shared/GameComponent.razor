@@ -21,7 +21,6 @@
                             var storeX = x;
                             var storeY = y;
                             char rowCell = SelectedGridCells[storeX,storeY];
-                        @* <MudLink Class="grid-cell" OnClick=@(e => HandleCellClick(e, rowCell, storeX, storeY)) Underline="Underline.None" > *@
                         
                             <RowCellComponent 
                                 RowCell=rowCell
@@ -30,6 +29,7 @@
                                 Y=storeY
                                 IsCompleted=@(SelectedGridCellPoints.Any(rs=>rs.X == storeX && rs.Y == storeY))
                                 IsSelected=@((bool)(firstClick.HasValue && firstClick.Value.x == storeX && firstClick.Value.y == storeY))
+                                CurrentFont=@_currentFont
                             />
 
                             }
@@ -52,6 +52,7 @@
                 <MudStack Spacing="4">
                     <MudButton Style="justify-self: flex-end;" Variant="Variant.Filled" Color="Color.Tertiary" OnClick=OnRecreateGame FullWidth="true" >Recreate Game</MudButton>  
                     <MudButton Style="justify-self: flex-end;" Variant="Variant.Filled" Color="Color.Tertiary" OnClick=BackToAllGames FullWidth="true" >All Games</MudButton>    
+                    <MudButton Style="justify-self: flex-end;" Variant="Variant.Filled" Color="Color.Tertiary" OnClick=CycleFont FullWidth="true" >Cycle Font</MudButton>    
                 </MudStack>
             </MudContainer>
         </MudStack>
@@ -67,8 +68,10 @@
     public char[,] SelectedGridCells { get; set; }
     [Parameter]
     public List<System.Drawing.Point> SelectedGridCellPoints { get; set; } = new();
-    bool isRow { get; set; }
+    private bool isRow { get; set; }
     private (int x, int y)? firstClick { get; set; }
+
+    private string _currentFont = "Courier New";
 
     private void SetStackDirection(MudBlazor.Breakpoint breakpoint)
     {
@@ -115,6 +118,21 @@
             firstClick = null;
             @* StateHasChanged(); *@
         }
+    }
+
+    private void CycleFont()
+    {
+        var fonts = new List<string>() { "Arial", "Times New Roman", "Comic Sans MS", "Verdana", "Impact", "Georgia", "Trebuchet MS", "Arial Black", "Lucida Console", "Courier New"  };
+        var currentFont = _currentFont;
+        Console.WriteLine($"currentFont: {currentFont}");
+        var currentIndex = fonts.IndexOf(currentFont);
+        var nextIndex = currentIndex + 1;
+        if (nextIndex >= fonts.Count)
+        {
+            nextIndex = 0;
+        }
+        _currentFont = fonts[nextIndex];
+        Console.WriteLine($"currentFont: {currentFont}");
     }
 
     private void BackToAllGames()

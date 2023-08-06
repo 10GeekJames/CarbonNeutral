@@ -404,4 +404,5 @@ FodyWeavers.xsd
 
 # Db
 src/+Modules/Lazy/WordSearchKingdom/__Data/Database/WskData.db
-src/+Modules/Lazy/WordSearchKingdom/__Data/Database/WskData.db
+src/+Modules/Lazy/WordSearchKingdom/__Data/Database/WskData.db-shm
+src/+Modules/Lazy/WordSearchKingdom/__Data/Database/WskData.db-wal
