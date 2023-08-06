@@ -14,7 +14,8 @@ public partial class GameCheckWordCoordsQryHandler : IRequestHandler<GameCheckWo
         var game = await _repository.FirstOrDefaultAsync(spec, cancellationToken);
         var rowCells = new List<(int x, int y)>();
         var foundWord = "";
-        // check horizontal
+
+        // check top to bottom
         if (qry.Y1 == qry.Y2)
         {
             if (qry.X2 > qry.X1)
@@ -27,7 +28,7 @@ public partial class GameCheckWordCoordsQryHandler : IRequestHandler<GameCheckWo
                 }
             }
         }
-        // check backwards horizontal
+        // check bottom to top
         if (qry.Y2 == qry.Y1)
         {
             if (qry.X2 < qry.X1)
@@ -40,7 +41,7 @@ public partial class GameCheckWordCoordsQryHandler : IRequestHandler<GameCheckWo
                 }
             }
         }
-        // check vertical
+        // check left to right
         if (qry.X1 == qry.X2)
         {
             if (qry.Y2 > qry.Y1)
@@ -53,7 +54,7 @@ public partial class GameCheckWordCoordsQryHandler : IRequestHandler<GameCheckWo
                 }
             }
         }
-        // check backwards vertical
+        // check right to left
         if (qry.X2 == qry.X1)
         {
             if (qry.Y2 < qry.Y1)
@@ -66,7 +67,7 @@ public partial class GameCheckWordCoordsQryHandler : IRequestHandler<GameCheckWo
                 }
             }
         }
-        // check diagonal
+        // check right down diagonal
         if (qry.X2 > qry.X1 && qry.Y2 > qry.Y1)
         {
             var x = qry.X1;
@@ -81,7 +82,7 @@ public partial class GameCheckWordCoordsQryHandler : IRequestHandler<GameCheckWo
             }
         }
 
-        // check backwards diagonal
+        // check right up diagonal
         if (qry.X2 < qry.X1 && qry.Y2 > qry.Y1)
         {
             var x = qry.X1;
@@ -95,6 +96,37 @@ public partial class GameCheckWordCoordsQryHandler : IRequestHandler<GameCheckWo
                 y++;
             }
         }
+
+        // check left down diagonal
+        if (qry.X2 > qry.X1 && qry.Y2 < qry.Y1)
+        {
+            var x = qry.X1;
+            var y = qry.Y1;
+            while (x <= qry.X2 && y >= qry.Y2)
+            {
+                var cell = game.GameGrid.RowCellDataArray[x, y];
+                foundWord += cell;
+                rowCells.Add((x, y));
+                x++;
+                y--;
+            }
+        }
+
+        // check left up diagonal
+        if (qry.X2 < qry.X1 && qry.Y2 < qry.Y1)
+        {
+            var x = qry.X1;
+            var y = qry.Y1;
+            while (x >= qry.X2 && y >= qry.Y2)
+            {
+                var cell = game.GameGrid.RowCellDataArray[x, y];
+                foundWord += cell;
+                rowCells.Add((x, y));
+                x--;
+                y--;
+            }
+        }
+
 
         if (game.GameGrid.HiddenWords.Any(rs => rs.Word.ToLower() == foundWord.ToLower()))
         {
