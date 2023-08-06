@@ -14,7 +14,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: "Monaco", monospace;
+    // font-family: "Monaco", monospace;
     width: 24px;
     height: 24px;
     text-align: center;
@@ -36,7 +36,7 @@
 
 ::deep .grid-cell .mud-link {
     aspect-ratio: 1 / 1;
-    font-family: "Monaco", monospace !important;
+    // font-family: "Monaco", monospace !important;
     font-weight: bolder;
     font-size: 1em;
 }

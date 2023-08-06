@@ -1,7 +1,7 @@
 @inject IStringLocalizer<RowCellComponent> Localize
 
 <MudLink Class="grid-cell" Style=@(SetLinkZIndex()) OnClick=@(e => CellClicked(e, RowCell, X, Y)) Underline="Underline.None" >
-    <MudText Typo="Typo.h6" Class=@(GetClassToUse()) Color=@(GetColorToUse())>@RowCell</MudText>
+    <MudText Typo="Typo.h6" Style="@(($"font-family: {CurrentFont};"))" Class=@(GetClassToUse()) Color=@(GetColorToUse())>@RowCell</MudText>
 </MudLink>
 
 @code {
@@ -15,6 +15,8 @@
     public int X {get;set;}
     [Parameter]
     public int Y {get;set;}
+    [Parameter]
+    public string CurrentFont {get;set;}
     [Parameter]
     public EventCallback<(MouseEventArgs, char, int, int)> OnCellClick { get; set; }
 

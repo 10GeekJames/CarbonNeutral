@@ -73,19 +73,22 @@
         }
 
         List<HiddenWordViewModel> hiddenWords = _wordsToHide.Split(new[] { "\r\n", "\r", "\n", "," }, StringSplitOptions.RemoveEmptyEntries)
-            .Select(word => new HiddenWordViewModel { Word = word.Trim() })
+            .Select(word => {
+                word = Regex.Replace(word, @"\d{2,}", "");
+                return new HiddenWordViewModel { Word = word.Trim().Replace(" ", "").ToUpper() };
+                })
             .ToList();
 
         List<GameCategoryViewModel> categories = _categories.Split(new[] { "\r\n", "\r", "\n", "," }, StringSplitOptions.RemoveEmptyEntries)
-            .Select(category => new GameCategoryViewModel { Title = category.Trim() })
+            .Select(category => new GameCategoryViewModel { Title = category.Trim().Replace(" ", "_").ToUpper() })
             .ToList();
 
         List<GameTagViewModel> tags = _tags.Split(new[] { "\r\n", "\r", "\n", "," }, StringSplitOptions.RemoveEmptyEntries)
-            .Select(tag => new GameTagViewModel { Title = tag.Trim() })
+            .Select(tag => new GameTagViewModel { Title = tag.Trim().Replace(" ", "_").ToUpper() })
             .ToList();
 
-        @* Console.WriteLine(hiddenWords.Count());
-        hiddenWords.ForEach(word => Console.WriteLine(word.Word)); *@
+        Console.WriteLine(hiddenWords.Count());
+        hiddenWords.ForEach(word => Console.WriteLine(word.Word));
 
         var request = new GameCreateNewRequest(_gameTitle, _gridSize, _gridSize, hiddenWords, _difficulty, categories, tags);
         GameViewModel game = await WskDataService.GameCreateNewAsync(request); 
