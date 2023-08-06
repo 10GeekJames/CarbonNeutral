@@ -1,12 +1,12 @@
 @inject IStringLocalizer<WskNavMenu> Localize
 
 <style>
-    @* .mud-link {
+    .mud-link {
         color: rgba(216,216,216,0.75) !important;
         font-weight: 500 !important;
         text-shadow: 1px 1px 2px black;
         font-size: 2rem !important;
-    } *@
+    }
 </style>
 @* Not authenticated *@
 <MudBreakpointProvider OnBreakpointChanged="((e) => SetStackDirection(e))" />
