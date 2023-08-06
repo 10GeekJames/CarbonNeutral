@@ -1,3 +1,4 @@
+
 namespace AccountModuleApi;
 public class Startup
 {
@@ -11,7 +12,7 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         //Microsoft.IdentityModel.Logging.IdentityModelEventSource.ShowPII = true;       
-        
+
         services
             .Configure<CookiePolicyOptions>(options =>
             {
@@ -24,14 +25,15 @@ public class Startup
         var appSettings = Configuration.Get<AppSettings>();
         services.AddSingleton<AppSettings>(appSettings);
         services.AddAutoMapper(typeof(KnownAccountMap).GetTypeInfo().Assembly);
-        /* services.AddSingleton<SeedAccountModuleData>(); */
-        // our goal is to discover all of the IAccountModuleSeedScripts and load them up here.
-        /* services.AddSingleton<SeedAccountModuleLandingPagesData>();
-        services.AddSingleton<SeedAccountModuleAgileDojos>();
-        services.AddSingleton<SeedAccountModuleDataRoot>();
-        services.AddSingleton<SeedAccountModuleDataAccountModuleClients>();
-        services.AddSingleton<SeedAccountModuleBBQGeorge>();
-        services.AddSingleton<SeedAccountModuleWestCoastFire>(); */
+        foreach (var seedData in Assembly
+                   .GetExecutingAssembly()
+                   .GetTypes()
+                   .Where(x => x.IsAssignableTo(typeof(IAccountModuleSeedScript)) && x.IsClass)
+                   .OrderBy(rs => rs.Name))
+        {
+            services.AddSingleton(seedData);
+        }
+
         services.AddAccountModuleDbContext(connectionString);
         services.AddSingleton<IAccountModuleDataService, AccountModuleDirectDataService>();
         services.AddHttpContextAccessor();
@@ -51,8 +53,11 @@ public class Startup
             .AddControllersWithViews()
             .AddNewtonsoftJson(options =>
             {
+                options.SerializerSettings.ContractResolver =
+                    new CamelCasePropertyNamesContractResolver();
                 options.SerializerSettings.ReferenceLoopHandling =
                     ReferenceLoopHandling.Ignore;
+                //options.SerializerSettings.MaxDepth = 2;
             });
         services.AddCors(opt =>
             {
@@ -104,24 +109,26 @@ public class Startup
         services
         .AddAuthorization(options =>
         {
-        });        
-        
+        });
+
+
+
     }
     public void ConfigureContainer(ContainerBuilder builder)
     {
         builder.RegisterModule(new AccountModuleCoreModule());
-        builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
-           .Where(rs => rs.Name.StartsWith("SeedKnownAccount"))
-        ;
+
         builder
             .RegisterModule(new AccountModuleInfrastructureModule(_env
                     .EnvironmentName ==
                 "Development"));
+
+        builder.RegisterModule(new AccountModuleDataModule(_env
+                   .EnvironmentName ==
+               "Development"));
     }
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
-      
-
         if (env.EnvironmentName == "Development")
         {
             app.UseDeveloperExceptionPage();
@@ -132,6 +139,7 @@ public class Startup
             app.UseExceptionHandler("/Home/Error");
             app.UseHsts();
         }
+
         app.UseRouting();
         app.UseCors();
         app.UseAuthentication();

@@ -18,16 +18,7 @@ public class Startup
         string connectionString =
             Configuration.GetConnectionString("Active") ?? ""; //Configuration.GetConnectionString("DefaultConnection");
 
-        services.AddAccountModuleDbContext(connectionString);
-
-        foreach (var seedData in Assembly
-                    .GetExecutingAssembly()
-                    .GetTypes()
-                    .Where(x => x.IsAssignableTo(typeof(IAccountModuleSeedScript)) && x.IsClass)
-                    .OrderBy(rs => rs.Name))
-        {
-            services.AddSingleton(seedData);
-        }
+        services.AddAccountModuleDbContext(connectionString);        
     }
     public void ConfigureContainer(ContainerBuilder builder)
     {
@@ -39,11 +30,14 @@ public class Startup
 
         var coreAssembly = Assembly.GetAssembly(typeof(AccountModuleCoreModule));
         var infrastructureAssembly = Assembly.GetAssembly(typeof(AccountModuleInfrastructureModule));
+        var accountDataModule = Assembly.GetAssembly(typeof(AccountModuleDataModule));
+
         //var applicationAssembly = Assembly.GetAssembly(typeof(AccountModuleApplicationModule));
         //var applicationTestAssembly = Assembly.GetAssembly(typeof(BaseApplicationTestFixture));
 
         assemblies.Add(coreAssembly!);
         assemblies.Add(infrastructureAssembly!);
+        assemblies.Add(accountDataModule!);
         
         builder.RegisterGeneric(typeof(EfRepository<>))
             .As(typeof(IRepository<>))

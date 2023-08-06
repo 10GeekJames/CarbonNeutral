@@ -19,9 +19,9 @@ public class RunBaseSeedData
             .OrderBy(rs => rs.Name))
         {
             _logger.LogInformation($"Seeding ... {seedData.Name}", seedData.Name);
-            await ((IAccountModuleSeedScript)serviceProvider
+            ((IAccountModuleSeedScript) serviceProvider
                 .GetRequiredService(seedData))
-                .PopulateAccountModuleTestData(serviceProvider);
+            .PopulateAccountModuleTestData(serviceProvider);
         }
     }
 }

@@ -1,6 +1,6 @@
 namespace AccountModuleApi;
 
-public static class Program
+public class Program
 {
     public static void Main(string[] args)
     {
@@ -8,15 +8,23 @@ public static class Program
 
         using (var scope = host.Services.CreateScope())
         {
+            var logger = host.Services.GetRequiredService<ILogger<Program>>();
             var services = scope.ServiceProvider;
             var configuration = GetConfiguration(args);
             var appSettings = configuration.Get<AppSettings>();
-            /* context.Database.Migrate();
-            context.Database.EnsureCreated();            
-
-            var seedAccountModuleData = services.GetRequiredService<SeedAccountModuleData>();
-            var mediator = services.GetRequiredService<IMediator>();
-            seedAccountModuleData.Initialize(services, mediator).GetAwaiter().GetResult();  */
+            var context = services.GetRequiredService<AccountModuleDbContext>();
+            //context.Database.Migrate();
+            try
+            {                
+                context.Database.EnsureCreated();
+                logger.LogInformation("Seeding database...");
+                var runBaseSeedData = new RunBaseSeedData();
+                runBaseSeedData.Initialize(services).GetAwaiter().GetResult();
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "An error occurred seeding the DB.");
+            }
         }
 
         host.Run();

@@ -26,18 +26,5 @@ public partial class KnownUserController : BaseController
     {
         var response = await _dataService.KnownUserGetByUserIdWebsiteIdAsync(request);
         return Ok(response);
-    }
-    [HttpGet]
-    public async Task<IActionResult> Get(KnownUserGetRequest request)
-    {
-        var response = await _dataService.KnownUserGetAsync(request);
-        return Ok(response);
-    }
-    [HttpPost]
-    public async Task<IActionResult> UpdateAccount(KnownUserUpdateAccountRequest request)
-    {
-        var response = await _dataService.KnownUserUpdateAccountAsync(request);
-        return Ok(response);
-    }
-
+    }  
 }

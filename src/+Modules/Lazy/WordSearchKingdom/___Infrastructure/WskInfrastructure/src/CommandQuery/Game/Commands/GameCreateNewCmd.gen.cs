@@ -9,6 +9,7 @@ public partial class GameCreateNewCmd : IRequest<Game>
     public GameDifficulties GameDifficulty { get; set; }
     public List<GameCategory> GameCategories { get; set; }
     public List<GameTag> GameTags { get; set; }
+    public Guid? KnownUserId { get; set; } = null;
     public GameCreateNewCmd() { }
     public GameCreateNewCmd(string title, int height, int width, List<HiddenWord> wordsToHide, GameDifficulties gameDifficulty, List<GameCategory> gameCategories, List<GameTag> gameTags)
     {

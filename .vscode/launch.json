@@ -52,26 +52,6 @@
             "console": "internalConsole"
         },
         {
-            "name": "AccountModuleApi",
-            "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build-AccountModuleApi",
-            "program": "${workspaceFolder}/src/+Modules/Required/AccountModule/+Api/+AccountModuleApi/src/bin/Debug/net7.0/+AccountModuleApi.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}/src/+Modules/Required/AccountModule/+Api/+AccountModuleApi/src",
-            "stopAtEntry": false,
-            "serverReadyAction": {
-                "action": "openExternally",
-                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
-            },
-            "env": {
-                "ASPNETCORE_ENVIRONMENT": "Development"
-            },
-            "sourceFileMap": {
-                "/Views": "${workspaceFolder}/src/+Modules/Required/AccountModule/+Api/+AccountModuleApi/src/Views"
-            }
-        },
-        {
             "name": "WskApi",
             "type": "coreclr",
             "request": "launch",
@@ -109,6 +89,26 @@
             },
             "sourceFileMap": {
                 "/Views": "${workspaceFolder}/src/+Modules/Lazy/WordSearchKingdom/__Data/WskApplication.Data/src/Views"
+            }
+        },
+        {
+            "name": "AccountModuleApi",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-AccountModuleApi",
+            "program": "${workspaceFolder}/src/+Modules/Required/AccountModule/+Api/+AccountModuleApi/src/bin/Debug/net7.0/AccountModuleApi.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/+Modules/Required/AccountModule/+Api/+AccountModuleApi/src",
+            "stopAtEntry": false,
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/src/+Modules/Required/AccountModule/+Api/+AccountModuleApi/src/Views"
             }
         }
     ]

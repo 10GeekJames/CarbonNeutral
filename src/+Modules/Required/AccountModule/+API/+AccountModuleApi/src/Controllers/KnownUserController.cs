@@ -2,7 +2,7 @@ namespace AccountModuleApi.Controllers;
 public partial class KnownUserController : BaseController
 {
     [HttpGet, Authorize]
-    public async Task<IActionResult> Get()
+    public async Task<IActionResult> Get([FromQuery]KnownUserGetRequest request)
     {
         // alternatively
         var claimsIdentity = HttpContext.User.Identity as ClaimsIdentity;
@@ -10,10 +10,10 @@ public partial class KnownUserController : BaseController
         KnownUser? knownUser = null;
 
         var referrer = "";
-        referrer = Request?.GetTypedHeaders()?.Referer?.Host.ToString();
+        referrer = Request?.GetTypedHeaders()?.Referer?.Host.ToString();        
         //Console.WriteLine($"Current Host == {referrer}");
 
-        var knownBusinessWebsiteGetByUrlQry = new KnownBusinessWebsiteGetByUrlQry(referrer);
+        var knownBusinessWebsiteGetByUrlQry = new KnownBusinessWebsiteGetByUrlQry($"{Request?.GetTypedHeaders()?.Referer?.Host.ToString()}:{Request?.GetTypedHeaders()?.Referer?.Port.ToString()}");
         var knownBusinessWebsiteGetByUrlResult = await _mediator.Send(knownBusinessWebsiteGetByUrlQry);
 
         if (userId.HasValue && knownBusinessWebsiteGetByUrlResult != null)
@@ -30,7 +30,7 @@ public partial class KnownUserController : BaseController
         return Ok(_mapper.Map<KnownUserViewModel>(knownUser));
     }
 
-    [HttpPost, Authorize, Route("[action]")]
+    [HttpPost, Authorize]
     public async Task<IActionResult> UpdateAccount(KnownUserUpdateAccountRequest request)
     {
         // alternatively

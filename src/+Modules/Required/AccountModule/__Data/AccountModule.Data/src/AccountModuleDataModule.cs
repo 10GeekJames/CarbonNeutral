@@ -17,7 +17,7 @@ public class AccountModuleDataModule : Module
 
         _assemblies.Add(coreAssembly!);
         _assemblies.Add(infrastructureAssembly!);
-        
+
         if (callingAssembly != null)
         {
             _assemblies.Add(callingAssembly);
@@ -39,15 +39,26 @@ public class AccountModuleDataModule : Module
 
     private void RegisterCommonDependencies(ContainerBuilder builder)
     {
+        var services = new ServiceCollection();
+
+        foreach (var seedData in Assembly
+            .GetExecutingAssembly()
+            .GetTypes()
+            .Where(x => x.IsClass && x.Name.Contains("SeedWithData"))
+            .OrderBy(rs => rs.Name))
+        {
+            services.AddSingleton(seedData);
+        }
+
         builder.RegisterGeneric(typeof(EfRepository<>))
             .As(typeof(IRepository<>))
             .As(typeof(IReadRepository<>))
             .InstancePerLifetimeScope();
 
-        var services = new ServiceCollection();
+        
         builder.Populate(services);
 
-        
+
         // register misc
         /*
         builder.RegisterType<EmailSender>().As<IEmailSender>()
