@@ -23,8 +23,8 @@
     public string SelectedPageClass { get; set; }
     [Parameter] 
     public EventCallback<string> OnPageLinkClick { get; set; }
-    [Parameter]
-    public bool IsMobile { get; set; }
+    [CascadingParameter]
+    protected bool IsMobile { get; set; }
     bool isRow { get; set; } = true;
 
     protected override async Task OnInitializedAsync()

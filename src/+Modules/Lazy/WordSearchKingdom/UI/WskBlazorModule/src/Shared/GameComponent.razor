@@ -1,9 +1,9 @@
 @inject IStringLocalizer<GameComponent> Localize
 
-<MudBreakpointProvider OnBreakpointChanged="((e) => SetStackDirection(e))" />
+
 <div class="border-double border-xs-none border-xs-0 border-4 mud-border-primary rounded main-game-container">
     @if(Game.GameGrid != null) {
-        <MudStack Row=isRow Class="pa-4 rounded" AlignItems="AlignItems.Center" Justify="Justify.Center">
+        <MudStack Row=@(IsMobile ? false : true) Class="pa-4 rounded" AlignItems="AlignItems.Center" Justify="Justify.Center">
             <MudHidden Breakpoint="Breakpoint.MdAndUp">
             <div class="grid-cell__engraved-text-container d-flex">
                 <MudText Class="highlight-shadow"  Typo="Typo.h4" Align="Align.Center">@Game?.Title</MudText>   
@@ -68,24 +68,11 @@
     public char[,] SelectedGridCells { get; set; }
     [Parameter]
     public List<System.Drawing.Point> SelectedGridCellPoints { get; set; } = new();
-    private bool isRow { get; set; }
+    [CascadingParameter]
+    protected bool IsMobile { get; set; }
     private (int x, int y)? firstClick { get; set; }
 
     private string _currentFont = "Courier New";
-
-    private void SetStackDirection(MudBlazor.Breakpoint breakpoint)
-    {
-        
-        if (breakpoint == MudBlazor.Breakpoint.Sm || breakpoint == MudBlazor.Breakpoint.Xs)
-        {
-            isRow = false;
-        }
-        else
-        {
-            isRow = true;
-        }
-        @* Console.WriteLine($"isRow: {isRow}"); *@
-    }
 
     private MudBlazor.Color isFoundStyling(bool isFound) {
         if (isFound) {

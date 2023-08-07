@@ -3,11 +3,10 @@
 @inject IStringLocalizer<GameArea> Localize
 @layout MainLayoutLanding
 
-<PageTitle>Word Search Kingdom - @_gameTitle</PageTitle>
+<PageTitle>WSK - @_gameTitle</PageTitle>
 
-<MudBreakpointProvider OnBreakpointChanged="((e) => BreakPointChange(e))" />
 
-<MudContainer MaxWidth="MaxWidth.ExtraExtraLarge" Class=@(_isMobile ? "pa-0 overflow-x-auto" : "")>
+<MudContainer MaxWidth="MaxWidth.ExtraExtraLarge" Class=@(IsMobile ? "pa-0 overflow-x-auto" : "")>
     @if (_tryCheat)
     {
         <div style="position: absolute;top: 50%; left: 50%; transform: translate(-50%, -100%); z-index: 100;">
@@ -33,12 +32,8 @@
     private string _gameTitle { get; set; } = "Word Search Title";
     protected char[,] SelectedGridCells { get; set; }
     protected List<System.Drawing.Point> SelectedGridCellPoints { get; set; } = new();
-    private bool _isMobile = false;
-
-    private void BreakPointChange(MudBlazor.Breakpoint breakpoint)
-    {
-        _isMobile = breakpoint == MudBlazor.Breakpoint.Xs || breakpoint == MudBlazor.Breakpoint.Sm;
-    }
+    [CascadingParameter]
+    protected bool IsMobile { get; set; }
 
     protected override async Task OnInitializedAsync()
     {

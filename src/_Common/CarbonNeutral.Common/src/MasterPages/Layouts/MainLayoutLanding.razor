@@ -9,31 +9,33 @@
 <div style="background:url(_Content/CarbonNeutral.Common/i/knight_bg.jpg) no-repeat fixed center / cover; min-height: 100vh; width: 100%; position: absolute; top: 0; left: 0; z-index: -5;">
     <MudOverlay Visible="true" DarkBackground="true" ZIndex="-2" Style="backdrop-filter: blur(10px); background-color: rgba(0,0,0,0.75); "/>
     <MudLayout>
-        <MudAppBar Style="Background: rgba(0,0,0,0.25); z-index: 40;" Class="animate__fadeInDown" Elevation="0" Fixed="false">
-            @* <MudImage Src="_Content/CarbonNeutral.Common/i/WskLogo.svg"  /> *@
-            <WskLogo />
-            @if (!_isMobile)
+        <CascadingValue Value=@IsMobile >
+            <MudAppBar Style="Background: rgba(0,0,0,0.25); z-index: 40;" Class="animate__fadeInDown" Elevation="0" Fixed="false">
+                @* <MudImage Src="_Content/CarbonNeutral.Common/i/WskLogo.svg"  /> *@
+                <WskLogo />
+                @if (!IsMobile)
+                {
+                    <WskNavMenu SelectedPageClass=@selectedPageClass OnPageLinkClick=@SetPageClass />
+                    <MudSpacer />
+                    <WskSubNavMenu />
+                }
+            </MudAppBar>
+            @if (IsMobile) 
             {
-                <WskNavMenu SelectedPageClass=@selectedPageClass OnPageLinkClick=@SetPageClass />
-                <MudSpacer />
-                <WskSubNavMenu />
-            }
-        </MudAppBar>
-        @if (_isMobile) 
-        {
-            <div style="position: absolute; top: 30px; right: 30px; z-index: 50;">
-                <MudIconButton  Icon="@Icons.Material.Filled.Menu" OnClick="@DrawerToggle" />
-            </div>
-            <MudDrawer Style="background: rgba(0,0,0,0.75); backdrop-filter: blur(15px);" @bind-Open="@_drawerOpen">
-                <div class="mt-16">
-                    <WskNavMenu IsMobile=@_isMobile SelectedPageClass=@selectedPageClass OnPageLinkClick=@SetPageClass />
+                <div style="position: absolute; top: 30px; right: 30px; z-index: 50;">
+                    <MudIconButton  Icon="@Icons.Material.Filled.Menu" OnClick="@DrawerToggle" />
                 </div>
-                <WskSubNavMenu IsMobile=@_isMobile />
-            </MudDrawer>
-        }
-        <div class="mt-16">
-            @Body
-        </div>
+                <MudDrawer Style="background: rgba(0,0,0,0.75); backdrop-filter: blur(15px);" @bind-Open="@_drawerOpen">
+                    <div class="mt-16">
+                        <WskNavMenu SelectedPageClass=@selectedPageClass OnPageLinkClick=@SetPageClass />
+                    </div>
+                    <WskSubNavMenu />
+                </MudDrawer>
+            }
+            <div class="mt-16">
+                @Body
+            </div>
+        </CascadingValue>
     </MudLayout>
 </div>
 
@@ -44,7 +46,7 @@
     private MudThemeProvider _mudThemeProvider;
     private MudTheme _selectedMudTheme;
     private string selectedPageClass = "";
-    private bool _isMobile = false;
+    public bool IsMobile = false;
 
     public void SetPageClass(string pageClass) 
     {
@@ -55,8 +57,7 @@
 
     private void BreakPointChange(MudBlazor.Breakpoint breakpoint)
     {
-        Console.WriteLine($"breakpoint: {breakpoint}");
-        _isMobile = breakpoint == MudBlazor.Breakpoint.Xs || breakpoint == MudBlazor.Breakpoint.Sm;
+        IsMobile = breakpoint == MudBlazor.Breakpoint.Xs || breakpoint == MudBlazor.Breakpoint.Sm;
     }
 
     
