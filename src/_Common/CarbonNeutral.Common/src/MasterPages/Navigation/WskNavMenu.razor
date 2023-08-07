@@ -8,10 +8,9 @@
         font-size: 2rem !important;
     }
 </style>
-@* Not authenticated *@
-<MudBreakpointProvider OnBreakpointChanged="((e) => SetStackDirection(e))" />
+
 <MudContainer>
-    <MudStack Row=isRow Class="ml-16" Spacing="8">
+    <MudStack Row=@(IsMobile ? false : true) Class=@(IsMobile ? "ml-6" : "ml-16") Spacing="8">
         <MudLink Href="/" Underline="Underline.None" Class=@(SelectedPageClass == "home" ? "highlight-shadow grid-cell__selected-scale" : "") OnClick="@(() => SetCurrentPageClass("home"))">Home</MudLink>
         <MudLink Href="/wsk/allgames" Underline="Underline.None" Class=@(SelectedPageClass == "play" ? "highlight-shadow grid-cell__selected-scale" : "") OnClick="@(() => SetCurrentPageClass("play"))">Play</MudLink>
         <MudLink Href="/wsk/help" Underline="Underline.None" Class=@(SelectedPageClass == "help" ? "highlight-shadow grid-cell__selected-scale" : "") OnClick="@(() => SetCurrentPageClass("help"))">Help</MudLink>
@@ -24,13 +23,15 @@
     public string SelectedPageClass { get; set; }
     [Parameter] 
     public EventCallback<string> OnPageLinkClick { get; set; }
+    [Parameter]
+    public bool IsMobile { get; set; }
     bool isRow { get; set; } = true;
 
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
         var currentPage = NavigationManager.Uri;
-        Console.WriteLine($"Current page: {currentPage}");
+        @* Console.WriteLine($"Current page: {currentPage}"); *@
         if (currentPage.Contains("allgames")) {
             SetCurrentPageClass("play");
         } else if (currentPage.Contains("help")) {
@@ -41,19 +42,7 @@
             SetCurrentPageClass("home");
         };
     }
-    private void SetStackDirection(MudBlazor.Breakpoint breakpoint)
-    {
-        Console.WriteLine($"breakpoint: {breakpoint}");
-        if (breakpoint == MudBlazor.Breakpoint.Sm || breakpoint == MudBlazor.Breakpoint.Xs)
-        {
-            isRow = false;
-        }
-        else
-        {
-            isRow = true;
-        }
-        Console.WriteLine($"isRow: {isRow}");
-    }
+
     private void SetCurrentPageClass(string page) {
         OnPageLinkClick.InvokeAsync(page);
     }

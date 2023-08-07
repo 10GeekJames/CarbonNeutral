@@ -75,7 +75,7 @@
 
     private void SetStackDirection(MudBlazor.Breakpoint breakpoint)
     {
-        Console.WriteLine($"breakpoint: {breakpoint}");
+        
         if (breakpoint == MudBlazor.Breakpoint.Sm || breakpoint == MudBlazor.Breakpoint.Xs)
         {
             isRow = false;
@@ -103,7 +103,7 @@
     private async Task HandleCellClick((MouseEventArgs, char, int, int) args)
     {
         var (e, letter, x, y) = args;
-        Console.WriteLine($"Clicked Cell X={x} Y={y} {letter}");        
+        @* Console.WriteLine($"Clicked Cell X={x} Y={y} {letter}");         *@
         if (firstClick == null)
         {
             firstClick = new(x, y);            
@@ -124,7 +124,7 @@
     {
         var fonts = new List<string>() { "Arial", "Times New Roman", "Comic Sans MS", "Verdana", "Impact", "Georgia", "Trebuchet MS", "Arial Black", "Lucida Console", "Courier New"  };
         var currentFont = _currentFont;
-        Console.WriteLine($"currentFont: {currentFont}");
+        @* Console.WriteLine($"currentFont: {currentFont}"); *@
         var currentIndex = fonts.IndexOf(currentFont);
         var nextIndex = currentIndex + 1;
         if (nextIndex >= fonts.Count)
@@ -132,7 +132,7 @@
             nextIndex = 0;
         }
         _currentFont = fonts[nextIndex];
-        Console.WriteLine($"currentFont: {currentFont}");
+        @* Console.WriteLine($"currentFont: {currentFont}"); *@
     }
 
     private void BackToAllGames()
