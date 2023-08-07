@@ -1,38 +1,46 @@
+
 namespace AccountModuleApi;
 public class Startup
 {
     private readonly IWebHostEnvironment _env;
-    public Startup(IConfiguration config, IWebHostEnvironment env)
+    public Startup(IWebHostEnvironment env)
     {
-        Configuration = config;
+        Configuration = GetConfiguration();
         _env = env;
     }
     public IConfiguration Configuration { get; }
     public void ConfigureServices(IServiceCollection services)
     {
         //Microsoft.IdentityModel.Logging.IdentityModelEventSource.ShowPII = true;       
-        
+
         services
             .Configure<CookiePolicyOptions>(options =>
             {
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-        // default to WSKAccountModuleConnectionString ENVVAR
-        string connectionString =
-            Configuration.GetConnectionString("Active"); //Configuration.GetConnectionString("DefaultConnection");
-        var appSettings = Configuration.Get<AppSettings>();
+        // default to AccountModuleAccountModuleConnectionString ENVVAR
+        string dbConnectionStrategy = Configuration.GetValue<string>("AccountModuleDbUse") ?? "";
+        string connectionString = Configuration.GetConnectionString(dbConnectionStrategy) ?? "";
+        
+        var appSettings = Configuration.Get<AppSettings>();        
         services.AddSingleton<AppSettings>(appSettings);
+
         services.AddAutoMapper(typeof(KnownAccountMap).GetTypeInfo().Assembly);
-        /* services.AddSingleton<SeedAccountModuleData>(); */
-        // our goal is to discover all of the IAccountModuleSeedScripts and load them up here.
-        /* services.AddSingleton<SeedAccountModuleLandingPagesData>();
-        services.AddSingleton<SeedAccountModuleAgileDojos>();
-        services.AddSingleton<SeedAccountModuleDataRoot>();
-        services.AddSingleton<SeedAccountModuleDataWSKClients>();
-        services.AddSingleton<SeedAccountModuleBBQGeorge>();
-        services.AddSingleton<SeedAccountModuleWestCoastFire>(); */
-        services.AddAccountModuleDbContext(connectionString);
+        
+        if (dbConnectionStrategy.Contains("Sqlite", StringComparison.OrdinalIgnoreCase))
+        {
+            services.AddAccountModuleSqliteDbContext(connectionString);
+        }
+        else if (dbConnectionStrategy.Contains("Memory", StringComparison.OrdinalIgnoreCase))
+        {
+            services.AddAccountModuleInMemoryDbContext(connectionString);
+        }
+        else if (dbConnectionStrategy.Contains("Sql", StringComparison.OrdinalIgnoreCase))
+        {
+            services.AddAccountModuleSqlDbContext(connectionString);
+        }        
+        services.AddSingleton<IAccountModuleDataService, AccountModuleDirectDataService>();
         services.AddHttpContextAccessor();
         /* services
             .AddControllersWithViews()
@@ -50,8 +58,11 @@ public class Startup
             .AddControllersWithViews()
             .AddNewtonsoftJson(options =>
             {
+                options.SerializerSettings.ContractResolver =
+                    new CamelCasePropertyNamesContractResolver();
                 options.SerializerSettings.ReferenceLoopHandling =
                     ReferenceLoopHandling.Ignore;
+                //options.SerializerSettings.MaxDepth = 2;
             });
         services.AddCors(opt =>
             {
@@ -103,24 +114,26 @@ public class Startup
         services
         .AddAuthorization(options =>
         {
-        });        
-        
+        });
+
+
+
     }
     public void ConfigureContainer(ContainerBuilder builder)
     {
         builder.RegisterModule(new AccountModuleCoreModule());
-        builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
-           .Where(rs => rs.Name.StartsWith("SeedKnownAccount"))
-        ;
+
         builder
             .RegisterModule(new AccountModuleInfrastructureModule(_env
                     .EnvironmentName ==
                 "Development"));
+
+        builder.RegisterModule(new AccountModuleDataModule(_env
+                   .EnvironmentName ==
+               "Development"));
     }
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
-      
-
         if (env.EnvironmentName == "Development")
         {
             app.UseDeveloperExceptionPage();
@@ -131,6 +144,7 @@ public class Startup
             app.UseExceptionHandler("/Home/Error");
             app.UseHsts();
         }
+
         app.UseRouting();
         app.UseCors();
         app.UseAuthentication();
@@ -149,5 +163,28 @@ public class Startup
             {
                 endpoints.MapDefaultControllerRoute();
             });
+    }
+
+    
+    private static IConfiguration GetConfiguration()
+    {
+        var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+        var isDevelopment = environment == Environments.Development;
+
+        var configurationBuilder = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+            .AddJsonFile($"appsettings.{environment}.json", optional: true, reloadOnChange: true);
+
+        configurationBuilder.AddUserSecrets<Startup>(true);
+
+        var configuration = configurationBuilder.Build();
+
+        //configuration.AddAzureKeyVaultConfiguration(configurationBuilder);
+
+        //configurationBuilder.AddCommandLine(args);
+        configurationBuilder.AddEnvironmentVariables();
+
+        return configurationBuilder.Build();
     }
 }

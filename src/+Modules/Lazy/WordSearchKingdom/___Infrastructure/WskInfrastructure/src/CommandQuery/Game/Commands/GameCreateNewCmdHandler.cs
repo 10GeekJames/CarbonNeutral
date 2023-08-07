@@ -10,7 +10,7 @@ public class GameCreateNewCmdHandler : IRequestHandler<GameCreateNewCmd, Game>
 
     public async Task<Game> Handle(GameCreateNewCmd cmd, CancellationToken cancellationToken)
     {
-        var game = new Game(cmd.Title, cmd.Height, cmd.Width, cmd.WordsToHide, cmd.GameDifficulty, cmd.GameCategories, cmd.GameTags);
+        var game = new Game(cmd.Title, cmd.Height, cmd.Width, cmd.WordsToHide, cmd.GameDifficulty, cmd.GameCategories, cmd.GameTags, cmd.KnownUserId);
         await _repository.AddAsync(game);
         return game;
     }

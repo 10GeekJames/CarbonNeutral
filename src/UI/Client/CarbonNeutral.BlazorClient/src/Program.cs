@@ -27,60 +27,23 @@ builder.Services.AddSingleton<Endpoints>(endPoints!);
 builder.Services.AddSingleton<FeatureFlags>(featureFlags!);
 
 builder.Services.AddOidcAuthentication(options =>
-        {
-            builder.Configuration.Bind("Oidc", options.ProviderOptions);
-            options.ProviderOptions.Authority = appSettings.Endpoints.IdentityEndpointUrl;
-            options.ProviderOptions.ClientId = "CarbonNeutralClient";
-            options.ProviderOptions.ResponseType = "code";
-            options.UserOptions.RoleClaim = "role";
-            options.ProviderOptions.PostLogoutRedirectUri = "/Welcome";
-            options.AuthenticationPaths.RemoteProfilePath = $"{appSettings.Endpoints.IdentityEndpointUrl}/Account/Manage";
-            options.AuthenticationPaths.RemoteRegisterPath = $"{appSettings.Endpoints.IdentityEndpointUrl}/Account/Register";
-            options.AuthenticationPaths.LogOutSucceededPath = "/Welcome";
-        }).AddAccountClaimsPrincipalFactory<AccountClaimsPrincipalFactoryEx>();
+    {
+        builder.Configuration.Bind("Oidc", options.ProviderOptions);
+        options.ProviderOptions.Authority = appSettings.Endpoints.IdentityEndpointUrl;
+        options.ProviderOptions.ClientId = "CarbonNeutralClient";
+        options.ProviderOptions.ResponseType = "code";
+        options.UserOptions.RoleClaim = "role";
+        options.ProviderOptions.PostLogoutRedirectUri = "/Welcome";
+        options.AuthenticationPaths.RemoteProfilePath = $"{appSettings.Endpoints.IdentityEndpointUrl}/Account/Manage";
+        options.AuthenticationPaths.RemoteRegisterPath = $"{appSettings.Endpoints.IdentityEndpointUrl}/Account/Register";
+        options.AuthenticationPaths.LogOutSucceededPath = "/Welcome";
+    }).AddAccountClaimsPrincipalFactory<AccountClaimsPrincipalFactoryEx>();
 builder.Services.AddScoped<CustomAuthorizationMessageHandler>();
 
 /* builder.Services.AddGoogleAnalytics("G-WZSRLSH36B"); */
 
-
-RegisterRequiredServices.RegisterModules(builder);
-RegisterLazyServices.RegisterModules(builder);
-
-
-builder
-                .Services
-                    .AddHttpClient("WskHttpClient",
-                            client =>
-                            {
-                                client.BaseAddress = new Uri(appSettings.Endpoints.WskAdminApiUrl);
-                                client.Timeout = TimeSpan.FromSeconds(300);
-                            }
-
-                        ).AddHttpMessageHandler<CustomAuthorizationMessageHandler>();
-
-            // add the not logged in users client endpoint for Wsk
-            builder
-                .Services
-                    .AddHttpClient("WskNotAuthedHttpClient",
-                        client =>
-                            client.BaseAddress = new Uri(appSettings.Endpoints.WskApiUrl)
-                    );
-
-            // register the http client factory
-            builder.Services.AddScoped<WskHttpClientFactory>();
-
-            // allow the lazy modules an opportunity to participate in Dependency Injection
-            builder.Services.AddWskHttpDataService();
-
-            // setup the dependency injector to get a new instance of httpclient from the factory you registered above for the authorized calls
-            builder.Services.AddScoped<IWskDataService>(x => x
-                .GetServices<WskHttpClientFactory>()
-                .First().Create());
-
-            // setup the dependency injector to get a new instance of httpclient from the factory you registered above for the not authorized calls
-            builder.Services.AddScoped<IWskDataService>(x => x
-                .GetServices<WskHttpClientFactory>()
-                .First().CreateNotAuthed());
+builder.RegisterLazyModules();
+builder.RegisterRequiredModules();
 
 
 // smash in all the resx files

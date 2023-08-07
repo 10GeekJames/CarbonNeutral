@@ -1,5 +1,5 @@
 namespace WskApplication.Services;
-public partial class WskDirectDataService : IWskDataService
+public partial class WskDirectDataService : IWskDataService, IWskDataServiceNotAuthed
 {
     private readonly IMediator _mediator;
     private readonly IMapper _mapper;

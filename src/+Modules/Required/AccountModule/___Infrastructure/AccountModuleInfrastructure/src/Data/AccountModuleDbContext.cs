@@ -32,21 +32,21 @@ public class AccountModuleDbContext : DbContext
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
     {
-        var entries = ChangeTracker.Entries<BaseEntityTracked<Guid>>().Where(E => E.State == EntityState.Added || E.State == EntityState.Modified).ToList();
-
-        foreach (var entityEntry in entries)
+        foreach (var entityEntry in ChangeTracker
+            .Entries()
+            .Where(E => (E.State == EntityState.Added
+                || E.State == EntityState.Modified)
+                && E.GetType().Name.EndsWith("VO") )
+            .ToList())
         {
             if (entityEntry.State == EntityState.Modified)
             {
-                entityEntry.Property("UpdatedOn").CurrentValue = DateTime.UtcNow;
+                entityEntry.Property("UpdatedOn").CurrentValue = DateTime.Now;
             }
             else if (entityEntry.State == EntityState.Added)
             {
-                /*  if(entityEntry.Property("Id").CurrentValue == Guid.Empty.ToString()) {
-                     entityEntry.Property("Id").CurrentValue = Guid.NewGuid();
-                 } */
-                entityEntry.Property("CreatedOn").CurrentValue = DateTime.UtcNow;
-                entityEntry.Property("UpdatedOn").CurrentValue = DateTime.UtcNow;
+                entityEntry.Property("CreatedOn").CurrentValue = DateTime.Now;
+                entityEntry.Property("UpdatedOn").CurrentValue = DateTime.Now;
             }
         }
 

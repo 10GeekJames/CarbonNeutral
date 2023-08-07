@@ -1,3 +1,4 @@
+using System;
 using System.Reflection;
 using Autofac;
 using MediatR.Pipeline;
@@ -15,18 +16,20 @@ public class Startup
     public IConfiguration Configuration { get; }
     public void ConfigureServices(IServiceCollection services)
     {
-        string connectionString =
-            Configuration.GetConnectionString("Active") ?? ""; //Configuration.GetConnectionString("DefaultConnection");
+        string dbConnectionStrategy = Configuration.GetValue<string>("AccountModuleDbUse") ?? "";
+        string connectionString = Configuration.GetConnectionString(dbConnectionStrategy) ?? "";
 
-        services.AddAccountModuleDbContext(connectionString);
-
-        foreach (var seedData in Assembly
-                    .GetExecutingAssembly()
-                    .GetTypes()
-                    .Where(x => x.IsAssignableTo(typeof(IAccountModuleSeedScript)) && x.IsClass)
-                    .OrderBy(rs => rs.Name))
+        if (dbConnectionStrategy.Contains("Sqlite", StringComparison.OrdinalIgnoreCase))
         {
-            services.AddSingleton(seedData);
+            services.AddAccountModuleSqliteDbContext(connectionString);
+        }
+        else if (dbConnectionStrategy.Contains("Memory", StringComparison.OrdinalIgnoreCase))
+        {
+            services.AddAccountModuleInMemoryDbContext(connectionString);
+        }
+        else if (dbConnectionStrategy.Contains("Sql", StringComparison.OrdinalIgnoreCase))
+        {
+            services.AddAccountModuleSqlDbContext(connectionString);
         }
     }
     public void ConfigureContainer(ContainerBuilder builder)
@@ -39,12 +42,15 @@ public class Startup
 
         var coreAssembly = Assembly.GetAssembly(typeof(AccountModuleCoreModule));
         var infrastructureAssembly = Assembly.GetAssembly(typeof(AccountModuleInfrastructureModule));
+        var accountDataModule = Assembly.GetAssembly(typeof(AccountModuleDataModule));
+
         //var applicationAssembly = Assembly.GetAssembly(typeof(AccountModuleApplicationModule));
         //var applicationTestAssembly = Assembly.GetAssembly(typeof(BaseApplicationTestFixture));
 
         assemblies.Add(coreAssembly!);
         assemblies.Add(infrastructureAssembly!);
-        
+        assemblies.Add(accountDataModule!);
+
         builder.RegisterGeneric(typeof(EfRepository<>))
             .As(typeof(IRepository<>))
             .As(typeof(IReadRepository<>))

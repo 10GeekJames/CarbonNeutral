@@ -1,1 +1,17 @@
-/*# sourceMappingURL=data:application/json;charset=utf-8,%7B%22version%22:3,%22sourceRoot%22:%22%22,%22sources%22:%5B%5D,%22names%22:%5B%5D,%22mappings%22:%22%22,%22file%22:%22LanguageSelector.razor.css%22%7D */
+/* Error: Can't find stylesheet to import.
+ *   ,
+ * 1 | @use './base/_variables' as v;
+ *   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ *   '
+ *   MasterPages\Footer\LanguageSelector.razor.scss 1:1  root stylesheet */
+
+body::before {
+  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
+      "Droid Sans Mono", monospace, monospace;
+  white-space: pre;
+  display: block;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-bottom: 2px solid black;
+  content: "Error: Can't find stylesheet to import.\a   \2577 \a 1 \2502  @use './base/_variables' as v;\a   \2502  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\a   \2575 \a   MasterPages\\Footer\\LanguageSelector.razor.scss 1:1  root stylesheet";
+}

@@ -38,6 +38,26 @@
         var authstate = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         user = authstate.User;
         isAuthenticated = (user?.Identity?.IsAuthenticated == true);
+
+        if (!hasRunAppInit)
+        {
+            await GetAppData();
+            hasRunAppInit = true;
+            //PlatformCacheService.OnSkinChange += ApplySkin;
+            PlatformCacheService.UpdateSkin();
+            hasSkinInit = true;
+            watchingSkinEvents = true;
+            Console.WriteLine("Skin Init 1");
+        }
+        var timer = new System.Timers.Timer(4000);
+        timer.Elapsed += (sender, e) =>
+        {
+            showSplash = false;
+            StateHasChanged();
+            timer.Stop();
+            timer = null;
+        };
+        timer.Start();
     }
     private async Task GetAppData()
     {

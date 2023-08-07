@@ -7,6 +7,7 @@ global using AutoMapper;
 
 global using MediatR;
 
+global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.AspNetCore.Authorization;
 global using Microsoft.AspNetCore.Http;
 global using Microsoft.AspNetCore.Mvc;
@@ -16,6 +17,7 @@ global using Microsoft.IdentityModel.Tokens;
 global using Microsoft.OpenApi.Models;
 
 global using Newtonsoft.Json;
+global using Newtonsoft.Json.Serialization;
 
 global using System;
 global using System.Diagnostics;
@@ -35,7 +37,11 @@ global using AccountModuleInfrastructure;
 global using AccountModuleInfrastructure.CommandQuery;
 global using AccountModuleInfrastructure.Data;
 
+global using AccountModule.Data.Interfaces;
+global using AccountModule.Data.SeedScripts;
+
 global using AccountModuleApplication;
+global using AccountModuleApplication.Services;
 
 global using AccountModuleApplication.Shared.Automaps;
 global using AccountModuleApplication.Shared.Requests;

@@ -6,6 +6,7 @@ public class WskDbContext : DbContext
         : base(options)
     {
         _mediator = mediator;
+        this.ChangeTracker.LazyLoadingEnabled = false;
     }
 
     public DbSet<Game> Games { get; set; }

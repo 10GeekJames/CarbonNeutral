@@ -10,10 +10,13 @@ global using Microsoft.Extensions.Logging;
 
 global using CarbonNeutral.KernelShared;
 global using CarbonNeutral.KernelShared.Interfaces;
+global using CarbonNeutral.KernelShared.Configuration;
 
 global using AccountModuleCore;
 global using AccountModuleCore.Entities;
 global using AccountModuleCore.Interfaces;
+
+global using AccountModuleCore.TestData.Entities;
 
 global using AccountModuleInfrastructure;
 global using AccountModuleInfrastructure.CommandQuery;

@@ -39,6 +39,7 @@ public class Startup
                     new CamelCasePropertyNamesContractResolver();
                 options.SerializerSettings.ReferenceLoopHandling =
                     ReferenceLoopHandling.Ignore;
+                //options.SerializerSettings.MaxDepth = 2;
             });
 
         services

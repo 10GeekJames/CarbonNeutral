@@ -43,7 +43,8 @@
       <HintPath>./../../../../../../__Kernel/CarbonNeutral.KernelShared/src/bin/Debug/net7.0/CarbonNeutral.KernelShared.dll</HintPath>
     </Reference>
     <ProjectReference Include="./../../../____Core/__AccountModuleCore/src/AccountModuleCore.csproj" />
-    <ProjectReference Include="./../../../___Infrastructure/AccountModuleInfrastructure/src/AccountModuleInfrastructure.csproj" />
+    <ProjectReference Include="./../../../___Infrastructure/AccountModuleInfrastructure/src/AccountModuleInfrastructure.csproj" />    
+    <ProjectReference Include="./../../../__Data/AccountModule.Data/src/AccountModule.Data.csproj" />    
     <ProjectReference Include="./../../../_Application/_AccountModuleApplication.Shared/src/AccountModuleApplication.Shared.csproj" />
     <ProjectReference Include="./../../../_Application/AccountModuleApplication/src/AccountModuleApplication.csproj" />
   </ItemGroup>
