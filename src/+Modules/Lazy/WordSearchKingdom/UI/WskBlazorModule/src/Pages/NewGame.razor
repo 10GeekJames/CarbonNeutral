@@ -39,16 +39,20 @@
                 <MudTextField @bind-Value=_categories T="string" Label="Categories" />
                 <MudTextField  @bind-Value=_tags T="string" Label="Tags" />
             </MudField>
-            <div class="d-flex align-center justify-space-between mt-4">
-                <MudCheckBox T="bool" Required="true" RequiredError="You should double check." Label="Everything is Complete"  />
-                <MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="@(!success)" Class="ml-auto" OnClick=@CreateNewGame>Create Game</MudButton>
-            </div>
+            @* <div class="d-flex align-center justify-space-between mt-4"> *@
+                <MudStack Row=@(IsMobile ? false : true) Class="mt-4">
+                    <MudCheckBox T="bool" Required="true" RequiredError="You should double check." Label="Everything is Complete"  />
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="@(!success)" Class="ml-auto" OnClick=@CreateNewGame>Create Game</MudButton>
+                </MudStack>
+            @* </div> *@
         </MudForm>   
     </MudPaper>
 </MudContainer>
 
 
 @code {
+    [CascadingParameter]
+    protected bool IsMobile { get; set; }
     bool success;
     string _gameTitle { get; set; } = "";
     int _gridSize { get; set; } = 25;
@@ -56,6 +60,7 @@
     GameDifficulties _difficulty { get; set; } = GameDifficulties.Easy;
     string _categories { get; set; } = "General";
     string _tags { get; set; } = "General";
+
 
     MudForm? form;
 

@@ -1,0 +1,44 @@
+@page "/wsk/printgame/{GameId:guid}"
+@layout PrintGameLayout
+
+@inject IStringLocalizer<GameArea> Localize
+
+
+<PageTitle>WSK - @_gameTitle</PageTitle>
+
+
+<MudContainer MaxWidth="MaxWidth.ExtraExtraLarge">
+    @if(_chosenGame != null) {
+        <GameComponent Game="@_chosenGame" OnRecreateGame=OnRecreateGame SelectedGridCells=SelectedGridCells SelectedGridCellPoints=SelectedGridCellPoints />
+    }
+</MudContainer>
+
+
+
+@code {
+    [Parameter] 
+    public Guid GameId { get; set; }
+    private GameViewModel _chosenGame { get; set; }
+    private string _gameTitle { get; set; } = "Word Search Title";
+    protected char[,] SelectedGridCells { get; set; }
+    protected List<System.Drawing.Point> SelectedGridCellPoints { get; set; } = new();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        var gameGetByIdRequest = new GameGetByIdRequest(GameId);
+        _chosenGame = await WskDataService.GameGetByIdAsync(gameGetByIdRequest);
+        SelectedGridCells = GameGridUtility.ConvertRowCellStringToArray(_chosenGame.GameGrid.RowCellData);
+        SelectedGridCellPoints = GameGridUtility.ConvertSelectedWordsToPointList(_chosenGame.GameGrid.CompletedWordCellData);        
+        _gameTitle = _chosenGame.Title;
+    }
+
+    public async Task OnRecreateGame(){
+        var request = new GameRecreateGridRequest(_chosenGame.Id);
+        _chosenGame = await WskDataService.GameRecreateGridAsync(request);         
+        SelectedGridCells = GameGridUtility.ConvertRowCellStringToArray(_chosenGame.GameGrid.RowCellData);
+        SelectedGridCellPoints = GameGridUtility.ConvertSelectedWordsToPointList(_chosenGame.GameGrid.CompletedWordCellData);               
+    }
+
+}
