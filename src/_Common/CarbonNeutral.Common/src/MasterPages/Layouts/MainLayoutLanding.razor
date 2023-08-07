@@ -30,8 +30,7 @@
         <div style="position: absolute; top: 25px; right: 25px; z-index: 50;">
             <MudIconButton  Icon="@Icons.Material.Filled.Menu" OnClick="@DrawerToggle" />
         </div>
-        <MudDrawer Style="background: rgba(0,0,0,0.75); backdrop-filter: blur(15px);" @bind-Open="@_drawerOpen" ClipMode="DrawerClipMode.Always" DisableOverlay="true" Elevation="2"
-            Variant="@DrawerVariant.Temporary">
+        <MudDrawer Style="background: rgba(0,0,0,0.75); backdrop-filter: blur(15px);" @bind-Open="@_drawerOpen">
             <div class="mt-16">
                 <WskNavMenu SelectedPageClass=@selectedPageClass OnPageLinkClick=@SetPageClass />
             </div>
@@ -46,7 +45,7 @@
 
 
 @code {
-    bool _drawerOpen = true;
+    bool _drawerOpen;
     private bool _isDarkMode;
     private MudThemeProvider _mudThemeProvider;
     private MudTheme _selectedMudTheme;

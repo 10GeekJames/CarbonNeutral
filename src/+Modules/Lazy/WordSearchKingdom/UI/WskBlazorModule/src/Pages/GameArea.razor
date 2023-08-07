@@ -3,21 +3,35 @@
 @inject IStringLocalizer<GameArea> Localize
 @layout MainLayoutLanding
 
-<PageTitle>Word Search Kingdom - Game Title</PageTitle>
+<PageTitle>Word Search Kingdom - @_gameTitle</PageTitle>
 
-<MudContainer MaxWidth="MaxWidth.ExtraExtraLarge">
+<MudContainer MaxWidth="MaxWidth.ExtraExtraLarge" Class="pa-0">
+    @if (_tryCheat)
+    {
+        <div style="position: absolute;top: 50%; left: 50%; transform: translate(-50%, -100%); z-index: 100;">
+            <MudAlert Severity="Severity.Error" Variant="Variant.Filled">
+                Ah Ah Ah! You didn't say the magic code!
+                <MudImage Class="my-4 pr-8" Style="opacity: 0.75;" Src="https://media.tenor.com/Vyg73kR334sAAAAC/jurassic-park-ah.gif" />
+                <MudButton  Color="Color.Info" Variant="Variant.Filled" OnClick="() => OnRecreateGame()">Confirm</MudButton>
+            </MudAlert>
+        </div>
+    }
     @if(_chosenGame != null) {
         <GameComponent Game="@_chosenGame" OnRecreateGame=OnRecreateGame SelectedGridCells=SelectedGridCells SelectedGridCellPoints=SelectedGridCellPoints />
     }
 </MudContainer>
 
 
+
 @code {
     [Parameter] 
     public Guid GameId { get; set; }
     private GameViewModel _chosenGame { get; set; }
+    private bool _tryCheat { get; set; } = false;
+    private string _gameTitle { get; set; } = "Word Search Title";
     protected char[,] SelectedGridCells { get; set; }
     protected List<System.Drawing.Point> SelectedGridCellPoints { get; set; } = new();
+
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
@@ -25,6 +39,7 @@
         _chosenGame = await WskDataService.GameGetByIdAsync(gameGetByIdRequest);
         SelectedGridCells = GameGridUtility.ConvertRowCellStringToArray(_chosenGame.GameGrid.RowCellData);
         SelectedGridCellPoints = GameGridUtility.ConvertSelectedWordsToPointList(_chosenGame.GameGrid.CompletedWordCellData);        
+        _gameTitle = _chosenGame.Title;
     }
 
     public async Task OnRecreateGame(){
@@ -33,4 +48,5 @@
         SelectedGridCells = GameGridUtility.ConvertRowCellStringToArray(_chosenGame.GameGrid.RowCellData);
         SelectedGridCellPoints = GameGridUtility.ConvertSelectedWordsToPointList(_chosenGame.GameGrid.CompletedWordCellData);               
     }
+
 }
