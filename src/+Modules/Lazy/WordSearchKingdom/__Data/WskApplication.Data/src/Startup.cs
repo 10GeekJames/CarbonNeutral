@@ -1,7 +1,5 @@
+
 using System.Reflection;
-using Autofac;
-using MediatR.Pipeline;
-using WskCore;
 
 namespace WskApplication.Data;
 public class Startup
@@ -15,10 +13,21 @@ public class Startup
     public IConfiguration Configuration { get; }
     public void ConfigureServices(IServiceCollection services)
     {
-        string connectionString =
-            Configuration.GetConnectionString("Active") ?? ""; //Configuration.GetConnectionString("DefaultConnection");
+        string dbConnectionStrategy = Configuration.GetValue<string>("WskDbUse") ?? "";
+        string connectionString = Configuration.GetConnectionString(dbConnectionStrategy) ?? "";
 
-        services.AddWskDbContext(connectionString);
+        if (dbConnectionStrategy.Contains("Sqlite", StringComparison.OrdinalIgnoreCase))
+        {
+            services.AddWskSqliteDbContext(connectionString);
+        }
+        else if (dbConnectionStrategy.Contains("Memory", StringComparison.OrdinalIgnoreCase))
+        {
+            services.AddWskInMemoryDbContext(connectionString);
+        }
+        else if (dbConnectionStrategy.Contains("Sql", StringComparison.OrdinalIgnoreCase))
+        {
+            services.AddWskSqlDbContext(connectionString);
+        }        
 
         foreach (var seedData in Assembly
                     .GetExecutingAssembly()

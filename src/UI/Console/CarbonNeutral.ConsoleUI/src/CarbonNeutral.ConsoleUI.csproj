@@ -28,13 +28,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" PrivateAssets="all" Version="7.0.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.8" />
   </ItemGroup>
-<!--   <Choose>
-    <When Condition="'$(Configuration)' == 'Release'">
-      <ItemGroup>
-        <PackageReference Include="CarbonNeutral.KernelShared" />
-      </ItemGroup>
-    </When>
-  </Choose> -->
+
   <ItemGroup>
     <Reference Include="CarbonNeutral.KernelShared">
       <HintPath>./../../../../__Kernel/CarbonNeutral.KernelShared/src/bin/Debug/net7.0/CarbonNeutral.KernelShared.dll</HintPath>

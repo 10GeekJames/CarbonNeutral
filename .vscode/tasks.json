@@ -2,120 +2,12 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "build",
+            "label": "build-WskApi",
             "command": "dotnet",
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}\\_WskCore\\tests\\WskCore.Tests\\WskCore.UnitTests.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
-            ],
-            "problemMatcher": "$msCompile"
-        },
-        {
-            "label": "publish",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "publish",
-                "${workspaceFolder}\\_WskCore\\tests\\WskCore.Tests\\WskCore.UnitTests.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
-            ],
-            "problemMatcher": "$msCompile"
-        },
-        {
-            "label": "watch",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "watch",
-                "run",
-                "--project",
-                "${workspaceFolder}\\_WskCore\\tests\\WskCore.Tests\\WskCore.UnitTests.csproj"
-            ],
-            "problemMatcher": "$msCompile"
-        },
-        {
-            "label": "build-DrawProjectFolders",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "build",
-                "${workspaceFolder}\\utilities\\DrawProjectFolders\\DrawProjectFolders.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
-            ],
-            "problemMatcher": "$msCompile"
-        },
-        {
-            "label": "publish-DrawProjectFolders",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "publish",
-                "${workspaceFolder}\\utilities\\DrawProjectFolders\\DrawProjectFolders.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
-            ],
-            "problemMatcher": "$msCompile"
-        },
-        {
-            "label": "watch-DrawProjectFolders",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "watch",
-                "run",
-                "--project",
-                "${workspaceFolder}\\utilities\\DrawProjectFolders\\DrawProjectFolders.csproj"
-            ],
-            "problemMatcher": "$msCompile"
-        },
-        {
-            "label": "build-DPF.Application.FeatureTests",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "build",
-                "${workspaceFolder}\\utilities\\DrawProjectFolders\\src\\_Application\\DPF.Application.FeatureTests\\DPF.Application.FeatureTests.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
-            ],
-            "problemMatcher": "$msCompile"
-        },
-        {
-            "label": "publish-DPF.Application.FeatureTests",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "publish",
-                "${workspaceFolder}\\utilities\\DrawProjectFolders\\src\\_Application\\DPF.Application.FeatureTests\\DPF.Application.FeatureTests.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
-            ],
-            "problemMatcher": "$msCompile"
-        },
-        {
-            "label": "watch-DPF.Application.FeatureTests",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "watch",
-                "run",
-                "--project",
-                "${workspaceFolder}\\utilities\\DrawProjectFolders\\src\\_Application\\DPF.Application.FeatureTests\\DPF.Application.FeatureTests.csproj"
-            ],
-            "problemMatcher": "$msCompile"
-        },
-        {
-            "label": "build-CarbonNeutral.BlazorClient",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "build",
-                "${workspaceFolder}/src/UI/Client/CarbonNeutral.BlazorClient/src/CarbonNeutral.BlazorClient.csproj",
+                "${workspaceFolder}/src/+Modules/Lazy/WordSearchKingdom/+Api/+WskApi/src/WskApi.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -127,31 +19,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/src/+Modules/Required/AccountModule/+Api/+AccountModuleApi/src/+AccountModuleApi.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
-            ],
-            "problemMatcher": "$msCompile"
-        },
-        {
-            "label": "build-WskApi",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "build",
-                "${workspaceFolder}/src/+Modules/Lazy/WordSearchKingdom/+Api/+WskApi/src/+WskApi.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
-            ],
-            "problemMatcher": "$msCompile"
-        },
-        {
-            "label": "build-WskApplication.Data",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "build",
-                "${workspaceFolder}/src/+Modules/Lazy/WordSearchKingdom/__Data/WskApplication.Data/src/WskApplication.Data.csproj",
+                "${workspaceFolder}/src/+Modules/Required/AccountModule/+Api/+AccountModuleApi/src/AccountModuleApi.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],

@@ -64,21 +64,21 @@ namespace CarbonNeutral.Identity.STS.Identity
             Host.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration((hostContext, configApp) =>
                 {
-                var configurationRoot = configApp.Build();
-                var env = hostContext.HostingEnvironment;
-                
-                configApp.AddJsonFile("serilog.json", optional: true, reloadOnChange: true);
-                configApp.AddJsonFile($"serilog.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
+                    var configurationRoot = configApp.Build();
+                    var env = hostContext.HostingEnvironment;
+                    
+                    configApp.AddJsonFile("serilog.json", optional: true, reloadOnChange: true);
+                    configApp.AddJsonFile($"serilog.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
 
-                if (env.IsDevelopment())
-                {
-                    configApp.AddUserSecrets<Startup>(true);
-                }
+                    if (env.IsDevelopment())
+                    {
+                        configApp.AddUserSecrets<Startup>(true);
+                    }
 
-                configurationRoot.AddAzureKeyVaultConfiguration(configApp);
+                    configurationRoot.AddAzureKeyVaultConfiguration(configApp);
 
-                configApp.AddEnvironmentVariables();
-                configApp.AddCommandLine(args);
+                    configApp.AddEnvironmentVariables();
+                    configApp.AddCommandLine(args);
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {

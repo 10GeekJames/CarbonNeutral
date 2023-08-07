@@ -1,5 +1,6 @@
-namespace WskApi;
+using System;
 using System.Reflection;
+namespace WskApi;
 public class Startup
 {
     private readonly IWebHostEnvironment _env;
@@ -12,19 +13,31 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
 
-        string connectionString =
-            Configuration.GetConnectionString("WskSqlite") ?? "";
+        string dbConnectionStrategy = Configuration.GetValue<string>("WskDbUse") ?? "";
+        string connectionString = Configuration.GetConnectionString(dbConnectionStrategy) ?? "";
 
         var appSettings = Configuration.Get<AppSettings>();
 
-        services
-            .AddSingleton<AppSettings>(appSettings!);
+        services.AddSingleton<AppSettings>(appSettings!);
 
-        services
-            .AddWskDbContext(connectionString);
+        if (dbConnectionStrategy.Contains("Sqlite", StringComparison.OrdinalIgnoreCase))
+        {
+            services.AddWskSqliteDbContext(connectionString);
+        }
+        else if (dbConnectionStrategy.Contains("Memory", StringComparison.OrdinalIgnoreCase))
+        {
+            services.AddWskInMemoryDbContext(connectionString);
+        }
+        else if (dbConnectionStrategy.Contains("Sql", StringComparison.OrdinalIgnoreCase))
+        {
+            services.AddWskSqlDbContext(connectionString);
+        }
 
         services
             .AddScoped<IWskDataService, WskDirectDataService>();
+
+        services
+            .AddScoped<IWskDataServiceNotAuthed, WskDirectDataService>();
 
         foreach (var seedData in Assembly
                    .GetExecutingAssembly()
@@ -53,6 +66,7 @@ public class Startup
                     new CamelCasePropertyNamesContractResolver();
                 options.SerializerSettings.ReferenceLoopHandling =
                     ReferenceLoopHandling.Ignore;
+                //options.SerializerSettings.MaxDepth = 2;
             });
 
         services
@@ -65,7 +79,7 @@ public class Startup
                     .AddDefaultPolicy(builder =>
                     {
                         builder
-                            .AllowAnyOrigin()
+                            .WithOrigins("https://WordSearchKingdom.com", "http://WordSearchKingdom.com:5020", "http://localhost:5020")
                             .AllowAnyHeader()
                             .AllowAnyMethod()
                             .WithExposedHeaders("*");
@@ -83,29 +97,29 @@ public class Startup
                 c.EnableAnnotations();
             });
 
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Startup).Assembly));
 
-
-        /* 
-    services
-        .AddAuthentication("Bearer")
-    services
-        .AddJwtBearer("Bearer",
-            options =>
-            {
-                options.RequireHttpsMetadata = false;
-                options.Authority = appSettings.ConfigEndpoints.IdentityEndpointUrl;
-                options.MetadataAddress = $"{appSettings.ConfigEndpoints.IdentityEndpointUrl}/.well-known/openid-configuration";
-                options.Audience = "wsk_primary_api_swaggerui";
-                options.TokenValidationParameters = new TokenValidationParameters
+        services
+            .AddAuthentication("Bearer")
+            .AddJwtBearer("Bearer",
+                options =>
                 {
-                    ValidateAudience = false,
-                    ValidIssuer = appSettings.ConfigEndpoints.IdentityValidIssuer
-                };
-            })
-
-        .AddAuthorization(options => { })
-        */
+                    options.RequireHttpsMetadata = false;
+                    options.Authority = appSettings.Endpoints.IdentityEndpointUrl;
+                    options.MetadataAddress = $"{appSettings.Endpoints.IdentityEndpointUrl}/.well-known/openid-configuration";
+                    options.Audience = "CarbonNeutralClient_api_swaggerui";
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateAudience = false,
+                        ValidIssuer = $"{appSettings.Endpoints.IdentityValidIssuer}"
+                    };
+                }
+            )
         ;
+        services
+        .AddAuthorization(options =>
+        {
+        });
     }
     public void ConfigureContainer(ContainerBuilder builder)
     {
@@ -132,8 +146,8 @@ public class Startup
         app.UseCookiePolicy();
         app.UseCors();
 
-        //app.UseAuthentication();
-        //app.UseAuthorization();
+        app.UseAuthentication();
+        app.UseAuthorization();
 
         // Enable middleware to serve generated Swagger as a JSON endpoint.
         app.UseSwagger();

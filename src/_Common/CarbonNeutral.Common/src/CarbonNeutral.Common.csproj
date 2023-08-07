@@ -59,11 +59,12 @@
   </Target>
 
   <Target Name="SassBuild" BeforeTargets="AfterBuild">
-    <Exec Command="sass Styles:wwwroot/ --embed-source-map Shared:Shared --style=compressed --load-path=Styles --update" ContinueOnError="false">
+    <Exec Command="sass Styles:wwwroot/ MasterPages:MasterPages Shared:Shared --embed-source-map --style=compressed --load-path=Styles --update" ContinueOnError="false">
       <Output TaskParameter="ExitCode" PropertyName="ErrorCodeSass" />
     </Exec>
     <Error Condition="'$(ErrorCodeSass)' != '0'" Text="Dart-sass is unhappy about something " />
   </Target>
+    
   <!-- <Target Name="PushPackage" AfterTargets="Publish" Condition="'$(Configuration)' == 'Release'">
     <Exec Command="dotnet pack -c Release" />
     <Exec Command="dotnet nuget push &quot;$(MSBuildProjectDirectory)/bin/$(Configuration)/$(AssemblyName).$(Version).nupkg&quot; -s LocalNuggget" />

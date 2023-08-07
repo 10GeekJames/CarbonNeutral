@@ -62,6 +62,9 @@ namespace WskApplication.Data.Migrations
                     b.Property<Guid>("GameGridId")
                         .HasColumnType("TEXT");
 
+                    b.Property<Guid?>("KnownUserId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("TEXT");

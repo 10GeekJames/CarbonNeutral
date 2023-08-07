@@ -1,11 +1,17 @@
 version: "3.9"
 services:
   wordsearchkingdom-shared-base:
+    volumes:
+      - $APPDATA/Microsoft/UserSecrets/7c91d295-54c5-4d09-9bd6-fa56fb74011b:/root/.microsoft/usersecrets/7c91d295-54c5-4d09-9bd6-fa56fb74011b
+      - $HOME/.microsoft/usersecrets/7c91d295-54c5-4d09-9bd6-fa56fb74011b:/root/.microsoft/usersecrets/7c91d295-54c5-4d09-9bd6-fa56fb74011b
     build:
       context: ./
       dockerfile: ./build/local-shared-base/Dockerfile
     image: local:wordsearchkingdom-shared-base
   id-wordsearchkingdom:
+    volumes:
+      - $APPDATA/Microsoft/UserSecrets/7c91d295-54c5-4d09-9bd6-fa56fb74011b:/root/.microsoft/usersecrets/7c91d295-54c5-4d09-9bd6-fa56fb74011b
+      - $HOME/.microsoft/usersecrets/7c91d295-54c5-4d09-9bd6-fa56fb74011b:/root/.microsoft/usersecrets/7c91d295-54c5-4d09-9bd6-fa56fb74011b
     restart: unless-stopped
     logging:
       driver: "json-file"
@@ -20,9 +26,9 @@ services:
     depends_on:
       - wordsearchkingdom-shared-base
     environment:
-      - VIRTUAL_HOST=id.WordSearchKingdom.com:44310
-      - 'AdminConfiguration__IdentityAdminBaseUrl=https://id.WordSearchKingdom.com'
-      - 'AdvancedConfiguration__IssuerUri=https://id.WordSearchKingdom.com'
+      - VIRTUAL_HOST=wordsearchkingdom.com:44310
+      - 'AdminConfiguration__IdentityAdminBaseUrl=https://id.wordsearchkingdom.com'
+      - 'AdvancedConfiguration__IssuerUri=https://id.wordsearchkingdom.com'
       - DockerConfiguration__UpdateCaCertificate=true
       - ASPNETCORE_ENVIRONMENT=Development
   account-api-wordsearchkingdom:
