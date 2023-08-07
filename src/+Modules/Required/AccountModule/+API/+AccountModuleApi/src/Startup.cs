@@ -1,18 +1,19 @@
+using System.Security.AccessControl;
 
 namespace AccountModuleApi;
 public class Startup
 {
     private readonly IWebHostEnvironment _env;
-    public Startup(IWebHostEnvironment env)
+    public IConfiguration Configuration { get; }
+    public Startup(IConfiguration configuration, IWebHostEnvironment env)
     {
-        Configuration = GetConfiguration();
+        Configuration = configuration;
         _env = env;
     }
-    public IConfiguration Configuration { get; }
+    
     public void ConfigureServices(IServiceCollection services)
     {
         //Microsoft.IdentityModel.Logging.IdentityModelEventSource.ShowPII = true;       
-
         services
             .Configure<CookiePolicyOptions>(options =>
             {
@@ -22,7 +23,7 @@ public class Startup
         // default to AccountModuleAccountModuleConnectionString ENVVAR
         string dbConnectionStrategy = Configuration.GetValue<string>("AccountModuleDbUse") ?? "";
         string connectionString = Configuration.GetConnectionString(dbConnectionStrategy) ?? "";
-        
+
         var appSettings = Configuration.Get<AppSettings>();        
         services.AddSingleton<AppSettings>(appSettings);
 
@@ -121,16 +122,11 @@ public class Startup
     }
     public void ConfigureContainer(ContainerBuilder builder)
     {
+        var isInDevelopment = _env.EnvironmentName == "Development";
         builder.RegisterModule(new AccountModuleCoreModule());
-
-        builder
-            .RegisterModule(new AccountModuleInfrastructureModule(_env
-                    .EnvironmentName ==
-                "Development"));
-
-        builder.RegisterModule(new AccountModuleDataModule(_env
-                   .EnvironmentName ==
-               "Development"));
+        builder.RegisterModule(new AccountModuleInfrastructureModule(isInDevelopment));
+        //builder.RegisterModule(new AccountModuleApplicationSharedModule(isInDevelopment));
+        builder.RegisterModule(new AccountModuleApiModule(isInDevelopment));
     }
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
@@ -163,28 +159,6 @@ public class Startup
             {
                 endpoints.MapDefaultControllerRoute();
             });
-    }
-
+    }  
     
-    private static IConfiguration GetConfiguration()
-    {
-        var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-        var isDevelopment = environment == Environments.Development;
-
-        var configurationBuilder = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-            .AddJsonFile($"appsettings.{environment}.json", optional: true, reloadOnChange: true);
-
-        configurationBuilder.AddUserSecrets<Startup>(true);
-
-        var configuration = configurationBuilder.Build();
-
-        //configuration.AddAzureKeyVaultConfiguration(configurationBuilder);
-
-        //configurationBuilder.AddCommandLine(args);
-        configurationBuilder.AddEnvironmentVariables();
-
-        return configurationBuilder.Build();
-    }
 }

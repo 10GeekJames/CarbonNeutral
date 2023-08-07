@@ -2,61 +2,11 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "DrawProjectFolders",
-            "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build-DrawProjectFolders",
-            "program": "${workspaceFolder}\\utilities\\DrawProjectFolders\\bin\\Debug\\net7.0\\DrawProjectFolders.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}\\utilities\\DrawProjectFolders",
-            "console": "internalConsole",
-            "stopAtEntry": false
-        },
-        {
-            "name": "DPF.Application.Testing",
-            "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build-DPF.Application.Testing",
-            "program": "${workspaceFolder}\\utilities\\DrawProjectFolders\\src\\_Application\\DPF.Application.FeatureTests\\bin\\Debug\\net7.0\\DPF.Application.FeatureTests.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}\\utilities\\DrawProjectFolders\\src\\_Application\\DPF.Application.FeatureTests",
-            "console": "internalConsole",
-            "stopAtEntry": false
-        },
-        {
-            "name": "WskCore.Tests",
-            "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build",
-            "program": "${workspaceFolder}\\_WskCore\\tests\\WskCore.Tests\\bin\\Debug\\net7.0\\WskCore.UnitTests.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}\\_WskCore\\tests\\WskCore.Tests",
-            "console": "internalConsole",
-            "stopAtEntry": false
-        },
-        {
-            "name": ".NET Core Attach",
-            "type": "coreclr",
-            "request": "attach"
-        },
-        {
-            "name": "CarbonNeutral.BlazorClient",
-            "type": "blazorwasm",
-            "request": "launch",
-            "preLaunchTask": "build-CarbonNeutral.BlazorClient",
-            "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}",
-            "program": "${workspaceFolder}/src/UI/Client/CarbonNeutral.BlazorClient/src/bin/Debug/net7.0/CarbonNeutral.BlazorClient.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}/src/UI/Client/CarbonNeutral.BlazorClient/src",
-            "stopAtEntry": false,
-            "console": "internalConsole"
-        },
-        {
             "name": "WskApi",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build-WskApi",
-            "program": "${workspaceFolder}/src/+Modules/Lazy/WordSearchKingdom/+Api/+WskApi/src/bin/Debug/net7.0/+WskApi.dll",
+            "program": "${workspaceFolder}/src/+Modules/Lazy/WordSearchKingdom/+Api/+WskApi/src/bin/Debug/net7.0/WskApi.dll",
             "args": [],
             "cwd": "${workspaceFolder}/src/+Modules/Lazy/WordSearchKingdom/+Api/+WskApi/src",
             "stopAtEntry": false,
@@ -69,26 +19,6 @@
             },
             "sourceFileMap": {
                 "/Views": "${workspaceFolder}/src/+Modules/Lazy/WordSearchKingdom/+Api/+WskApi/src/Views"
-            }
-        },
-        {
-            "name": "WskApplication.Data",
-            "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build-WskApplication.Data",
-            "program": "${workspaceFolder}/src/+Modules/Lazy/WordSearchKingdom/__Data/WskApplication.Data/src/bin/Debug/net7.0/WskApplication.Data.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}/src/+Modules/Lazy/WordSearchKingdom/__Data/WskApplication.Data/src",
-            "stopAtEntry": false,
-            "serverReadyAction": {
-                "action": "openExternally",
-                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
-            },
-            "env": {
-                "ASPNETCORE_ENVIRONMENT": "Development"
-            },
-            "sourceFileMap": {
-                "/Views": "${workspaceFolder}/src/+Modules/Lazy/WordSearchKingdom/__Data/WskApplication.Data/src/Views"
             }
         },
         {

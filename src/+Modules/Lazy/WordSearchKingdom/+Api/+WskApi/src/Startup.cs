@@ -1,6 +1,6 @@
 using System;
-namespace WskApi;
 using System.Reflection;
+namespace WskApi;
 public class Startup
 {
     private readonly IWebHostEnvironment _env;
@@ -13,7 +13,7 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
 
-        string dbConnectionStrategy = Configuration.GetValue<string>("WskDbUse") ?? "WskSqlite";
+        string dbConnectionStrategy = Configuration.GetValue<string>("WskDbUse") ?? "";
         string connectionString = Configuration.GetConnectionString(dbConnectionStrategy) ?? "";
 
         var appSettings = Configuration.Get<AppSettings>();

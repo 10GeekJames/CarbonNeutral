@@ -37,9 +37,6 @@ global using AccountModuleInfrastructure;
 global using AccountModuleInfrastructure.CommandQuery;
 global using AccountModuleInfrastructure.Data;
 
-global using AccountModule.Data.Interfaces;
-global using AccountModule.Data.SeedScripts;
-
 global using AccountModuleApplication;
 global using AccountModuleApplication.Services;
 

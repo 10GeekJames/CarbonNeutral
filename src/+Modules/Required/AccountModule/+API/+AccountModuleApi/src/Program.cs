@@ -21,15 +21,23 @@ public class Program
     public static IHostBuilder CreateHostBuilder(string[] args) =>
         Host.CreateDefaultBuilder(args)
             .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+            .ConfigureAppConfiguration((hostingContext, config) =>
+            {
+                config.AddUserSecrets<Startup>(true);
+                if (args != null)
+                {
+                    config.AddCommandLine(args);
+                }                
+            })
             .ConfigureWebHostDefaults(webBuilder =>
             {
                 webBuilder
-                    .UseStartup<Startup>()
+                    .UseStartup<Startup>()                    
                     .ConfigureLogging(logging =>
-                    {
-                        logging.ClearProviders();
-                        logging.AddConsole();
-                        // logging.AddAzureWebAppDiagnostics(); add this if deploying to Azure
-                    });
-            });    
+                {
+                    logging.ClearProviders();
+                    logging.AddConsole();
+                    // logging.AddAzureWebAppDiagnostics(); add this if deploying to Azure
+                });
+            });
 }

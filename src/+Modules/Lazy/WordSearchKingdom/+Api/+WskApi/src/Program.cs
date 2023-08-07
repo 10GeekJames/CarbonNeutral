@@ -28,7 +28,8 @@ public class Program
                 {
                     logging.ClearProviders();
                     logging.AddConsole();
-                    logging.SetMinimumLevel(LogLevel.Information);
+                    // logging.AddAzureWebAppDiagnostics(); add this if deploying to Azure
                 });
-            });    
+            });
+    
 }
