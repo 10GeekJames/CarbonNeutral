@@ -2,8 +2,9 @@
 @layout MainLayoutLanding
 @inject IStringLocalizer<AllGames> Localize
 
+<PageTitle>WSK - All Games</PageTitle>
 
-<MudText Typo="Typo.h4" Align="Align.Center" Style="text-wrap: balance;">Word Search Kingdom - All Games</MudText>
+<MudText Typo="Typo.h4" Align="Align.Center" Style="text-wrap: balance;" Class="highlight-shadow">All Games</MudText>
 <MudContainer>
     <MudPaper Class="mt-4 pa-4 border-double border-4 rounded-lg" Style="background: transparent;">
         <MudButton Class="mt-8" FullWidth="true" Variant="Variant.Filled" Color="Color.Primary" OnClick=@NavigateToNewGame>Create New Game</MudButton>

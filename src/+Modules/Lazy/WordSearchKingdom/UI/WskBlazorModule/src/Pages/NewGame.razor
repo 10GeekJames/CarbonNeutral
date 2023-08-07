@@ -28,7 +28,7 @@
         <MudForm @ref="form" @bind-IsValid="@success">
             <MudField Label="Game Info" Variant="Variant.Outlined">
                 <MudTextField @bind-Value=_gameTitle T="string" Label="Game Title" Required="true" RequiredError="Game Title is required!" />
-                <MudNumericField @bind-Value=_gridSize Min=0 Max=100 Label="Grid Size" Required="true" RequiredError="Grid Size is required!"  />
+                <MudNumericField @bind-Value=_gridSize Min=0 Max=100 Label="Grid Size" Required="true" RequiredError="Grid Size is required!" HelperText="Recommended: Mobile(13), Tablet(25), Max(100)"  />
                 <MudTextField @bind-Value=_wordsToHide T="string" Label="Words To Hide" Lines="6"  Required="true" HelperText="Seperate list by , or new lines" RequiredError="Words are required!"/>
                 <MudSelect @bind-Value=_difficulty T="GameDifficulties" Label="Difficulty" AnchorOrigin="Origin.BottomCenter">
                     <MudSelectItem Value=GameDifficulties.Easy >Easy</MudSelectItem>
