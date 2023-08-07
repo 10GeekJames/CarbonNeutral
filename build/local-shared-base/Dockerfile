@@ -70,8 +70,7 @@ COPY ./src/+Modules/Required/AccountModule/____Core/__AccountModuleCore/src/    
 COPY ./src/+Modules/Required/AccountModule/____Core/_AccountModuleCore.TestData/src/            /src/+Modules/Required/AccountModule/____Core/_AccountModuleCore.TestData/src/
 COPY ./src/+Modules/Required/AccountModule/___Infrastructure/AccountModuleInfrastructure/src/   /src/+Modules/Required/AccountModule/___Infrastructure/AccountModuleInfrastructure/src/
 COPY ./src/+Modules/Required/AccountModule/__Data/AccountModule.Data/src/                       /src/+Modules/Required/AccountModule/__Data/AccountModule.Data/src/       
-RUN rm /src/+Modules/Required/AccountModule/__Data/AccountModule.Data/src/appsettings.json
-RUN rm /src/+Modules/Required/AccountModule/__Data/AccountModule.Data/src/appsettings.Development.json
+COPY ./src/+Modules/Required/AccountModule/__Data/Database                                      /src/+Modules/Required/AccountModule/__Data/Database       
 
 COPY ./src/+Modules/Required/AccountModule/_Application/_AccountModuleApplication.Shared/src/   /src/+Modules/Required/AccountModule/_Application/_AccountModuleApplication.Shared/src/
 COPY ./src/+Modules/Required/AccountModule/_Application/AccountModuleApplication/src/           /src/+Modules/Required/AccountModule/_Application/AccountModuleApplication/src/
@@ -82,8 +81,7 @@ COPY ./src/+Modules/Lazy/WordSearchKingdom/____Core/__WskCore/src/              
 COPY ./src/+Modules/Lazy/WordSearchKingdom/____Core/WskCore.WskTestData/src/                    /src/+Modules/Lazy/WordSearchKingdom/____Core/WskCore.WskTestData/src/
 COPY ./src/+Modules/Lazy/WordSearchKingdom/___Infrastructure/WskInfrastructure/src/             /src/+Modules/Lazy/WordSearchKingdom/___Infrastructure/WskInfrastructure/src/
 COPY ./src/+Modules/Lazy/WordSearchKingdom/__Data/WskApplication.Data/src/                      /src/+Modules/Lazy/WordSearchKingdom/__Data/WskApplication.Data/src/
-RUN rm /src/+Modules/Lazy/WordSearchKingdom/__Data/WskApplication.Data/src/appsettings.json
-RUN rm /src/+Modules/Lazy/WordSearchKingdom/__Data/WskApplication.Data/src/appsettings.Development.json
+COPY ./src/+Modules/Lazy/WordSearchKingdom/__Data/Database/                                     /src/+Modules/Lazy/WordSearchKingdom/__Data/Database/
 
 COPY ./src/+Modules/Lazy/WordSearchKingdom/_Application/_WskApplication.Shared/src/             /src/+Modules/Lazy/WordSearchKingdom/_Application/_WskApplication.Shared/src/
 COPY ./src/+Modules/Lazy/WordSearchKingdom/_Application/WskApplication/src/                     /src/+Modules/Lazy/WordSearchKingdom/_Application/WskApplication/src/
@@ -96,9 +94,27 @@ COPY ./src/_Common/CarbonNeutral.Common/src/                                    
 FROM copy-the-rest-of-the-files
 WORKDIR /
 COPY --from=copy-the-rest-of-the-files .  .
-
 RUN dotnet publish -c Release "./src/__Kernel/CarbonNeutral.KernelShared/src/"
+RUN dotnet build "./src/_Common/CarbonNeutral.Common/src/"
 RUN dotnet publish -c Release "./src/_Common/CarbonNeutral.Common/src/"
+
+#ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
+#RUN dotnet tool install --global dotnet-ef
+#ENV PATH="${PATH}:/root/.dotnet/tools"
+
+WORKDIR /src/+Modules/Lazy/WordSearchKingdom/__Data/WskApplication.Data/src/
+#RUN "dotnet ef database update"
+RUN dotnet run
+RUN rm appsettings.json
+RUN rm appsettings.Development.json
+
+WORKDIR /src/+Modules/Required/AccountModule/__Data/AccountModule.Data/src/
+#RUN "dotnet ef database update"
+RUN dotnet run
+RUN rm appsettings.json
+RUN rm appsettings.Development.json
+
+WORKDIR /
 
 #RUN dotnet build "./src/+Modules/Required/AccountModule/____Core/__AccountModuleCore/src/"
 #RUN dotnet build "./src/+Modules/Required/AccountModule/____Core/_AccountModuleCore.TestData/src/"

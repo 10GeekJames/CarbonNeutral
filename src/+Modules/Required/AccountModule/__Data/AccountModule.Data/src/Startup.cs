@@ -1,3 +1,4 @@
+using System;
 using System.Reflection;
 using Autofac;
 using MediatR.Pipeline;
@@ -15,10 +16,21 @@ public class Startup
     public IConfiguration Configuration { get; }
     public void ConfigureServices(IServiceCollection services)
     {
-        string connectionString =
-            Configuration.GetConnectionString("Active") ?? ""; //Configuration.GetConnectionString("DefaultConnection");
+        string dbConnectionStrategy = Configuration.GetValue<string>("AccountModuleDbUse") ?? "";
+        string connectionString = Configuration.GetConnectionString(dbConnectionStrategy) ?? "";
 
-        services.AddAccountModuleDbContext(connectionString);        
+        if (dbConnectionStrategy.Contains("Sqlite", StringComparison.OrdinalIgnoreCase))
+        {
+            services.AddAccountModuleSqliteDbContext(connectionString);
+        }
+        else if (dbConnectionStrategy.Contains("Memory", StringComparison.OrdinalIgnoreCase))
+        {
+            services.AddAccountModuleInMemoryDbContext(connectionString);
+        }
+        else if (dbConnectionStrategy.Contains("Sql", StringComparison.OrdinalIgnoreCase))
+        {
+            services.AddAccountModuleSqlDbContext(connectionString);
+        }
     }
     public void ConfigureContainer(ContainerBuilder builder)
     {
@@ -38,7 +50,7 @@ public class Startup
         assemblies.Add(coreAssembly!);
         assemblies.Add(infrastructureAssembly!);
         assemblies.Add(accountDataModule!);
-        
+
         builder.RegisterGeneric(typeof(EfRepository<>))
             .As(typeof(IRepository<>))
             .As(typeof(IReadRepository<>))

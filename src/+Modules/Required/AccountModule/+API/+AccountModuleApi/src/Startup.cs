@@ -3,9 +3,9 @@ namespace AccountModuleApi;
 public class Startup
 {
     private readonly IWebHostEnvironment _env;
-    public Startup(IConfiguration config, IWebHostEnvironment env)
+    public Startup(IWebHostEnvironment env)
     {
-        Configuration = config;
+        Configuration = GetConfiguration();
         _env = env;
     }
     public IConfiguration Configuration { get; }
@@ -20,21 +20,26 @@ public class Startup
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
         // default to AccountModuleAccountModuleConnectionString ENVVAR
-        string connectionString =
-            Configuration.GetConnectionString("Active"); //Configuration.GetConnectionString("DefaultConnection");
-        var appSettings = Configuration.Get<AppSettings>();
+        string dbConnectionStrategy = Configuration.GetValue<string>("AccountModuleDbUse") ?? "";
+        string connectionString = Configuration.GetConnectionString(dbConnectionStrategy) ?? "";
+        
+        var appSettings = Configuration.Get<AppSettings>();        
         services.AddSingleton<AppSettings>(appSettings);
-        services.AddAutoMapper(typeof(KnownAccountMap).GetTypeInfo().Assembly);
-        foreach (var seedData in Assembly
-                   .GetExecutingAssembly()
-                   .GetTypes()
-                   .Where(x => x.IsAssignableTo(typeof(IAccountModuleSeedScript)) && x.IsClass)
-                   .OrderBy(rs => rs.Name))
-        {
-            services.AddSingleton(seedData);
-        }
 
-        services.AddAccountModuleDbContext(connectionString);
+        services.AddAutoMapper(typeof(KnownAccountMap).GetTypeInfo().Assembly);
+        
+        if (dbConnectionStrategy.Contains("Sqlite", StringComparison.OrdinalIgnoreCase))
+        {
+            services.AddAccountModuleSqliteDbContext(connectionString);
+        }
+        else if (dbConnectionStrategy.Contains("Memory", StringComparison.OrdinalIgnoreCase))
+        {
+            services.AddAccountModuleInMemoryDbContext(connectionString);
+        }
+        else if (dbConnectionStrategy.Contains("Sql", StringComparison.OrdinalIgnoreCase))
+        {
+            services.AddAccountModuleSqlDbContext(connectionString);
+        }        
         services.AddSingleton<IAccountModuleDataService, AccountModuleDirectDataService>();
         services.AddHttpContextAccessor();
         /* services
@@ -158,5 +163,28 @@ public class Startup
             {
                 endpoints.MapDefaultControllerRoute();
             });
+    }
+
+    
+    private static IConfiguration GetConfiguration()
+    {
+        var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+        var isDevelopment = environment == Environments.Development;
+
+        var configurationBuilder = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+            .AddJsonFile($"appsettings.{environment}.json", optional: true, reloadOnChange: true);
+
+        configurationBuilder.AddUserSecrets<Startup>(true);
+
+        var configuration = configurationBuilder.Build();
+
+        //configuration.AddAzureKeyVaultConfiguration(configurationBuilder);
+
+        //configurationBuilder.AddCommandLine(args);
+        configurationBuilder.AddEnvironmentVariables();
+
+        return configurationBuilder.Build();
     }
 }

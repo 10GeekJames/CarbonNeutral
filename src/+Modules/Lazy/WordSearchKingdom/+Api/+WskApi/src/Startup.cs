@@ -1,3 +1,4 @@
+using System;
 namespace WskApi;
 using System.Reflection;
 public class Startup
@@ -12,22 +13,31 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
 
-        string connectionString =
-            Configuration.GetConnectionString("WskSqlite") ?? "";
+        string dbConnectionStrategy = Configuration.GetValue<string>("WskDbUse") ?? "WskSqlite";
+        string connectionString = Configuration.GetConnectionString(dbConnectionStrategy) ?? "";
 
         var appSettings = Configuration.Get<AppSettings>();
 
-        services
-            .AddSingleton<AppSettings>(appSettings!);
+        services.AddSingleton<AppSettings>(appSettings!);
 
-        services
-            .AddWskDbContext(connectionString);
+        if (dbConnectionStrategy.Contains("Sqlite", StringComparison.OrdinalIgnoreCase))
+        {
+            services.AddWskSqliteDbContext(connectionString);
+        }
+        else if (dbConnectionStrategy.Contains("Memory", StringComparison.OrdinalIgnoreCase))
+        {
+            services.AddWskInMemoryDbContext(connectionString);
+        }
+        else if (dbConnectionStrategy.Contains("Sql", StringComparison.OrdinalIgnoreCase))
+        {
+            services.AddWskSqlDbContext(connectionString);
+        }
 
         services
             .AddScoped<IWskDataService, WskDirectDataService>();
-        
+
         services
-            .AddScoped<IWskDataServiceNotAuthed, WskDirectDataService>();            
+            .AddScoped<IWskDataServiceNotAuthed, WskDirectDataService>();
 
         foreach (var seedData in Assembly
                    .GetExecutingAssembly()
@@ -117,7 +127,7 @@ public class Startup
         builder.RegisterModule(new WskCoreModule());
         builder.RegisterModule(new WskInfrastructureModule(isInDevelopment));
         //builder.RegisterModule(new WskApplicationSharedModule(isInDevelopment));
-        builder.RegisterModule(new WskApiModule(isInDevelopment));        
+        builder.RegisterModule(new WskApiModule(isInDevelopment));
     }
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
