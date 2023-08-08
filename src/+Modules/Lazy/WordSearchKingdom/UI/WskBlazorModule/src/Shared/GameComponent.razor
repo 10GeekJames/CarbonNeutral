@@ -12,7 +12,7 @@
 
             } else {
                 <div class="grid-cell__engraved-text-container d-flex">
-                    <MudText Class="highlight-shadow" Typo="Typo.h2" Align="Align.Center" Style="writing-mode: vertical-rl;">@Game?.Title</MudText>   
+                    <MudText Class="highlight-shadow" Typo="Typo.h2" Align="Align.Center" Style="writing-mode: vertical-rl; white-space: no-wrap;">@Game?.Title</MudText>   
                 </div>
 
             }
@@ -37,7 +37,7 @@
                     }                
             </div>
             <MudContainer Class="border-double border-xs-0 border-4 mud-border-primary pa-4 rounded ma-0" >
-                <MudText Class="highlight-shadow" Typo="Typo.h3" Align="Align.Center">
+                <MudText Class="highlight-shadow" Typo=@(IsMobile ? Typo.h5 : Typo.h3) Align="Align.Center">
                     Hidden Words
                 </MudText>
                 <MudDivider />
@@ -45,7 +45,7 @@
                     @foreach (var word in Game?.GameGrid.HiddenWords)
                     {
                         <MudChip Color=@isFoundStyling(word.IsFound) Size="Size.Large">
-                            <MudText Class="p-8" Typo="Typo.h5" Align="Align.Center">@word.Word</MudText>
+                            <MudText Class="p-8" Typo=@(IsMobile ? Typo.body1 : Typo.h5) Align="Align.Center">@word.Word</MudText>
                         </MudChip>
                     }
                 </MudStack>
