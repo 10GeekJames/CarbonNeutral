@@ -1,0 +1,15 @@
+@inherits LayoutComponentBase
+<MudThemeProvider @ref="@_mudThemeProvider" Theme="_selectedMudTheme" @bind-IsDarkMode="@_isDarkMode" />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    <WskLogo />
+    @Body
+</MudLayout>
+
+@code {
+    private bool _isDarkMode;
+    private MudThemeProvider _mudThemeProvider;
+    private MudTheme _selectedMudTheme;
+}

@@ -13,15 +13,14 @@
     @await Html.PartialAsync("_ValidationSummary")
 
     <div class="row">
-
         @if (Model.EnableLocalLogin)
         {
-            <div class="col-sm-12 col-md-6 mx-auto">
+            <div class="col-sm-12 mx-auto">
                 <div class="heroimg" alt="Responsive image"></div>
             </div>
-            <div class="col-sm-12 col-md-6 mx-auto login-center">
-                <div class="card mt-3 bg-white">
-                    <h3 class="card-header text-dark">@Localizer["LocalLogin"]</h3>
+            <div class="col-sm-12 mx-auto login-center">
+                <div class="card" style="background-color: rgba(0, 0,0,0.5); color: white !Important;">
+                    <h3 class="card-header text-light">@Localizer["LocalLogin"]</h3>
                     <div class="card-body">
                         <form asp-route="Login">
                             <input type="hidden" asp-for="ReturnUrl" />
@@ -58,7 +57,7 @@
                                 {
                                     <div class="form-group login-remember row">
                                         <div class="col-sm-9">
-                                            <div class="text-dark">
+                                            <div class="text-light">
                                                 @Localizer["Remember"]
                                             </div>
                                             
@@ -73,17 +72,17 @@
                                     <div class="col-sm-12">
                                         <ul class="nav login-nav">
                                             <li class="nav-item">
-                                                <button class="nav-link btn btn-dark" name="button" value="login">@Localizer["Login"]</button>
+                                                <button class="nav-link btn btn-light" name="button" value="login">@Localizer["Login"]</button>
                                             </li>
                                         @if (RootConfiguration.RegisterConfiguration.Enabled){
                                             <li class="nav-item">
-                                                <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" asp-controller="Account" class="nav-link btn btn-dark" value="register">@Localizer["Register"]</a>
+                                                <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" asp-controller="Account" class="nav-link btn btn-light" value="register">@Localizer["Register"]</a>
                                             </li>
                                         }
                                         </ul>
                                     </div>
                                         <div class="login-forget">
-                                            <a asp-action="ForgotPassword"  asp-route-returnurl="@ViewData["ReturnUrl"]" asp-controller="Account" class="nav-link btn btn-outline-primary" value="forgot">@Localizer["Forgot"]</a>                                        
+                                            <a asp-action="ForgotPassword"  asp-route-returnurl="@ViewData["ReturnUrl"]" asp-controller="Account" class="nav-link btn btn-outline-success" value="forgot">@Localizer["Forgot"]</a>                                        
                                         </div>
                                 </div>
                             </fieldset>

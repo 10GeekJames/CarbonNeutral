@@ -3,8 +3,8 @@
 <style>
     .sub-nav-menu-container {
         position: absolute;
-        top: 15px;
-        right: 50px;
+        top: 20px;
+        right: 20px;
         opacity: 0.75;
     }
 </style>
@@ -12,17 +12,17 @@
 <CascadingAuthenticationState>
     <AuthorizeView>
         <Authorized>
-            <div class="sub-nav-menu-container">
-                <MudStack Row="true" Class="ml-16">
-                    <MudButton StartIcon="@Icons.Material.Filled.Logout"><MudText>Logout</MudText></MudButton>
+            <div class=@(IsMobile ? "" : "sub-nav-menu-container")>
+                <MudStack Row="true" Class=@(IsMobile ? "ml-4 mt-4" : "")>
+                    <MudButton StartIcon="@Icons.Material.Filled.Logout" OnClick=@NavigateToLogout><MudText>Logout</MudText></MudButton>
                     <MudButton StartIcon="@Icons.Material.Filled.Share"><MudText Class="highlight-shadow">Share</MudText></MudButton>
                 </MudStack>
                 <MudText Class="mr-2" Typo="Typo.caption">Welcome, @Localize["User"]</MudText>
             </div>
         </Authorized>
         <NotAuthorized>
-            <div class="sub-nav-menu-container">
-                <MudStack Row="true" Class="ml-16">
+            <div class=@(IsMobile ? "" : "sub-nav-menu-container")>
+                <MudStack Row="true" Class=@(IsMobile ? "ml-4 mt-4" : "")>
                     <MudButton StartIcon="@Icons.Material.Filled.Login" OnClick=NavigateToLogin><MudText>Login</MudText></MudButton>
                     <MudButton StartIcon="@Icons.Material.Filled.ShoppingCart"><MudText Class="highlight-shadow">Buy</MudText></MudButton>
                 </MudStack>
@@ -33,6 +33,9 @@
 
 
 @code {
+    [CascadingParameter]
+    protected bool IsMobile { get; set; }
+
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();      
@@ -42,5 +45,11 @@
     private void NavigateToLogin()
     {
         NavigationManager.NavigateTo($"authentication/login?returnUrl={Uri.EscapeDataString(NavigationManager.Uri)}");
+    }
+
+    protected async Task NavigateToLogout()
+    {
+        //await JSRuntime.InvokeVoidAsync("sessionStorage.clear");
+        NavigationManager.NavigateToLogout("/authentication/logout");
     }
 }
