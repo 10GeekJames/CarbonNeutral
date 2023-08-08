@@ -13,14 +13,13 @@
     @await Html.PartialAsync("_ValidationSummary")
 
     <div class="row">
-
         @if (Model.EnableLocalLogin)
         {
-            <div class="col-sm-12 col-md-6 mx-auto">
+            <div class="col-sm-12 mx-auto">
                 <div class="heroimg" alt="Responsive image"></div>
             </div>
-            <div class="col-sm-12 col-md-6 mx-auto login-center">
-                <div class="card mt-3 bg-white">
+            <div class="col-sm-12 mx-auto login-center">
+                <div class="card bg-white">
                     <h3 class="card-header text-dark">@Localizer["LocalLogin"]</h3>
                     <div class="card-body">
                         <form asp-route="Login">

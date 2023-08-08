@@ -48,19 +48,18 @@
 <body>
     <div class="menu d-flex flex-column flex-md-row center-text p-2 px-md-4 mb-2 overlay-menu">
         <!--Site name -->
-        <h3 class="menu-logo mt-1 mx-auto font-weight-normal">
-            @* <a class="logo" asp-area="" asp-controller="Home" asp-action="Index"> *@
+        <h2 class="menu-logo mt-1">
             <a class="logo" href="WordSearchKingdom.com:44310">
-
-            <img width="220px" src="/images/highfive.png" alt="Logo"/>
-                </a>
-        </h3>
+                <img width="60px" style="background-color: rgba(0,0,0,0.75); border-radius: 12px; padding: 5px; padding-top: 10px" src="/images/WskLogo.svg" alt="Logo"/>
+            </a>
+            Word Search Kingdom
+        </h2>
         <!--Menu item -->
         @if (User.Identity.IsAuthenticated && !string.IsNullOrEmpty(name))
         {
             @* <!--Menu item --> *@
 
-            <div style="margin-right:4rem;padding:0;display:flex;flex-direction:row; align-items:center;justify-content:center;">
+            <div style="margin-right:4rem; padding:0; display:flex; flex-direction:row; align-items:center; justify-content:center;">
             <vc:identity-server-admin-link></vc:identity-server-admin-link>
 
             @* <!--Menu item --> *@

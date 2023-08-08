@@ -14,7 +14,7 @@
         <Authorized>
             <div class=@(IsMobile ? "" : "sub-nav-menu-container")>
                 <MudStack Row="true" Class=@(IsMobile ? "ml-4 mt-4" : "")>
-                    <MudButton StartIcon="@Icons.Material.Filled.Logout"><MudText>Logout</MudText></MudButton>
+                    <MudButton StartIcon="@Icons.Material.Filled.Logout" OnClick=@NavigateToLogout><MudText>Logout</MudText></MudButton>
                     <MudButton StartIcon="@Icons.Material.Filled.Share"><MudText Class="highlight-shadow">Share</MudText></MudButton>
                 </MudStack>
                 <MudText Class="mr-2" Typo="Typo.caption">Welcome, @Localize["User"]</MudText>
@@ -45,5 +45,11 @@
     private void NavigateToLogin()
     {
         NavigationManager.NavigateTo($"authentication/login?returnUrl={Uri.EscapeDataString(NavigationManager.Uri)}");
+    }
+
+    protected async Task NavigateToLogout()
+    {
+        //await JSRuntime.InvokeVoidAsync("sessionStorage.clear");
+        NavigationManager.NavigateToLogout("/authentication/logout");
     }
 }
