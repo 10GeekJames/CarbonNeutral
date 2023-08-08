@@ -1,6 +1,7 @@
 @page "/wsk/newgame"
 @layout MainLayoutLanding
 @using System.Text.RegularExpressions
+@using System.Text
 @using System.ComponentModel.DataAnnotations
 @inject IStringLocalizer<NewGame> Localize
 
@@ -79,8 +80,15 @@
 
         List<HiddenWordViewModel> hiddenWords = _wordsToHide.Split(new[] { "\r\n", "\r", "\n", "," }, StringSplitOptions.RemoveEmptyEntries)
             .Select(word => {
-                word = Regex.Replace(word, @"\d{2,}", "");
-                return new HiddenWordViewModel { Word = word.Trim().Replace(" ", "").ToUpper() };
+                var pattern = @"\p{L}+";
+                var rx = new Regex(pattern);
+                var wordMatches = rx.Matches(word);
+                var cleanWord = new StringBuilder();
+                foreach(Match match in wordMatches)
+                {
+                    cleanWord.Append(match.Value);
+                }
+                return new HiddenWordViewModel { Word = cleanWord.ToString().ToUpper() };
                 })
             .ToList();
 
