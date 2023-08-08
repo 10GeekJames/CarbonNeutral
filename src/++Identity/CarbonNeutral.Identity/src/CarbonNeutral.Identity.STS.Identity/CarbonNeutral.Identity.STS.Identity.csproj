@@ -2,11 +2,22 @@
 
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
-        <UserSecretsId>7c91d295-54c5-4d09-9bd6-fa56fb74011b</UserSecretsId>
         <DockerComposeProjectPath>../../docker-compose.dcproj</DockerComposeProjectPath>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
         <DockerfileContext>../..</DockerfileContext>
     </PropertyGroup>
+    <Choose>
+        <When Condition="'$(Configuration)' != 'Release'">
+            <PropertyGroup>
+                <UserSecretsId>7aa1d295-54c5-4d09-9bd6-fa56fb74011b</UserSecretsId>
+            </PropertyGroup>
+        </When>
+        <When Condition="'$(Configuration)' == 'Release'">
+            <PropertyGroup>
+                <UserSecretsId>7bb1d295-54c5-4d09-9bd6-fa56fb74011b</UserSecretsId>
+            </PropertyGroup>
+        </When>
+    </Choose>
 
     <ItemGroup>
         <PackageReference Include="AspNet.Security.OAuth.GitHub" Version="6.0.6" />
@@ -58,26 +69,26 @@
         <ProjectReference Include="../CarbonNeutral.Identity.Admin.EntityFramework.Shared/CarbonNeutral.Identity.Admin.EntityFramework.Shared.csproj" />
         <ProjectReference Include="../CarbonNeutral.Identity.Shared/CarbonNeutral.Identity.Shared.csproj" />
     </ItemGroup>
-<ItemGroup>
-    <!-- <Watch Remove="**/*.css" /> -->
-    <Watch Include="**/*.scss" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="wwwroot/**/*" />
-    <Content Update="**/*.cshtml" Pack="false" />
-  </ItemGroup>
-  <Target Name="SassCheck" BeforeTargets="AfterBuild">
-    <Exec Command="sass --version" ContinueOnError="true">
-      <Output TaskParameter="ExitCode" PropertyName="ErrorCodeSass" />
-    </Exec>
-    <Error Condition="'$(ErrorCodeSass)' != '0'" Text="Dart-sass is required for this project. Install globally with 'npm i -g sass' " />
-  </Target>
-  <Target Name="SassBuild" BeforeTargets="AfterBuild">
-    <Exec Command="sass Styles:wwwroot/dist/css/ --style=compressed --load-path=Styles --update" ContinueOnError="false">
-      <Output TaskParameter="ExitCode" PropertyName="ErrorCodeSass" />
-    </Exec>
-    <Error Condition="'$(ErrorCodeSass)' != '0'" Text="Dart-sass is unhappy about something " />
-  </Target>
+    <ItemGroup>
+        <!-- <Watch Remove="**/*.css" /> -->
+        <Watch Include="**/*.scss" />
+    </ItemGroup>
+    <ItemGroup>
+        <EmbeddedResource Include="wwwroot/**/*" />
+        <Content Update="**/*.cshtml" Pack="false" />
+    </ItemGroup>
+    <Target Name="SassCheck" BeforeTargets="AfterBuild">
+        <Exec Command="sass --version" ContinueOnError="true">
+            <Output TaskParameter="ExitCode" PropertyName="ErrorCodeSass" />
+        </Exec>
+        <Error Condition="'$(ErrorCodeSass)' != '0'" Text="Dart-sass is required for this project. Install globally with 'npm i -g sass' " />
+    </Target>
+    <Target Name="SassBuild" BeforeTargets="AfterBuild">
+        <Exec Command="sass Styles:wwwroot/dist/css/ --style=compressed --load-path=Styles --update" ContinueOnError="false">
+            <Output TaskParameter="ExitCode" PropertyName="ErrorCodeSass" />
+        </Exec>
+        <Error Condition="'$(ErrorCodeSass)' != '0'" Text="Dart-sass is unhappy about something " />
+    </Target>
     <ItemGroup>
         <EmbeddedResource Update="Resources/Views/Account/RegisterConfirmation.ru.resx">
             <Generator>ResXFileCodeGenerator</Generator>

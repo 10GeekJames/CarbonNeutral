@@ -34,7 +34,7 @@
     private bool showSplash = true;
     protected override async Task OnInitializedAsync()
     {
-        PlatformCacheService.SetAppDataToReady();
+        //PlatformCacheService.SetAppDataToReady();
         var authstate = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         user = authstate.User;
         isAuthenticated = (user?.Identity?.IsAuthenticated == true);

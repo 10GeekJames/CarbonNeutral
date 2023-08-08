@@ -45,10 +45,7 @@ namespace CarbonNeutral.Identity.STS.Identity
                 .AddJsonFile("serilog.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"serilog.{environment}.json", optional: true, reloadOnChange: true);
 
-            if (isDevelopment)
-            {
-                configurationBuilder.AddUserSecrets<Startup>(true);
-            }
+            configurationBuilder.AddUserSecrets<Startup>(true);
 
             var configuration = configurationBuilder.Build();
 
@@ -66,7 +63,7 @@ namespace CarbonNeutral.Identity.STS.Identity
                 {
                     var configurationRoot = configApp.Build();
                     var env = hostContext.HostingEnvironment;
-                    
+
                     configApp.AddJsonFile("serilog.json", optional: true, reloadOnChange: true);
                     configApp.AddJsonFile($"serilog.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
 

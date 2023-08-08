@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-    <UserSecretsId>7c91d295-54c5-4d09-9bd6-fa56fb74011b</UserSecretsId>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <IsPackable>false</IsPackable>
@@ -12,7 +11,21 @@
     <Company>10GeekJames</Company>
     <DefaultNamespace>AccountModuleApplication.Data</DefaultNamespace>
   </PropertyGroup>
-
+  <Choose>
+    <When Condition="'$(Configuration)' != 'Release'">  
+      <PropertyGroup>
+        <UserSecretsId>7aa1d295-54c5-4d09-9bd6-fa56fb74011b</UserSecretsId>
+      </PropertyGroup>
+    </When>
+    <When Condition="'$(Configuration)' == 'Release'">  
+      <PropertyGroup>
+        <UserSecretsId>7bb1d295-54c5-4d09-9bd6-fa56fb74011b</UserSecretsId>
+      </PropertyGroup>
+    </When>    
+  </Choose>
+  <ItemGroup>
+    <Content Remove="appsettings.Development.json" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />

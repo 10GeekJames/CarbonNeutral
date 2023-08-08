@@ -79,7 +79,8 @@ public class Startup
                     .AddDefaultPolicy(builder =>
                     {
                         builder
-                            .WithOrigins("https://WordSearchKingdom.com", "http://WordSearchKingdom.com:5020", "http://localhost:5020")
+                            //.WithOrigins("https://WordSearchKingdom.com", "http://WordSearchKingdom.com:5020", "http://localhost:5020")
+                            .AllowAnyOrigin()
                             .AllowAnyHeader()
                             .AllowAnyMethod()
                             .WithExposedHeaders("*");

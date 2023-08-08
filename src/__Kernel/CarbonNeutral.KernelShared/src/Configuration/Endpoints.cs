@@ -6,6 +6,10 @@ public class Endpoints
 
     public string PubsubEndpointUrl { get; set; } = "";
 
+    public string AccountApiUrl { get; set; } = "";
+    public string AccountApiVersion { get; set; } = "";
+    public string AccountApiName { get; set; } = "wsk_api";
+
     public string AccountAdminApiUrl { get; set; } = "";
     public string AccountAdminApiVersion { get; set; } = "";
     public string AccountAdminApiName { get; set; } = "wsk_admin_api";

@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
+    <!-- DO NOT pull the secrets file into your disconnected client here -->
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <IsPackable>false</IsPackable>

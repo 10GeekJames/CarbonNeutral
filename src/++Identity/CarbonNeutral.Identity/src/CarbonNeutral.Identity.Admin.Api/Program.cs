@@ -75,10 +75,7 @@ namespace CarbonNeutral.Identity.Admin.Api
 
                      configApp.AddJsonFile($"serilog.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
 
-                     if (env.IsDevelopment())
-                     {
-                         configApp.AddUserSecrets<Startup>(true);
-                     }
+                     configApp.AddUserSecrets<Startup>(true);
 
                      configurationRoot.AddAzureKeyVaultConfiguration(configApp);
 

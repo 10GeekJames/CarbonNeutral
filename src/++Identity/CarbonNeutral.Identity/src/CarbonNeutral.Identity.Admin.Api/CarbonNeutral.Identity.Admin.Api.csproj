@@ -1,15 +1,26 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
-    <PropertyGroup>
-	    <TargetFramework>net6.0</TargetFramework>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
 		<AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
-       <UserSecretsId>7c91d295-54c5-4d09-9bd6-fa56fb74011b</UserSecretsId>
-        <DockerComposeProjectPath>../../docker-compose.dcproj</DockerComposeProjectPath>
-        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-        <DockerfileContext>../..</DockerfileContext>
-    </PropertyGroup>
+		<DockerComposeProjectPath>../../docker-compose.dcproj</DockerComposeProjectPath>
+		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+		<DockerfileContext>../..</DockerfileContext>
+	</PropertyGroup>
+	<Choose>
+		<When Condition="'$(Configuration)' != 'Release'">
+			<PropertyGroup>
+				<UserSecretsId>7aa1d295-54c5-4d09-9bd6-fa56fb74011b</UserSecretsId>
+			</PropertyGroup>
+		</When>
+		<When Condition="'$(Configuration)' == 'Release'">
+			<PropertyGroup>
+				<UserSecretsId>7bb1d295-54c5-4d09-9bd6-fa56fb74011b</UserSecretsId>
+			</PropertyGroup>
+		</When>
+	</Choose>
 
-    <ItemGroup>
+	<ItemGroup>
 		<PackageReference Include="AspNetCore.HealthChecks.MySql" Version="6.0.2" />
 		<PackageReference Include="AspNetCore.HealthChecks.NpgSql" Version="6.0.1" />
 		<PackageReference Include="AspNetCore.HealthChecks.OpenIdConnectServer" Version="6.0.2" />
@@ -43,33 +54,33 @@
 		<PackageReference Include="Skoruba.Duende.IdentityServer.Shared.Configuration" Version="1.1.0" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1" />
 		<PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.3.1" />
-    </ItemGroup>
+	</ItemGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="../CarbonNeutral.Identity.Admin.EntityFramework.MySql/CarbonNeutral.Identity.Admin.EntityFramework.MySql.csproj" />
-        <ProjectReference Include="../CarbonNeutral.Identity.Admin.EntityFramework.PostgreSQL/CarbonNeutral.Identity.Admin.EntityFramework.PostgreSQL.csproj" />
-        <ProjectReference Include="../CarbonNeutral.Identity.Admin.EntityFramework.SqlServer/CarbonNeutral.Identity.Admin.EntityFramework.SqlServer.csproj" />
-        <ProjectReference Include="../CarbonNeutral.Identity.Shared/CarbonNeutral.Identity.Shared.csproj" />
-    </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="../CarbonNeutral.Identity.Admin.EntityFramework.MySql/CarbonNeutral.Identity.Admin.EntityFramework.MySql.csproj" />
+		<ProjectReference Include="../CarbonNeutral.Identity.Admin.EntityFramework.PostgreSQL/CarbonNeutral.Identity.Admin.EntityFramework.PostgreSQL.csproj" />
+		<ProjectReference Include="../CarbonNeutral.Identity.Admin.EntityFramework.SqlServer/CarbonNeutral.Identity.Admin.EntityFramework.SqlServer.csproj" />
+		<ProjectReference Include="../CarbonNeutral.Identity.Shared/CarbonNeutral.Identity.Shared.csproj" />
+	</ItemGroup>
 
-    <ItemGroup>
-        <Compile Update="Resources/ApiErrorResource.Designer.cs">
-            <DesignTime>True</DesignTime>
-            <AutoGen>True</AutoGen>
-            <DependentUpon>ApiErrorResource.resx</DependentUpon>
-        </Compile>
-    </ItemGroup>
+	<ItemGroup>
+		<Compile Update="Resources/ApiErrorResource.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>ApiErrorResource.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
 
-    <ItemGroup>
-        <EmbeddedResource Update="Resources/ApiErrorResource.resx">
-            <Generator>ResXFileCodeGenerator</Generator>
-            <LastGenOutput>ApiErrorResource.Designer.cs</LastGenOutput>
-        </EmbeddedResource>
-    </ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Update="Resources/ApiErrorResource.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>ApiErrorResource.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Dtos/Key/" />
-    </ItemGroup>
+	<ItemGroup>
+		<Folder Include="Dtos/Key/" />
+	</ItemGroup>
 
 </Project>
 

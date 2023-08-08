@@ -34,6 +34,10 @@ public class CustomAuthorizationMessageHandler : AuthorizationMessageHandler
                 "http://WordSearchKingdom.com:5286/api",
                 "http://WordSearchKingdom.com:5288/api",
                 "http://WordSearchKingdom.com:5290/api",
+
+                "https://WordSearchKingdom.com",
+                "https://wsk-api.WordSearchKingdom.com",
+                "https://account-api.WordSearchKingdom.com"              
                 
 
                  },

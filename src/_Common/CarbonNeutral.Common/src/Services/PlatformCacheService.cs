@@ -65,7 +65,13 @@ public class PlatformCacheService
         }
         else if (!isAuthenticated)
         {
-            throw new Exception("Must be authenticated");
+            KnownBusinessWebsite = await _accountModuleHttpClient.KnownBusinessWebsiteGetAsync(new());
+            Console.WriteLine($"InitAppDataAsync load data > {KnownBusinessWebsite?.Name}");
+            if (KnownBusinessWebsite != null)
+            {
+                SetBusinessDataToReady();
+                await Task.Delay(50);
+            }
         }
         SetAppDataToReady();
         await Task.Yield();

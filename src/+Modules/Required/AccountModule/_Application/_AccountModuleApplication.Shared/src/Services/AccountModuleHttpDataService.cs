@@ -1,5 +1,5 @@
 namespace AccountModuleApplication.Shared.Services;
-public partial class AccountModuleHttpDataService : IAccountModuleDataService
+public partial class AccountModuleHttpDataService : IAccountModuleDataService, IAccountModuleDataServiceNotAuthed
 {
     protected readonly HttpClient _httpClient;
 

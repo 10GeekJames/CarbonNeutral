@@ -11,11 +11,21 @@ public static class RegisterRequiredAccountModule
                 .AddHttpClient("AccountModuleHttpClient",
                         client =>
                         {
+                            client.BaseAddress = new Uri(appSettings.Endpoints.AccountApiUrl);
+                            client.Timeout = TimeSpan.FromSeconds(300);
+                        }
+                    ).AddHttpMessageHandler<CustomAuthorizationMessageHandler>();                    
+
+        // add the logged in users client endpoint for Account
+        builder
+            .Services
+                .AddHttpClient("AccountModuleNotAuthedHttpClient",
+                        client =>
+                        {
                             client.BaseAddress = new Uri(appSettings.Endpoints.AccountAdminApiUrl);
                             client.Timeout = TimeSpan.FromSeconds(300);
                         }
-
-                    ).AddHttpMessageHandler<CustomAuthorizationMessageHandler>();
+                    );
 
         // register the http client factory
         builder.Services.AddScoped<AccountModuleHttpClientFactory>();

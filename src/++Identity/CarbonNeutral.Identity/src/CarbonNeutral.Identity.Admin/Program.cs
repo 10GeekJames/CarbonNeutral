@@ -17,7 +17,7 @@ using Skoruba.Duende.IdentityServer.Shared.Configuration.Helpers;
 
 namespace CarbonNeutral.Identity.Admin
 {
-	public class Program
+    public class Program
     {
         private const string SeedArgs = "/seed";
         private const string MigrateOnlyArgs = "/migrateonly";
@@ -127,10 +127,7 @@ namespace CarbonNeutral.Identity.Admin
                      configApp.AddJsonFile($"identitydata.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
                      configApp.AddJsonFile($"identityserverdata.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
 
-                     if (env.IsDevelopment())
-                     {
-                         configApp.AddUserSecrets<Startup>(true);
-                     }
+                     configApp.AddUserSecrets<Startup>(true);
 
                      configurationRoot.AddAzureKeyVaultConfiguration(configApp);
 

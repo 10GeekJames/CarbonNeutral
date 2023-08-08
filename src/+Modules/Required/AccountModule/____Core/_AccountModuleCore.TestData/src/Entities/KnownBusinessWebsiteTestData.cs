@@ -8,8 +8,8 @@ public static class KnownBusinessWebsiteTestData {
 
 
     static KnownBusinessWebsiteTestData() {
-        JamesBusinessWebsite = new(KnownBusinessTestData.JamesBusiness, "localhost:5020", "10geek website");
-        KpBusinessWebsite = new (KnownBusinessTestData.KpBusiness, "localhost:5022", "kp corp");
+        JamesBusinessWebsite = new(KnownBusinessTestData.JamesBusiness, "localhost", "10geek website");
+        KpBusinessWebsite = new (KnownBusinessTestData.KpBusiness, "wordsearchkingdom.com", "kp corp");
         
         AllKnownBusinessWebsites = new List<KnownBusinessWebsite> {
             JamesBusinessWebsite,

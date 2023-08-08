@@ -13,7 +13,7 @@ public class Startup
     
     public void ConfigureServices(IServiceCollection services)
     {
-        //Microsoft.IdentityModel.Logging.IdentityModelEventSource.ShowPII = true;       
+        Microsoft.IdentityModel.Logging.IdentityModelEventSource.ShowPII = true;       
         services
             .Configure<CookiePolicyOptions>(options =>
             {
@@ -42,6 +42,8 @@ public class Startup
             services.AddAccountModuleSqlDbContext(connectionString);
         }        
         services.AddSingleton<IAccountModuleDataService, AccountModuleDirectDataService>();
+        services.AddSingleton<IAccountModuleDataServiceNotAuthed, AccountModuleDirectDataService>();
+        Console.WriteLine($"dbConnectionStrategy: {dbConnectionStrategy}, connectionString: {connectionString}");
         services.AddHttpContextAccessor();
         /* services
             .AddControllersWithViews()
@@ -71,7 +73,8 @@ public class Startup
                     .AddDefaultPolicy(builder =>
                     {
                         builder
-                            .WithOrigins("https://WordSearchKingdom.com", "http://WordSearchKingdom.com:5020", "http://localhost:5020")
+                            //.WithOrigins("https://wordsearchkingdom.com", "http://WordSearchKingdom.com:5020", "http://localhost:5020")
+                            .AllowAnyOrigin()
                             .AllowAnyHeader()
                             .AllowAnyMethod()
                             .WithExposedHeaders("*");
