@@ -37,5 +37,9 @@ public static class RegisterRequiredAccountModule
         builder.Services.AddScoped<IAccountModuleDataService>(x => x
             .GetServices<AccountModuleHttpClientFactory>()
             .First().Create());
+
+        builder.Services.AddScoped<IAccountModuleDataServiceNotAuthed>(x => x
+            .GetServices<AccountModuleHttpClientFactory>()
+            .First().CreateNotAuthed());
     }
 }

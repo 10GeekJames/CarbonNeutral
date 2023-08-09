@@ -121,7 +121,7 @@ namespace CarbonNeutral.Identity.STS.Identity
             /* app.Use(async (ctx, next) =>
             {
                 ctx.Request.Scheme = "http";
-                ctx.Request.Host = new HostString("WordSearchKingdom.com:44310");
+                ctx.Request.Host = new HostString("WordSearchKingdom.com:44320");
                 
                 await next();
             }); */

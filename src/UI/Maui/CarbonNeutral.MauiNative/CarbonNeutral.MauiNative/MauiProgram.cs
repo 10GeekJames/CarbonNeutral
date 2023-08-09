@@ -28,7 +28,7 @@ public static class MauiProgram
 		// setup OidcClient
         builder.Services.AddSingleton(new OidcClient(new()
         {
-            Authority = "http://localhost:44310",
+            Authority = "http://localhost:44320",
 
             ClientId = "CarbonNeutralClient",
             Scope = "openid profile api",

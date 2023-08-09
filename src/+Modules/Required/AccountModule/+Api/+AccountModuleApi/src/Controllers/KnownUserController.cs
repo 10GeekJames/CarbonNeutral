@@ -13,7 +13,7 @@ public partial class KnownUserController : BaseController
         referrer = Request?.GetTypedHeaders()?.Referer?.Host.ToString();        
         //Console.WriteLine($"Current Host == {referrer}");
 
-        var knownBusinessWebsiteGetByUrlQry = new KnownBusinessWebsiteGetByUrlQry($"{Request?.GetTypedHeaders()?.Referer?.Host.ToString()}:{Request?.GetTypedHeaders()?.Referer?.Port.ToString()}");
+        var knownBusinessWebsiteGetByUrlQry = new KnownBusinessWebsiteGetByUrlQry($"{Request?.GetTypedHeaders()?.Referer?.Host.ToString()}");
         var knownBusinessWebsiteGetByUrlResult = await _mediator.Send(knownBusinessWebsiteGetByUrlQry);
 
         if (userId.HasValue && knownBusinessWebsiteGetByUrlResult != null)

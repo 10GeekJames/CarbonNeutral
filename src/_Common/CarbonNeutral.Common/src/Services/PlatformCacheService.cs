@@ -4,9 +4,11 @@ namespace CarbonNeutral.Common.Services;
 public class PlatformCacheService
 {
     private IAccountModuleDataService _accountModuleHttpClient;
-    public PlatformCacheService(IAccountModuleDataService knownAccountModuleClient)
+    private IAccountModuleDataServiceNotAuthed _accountModuleNotAuthedHttpClient;
+    public PlatformCacheService(IAccountModuleDataService knownAccountModuleClient, IAccountModuleDataServiceNotAuthed knownAccountModuleNotAuthedClient)
     {
         _accountModuleHttpClient = knownAccountModuleClient;
+        _accountModuleNotAuthedHttpClient = knownAccountModuleNotAuthedClient;
     }
     public KnownUserViewModel KnownUser { get; set; } = null;
     public KnownBusinessWebsiteViewModel KnownBusinessWebsite { get; set; } = new();
@@ -65,7 +67,7 @@ public class PlatformCacheService
         }
         else if (!isAuthenticated)
         {
-            KnownBusinessWebsite = await _accountModuleHttpClient.KnownBusinessWebsiteGetAsync(new());
+            KnownBusinessWebsite = await _accountModuleNotAuthedHttpClient.KnownBusinessWebsiteGetAsync(new());
             Console.WriteLine($"InitAppDataAsync load data > {KnownBusinessWebsite?.Name}");
             if (KnownBusinessWebsite != null)
             {

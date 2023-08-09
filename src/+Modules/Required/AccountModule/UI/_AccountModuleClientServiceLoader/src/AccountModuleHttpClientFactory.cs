@@ -11,5 +11,9 @@ public class AccountModuleHttpClientFactory
     public IAccountModuleDataService Create()
     {
         return new AccountModuleHttpDataService(this._services.GetRequiredService<IHttpClientFactory>().CreateClient("AccountModuleHttpClient"));
+    } 
+    public IAccountModuleDataServiceNotAuthed CreateNotAuthed()
+    {
+        return new AccountModuleHttpDataService(this._services.GetRequiredService<IHttpClientFactory>().CreateClient("AccountModuleNotAuthedHttpClient"));
     }    
 }
