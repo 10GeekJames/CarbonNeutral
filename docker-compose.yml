@@ -1,23 +1,22 @@
 version: "3.9"
+networks:
+  network1:
+    name: commonspaces
+    external: true
 services:
   wordsearchkingdom-shared-base:
     volumes:
-      - $APPDATA/Microsoft/UserSecrets/7c91d295-54c5-4d09-9bd6-fa56fb74011b:/root/.microsoft/usersecrets/7c91d295-54c5-4d09-9bd6-fa56fb74011b
-      - $HOME/.microsoft/usersecrets/7c91d295-54c5-4d09-9bd6-fa56fb74011b:/root/.microsoft/usersecrets/7c91d295-54c5-4d09-9bd6-fa56fb74011b
+      - $APPDATA/Microsoft/UserSecrets/7aa1d295-54c5-4d09-9bd6-fa56fb74011b:/root/.microsoft/usersecrets/7aa1d295-54c5-4d09-9bd6-fa56fb74011b
+      - $HOME/.microsoft/usersecrets/7aa1d295-54c5-4d09-9bd6-fa56fb74011b:/root/.microsoft/usersecrets/7aa1d295-54c5-4d09-9bd6-fa56fb74011b
     build:
       context: ./
       dockerfile: ./build/local-shared-base/Dockerfile
     image: local:wordsearchkingdom-shared-base
   id-wordsearchkingdom:
     volumes:
-      - $APPDATA/Microsoft/UserSecrets/7c91d295-54c5-4d09-9bd6-fa56fb74011b:/root/.microsoft/usersecrets/7c91d295-54c5-4d09-9bd6-fa56fb74011b
-      - $HOME/.microsoft/usersecrets/7c91d295-54c5-4d09-9bd6-fa56fb74011b:/root/.microsoft/usersecrets/7c91d295-54c5-4d09-9bd6-fa56fb74011b
+      - $APPDATA/Microsoft/UserSecrets/7aa1d295-54c5-4d09-9bd6-fa56fb74011b:/root/.microsoft/usersecrets/7aa1d295-54c5-4d09-9bd6-fa56fb74011b
+      - $HOME/.microsoft/usersecrets/7aa1d295-54c5-4d09-9bd6-fa56fb74011b:/root/.microsoft/usersecrets/7aa1d295-54c5-4d09-9bd6-fa56fb74011b
     restart: unless-stopped
-    logging:
-      driver: "json-file"
-      options:
-        max-file: 5
-        max-size: 10m
     build:
       context: ./
       dockerfile: ./src/++Identity/CarbonNeutral.Identity/src/CarbonNeutral.Identity.STS.Identity/Dockerfile
