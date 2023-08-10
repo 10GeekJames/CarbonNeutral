@@ -2,7 +2,7 @@ FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
 EXPOSE 44302
 EXPOSE 44303
-EXPOSE 44310
+EXPOSE 44320
 
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build

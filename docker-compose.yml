@@ -21,11 +21,11 @@ services:
       context: ./
       dockerfile: ./src/++Identity/CarbonNeutral.Identity/src/CarbonNeutral.Identity.STS.Identity/Dockerfile
     ports:
-      - "44310:44310"
+      - "44320:44320"
     depends_on:
       - wordsearchkingdom-shared-base
     environment:
-      - VIRTUAL_HOST=wordsearchkingdom.com:44310
+      - VIRTUAL_HOST=wordsearchkingdom.com:44320
       - 'AdminConfiguration__IdentityAdminBaseUrl=https://id.wordsearchkingdom.com'
       - 'AdvancedConfiguration__IssuerUri=https://id.wordsearchkingdom.com'
       - DockerConfiguration__UpdateCaCertificate=true

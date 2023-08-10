@@ -7,7 +7,7 @@ public class CustomAuthorizationMessageHandler : AuthorizationMessageHandler
     {
         ConfigureHandler(
             authorizedUrls: new[] {
-                "http://localhost:44310",
+                "http://localhost:44320",
                 "http://localhost:5020/api",
                 "http://localhost:5270/api",
                 "http://localhost:5272/api",
@@ -21,7 +21,7 @@ public class CustomAuthorizationMessageHandler : AuthorizationMessageHandler
                 "http://localhost:5288/api",
                 "http://localhost:5290/api",
 
-                "http://WordSearchKingdom.com:44310",
+                "http://WordSearchKingdom.com:44320",
                 "http://WordSearchKingdom.com:5020/api",
                 "http://WordSearchKingdom.com:5270/api",
                 "http://WordSearchKingdom.com:5272/api",
