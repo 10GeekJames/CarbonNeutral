@@ -13,7 +13,7 @@ public class KnownBusinessSeedWithData : IAccountModuleSeedScript
         foreach (var knownBusiness in KnownBusinessTestData.AllKnownBusinesses)
         {
             logger?.LogInformation("I was also here ;)");
-            if (!dbContext.KnownBusinesses.AsEnumerable().Any(rs => knownBusiness.Id.Equals(rs.Id)))
+            if (!dbContext.KnownBusinesses.AsEnumerable().Any(rs => knownBusiness.Name.Equals(rs.Name)))
             {
                 dbContext.KnownBusinesses.Add(knownBusiness);
                 logger?.LogInformation("{knownBusiness.Name} was created in the database.", knownBusiness.Name);

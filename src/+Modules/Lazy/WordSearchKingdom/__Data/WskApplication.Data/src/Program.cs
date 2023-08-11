@@ -26,8 +26,9 @@ public class Program
             {
                 logger.LogError(ex, "An error occurred seeding the DB.");
             }
+            logger.LogError("Run Complete");
         }
-
+        
         return;
         //host.Run();
     }

@@ -15,7 +15,7 @@ public class Program
             {
                 var context = services.GetRequiredService<AccountModuleDbContext>();
                 await context.Database.MigrateAsync();
-                await context.Database.EnsureCreatedAsync();
+                //await context.Database.EnsureCreatedAsync();
                 logger.LogInformation("Seeding database...");
                 var runBaseSeedData = new RunBaseSeedData();
                 await runBaseSeedData.Initialize(services);
@@ -53,11 +53,8 @@ public class Program
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
             .AddJsonFile($"appsettings.{environment}.json", optional: true, reloadOnChange: true);
 
-        if (isDevelopment)
-        {
-            configurationBuilder.AddUserSecrets<Startup>(true);
-        }
-
+        configurationBuilder.AddUserSecrets<Startup>(true);
+        
         var configuration = configurationBuilder.Build();
 
         //configuration.AddAzureKeyVaultConfiguration(configurationBuilder);

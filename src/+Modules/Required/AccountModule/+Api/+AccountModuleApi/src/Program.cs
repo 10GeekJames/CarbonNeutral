@@ -18,7 +18,7 @@ public class Program
     }
 
     public static IHostBuilder CreateHostBuilder(string[] args)
-    {   
+    {
         var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
         var isDevelopment = environment == Environments.Development;
 
@@ -27,14 +27,14 @@ public class Program
                 .ConfigureAppConfiguration((hostingContext, config) =>
                 {
                     config.AddUserSecrets<Startup>(true);
-                    
+
                     if (isDevelopment)
                     {
-                        
+
                     }
                     else
                     {
-                        
+
                         //config.AddUserSecrets<Startup>(true);
                         /*config.AddSecretsManager(region: RegionEndpoint.USEast1,
                         configurator: options =>
@@ -63,6 +63,6 @@ public class Program
                     logging.AddConsole();
                     // logging.AddAzureWebAppDiagnostics(); add this if deploying to Azure
                 });
-                });
+            });
     }
 }

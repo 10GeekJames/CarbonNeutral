@@ -9,6 +9,7 @@ public static class KnownBusinessWebsiteTestData {
 
     static KnownBusinessWebsiteTestData() {
         JamesBusinessWebsite = new(KnownBusinessTestData.JamesBusiness, "localhost", "10geek website");
+        
         KpBusinessWebsite = new (KnownBusinessTestData.KpBusiness, "wordsearchkingdom.com", "kp corp");
         
         AllKnownBusinessWebsites = new List<KnownBusinessWebsite> {

@@ -12,6 +12,7 @@ public static class KnownBusinessTestData {
         KpBusiness = new ("kp corp");
         
         JamesBusiness.AddKnownBusinessWebsite(KnownBusinessWebsiteTestData.JamesBusinessWebsite);
+        KpBusiness.AddKnownBusinessWebsite(KnownBusinessWebsiteTestData.KpBusinessWebsite);
         
         AllKnownBusinesses = new List<KnownBusiness> {
             JamesBusiness,

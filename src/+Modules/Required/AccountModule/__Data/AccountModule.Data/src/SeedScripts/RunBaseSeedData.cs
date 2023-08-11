@@ -14,9 +14,9 @@ public class RunBaseSeedData
 
         foreach (var seedData in Assembly
             .GetExecutingAssembly()
-            .GetTypes()
-            .Where(x => x.IsClass && x.Name.Contains("SeedWithData") && !x.Name.Contains("RunBase"))
-            .OrderBy(rs => rs.Name))
+                .GetTypes()
+                    .Where(x => x.IsAssignableTo(typeof(IAccountModuleSeedScript)) && x.IsClass)
+                    .OrderBy(rs => rs.Name))
         {
             _logger.LogInformation($"Seeding ... {seedData.Name}", seedData.Name);
             ((IAccountModuleSeedScript) serviceProvider

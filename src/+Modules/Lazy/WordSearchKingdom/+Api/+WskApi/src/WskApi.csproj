@@ -27,7 +27,9 @@
   <ItemGroup>
     <Content Remove="appsettings.Development.json" />
   </ItemGroup>
-
+<PropertyGroup>
+ <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
+</PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Ardalis.HttpClientTestExtensions" Version="4.1.0" />
     <PackageReference Include="Ardalis.GuardClauses" Version="4.0.1" />

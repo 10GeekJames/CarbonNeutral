@@ -17,12 +17,45 @@ public class Program
         host.Run();
     }
 
-    public static IHostBuilder CreateHostBuilder(string[] args) =>
-        Host.CreateDefaultBuilder(args)
-            .UseServiceProviderFactory(new AutofacServiceProviderFactory())
-            .ConfigureWebHostDefaults(webBuilder =>
-            {
-                webBuilder
+    public static IHostBuilder CreateHostBuilder(string[] args)
+    {
+        var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+        var isDevelopment = environment == Environments.Development;
+
+        return Host.CreateDefaultBuilder(args)
+                .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+                .ConfigureAppConfiguration((hostingContext, config) =>
+                {
+                    config.AddUserSecrets<Startup>(true);
+
+                    if (isDevelopment)
+                    {
+
+                    }
+                    else
+                    {
+
+                        //config.AddUserSecrets<Startup>(true);
+                        /*config.AddSecretsManager(region: RegionEndpoint.USEast1,
+                        configurator: options =>
+                        {
+                            options.SecretFilter = entry => entry.Name.StartsWith($"{env}_{appName}_");
+                            options.KeyGenerator = (entry, s) => s
+                                .Replace($"{env}_Database__", string.Empty)
+                                .Replace("__", ":")
+                            ;
+
+                        }); */
+                    }
+
+                    if (args != null)
+                    {
+                        config.AddCommandLine(args);
+                    }
+                })
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder
                     .UseStartup<Startup>()
                     .ConfigureLogging(logging =>
                 {
@@ -31,5 +64,6 @@ public class Program
                     // logging.AddAzureWebAppDiagnostics(); add this if deploying to Azure
                 });
             });
-    
+
+    }
 }
