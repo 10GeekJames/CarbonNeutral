@@ -37,10 +37,11 @@
         //PlatformCacheService.SetAppDataToReady();
         var authstate = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         user = authstate.User;
-        isAuthenticated = (user?.Identity?.IsAuthenticated == true);
-
+        isAuthenticated = user?.Identity?.IsAuthenticated ?? false == true;
+        Console.WriteLine($"user is {isAuthenticated}");
         if (!hasRunAppInit)
         {
+            Console.WriteLine("Running App Init");
             await GetAppData();
             hasRunAppInit = true;
             //PlatformCacheService.OnSkinChange += ApplySkin;
@@ -61,6 +62,7 @@
     }
     private async Task GetAppData()
     {
+        Console.WriteLine($"InitAppDataAsync: {isAuthenticated}");
         await PlatformCacheService.InitAppDataAsync(isAuthenticated);
         while (!PlatformCacheService.AppDataIsReady)
         {
@@ -71,6 +73,15 @@
 
     private async Task OnNavigateAsync(NavigationContext navContext)
     {
+        var authstate = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        user = authstate.User;
+        var isAuthdSecondCheck = (user?.Identity?.IsAuthenticated == true);
+        if (isAuthenticated != isAuthdSecondCheck)
+        {
+            isAuthenticated = isAuthdSecondCheck;
+            await GetAppData();
+        }
+        
         Console.WriteLine("OnNavAsync");
 
         while (!PlatformCacheService.AppDataIsReady)
