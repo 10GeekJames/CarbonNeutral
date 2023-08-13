@@ -22,6 +22,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.MapHub<CarbonNeutralHub>("/wskHub");
+app.MapHub<CarbonNeutralHub>("/CarbonNeutralHub");
 
 app.Run();
