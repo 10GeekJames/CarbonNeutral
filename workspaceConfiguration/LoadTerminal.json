@@ -145,6 +145,52 @@
                     "num": 5
                 }             
             ]
+        },       
+        {
+            "name": "LiveRoomModuleCore",
+            "enabled": true,
+            "terminals": [
+                {
+                    "name": "LiveRoomModuleCore.UnitTests",
+                    "path": "./src/+Modules/Required/LiveRoomModule/____Core/LiveRoomModuleCore.UnitTests/src",
+                    "cmd": [
+                        "dotnet test"
+                    ],
+                    "num": 3
+                },
+                {
+                    "name": "LiveRoomModuleInfrastructure.IntegrationTests",
+                    "path": "./src/+Modules/Required/LiveRoomModule/___Infrastructure/LiveRoomModuleInfrastructure.IntegrationTests/src",
+                    "cmd": [
+                        "dotnet test"
+                    ],
+                    "num": 3
+                },
+                {
+                    "name": "LiveRoomModuleApplication.FeatureTests",
+                    "path": "./src/+Modules/Required/LiveRoomModule/_Application/LiveRoomModuleApplication.FeatureTests/src",
+                    "cmd": [
+                        "dotnet test"
+                    ],
+                    "num": 3
+                },
+                {
+                    "name": "LiveRoomModuleApi.FunctionalTests",
+                    "path": "./src/+Modules/Required/LiveRoomModule/+Api/+LiveRoomModuleApi.FunctionalTests/src",
+                    "cmd": [
+                        "echo build this"
+                    ],
+                    "num": 3
+                }   ,
+                {
+                    "name": "LiveRoomModuleApi",                      
+                    "path": "./src/+Modules/Required/LiveRoomModule/+Api/+LiveRoomModuleApi/src",
+                    "cmd": [
+                        "dotnet watch run"
+                    ],
+                    "num": 3
+                }             
+            ]
         }
     ]
 }

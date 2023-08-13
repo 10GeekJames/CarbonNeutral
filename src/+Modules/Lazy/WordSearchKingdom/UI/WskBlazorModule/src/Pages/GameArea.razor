@@ -25,6 +25,8 @@
 
 
 @code {
+    [CascadingParameter]
+    protected bool IsMobile { get; set; }
     [Parameter] 
     public Guid GameId { get; set; }
     private GameViewModel _chosenGame { get; set; }
@@ -32,9 +34,7 @@
     private string _gameTitle { get; set; } = "Word Search Title";
     protected char[,] SelectedGridCells { get; set; }
     protected List<System.Drawing.Point> SelectedGridCellPoints { get; set; } = new();
-    [CascadingParameter]
-    protected bool IsMobile { get; set; }
-
+    
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();

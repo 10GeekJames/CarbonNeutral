@@ -1,0 +1,111 @@
+@page "/liveRoom/newliveRoomSession"
+@layout MainLayoutLanding
+@using System.Text.RegularExpressions
+@using System.Text
+@using System.ComponentModel.DataAnnotations
+@inject IStringLocalizer<NewLiveRoomSession> Localize
+
+<PageTitle>Word Search Kingdom - Create New LiveRoomSession</PageTitle>
+
+<style>
+    .mud-input-outlined-border {
+        @* border-color: blue !important; *@
+    }
+
+    .mud-input-outlined-border:hover {
+        border-color: red !important;
+        background-color: blue !important;
+    }
+    .mud-input-label {
+        @* color: hotpink !important; *@
+        @* transition: none !important;
+        animation: none !important; *@
+    }
+</style>
+
+
+<MudContainer>
+    <MudPaper Class="pa-4">
+        <MudForm @ref="form" @bind-IsValid="@success">
+            <MudField Label="LiveRoomSession Info" Variant="Variant.Outlined">
+                <MudTextField @bind-Value=_liveRoomSessionTitle T="string" Label="LiveRoomSession Title" Required="true" RequiredError="LiveRoomSession Title is required!" />
+                <MudNumericField @bind-Value=_gridSize Min=0 Max=100 Label="Grid Size" Required="true" RequiredError="Grid Size is required!" HelperText="Recommended: Mobile(13), Tablet(25), Max(100)"  />
+                <MudTextField @bind-Value=_wordsToHide T="string" Label="Words To Hide" Lines="6"  Required="true" HelperText="Seperate list by , or new lines" RequiredError="Words are required!"/>
+                <MudSelect @bind-Value=_difficulty T="LiveRoomSessionDifficulties" Label="Difficulty" AnchorOrigin="Origin.BottomCenter">
+                    <MudSelectItem Value=LiveRoomSessionDifficulties.Easy >Easy</MudSelectItem>
+                    <MudSelectItem Value=LiveRoomSessionDifficulties.Medium >Medium</MudSelectItem>
+                    <MudSelectItem Value=LiveRoomSessionDifficulties.Hard >Hard</MudSelectItem>
+                    <MudSelectItem Value=LiveRoomSessionDifficulties.ExtraHard >Extreme</MudSelectItem>
+                </MudSelect>
+                <MudTextField @bind-Value=_categories T="string" Label="Categories" />
+                <MudTextField  @bind-Value=_tags T="string" Label="Tags" />
+            </MudField>
+            @* <div class="d-flex align-center justify-space-between mt-4"> *@
+                <MudStack Row=@(IsMobile ? false : true) Class="mt-4">
+                    <MudCheckBox T="bool" Required="true" RequiredError="You should double check." Label="Everything is Complete"  />
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="@(!success)" Class="ml-auto" OnClick=@CreateNewLiveRoomSession>Create LiveRoomSession</MudButton>
+                </MudStack>
+            @* </div> *@
+        </MudForm>   
+    </MudPaper>
+</MudContainer>
+
+
+@code {
+    [CascadingParameter]
+    protected bool IsMobile { get; set; }
+    bool success;
+    string _liveRoomSessionTitle { get; set; } = "";
+    int _gridSize { get; set; } = 25;
+    string _wordsToHide { get; set; } = "";
+    LiveRoomSessionDifficulties _difficulty { get; set; } = LiveRoomSessionDifficulties.Easy;
+    string _categories { get; set; } = "General";
+    string _tags { get; set; } = "General";
+
+
+    MudForm? form;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+    }
+
+    public async Task CreateNewLiveRoomSession()
+    {
+        form?.Validate();
+        if (_wordsToHide is null)
+        {
+            return;
+        }
+
+        List<HiddenWordViewModel> hiddenWords = _wordsToHide.Split(new[] { "\r\n", "\r", "\n", "," }, StringSplitOptions.RemoveEmptyEntries)
+            .Select(word => {
+                var pattern = @"\p{L}+";
+                var rx = new Regex(pattern);
+                var wordMatches = rx.Matches(word);
+                var cleanWord = new StringBuilder();
+                foreach(Match match in wordMatches)
+                {
+                    cleanWord.Append(match.Value);
+                }
+                return new HiddenWordViewModel { Word = cleanWord.ToString().ToUpper() };
+                })
+            .ToList();
+
+        List<LiveRoomSessionCategoryViewModel> categories = _categories.Split(new[] { "\r\n", "\r", "\n", "," }, StringSplitOptions.RemoveEmptyEntries)
+            .Select(category => new LiveRoomSessionCategoryViewModel { Title = category.Trim().Replace(" ", "_").ToUpper() })
+            .ToList();
+
+        List<LiveRoomSessionTagViewModel> tags = _tags.Split(new[] { "\r\n", "\r", "\n", "," }, StringSplitOptions.RemoveEmptyEntries)
+            .Select(tag => new LiveRoomSessionTagViewModel { Title = tag.Trim().Replace(" ", "_").ToUpper() })
+            .ToList();
+
+        Console.WriteLine(hiddenWords.Count());
+        hiddenWords.ForEach(word => Console.WriteLine(word.Word));
+
+        var request = new LiveRoomSessionCreateNewRequest(_liveRoomSessionTitle, _gridSize, _gridSize, hiddenWords, _difficulty, categories, tags);
+        LiveRoomSessionViewModel liveRoomSession = await LiveRoomDataService.LiveRoomSessionCreateNewAsync(request); 
+        NavigationManager.NavigateTo($"/liveRoom/liveRoomSession/{liveRoomSession.Id}"); 
+    }
+
+}

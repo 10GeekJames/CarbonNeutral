@@ -1,0 +1,12 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- LiveRoomModule -->
+  <ItemGroup>
+    <ProjectReference Include="./../../../../+Modules/Required/LiveRoomModule/____Core/_LiveRoomModuleCore.TestData/src/LiveRoomModuleCore.TestData.csproj" />
+    <ProjectReference Include="./../../../../+Modules/Required/LiveRoomModule/___Infrastructure/LiveRoomModuleInfrastructure/src/LiveRoomModuleInfrastructure.csproj" />
+    <ProjectReference Include="./../../../../+Modules/Required/LiveRoomModule/_Application/_LiveRoomModuleApplication.Shared/src/LiveRoomModuleApplication.Shared.csproj" />
+    <ProjectReference Include="./../../../../+Modules/Required/LiveRoomModule/UI/_LiveRoomModuleClientServiceLoader/src/LiveRoomModuleClientServiceLoader.csproj" />
+    <ProjectReference Include="./../../../../+Modules/Required/LiveRoomModule/UI/LiveRoomModuleBlazorModuleAdmin/src/LiveRoomModuleBlazorModuleAdmin.csproj" />
+    <BlazorWebAssemblyLazyLoad Include="LiveRoomModuleBlazorModuleAdmin.dll" />
+  </ItemGroup>
+  <!-- /LiveRoomModule -->
+</Project>

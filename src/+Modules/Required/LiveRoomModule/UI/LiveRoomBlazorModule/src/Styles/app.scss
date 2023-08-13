@@ -1,0 +1,22 @@
+@use './base/_variables' as v;
+@use './base/mixins' as m;
+
+@import './base/_imports';
+
+SidewaysList ul {
+    @include m.horizontal-list;
+}
+
+td {
+    &:hover {
+        background-color: blue;
+    }
+}
+
+.mud-input-outlined-border {
+    border-color: #000000 !important;
+}
+
+.mud-typography {
+    color: #000000 !important;
+}

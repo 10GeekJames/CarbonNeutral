@@ -1,0 +1,20 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- WordSearchKingdom -->
+  <ItemGroup>
+
+  <ProjectReference Include="./../../../../../src/+Modules/Required/LiveRoomModule/____Core/_LiveRoomModuleCore.TestData/src/LiveRoomModuleCore.TestData.csproj" />
+    <ProjectReference Include="./../../../../../src/+Modules/Required/LiveRoomModule/_Application/_LiveRoomModuleApplication.Shared/src/LiveRoomModuleApplication.Shared.csproj" />
+    <ProjectReference Include="./../../../../../src/+Modules/Required/LiveRoomModule/UI/_LiveRoomModuleClientServiceLoader/src/LiveRoomModuleClientServiceLoader.csproj" />
+    <ProjectReference Include="./../../../../+Modules/Lazy/WordSearchKingdom/____Core/WskCore.WskTestData/src/WskCore.WskTestData.csproj" />
+    <ProjectReference Include="./../../../../+Modules/Lazy/WordSearchKingdom/___Infrastructure/WskInfrastructure/src/WskInfrastructure.csproj" />
+    <ProjectReference Include="./../../../../+Modules/Lazy/WordSearchKingdom/_Application/_WskApplication.Shared/src/WskApplication.Shared.csproj" />
+    <ProjectReference Include="./../../../../+Modules/Lazy/WordSearchKingdom/UI/_WskModuleClientServiceLoader/src/WskModuleClientServiceLoader.csproj" />
+
+    <ProjectReference Include="./../../../../+Modules/Lazy/WordSearchKingdom/UI/WskBlazorModule/src/WskBlazorModule.csproj" />
+    <BlazorWebAssemblyLazyLoad Include="WskBlazorModule.dll" />
+
+    <ProjectReference Include="./../../../../+Modules/Lazy/WordSearchKingdom/UI/WskBlazorModuleAdmin/src/WskBlazorModuleAdmin.csproj" />
+    <BlazorWebAssemblyLazyLoad Include="WskBlazorModuleAdmin.dll" />
+  </ItemGroup>
+  <!-- /WordSearchKingdom -->
+</Project>

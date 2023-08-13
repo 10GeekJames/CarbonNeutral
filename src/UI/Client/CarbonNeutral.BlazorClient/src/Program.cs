@@ -3,6 +3,8 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
+builder.Services.AddSingleton<ISignalRService, SignalRService>();
+
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 if (!builder.HostEnvironment.IsDevelopment())
 {
@@ -49,7 +51,6 @@ builder.RegisterRequiredModules();
 // smash in all the resx files
 
 builder.Services.AddLocalization();
-
 builder.Services.AddApiAuthorization(options =>
 {
     options.AuthenticationPaths.LogInPath = "Account/login";

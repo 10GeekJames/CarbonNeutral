@@ -1,0 +1,55 @@
+@page "/liveRoom/liveRoomSession/{LiveRoomSessionId:guid}"
+
+@inject IStringLocalizer<LiveRoomSessionArea> Localize
+@layout MainLayoutLanding
+
+<PageTitle>LIVEROOM - @_liveRoomSessionTitle</PageTitle>
+
+
+<MudContainer MaxWidth="MaxWidth.ExtraExtraLarge" Class=@(IsMobile ? "pa-0 overflow-x-auto" : "")>
+    @if (_tryCheat)
+    {
+        <div style="position: absolute;top: 50%; left: 50%; transform: translate(-50%, -100%); z-index: 100;">
+            <MudAlert Severity="Severity.Error" Variant="Variant.Filled">
+                Ah Ah Ah! You didn't say the magic code!
+                <MudImage Class="my-4 pr-8" Style="opacity: 0.75;" Src="https://media.tenor.com/Vyg73kR334sAAAAC/jurassic-park-ah.gif" />
+                <MudButton  Color="Color.Info" Variant="Variant.Filled" OnClick="() => OnRecreateLiveRoomSession()">Confirm</MudButton>
+            </MudAlert>
+        </div>
+    }
+    @if(_chosenLiveRoomSession != null) {
+        <LiveRoomSessionComponent LiveRoomSession="@_chosenLiveRoomSession" OnRecreateLiveRoomSession=OnRecreateLiveRoomSession SelectedGridCells=SelectedGridCells SelectedGridCellPoints=SelectedGridCellPoints />
+    }
+</MudContainer>
+
+
+
+@code {
+    [CascadingParameter]
+    protected bool IsMobile { get; set; }
+    [Parameter] 
+    public Guid LiveRoomSessionId { get; set; }
+    private LiveRoomSessionViewModel _chosenLiveRoomSession { get; set; }
+    private bool _tryCheat { get; set; } = false;
+    private string _liveRoomSessionTitle { get; set; } = "Word Search Title";
+    protected char[,] SelectedGridCells { get; set; }
+    protected List<System.Drawing.Point> SelectedGridCellPoints { get; set; } = new();
+    
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        var liveRoomSessionGetByIdRequest = new LiveRoomSessionGetByIdRequest(LiveRoomSessionId);
+        _chosenLiveRoomSession = await LiveRoomDataService.LiveRoomSessionGetByIdAsync(liveRoomSessionGetByIdRequest);
+        SelectedGridCells = LiveRoomSessionGridUtility.ConvertRowCellStringToArray(_chosenLiveRoomSession.LiveRoomSessionGrid.RowCellData);
+        SelectedGridCellPoints = LiveRoomSessionGridUtility.ConvertSelectedWordsToPointList(_chosenLiveRoomSession.LiveRoomSessionGrid.CompletedWordCellData);        
+        _liveRoomSessionTitle = _chosenLiveRoomSession.Title;
+    }
+
+    public async Task OnRecreateLiveRoomSession(){
+        var request = new LiveRoomSessionRecreateGridRequest(_chosenLiveRoomSession.Id);
+        _chosenLiveRoomSession = await LiveRoomDataService.LiveRoomSessionRecreateGridAsync(request);         
+        SelectedGridCells = LiveRoomSessionGridUtility.ConvertRowCellStringToArray(_chosenLiveRoomSession.LiveRoomSessionGrid.RowCellData);
+        SelectedGridCellPoints = LiveRoomSessionGridUtility.ConvertSelectedWordsToPointList(_chosenLiveRoomSession.LiveRoomSessionGrid.CompletedWordCellData);               
+    }
+
+}

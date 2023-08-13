@@ -1,0 +1,31 @@
+@page "/liveRoom/allliveRoomSessions"
+@layout MainLayoutLanding
+@inject IStringLocalizer<AllLiveRoomSessions> Localize
+
+<PageTitle>LIVEROOM - All LiveRoomSessions</PageTitle>
+
+<MudText Typo="Typo.h4" Align="Align.Center" Style="text-wrap: balance;" Class="highlight-shadow">All LiveRoomSessions</MudText>
+<MudContainer>
+    <MudPaper Class="mt-4 pa-4 border-double border-4 rounded-lg" Style="background: transparent;">
+        <MudButton Class="mt-8" FullWidth="true" Variant="Variant.Filled" Color="Color.Primary" OnClick=@NavigateToNewLiveRoomSession>Create New LiveRoomSession</MudButton>
+        <AllLiveRoomSessionsComponent LiveRoomSessions=@_liveRoomSessions />
+    </MudPaper>
+</MudContainer>
+
+
+@code {
+    private List<LiveRoomSessionViewModel> _liveRoomSessions = new();
+    
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();                     
+        var request = new LiveRoomSessionsGetAllRequest();
+        _liveRoomSessions = await LiveRoomDataService.LiveRoomSessionsGetAllAsync(request);
+    }
+
+
+    protected async Task NavigateToNewLiveRoomSession()
+    {
+        NavigationManager.NavigateTo("/liveRoom/newliveRoomSession");
+    }
+}

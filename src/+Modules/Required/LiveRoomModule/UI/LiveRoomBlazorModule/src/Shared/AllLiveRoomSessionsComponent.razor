@@ -1,0 +1,60 @@
+@inject IStringLocalizer<AllLiveRoomSessionsComponent> Localize
+
+<MudGrid Class="pa-4" Justify="Justify.Center">
+    @foreach (var liveRoomSession in LiveRoomSessions)
+    {
+        <MudItem Class="align-self-center">
+            <MudCard Class="border-solid border-2 d-flex flex-column justify-space-around rounded-lg " Style="height: 350px; width: 250px; background: rgba(0, 0, 0, 0.25);">
+                <MudCardHeader Class="justify-center">
+                    <MudText Typo="Typo.h6" Class="overflow-y-hidden align-self-center liveRoomSession__card-title" Style="max-height: 30px;">@liveRoomSession.Title</MudText>
+                </MudCardHeader>
+                <MudCardContent >
+                    <MudStack Style="height: 100px;" Spacing="0" Class="overflow-y-auto">
+                        @foreach (var word in liveRoomSession.LiveRoomSessionGrid.HiddenWords)
+                        {
+                            <MudChip Color=@isFoundStyling(word.IsFound) Class="m-1" Size="Size.Small">@word.Word</MudChip>
+                        }
+                    </MudStack>
+                    <MudText Typo="Typo.caption">@Localize["Difficulty"]</MudText>
+                    <MudStack Row="true">
+                        <MudChip Color="Color.Info" Size="Size.Small" Variant="@isSelectedDifficulty(liveRoomSession.LiveRoomSessionDifficulty, "Easy")">E</MudChip>
+                        <MudChip Color="Color.Success" Size="Size.Small" Variant="@isSelectedDifficulty(liveRoomSession.LiveRoomSessionDifficulty, "Medium")">M</MudChip>
+                        <MudChip Color="Color.Warning" Size="Size.Small" Variant="@isSelectedDifficulty(liveRoomSession.LiveRoomSessionDifficulty, "Hard")">H</MudChip>
+                        <MudChip Color="Color.Error" Size="Size.Small" Variant="@isSelectedDifficulty(liveRoomSession.LiveRoomSessionDifficulty, "ExtraHard")">Ex</MudChip>
+                    </MudStack>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="() => NavigateToLiveRoomSession(liveRoomSession.Id.ToString())" FullWidth="true">@Localize["Play"]</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+    }
+</MudGrid>
+
+
+@code {
+    [Parameter]
+    public List<LiveRoomSessionViewModel> LiveRoomSessions { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();                    
+    }
+
+    protected async Task NavigateToLiveRoomSession(string liveRoomSessionId)
+    {
+        NavigationManager.NavigateTo($"/liveRoom/liveRoomSession/{liveRoomSessionId}");
+    }
+
+    private MudBlazor.Color isFoundStyling(bool isFound) {
+        if (isFound) {
+            return Color.Success;
+        }
+        return Color.Primary;
+    }
+    private MudBlazor.Variant isSelectedDifficulty(LiveRoomSessionDifficulties difficulty, string chipDifficulty) {
+        if (difficulty.ToString() == chipDifficulty) {
+            return Variant.Outlined;
+        }
+        return Variant.Filled;
+    }
+}

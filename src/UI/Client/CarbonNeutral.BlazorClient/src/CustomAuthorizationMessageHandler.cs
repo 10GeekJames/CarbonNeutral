@@ -37,9 +37,8 @@ public class CustomAuthorizationMessageHandler : AuthorizationMessageHandler
 
                 "https://WordSearchKingdom.com",
                 "https://wsk-api.WordSearchKingdom.com",
-                "https://account-api.WordSearchKingdom.com"              
-                
-
+                "https://account-api.WordSearchKingdom.com",
+                "https://liveroom-api.WordSearchKingdom.com"
                  },
             scopes: new[] { "openid", "email", "profile", "roles" });
 

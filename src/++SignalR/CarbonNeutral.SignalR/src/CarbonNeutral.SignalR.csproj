@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <ProjectReference Include="./../../../__Kernel/CarbonNeutral.KernelShared/src/CarbonNeutral.KernelShared.csproj" />
+    <ProjectReference Include="./../../CarbonNeutral.SignalR.Models/src/CarbonNeutral.SignalR.Models.csproj" />
   </ItemGroup>
 
 </Project>

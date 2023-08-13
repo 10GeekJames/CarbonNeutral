@@ -1,0 +1,25 @@
+@inject IStringLocalizer<AllLiveRoomSessionsComponent> Localize
+
+<MudGrid Justify="Justify.Center">
+    @foreach (var liveRoomSession in LiveRoomSessions)
+    {
+        <MudItem Class="align-self-center">
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="() => NavigateToLiveRoomSession(liveRoomSession.Id.ToString())">@liveRoomSession.Title</MudButton>
+        </MudItem>
+    }
+</MudGrid>
+
+
+@code {
+    [Parameter]
+    public List<LiveRoomSessionViewModel> LiveRoomSessions { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();                    
+    }
+
+    protected async Task NavigateToLiveRoomSession(string liveRoomSessionId)
+    {
+        NavigationManager.NavigateTo($"/liveRoom/liveRoomSession/{liveRoomSessionId}");
+    }
+}

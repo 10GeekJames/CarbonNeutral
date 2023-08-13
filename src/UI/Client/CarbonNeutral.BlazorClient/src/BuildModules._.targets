@@ -1,0 +1,7 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- Required Modules -->
+  <Import Project="BuildModules.Account.targets" />
+  <Import Project="BuildModules.LiveRoom.targets"  />
+  <!-- Lazy Modules -->
+  <Import Project="BuildModules.Wsk.targets"  />  
+</Project>

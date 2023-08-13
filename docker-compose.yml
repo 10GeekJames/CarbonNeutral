@@ -5,7 +5,7 @@ networks:
     driver: bridge
     external: true
 services:
-  wordsearchkingdom-shared-base:
+  carbonneutral-shared-base:
     networks:
     - my-network
     volumes:
@@ -14,8 +14,8 @@ services:
     build:
       context: ./
       dockerfile: ./build/local-shared-base/Dockerfile    
-    image: local:wordsearchkingdom-shared-base
-  id-wordsearchkingdom:
+    image: local:carbonneutral-shared-base
+  id-carbonneutral:
     networks:
     - my-network
     volumes:
@@ -28,14 +28,14 @@ services:
     ports:
       - "44320:44320"
     depends_on:
-      - wordsearchkingdom-shared-base
+      - carbonneutral-shared-base
     environment:
       - VIRTUAL_HOST=wordsearchkingdom.com:44320
       - 'AdminConfiguration__IdentityAdminBaseUrl=https://id.wordsearchkingdom.com'
       - 'AdvancedConfiguration__IssuerUri=https://id.wordsearchkingdom.com'
       - DockerConfiguration__UpdateCaCertificate=true
       - ASPNETCORE_ENVIRONMENT=Development
-  account-api-wordsearchkingdom:
+  account-api-carbonneutral:
     networks:
     - my-network
     restart: unless-stopped
@@ -53,9 +53,29 @@ services:
     ports:
       - "5278:5278"
     depends_on:
-      - wordsearchkingdom-shared-base
-      - id-wordsearchkingdom
-  wsk-api-wordsearchkingdom:
+      - carbonneutral-shared-base
+      - id-carbonneutral
+  liveroom-api-carbonneutral:
+    networks:
+    - my-network
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-file: 5
+        max-size: 10m
+    volumes:
+      - $APPDATA/Microsoft/UserSecrets/7bb1d295-54c5-4d09-9bd6-fa56fb74011b:/root/.microsoft/usersecrets/7bb1d295-54c5-4d09-9bd6-fa56fb74011b
+      - $HOME/.microsoft/usersecrets/7bb1d295-54c5-4d09-9bd6-fa56fb74011b:/root/.microsoft/usersecrets/7bb1d295-54c5-4d09-9bd6-fa56fb74011b
+    build:
+      context: ./
+      dockerfile: ./src/+Modules/Required/LiveRoomModule/+Api/+LiveRoomModuleApi/src/Dockerfile
+    ports:
+      - "5278:5278"
+    depends_on:
+      - carbonneutral-shared-base
+      - id-carbonneutral
+  wsk-api-carbonneutral:
     networks:
     - my-network
     restart: unless-stopped
@@ -73,8 +93,8 @@ services:
     ports:
       - "5290:5290"
     depends_on:
-      - wordsearchkingdom-shared-base
-      - id-wordsearchkingdom
+      - carbonneutral-shared-base
+      - id-carbonneutral
   wordsearchkingdom-blazor-client:
     networks:
     - my-network
@@ -91,10 +111,10 @@ services:
       - "5020:5020"
       - "5021:5021"
     depends_on:
-      - wordsearchkingdom-shared-base
-      - id-wordsearchkingdom
-      - account-api-wordsearchkingdom
-      - wsk-api-wordsearchkingdom
+      - carbonneutral-shared-base
+      - id-carbonneutral
+      - account-api-carbonneutral
+      - wsk-api-carbonneutral
   #wordsearchkingdom-blazor-reverse-proxy:
   #  restart: unless-stopped
   #  logging:
@@ -109,8 +129,8 @@ services:
   #    - "80:80"
   #    - "443:443"
   #  depends_on:
-  #    - wordsearchkingdom-shared-base
-  #    - id-wordsearchkingdom
-  #    - account-api-wordsearchkingdom
-  #    - wsk-api-wordsearchkingdom
+  #    - carbonneutral-shared-base
+  #    - id-carbonneutral
+  #    - account-api-carbonneutral
+  #    - wsk-api-carbonneutral
   #    - wordsearchkingdom-blazor-client
