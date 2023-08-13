@@ -1,7 +1,5 @@
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
-EXPOSE 44302
-EXPOSE 44303
 EXPOSE 44320
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
@@ -47,8 +45,6 @@ FROM build AS publish
 RUN dotnet publish /src/CarbonNeutral.Identity.STS.Identity/CarbonNeutral.Identity.STS.Identity.csproj -c Release -o /app/publish
 
 FROM base AS final
-COPY ./build/local-reverse-proxy/domain.crt .
-COPY ./build/local-reverse-proxy/domain.rsa .
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENV ASPNETCORE_FORWARDEDHEADERS_ENABLED=true
