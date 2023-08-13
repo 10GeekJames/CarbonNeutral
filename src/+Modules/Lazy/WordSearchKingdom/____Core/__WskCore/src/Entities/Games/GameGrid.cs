@@ -24,10 +24,7 @@ public class GameGrid : BaseEntityTracked<Guid>
         Height = height;
         Width = width;
         _hiddenWords = hiddenWords.ToList();
-        RowCellData = convertRowCellArrayToString(setupGrid(height, width));
-        //_rowCells = setupGrid(height, width);
-        hideTheWordsOnGrid(hiddenWords);
-        fillEmptySpacesInTheGrid();
+        RecreateGrid();
     }
     private string convertRowCellArrayToString(char[,] rowCells)
     {
@@ -39,6 +36,16 @@ public class GameGrid : BaseEntityTracked<Guid>
     }
     public void RecreateGrid() //DoNotPropigate
     {
+        // find longest word in hidden words
+        var longestWord = _hiddenWords.OrderByDescending(word => word.Word.Length).First();
+        // find hidden words total count
+        var hiddenWordsCount = _hiddenWords.Count();
+        // if longest word is greater than height and width then throw exception
+        if (longestWord.Word.Length > Height && longestWord.Word.Length > Width)
+        {
+            throw new InvalidOperationException("The longest word is too long to fit on the grid.");
+        }
+        
         clearGrid();
         RowCellData = convertRowCellArrayToString(setupGrid(Height, Width));
         hideTheWordsOnGrid(HiddenWords);

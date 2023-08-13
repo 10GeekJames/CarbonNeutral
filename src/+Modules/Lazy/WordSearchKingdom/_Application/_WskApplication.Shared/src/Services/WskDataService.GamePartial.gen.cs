@@ -1,4 +1,4 @@
-// ag=yes
+// ag=no
 namespace WskApplication.Shared.Services; 
 public partial class WskHttpDataService
 {
@@ -16,7 +16,22 @@ public partial class WskHttpDataService
     {
         var response = await _httpClient.PostAsJsonAsync(request.BuildRouteFrom(), request);
 
-        response.EnsureSuccessStatusCode();
+        // response.EnsureSuccessStatusCode();
+
+        switch (response.StatusCode)
+        {
+            case System.Net.HttpStatusCode.OK:
+                return await response
+                    .Content
+                    .ReadFromJsonAsync<GameViewModel>();
+            case System.Net.HttpStatusCode.BadRequest:
+                var error = await response
+                    .Content
+                    .ReadAsStringAsync();
+                throw new ArgumentException(error);
+            default:
+                throw new ApplicationException(response.ReasonPhrase);
+        }
 
         return await response
             .Content
