@@ -9,10 +9,10 @@
         <MudButton Class="mt-8" FullWidth="true" Variant="Variant.Outlined" Color="Color.Primary" OnClick=@NavigateToNewGame>Create New Game</MudButton>
     </MudContainer>
     <MudContainer>
-        <MudExpansionPanel Class="mt-4 pa-4 border-double border-4 rounded-lg bg-transparent " Style="background: transparent;">
+        <MudExpansionPanel Class="mt-4 pa-4 border-double border-4 rounded-lg bg-transparent pa-xs-0" IsExpanded="true" Style="background: transparent;">
             <TitleContent><MudText Typo="Typo.h4" Align="Align.Center" Style="text-wrap: balance;" Class="highlight-shadow">My Games</MudText></TitleContent>
             <ChildContent>
-                <MudPaper Class="mt-4 pa-4 border-double border-4 rounded-lg bg-transparent " Style="background: transparent;">
+                <MudPaper Class="mt-4 pa-4 rounded-lg bg-transparent " Style="background: transparent;">
                     <AllGamesComponent Games=@_games />
                 </MudPaper>
             </ChildContent>
@@ -20,10 +20,10 @@
     </MudContainer>
     <MudDivider Class="my-8" />
     <MudContainer>
-        <MudExpansionPanel Class="mt-4 pa-4 border-double border-4 rounded-lg bg-transparent " Style="background: transparent;">
+        <MudExpansionPanel Class="mt-4 pa-4 border-double border-4 rounded-lg bg-transparent pa-xs-0" IsExpanded="true" Style="background: transparent;">
             <TitleContent><MudText Typo="Typo.h4" Align="Align.Center" Style="text-wrap: balance;" Class="highlight-shadow">Public Games</MudText></TitleContent>
             <ChildContent>
-                <MudPaper Class="mt-4 pa-4 border-double border-4 rounded-lg bg-transparent " Style="background: transparent;">
+                <MudPaper Class="mt-4 pa-4 rounded-lg bg-transparent " Style="background: transparent;">
                     <AllGamesComponent Games=@_publicGames/>
                 </MudPaper>
             </ChildContent>
