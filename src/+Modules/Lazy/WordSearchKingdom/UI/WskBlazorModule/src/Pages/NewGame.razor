@@ -78,7 +78,7 @@
         {
             return;
         }
-
+        _wordsToHide = _wordsToHide + ",WSK";
         List<HiddenWordViewModel> hiddenWords = _wordsToHide.Split(new[] { "\r\n", "\r", "\n", "," }, StringSplitOptions.RemoveEmptyEntries)
             .Select(word => {
                 var pattern = @"\p{L}+";
@@ -101,7 +101,8 @@
             .Select(tag => new GameTagViewModel { Title = tag.Trim().Replace(" ", "_").ToUpper() })
             .ToList();
 
-        Console.WriteLine(hiddenWords.Count());
+        @* hiddenWords = hiddenWords.Append(new HiddenWordViewModel { Word = "WSK" }); *@
+        @* Console.WriteLine(hiddenWords.Count()); *@
         hiddenWords.ForEach(word => Console.WriteLine(word.Word));
 
         var request = new GameCreateNewRequest(_gameTitle, _gridSizeHeight, _gridSizeWidth, hiddenWords, _difficulty, categories, tags);

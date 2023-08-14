@@ -62,10 +62,18 @@
                 <MudStack Class="my-6 overflow-y-auto" Style="max-height: 50vh;">
                     @foreach (var word in Game?.GameGrid.HiddenWords)
                     {
+                        if (word.Word == "WSK")
+                        {
+                            <MudChip Color=@isFoundStyling(word.IsFound) Style=@($"display: {(word.IsFound ? "inline-flex" : "none")};") Size="Size.Large">
+                                <MudText Class="p-8" Typo=@(IsMobile ? Typo.body1 : Typo.h5) Align="Align.Center">@word.Word</MudText>
+                            </MudChip>
+                            break;
+                        }
                         <MudChip Color=@isFoundStyling(word.IsFound) Size="Size.Large">
                             <MudText Class="p-8" Typo=@(IsMobile ? Typo.body1 : Typo.h5) Align="Align.Center">@word.Word</MudText>
                         </MudChip>
                     }
+
                 </MudStack>
                 <MudStack Spacing="4">
                     <MudButton Style="justify-self: flex-end;" Variant="Variant.Filled" Color="Color.Tertiary" OnClick=OnRecreateGame FullWidth="true" >Recreate Game</MudButton>  
