@@ -15,24 +15,42 @@
                 </div>
 
             }
-            <div class="play-area-grid align-items-center ma-auto" Style="@(($"grid-template-rows: repeat({Game.GameGrid.Width}, 1fr); grid-template-columns: repeat({Game.GameGrid.Height}, 1fr);"))">
-                @for (var x = 0; x < Game.GameGrid.Width; x++) {
-                    @for (var y = 0; y < Game.GameGrid.Height; y++) {                            
-                        var storeX = x;
-                        var storeY = y;
-                        char rowCell = SelectedGridCells[storeX,storeY];
-                    
-                        <RowCellComponent 
-                            RowCell=rowCell
-                            OnCellClick="HandleCellClick"
-                            X=storeX
-                            Y=storeY
-                            IsCompleted=@(SelectedGridCellPoints.Any(rs=>rs.X == storeX && rs.Y == storeY))
-                            IsSelected=@((bool)(firstClick.HasValue && firstClick.Value.x == storeX && firstClick.Value.y == storeY))
-                        />
+            <div style=@($"display: grid; grid-template-areas: \". a a \" \"b c c\" \"b c c\" ")>
+                <div style=@($"grid-area: a; display: flex; flex-direction: row;") class="mb-2">
+                    @foreach (var x in _widthLabel)
+                    {
+                        <div class="grid-cell__engraved-text-container grid-cell" style="border: 1px solid darkgray;">
+                            <MudText Class="highlight-shadow" Typo="Typo.body1" Align="Align.Center" Style="white-space: no-wrap;">@x</MudText>   
+                        </div>
+                    }
+                </div>
+                <div style=@($"grid-area: b; display: flex; flex-direction: column;") class="mr-2">
+                    @foreach (var y in _heightLabel)
+                    {
+                        <div class="grid-cell__engraved-text-container grid-cell" style="border: 1px solid darkgray;">
+                            <MudText Class="highlight-shadow" Typo="Typo.body1" Align="Align.Center" Style="white-space: no-wrap;">@y</MudText>   
+                        </div>
+                    }
+                </div>
+                <div class="play-area-grid align-items-center ma-auto" Style="@(($"grid-template-rows: repeat({Game.GameGrid.Width}, 1fr); grid-template-columns: repeat({Game.GameGrid.Height}, 1fr);"))">
+                    @for (var x = 0; x < Game.GameGrid.Width; x++) {
+                        @for (var y = 0; y < Game.GameGrid.Height; y++) {                            
+                            var storeX = x;
+                            var storeY = y;
+                            char rowCell = SelectedGridCells[storeX,storeY];
+                        
+                            <RowCellComponent 
+                                RowCell=rowCell
+                                OnCellClick="HandleCellClick"
+                                X=storeX
+                                Y=storeY
+                                IsCompleted=@(SelectedGridCellPoints.Any(rs=>rs.X == storeX && rs.Y == storeY))
+                                IsSelected=@((bool)(firstClick.HasValue && firstClick.Value.x == storeX && firstClick.Value.y == storeY))
+                            />
 
                         }
-                    }                
+                    }            
+                </div>    
             </div>
             <MudContainer Class="border-double border-xs-0 border-4 mud-border-primary pa-4 rounded ma-0 pa-sm-16" >
                 <MudText Class="highlight-shadow" Typo=@(IsMobile ? Typo.h5 : Typo.h3) Align="Align.Center">
@@ -70,6 +88,9 @@
     protected bool IsMobile { get; set; }
     private (int x, int y)? firstClick { get; set; }
 
+    private IEnumerable<int> _widthLabel => Enumerable.Range(1, Game.GameGrid.Width);
+    private IEnumerable<string> _heightLabel => GenerateHeightLabels();
+
     private MudBlazor.Color isFoundStyling(bool isFound) {
         if (isFound) {
             return Color.Error;
@@ -81,6 +102,31 @@
     {
         await base.OnInitializedAsync();      
                        
+    }
+
+    public IEnumerable<string> GenerateHeightLabels() {
+        for (int i = 1; i <= Game.GameGrid.Height; i++) {
+            string label = GetLabelFromNumber(i);
+            yield return label;
+        }    
+    }
+
+    public static string GetLabelFromNumber(int number)
+    {
+        if (number <= 26)
+        {
+            return ((char)(number + 64)).ToString();
+        }
+        else
+        {
+            int firstCharNumber = (number - 1) / 26;
+            int secondCharNumber = (number - 1) % 26 + 1;
+
+            char firstChar = (char)(firstCharNumber + 64);
+            char secondChar = (char)(secondCharNumber + 64);
+
+            return $"{firstChar}{secondChar}";
+        }
     }
 
     private async Task HandleCellClick((MouseEventArgs, char, int, int) args)

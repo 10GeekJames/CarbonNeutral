@@ -17,18 +17,18 @@
 
             }
             <div style=@($"display: grid; grid-template-areas: \". a a \" \"b c c\" \"b c c\" ")>
-                <div style=@($"grid-area: a; display: flex; flex-direction: row;")>
+                <div style=@($"grid-area: a; display: flex; flex-direction: row;") class="mb-2">
                     @foreach (var x in _widthLabel)
                     {
-                        <div class="grid-cell__engraved-text-container grid-cell" style="border: 1px solid white;">
+                        <div class="grid-cell__engraved-text-container grid-cell" style="border: 1px solid darkgray;">
                             <MudText Class="highlight-shadow" Typo="Typo.body1" Align="Align.Center" Style="white-space: no-wrap;">@x</MudText>   
                         </div>
                     }
                 </div>
-                <div style=@($"grid-area: b; display: flex; flex-direction: column;")>
+                <div style=@($"grid-area: b; display: flex; flex-direction: column;") class="mr-2">
                     @foreach (var y in _heightLabel)
                     {
-                        <div class="grid-cell__engraved-text-container grid-cell" style="border: 1px solid white;">
+                        <div class="grid-cell__engraved-text-container grid-cell" style="border: 1px solid darkgray;">
                             <MudText Class="highlight-shadow" Typo="Typo.body1" Align="Align.Center" Style="white-space: no-wrap;">@y</MudText>   
                         </div>
                     }
