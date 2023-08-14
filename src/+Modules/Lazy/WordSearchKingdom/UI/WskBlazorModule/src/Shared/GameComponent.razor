@@ -1,7 +1,7 @@
 @inject IStringLocalizer<GameComponent> Localize
 
 
-<div class="border-double border-xs-none border-xs-0 border-4 mud-border-primary rounded main-game-container">
+<div class=@($"border-double border-xs-none border-xs-0 border-4 mud-border-primary rounded main-game-container px-sm-16 px-md-4 {(IsMobile ? "full-width" : "")}")>
     @if(Game.GameGrid != null) {
         <MudStack Row=@(IsMobile ? false : true) Class="pa-4 rounded" AlignItems="AlignItems.Center" Justify="Justify.Center">
             @if (IsMobile)
@@ -36,7 +36,7 @@
                         }
                     }                
             </div>
-            <MudContainer Class="border-double border-xs-0 border-4 mud-border-primary pa-4 rounded ma-0" >
+            <MudContainer Class="border-double border-xs-0 border-4 mud-border-primary pa-4 rounded ma-0 pa-sm-16" >
                 <MudText Class="highlight-shadow" Typo=@(IsMobile ? Typo.h5 : Typo.h3) Align="Align.Center">
                     Hidden Words
                 </MudText>

@@ -6,7 +6,10 @@
 @inject IStringLocalizer<NewGame> Localize
 
 <PageTitle>Word Search Kingdom - Create New Game</PageTitle>
-
+@if (errorThrown)
+{
+    <MudAlert Severity="Severity.Error">@errorMessage</MudAlert>
+}
 <MudContainer>
     <MudPaper Class="pa-4">
         <MudForm @ref="form" @bind-IsValid="@success">
@@ -17,7 +20,7 @@
                     <MudNumericField @bind-Value=_gridSizeWidth Min=0 Max=100 Label="Grid Size Width" Required="true" RequiredError="Grid Size is required!" HelperText="Recommended: Mobile(20), Max(100)"  />
                     <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick=@(() => { _gridSizeHeight = 20; _gridSizeWidth = 20; })>Set Mobile</MudButton>
                 </MudStack>
-                <MudTextField @bind-Value=_wordsToHide TextChanged=@(() => Console.WriteLine(_wordsToHide.Split(new[] { "\r\n", "\r", "\n", "," }, StringSplitOptions.RemoveEmptyEntries))) T="string" Label="Words To Hide" Lines="6"  Required="true" HelperText="Seperate list by , or new lines" RequiredError="Words are required!"/>
+                <MudTextField @bind-Value=_wordsToHide TextChanged=@HandleTextChange Immediate="true" T="string" Label="Words To Hide" Lines="6"  Required="true" HelperText=@($"Seperate list by , or new lines (Current Word Count: {_wordsToHideCount})") RequiredError="Words are required!" Counter="0"/>
                 <MudSelect @bind-Value=_difficulty T="GameDifficulties" Label="Difficulty" AnchorOrigin="Origin.BottomCenter">
                     <MudSelectItem Value=GameDifficulties.Easy >Easy</MudSelectItem>
                     <MudSelectItem Value=GameDifficulties.Medium >Medium</MudSelectItem>
@@ -41,14 +44,18 @@
 @code {
     [CascadingParameter]
     protected bool IsMobile { get; set; }
-    bool success;
-    string _gameTitle { get; set; } = "";
-    int _gridSizeHeight { get; set; } = 25;
-    int _gridSizeWidth { get; set; } = 25;
-    string _wordsToHide { get; set; } = "";
-    GameDifficulties _difficulty { get; set; } = GameDifficulties.Easy;
-    string _categories { get; set; } = "General";
-    string _tags { get; set; } = "General";
+    private bool success;
+    private string _gameTitle { get; set; } = "";
+    private int _gridSizeHeight { get; set; } = 25;
+    private int _gridSizeWidth { get; set; } = 25;
+    private string _wordsToHide { get; set; } = "";
+    private int _wordsToHideCount { get; set; } = 0;
+    private GameDifficulties _difficulty { get; set; } = GameDifficulties.Easy;
+    private string _categories { get; set; } = "General";
+    private string _tags { get; set; } = "General";
+
+    private bool errorThrown = false;
+    private string errorMessage = "";
 
 
     MudForm? form;
@@ -56,6 +63,12 @@
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
+    }
+
+    public void HandleTextChange()
+    {
+        var wordsToHideArray =_wordsToHide.Split(new[] { "\r\n", "\r", "\n", "," }, StringSplitOptions.RemoveEmptyEntries);
+        _wordsToHideCount = wordsToHideArray.Count();
     }
 
     public async Task CreateNewGame()
@@ -97,10 +110,21 @@
             GameViewModel game = await WskDataService.GameCreateNewAsync(request); 
             await WskDataService.GameCreateNewAsync(request);
             NavigationManager.NavigateTo($"/wsk/game/{game.Id}"); 
+            errorThrown = false;
         }
         catch (Exception ex)
         {
             Console.WriteLine(ex.Message);
+            if (ex.Message.Contains("Failed to place the hidden word on the grid."))
+            {
+                errorMessage = "You have too many words for the grid size. Please try again.";
+            }
+            else
+            {
+                errorMessage = ex.Message;
+            }
+            errorThrown = true;
+            @* errorMessage = ex.Message; *@
         }
     }
 
