@@ -35,14 +35,27 @@
 @code {
     [Parameter]
     public List<GameViewModel> Games { get; set; }
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+    private ClaimsPrincipal user;
+    private bool isAuthenticated = false;
+
     protected override async Task OnInitializedAsync()
     {
+        var authstate = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        user = authstate.User;
+        isAuthenticated = user?.Identity?.IsAuthenticated ?? false == true;
         await base.OnInitializedAsync();                    
     }
 
     protected async Task NavigateToGame(string gameId)
     {
-        NavigationManager.NavigateTo($"/wsk/game/{gameId}");
+        Console.WriteLine(isAuthenticated);
+        if (isAuthenticated) {
+            NavigationManager.NavigateTo($"/wsk/game/{gameId}");
+        } else {
+            NavigationManager.NavigateTo($"/wsk/gamedemo/{gameId}");
+        }
     }
 
     private MudBlazor.Color isFoundStyling(bool isFound) {

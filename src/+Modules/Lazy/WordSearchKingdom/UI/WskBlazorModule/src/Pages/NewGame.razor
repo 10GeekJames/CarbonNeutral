@@ -7,30 +7,13 @@
 
 <PageTitle>Word Search Kingdom - Create New Game</PageTitle>
 
-<style>
-    .mud-input-outlined-border {
-        @* border-color: blue !important; *@
-    }
-
-    .mud-input-outlined-border:hover {
-        border-color: red !important;
-        background-color: blue !important;
-    }
-    .mud-input-label {
-        @* color: hotpink !important; *@
-        @* transition: none !important;
-        animation: none !important; *@
-    }
-</style>
-
-
 <MudContainer>
     <MudPaper Class="pa-4">
         <MudForm @ref="form" @bind-IsValid="@success">
             <MudField Label="Game Info" Variant="Variant.Outlined">
                 <MudTextField @bind-Value=_gameTitle T="string" Label="Game Title" Required="true" RequiredError="Game Title is required!" />
-                <MudStack Row=@(IsMobile ? false : true) AlignItems="AlignItems.Center" Justify="Justify.Center">
-                    <MudNumericField @bind-Value=_gridSizeHeight Min=0 Max=100 Label="Grid Size Height" Required="true" RequiredError="Grid Size is required!" HelperText="Recommended: Mobile(20), Max(100)"  />
+                <MudStack Row=@(IsMobile ? false : true) AlignItems="AlignItems.Stretch" Justify="Justify.Center" Class="flex-auto">
+                    <MudNumericField @bind-Value=_gridSizeHeight Min=0 Max=100 Label="Grid Size Height" Required="true" RequiredError="Grid Size is required!" HelperText="Recommended: Mobile(20), Max(100)" />
                     <MudNumericField @bind-Value=_gridSizeWidth Min=0 Max=100 Label="Grid Size Width" Required="true" RequiredError="Grid Size is required!" HelperText="Recommended: Mobile(20), Max(100)"  />
                     <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick=@(() => { _gridSizeHeight = 20; _gridSizeWidth = 20; })>Set Mobile</MudButton>
                 </MudStack>

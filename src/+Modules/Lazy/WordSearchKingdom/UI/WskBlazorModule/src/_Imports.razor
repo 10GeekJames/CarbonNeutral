@@ -11,6 +11,9 @@
 @using Microsoft.Extensions.Localization
 @using Microsoft.JSInterop
 
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Microsoft.AspNetCore.Components.Authorization
+
 @using Microsoft.AspNetCore.Authorization
 @* @using Microsoft.AspNetCore.Components.Authorization *@
 
@@ -50,7 +53,7 @@
 @inject NavigationManager NavigationManager
 @inject ISnackbar Snackbar
 
-@* @inject AuthenticationStateProvider AuthenticationStateProvider *@
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 @inject IWskDataService WskDataService
 @inject IWskDataServiceNotAuthed WskDataServiceNotAuthed
