@@ -24,12 +24,12 @@
     protected bool IsMobile { get; set; }
 
     private string GetStyleToUse() {
-        var styleToUse = "";
+        var styleToUse = $"font-family: {CurrentFont};";
+        var randomColor = RandomHexColort();
         if(IsSelected == true) {
-            styleToUse = "color: #ffffff;";
+            styleToUse = $"color: white; font-family: {CurrentFont};";
         }
         else if (IsCompleted == true) {
-            var randomColor = RandomHexColort();
             styleToUse = $"color: {randomColor}; font-family: {CurrentFont};";
         }
         return styleToUse;
