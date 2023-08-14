@@ -78,7 +78,7 @@
         {
             return;
         }
-        _wordsToHide = _wordsToHide + ",WSK";
+        _wordsToHide = "WSK," + _wordsToHide;
         List<HiddenWordViewModel> hiddenWords = _wordsToHide.Split(new[] { "\r\n", "\r", "\n", "," }, StringSplitOptions.RemoveEmptyEntries)
             .Select(word => {
                 var pattern = @"\p{L}+";
