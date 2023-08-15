@@ -1,5 +1,4 @@
-@inject IStringLocalizer<GameComponent> Localize
-
+@inject IStringLocalizer<GameComponentDemo> Localize
 
 <div class=@($"border-double border-xs-none border-xs-0 border-4 mud-border-primary rounded main-game-container px-sm-16 px-md-4 {(IsMobile ? "full-width" : "")}")>
     @if(Game.GameGrid != null) {
@@ -20,7 +19,7 @@
                 <div style=@($"grid-area: a; display: flex; flex-direction: row;") class="mb-2">
                     @foreach (var x in _widthLabel)
                     {
-                        <div class=@($"grid-cell__engraved-text-container {( IsMobile ? "grid-cell-mobile" : "grid-cell" )}") style="border: 1px dotted darkgray;">
+                        <div class=@($"grid-cell__engraved-text-container {( IsMobile ? "grid-cell-mobile" : "grid-cell" )}") style="border: 1px solid darkgray;">
                             <MudText Class="highlight-shadow" Typo=@(IsMobile ? Typo.caption : Typo.body1) Align="Align.Center" Style="white-space: no-wrap;">@x</MudText>   
                         </div>
                     }
@@ -28,7 +27,7 @@
                 <div style=@($"grid-area: b; display: flex; flex-direction: column;") class="mr-2">
                     @foreach (var y in _heightLabel)
                     {
-                        <div class=@($"grid-cell__engraved-text-container {( IsMobile ? "grid-cell-mobile" : "grid-cell" )}") style="border: 1px dotted darkgray;">
+                        <div class=@($"grid-cell__engraved-text-container {( IsMobile ? "grid-cell-mobile" : "grid-cell" )}") style="border: 1px solid darkgray;">
                             <MudText Class="highlight-shadow" Typo=@(IsMobile ? Typo.caption : Typo.body1) Align="Align.Center" Style="white-space: no-wrap;">@y</MudText>   
                         </div>
                     }
@@ -47,12 +46,11 @@
                                 Y=storeY
                                 IsCompleted=@(SelectedGridCellPoints.Any(rs=>rs.X == storeX && rs.Y == storeY))
                                 IsSelected=@((bool)(firstClick.HasValue && firstClick.Value.x == storeX && firstClick.Value.y == storeY))
-                                CurrentFont=@_currentFont
                             />
 
-                            }
-                        }                
-                </div>
+                        }
+                    }            
+                </div>    
             </div>
             <MudContainer Class="border-double border-xs-0 border-4 mud-border-primary pa-4 rounded ma-0 pa-sm-16" >
                 <MudText Class="highlight-shadow" Typo=@(IsMobile ? Typo.h5 : Typo.h3) Align="Align.Center">
@@ -62,23 +60,15 @@
                 <MudStack Class="my-6 overflow-y-auto" Style="max-height: 50vh;">
                     @foreach (var word in Game?.GameGrid.HiddenWords)
                     {
-                        if (word.Word == "WSK")
-                        {
-                            <MudChip Color=@isFoundStyling(word.IsFound) Style=@($"display: {(word.IsFound ? "inline-flex" : "none")};") Size="Size.Large">
-                                <MudText Class="p-8" Typo=@(IsMobile ? Typo.body1 : Typo.h5) Align="Align.Center">@word.Word</MudText>
-                            </MudChip>
-                            break;
-                        }
                         <MudChip Color=@isFoundStyling(word.IsFound) Size="Size.Large">
                             <MudText Class="p-8" Typo=@(IsMobile ? Typo.body1 : Typo.h5) Align="Align.Center">@word.Word</MudText>
                         </MudChip>
                     }
-
                 </MudStack>
                 <MudStack Spacing="4">
-                    <MudButton Style="justify-self: flex-end;" Variant="Variant.Filled" Color="Color.Tertiary" OnClick=OnRecreateGame FullWidth="true" >Recreate Game</MudButton>  
-                    <MudButton Style="justify-self: flex-end;" Variant="Variant.Filled" Color="Color.Tertiary" OnClick=CycleFont FullWidth="true" >Cycle Font</MudButton>    
-                    <MudButton Style="justify-self: flex-end;" Variant="Variant.Filled" Color="Color.Tertiary" OnClick=BackToAllGames FullWidth="true" >All Games</MudButton>    
+                    <MudButton Disabled="true" Style="justify-self: flex-end;" Variant="Variant.Filled" Color="Color.Tertiary" OnClick=OnRecreateGame FullWidth="true" >Recreate Game</MudButton>  
+                    <MudButton Disabled="true" Style="justify-self: flex-end;" Variant="Variant.Filled" Color="Color.Tertiary" FullWidth="true" >Cycle Font</MudButton>    
+                    <MudButton Style="justify-self: flex-end;" Variant="Variant.Filled" Color="Color.Tertiary" OnClick=BackToPublicGames FullWidth="true" >Public Games</MudButton>    
                 </MudStack>
             </MudContainer>
         </MudStack>
@@ -98,19 +88,30 @@
     protected bool IsMobile { get; set; }
     private (int x, int y)? firstClick { get; set; }
 
-    private string _currentFont = "Courier New";
-
     private IEnumerable<int> _widthLabel => Enumerable.Range(1, Game.GameGrid.Width);
     private IEnumerable<string> _heightLabel => GenerateHeightLabels();
 
-    public IEnumerable<string> GenerateHeightLabels() {
+    private MudBlazor.Color isFoundStyling(bool isFound) {
+        if (isFound) {
+            return Color.Error;
+        }
+        return Color.Primary;
+    }
+    
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();      
+                       
+    }
+
+    private IEnumerable<string> GenerateHeightLabels() {
         for (int i = 1; i <= Game.GameGrid.Height; i++) {
             string label = GetLabelFromNumber(i);
             yield return label;
         }    
     }
 
-    public static string GetLabelFromNumber(int number)
+    private static string GetLabelFromNumber(int number)
     {
         if (number <= 26)
         {
@@ -126,18 +127,6 @@
 
             return $"{firstChar}{secondChar}";
         }
-    }
-    private MudBlazor.Color isFoundStyling(bool isFound) {
-        if (isFound) {
-            return Color.Error;
-        }
-        return Color.Primary;
-    }
-    
-    protected override async Task OnInitializedAsync()
-    {
-        await base.OnInitializedAsync();      
-                       
     }
 
     private async Task HandleCellClick((MouseEventArgs, char, int, int) args)
@@ -156,26 +145,10 @@
             SelectedGridCells = GameGridUtility.ConvertRowCellStringToArray(Game.GameGrid.RowCellData);
             SelectedGridCellPoints = GameGridUtility.ConvertSelectedWordsToPointList(Game.GameGrid.CompletedWordCellData);            
             firstClick = null;
-            @* StateHasChanged(); *@
         }
     }
 
-    private void CycleFont()
-    {
-        var fonts = new List<string>() { "Arial", "Times New Roman", "Comic Sans MS", "Verdana", "Impact", "Georgia", "Trebuchet MS", "Arial Black", "Lucida Console", "Courier New"  };
-        var currentFont = _currentFont;
-        @* Console.WriteLine($"currentFont: {currentFont}"); *@
-        var currentIndex = fonts.IndexOf(currentFont);
-        var nextIndex = currentIndex + 1;
-        if (nextIndex >= fonts.Count)
-        {
-            nextIndex = 0;
-        }
-        _currentFont = fonts[nextIndex];
-        @* Console.WriteLine($"currentFont: {currentFont}"); *@
-    }
-
-    private void BackToAllGames()
+    private void BackToPublicGames()
     {
         NavigationManager.NavigateTo("/wsk/allgames");
     }

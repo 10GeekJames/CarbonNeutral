@@ -22,7 +22,7 @@
     aspect-ratio: 1 / 1;
     &:hover {
         background-color: #FFFFFF;
-        transform: scale(1.2);
+        transform: scale(1.5);
         color: black;
         cursor: pointer;
         border-radius: 0.1em;
@@ -78,10 +78,6 @@
     backdrop-filter: blur(50px);
 }
 
-.full-width {
-    width: 100%;; 
-}
-
 ::deep .grid-cell__engraved-text-container {
     color: transparent;
     background: linear-gradient(#919191 35%, #ffffff 52%, #9c9c9c 100%);
@@ -93,7 +89,7 @@
 }
 
 ::deep .grid-cell__pop-out-text {
-    text-shadow: 1px 0px 0px rgb(155,155,155), 2px 0px 0px rgb(0,0,0), 1px 1px 2px white;
+    text-shadow: 1px 0px 0px rgb(155,155,155), 2px 0px 0px rgb(0,0,0), 3px 3px 5px green;
 }
 
 ::deep .grid-cell__selected-letter {

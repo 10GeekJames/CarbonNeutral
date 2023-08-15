@@ -3,24 +3,69 @@
 @inject IStringLocalizer<AllGames> Localize
 
 <PageTitle>WSK - All Games</PageTitle>
+@if (isAuthenticated)
+{
+    <MudContainer Class="my-4">
+        <MudButton Class="mt-8" FullWidth="true" Variant="Variant.Outlined" Color="Color.Primary" OnClick=@NavigateToNewGame>Create New Game</MudButton>
+    </MudContainer>
+    <MudContainer>
+        <MudExpansionPanel Class="mt-4 pa-4 border-double border-4 rounded-lg bg-transparent pa-xs-0" IsExpanded="true" Style="background: transparent;">
+            <TitleContent><MudText Typo="Typo.h4" Align="Align.Center" Style="text-wrap: balance;" Class="highlight-shadow">My Games</MudText></TitleContent>
+            <ChildContent>
+                <MudPaper Class="mt-4 pa-4 rounded-lg bg-transparent " Style="background: transparent;">
+                    <AllGamesComponent Games=@_games />
+                </MudPaper>
+            </ChildContent>
+        </MudExpansionPanel>
+    </MudContainer>
+    <MudDivider Class="my-8" />
+    <MudContainer>
+        <MudExpansionPanel Class="mt-4 pa-4 border-double border-4 rounded-lg bg-transparent pa-xs-0" IsExpanded="true" Style="background: transparent;">
+            <TitleContent><MudText Typo="Typo.h4" Align="Align.Center" Style="text-wrap: balance;" Class="highlight-shadow">Public Games</MudText></TitleContent>
+            <ChildContent>
+                <MudPaper Class="mt-4 pa-4 rounded-lg bg-transparent " Style="background: transparent;">
+                    <AllGamesComponent Games=@_publicGames/>
+                </MudPaper>
+            </ChildContent>
+        </MudExpansionPanel>
+    </MudContainer>
+} 
+else
+{
+    <MudContainer>
+        <MudText Typo="Typo.h4" Align="Align.Center" Style="text-wrap: balance;" Class="highlight-shadow">Public Games</MudText>
+        <MudPaper Class="mt-4 pa-4 border-double border-4 rounded-lg bg-transparent " Style="background: transparent;">
+            <AllGamesComponent Games=@_publicGames />
+        </MudPaper>
+    </MudContainer>
+} 
 
-<MudText Typo="Typo.h4" Align="Align.Center" Style="text-wrap: balance;" Class="highlight-shadow">All Games</MudText>
-<MudContainer>
-    <MudPaper Class="mt-4 pa-4 border-double border-4 rounded-lg" Style="background: transparent;">
-        <MudButton Class="mt-8" FullWidth="true" Variant="Variant.Filled" Color="Color.Primary" OnClick=@NavigateToNewGame>Create New Game</MudButton>
-        <AllGamesComponent Games=@_games />
-    </MudPaper>
-</MudContainer>
+
 
 
 @code {
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+    private ClaimsPrincipal user;
+    private bool isAuthenticated = false;
     private List<GameViewModel> _games = new();
+    private List<GameViewModel> _publicGames = new();
     
     protected override async Task OnInitializedAsync()
     {
+        var authstate = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        user = authstate.User;
+        isAuthenticated = user?.Identity?.IsAuthenticated ?? false == true;
         await base.OnInitializedAsync();                     
         var request = new GamesGetAllRequest();
-        _games = await WskDataService.GamesGetAllAsync(request);
+        var requestPublicGames = new GamesGetAllRequest(){UserOnly = false};
+
+        if (isAuthenticated){
+            _games = await WskDataService.GamesGetAllAsync(request);
+            _publicGames = await WskDataService.GamesGetAllAsync(requestPublicGames);
+        } else {
+            _publicGames = await WskDataServiceNotAuthed.GamesGetAllAsync(requestPublicGames);
+        }
     }
 
 

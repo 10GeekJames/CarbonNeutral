@@ -10,7 +10,7 @@ public partial class GamesGetAllQryHandler : IRequestHandler<GamesGetAllQry, Lis
 
     public async Task<List<Game>> Handle(GamesGetAllQry qry, CancellationToken cancellationToken)
     {
-        var spec = new GamesGetAllSpec(qry.KnownUserId.Value);
+        var spec = new GamesGetAllSpec(qry.KnownUserId, qry.UserOnly);
         return await _repository.ListAsync(spec, cancellationToken);
     }
 }

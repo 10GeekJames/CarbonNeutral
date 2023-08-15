@@ -1,7 +1,8 @@
 @inject IStringLocalizer<RowCellComponent> Localize
 
 <MudLink Class=@(IsMobile ? "grid-cell-mobile" : "grid-cell") Style=@(SetLinkZIndex()) OnClick=@(e => CellClicked(e, RowCell, X, Y)) Underline="Underline.None" >
-    <MudText Typo=@(IsMobile ? Typo.body1 : Typo.h6) Style="@(($"font-family: {CurrentFont};"))" Class=@(GetClassToUse()) Color=@(GetColorToUse())>@RowCell</MudText>
+    @* <MudText Typo=@(IsMobile ? Typo.body1 : Typo.h6) Style="@(($"font-family: {CurrentFont};"))" Class=@(GetClassToUse()) Color=@(GetColorToUse()) Style=@($"color:{Colors.Purple.Accent3};")>@RowCell</MudText> *@
+    <MudText Typo=@(IsMobile ? Typo.body1 : Typo.h6) Class=@(GetClassToUse()) Style=@GetStyleToUse() >@RowCell</MudText>
 </MudLink>
 
 @code {
@@ -22,7 +23,20 @@
     [CascadingParameter]
     protected bool IsMobile { get; set; }
 
-    public Color GetColorToUse(){
+    private string GetStyleToUse() {
+        var styleToUse = $"font-family: {CurrentFont};";
+        var randomColor = RandomHexColort();
+        if(IsSelected == true) {
+            styleToUse = $"color: white; font-family: {CurrentFont};";
+        }
+        else if (IsCompleted == true) {
+            styleToUse = $"color: {randomColor}; font-family: {CurrentFont};";
+        }
+        return styleToUse;
+    }
+
+
+    private Color GetColorToUse(){
         var colorToUse = Color.Default;
         if(IsSelected == true) {
             colorToUse = Color.Secondary;
@@ -35,7 +49,7 @@
         }
         return colorToUse;
     }
-    public string GetClassToUse(){
+    private string GetClassToUse(){
         var classToUse = "grid-cell__engraved-text-container";
         if(IsSelected == true) {
             classToUse = "grid-cell__engraved-text-container grid-cell__pop-out-text grid-cell__selected-letter";
@@ -49,7 +63,7 @@
         }
         return classToUse;
     }
-    public string SetLinkZIndex(){
+    private string SetLinkZIndex(){
         var zIndex = "z-index: 1;";
         if(IsSelected == true) {
             zIndex = "z-index: -2;";
@@ -65,6 +79,13 @@
     public async Task CellClicked(MouseEventArgs e, char letter, int x, int y)
     {
         await OnCellClick.InvokeAsync((e, letter, x, y));
+    }
+
+    public string RandomHexColort()
+    {
+        var rnd = new Random();
+        var color = String.Format("#{0:X6}", rnd.Next(0x1000000));
+        return color;
     }
 
     protected override async Task OnInitializedAsync()

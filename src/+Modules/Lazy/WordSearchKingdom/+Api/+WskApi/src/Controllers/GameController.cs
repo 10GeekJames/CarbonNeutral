@@ -2,7 +2,7 @@ namespace WskApi.Controllers;
 public partial class GameController : BaseController
 {
     [HttpPost, Authorize]
-    public async Task<IActionResult> CreateNew(GameCreateNewRequest request)
+    public async Task<ActionResult> CreateNew(GameCreateNewRequest request)
     {
         // alternatively
         var claimsIdentity = HttpContext.User.Identity as ClaimsIdentity;
@@ -11,12 +11,19 @@ public partial class GameController : BaseController
         if (userId.HasValue)
         {
             request.KnownUserId = userId.Value;
-            var response = await _dataService.GameCreateNewAsync(request);
-            return Ok(response);
-        }
-        return Ok(null);
+            try { 
+                var response = await _dataService.GameCreateNewAsync(request);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        } 
 
+        return BadRequest("User not found");
     }
+
     [HttpPost]
     public async Task<IActionResult> GetById(GameGetByIdRequest request)
     {
