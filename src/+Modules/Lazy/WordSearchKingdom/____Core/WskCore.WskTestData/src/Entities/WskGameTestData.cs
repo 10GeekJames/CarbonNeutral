@@ -2,7 +2,7 @@ namespace WskCore.WskTestData.Entities;
 public static class WskGameTestData
 {
     public static Game NormalEasyGame;       
-    public static Guid NormalEasyGameId = new Guid("1bd736d2-da2d-48c0-b19f-a0ec98396d49");
+    public static GameKey NormalEasyGameId = new(new Guid("1bd736d2-da2d-48c0-b19f-a0ec98396d49"));
 
     public static IEnumerable<Game> AllGames;
 

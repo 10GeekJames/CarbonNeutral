@@ -22,11 +22,5 @@ public partial class LiveRoomSessionController : BaseController
     {
         var response = await _dataService.LiveRoomSessionGetByIdAsync(request);
         return Ok(response);
-    }
-    [HttpPost]
-    public async Task<IActionResult> RecreateGrid(LiveRoomSessionRecreateGridRequest request)
-    {
-        var response = await _dataService.LiveRoomSessionRecreateGridAsync(request);
-        return Ok(response);
-    }
+    }    
 }

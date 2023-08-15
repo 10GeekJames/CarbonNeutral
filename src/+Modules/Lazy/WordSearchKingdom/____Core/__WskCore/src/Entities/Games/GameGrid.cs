@@ -1,19 +1,21 @@
 namespace WskCore.Entities;
-public class GameGrid : BaseEntityTracked<Guid>
+public class GameGrid
 {
+    public GameGridKey Id { get; init; }
     public int Height { get; private set; } = 0;
     public int Width { get; private set; } = 0;
+
+    private List<GameGridInstance> _gameGridInstances = new();
+    public IEnumerable<GameGridInstance> GameGridInstances => _gameGridInstances.AsReadOnly();
+
     private List<HiddenWord> _hiddenWords = new();
     public IEnumerable<HiddenWord> HiddenWords => _hiddenWords.AsReadOnly();
 
     public string RowCellData { get; private set; } = "";
-    public string CompletedWordCellData { get; private set; } = "";
+
 
     [NotMapped, JsonIgnore]
     public char[,]? RowCellDataArray => !string.IsNullOrWhiteSpace(RowCellData) ? Newtonsoft.Json.JsonConvert.DeserializeObject<char[,]>(RowCellData) : null;
-    
-    [NotMapped, JsonIgnore]
-    public List<Point>? CompletedWords => !string.IsNullOrWhiteSpace(CompletedWordCellData) ? Newtonsoft.Json.JsonConvert.DeserializeObject<List<Point>?>(CompletedWordCellData) : null;
 
     Random _random = new Random();
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
@@ -32,7 +34,7 @@ public class GameGrid : BaseEntityTracked<Guid>
     }
     private char[,] convertRowCellStringToArray(string rowCellString)
     {
-        return Newtonsoft.Json.JsonConvert.DeserializeObject<char[,]>(rowCellString);        
+        return Newtonsoft.Json.JsonConvert.DeserializeObject<char[,]>(rowCellString);
     }
     public void RecreateGrid() //DoNotPropigate
     {
@@ -45,8 +47,9 @@ public class GameGrid : BaseEntityTracked<Guid>
         {
             throw new InvalidOperationException("The longest word is too long to fit on the grid.");
         }
-        
+
         clearGrid();
+
         RowCellData = convertRowCellArrayToString(setupGrid(Height, Width));
         hideTheWordsOnGrid(HiddenWords);
         fillEmptySpacesInTheGrid();
@@ -55,7 +58,6 @@ public class GameGrid : BaseEntityTracked<Guid>
     private void clearGrid()
     {
         RowCellData = convertRowCellArrayToString(setupGrid(Height, Width));
-        CompletedWordCellData = "[]";
     }
     private void fillEmptySpacesInTheGrid()
     {
@@ -206,41 +208,6 @@ public class GameGrid : BaseEntityTracked<Guid>
         }
         return (startRow, startCol);
     }
-    public void UpdateCharacterAtPosition(int x, int y, char newChar)
-    {
 
-        if (RowCellData == null)
-        {
-            throw new InvalidOperationException("RowCellData has not been initialized.");
-        }
 
-        var rowCellAsArray = convertRowCellStringToArray(RowCellData);
-
-        if (x < 0 || x >= rowCellAsArray.GetLength(0) || y < 0 || y >= rowCellAsArray.GetLength(1))
-        {
-            throw new ArgumentOutOfRangeException("Position is out of range.");
-        }
-
-        rowCellAsArray[x, y] = newChar;
-        RowCellData = convertRowCellArrayToString(rowCellAsArray);
-    }
-    public void AddColoredCell(int x, int y)
-    {
-        if (RowCellData == null)
-        {
-            throw new InvalidOperationException("RowCellData has not been initialized.");
-        }
-
-        var selectedCellsPointList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Point>?>(CompletedWordCellData);
-        if(selectedCellsPointList == null)
-        {
-            selectedCellsPointList = new();
-        }
-        if(!selectedCellsPointList.Contains(new(x, y)))
-        {            
-            selectedCellsPointList.Add(new(x, y));
-        }
-        
-        CompletedWordCellData = Newtonsoft.Json.JsonConvert.SerializeObject(selectedCellsPointList);
-    }
 }

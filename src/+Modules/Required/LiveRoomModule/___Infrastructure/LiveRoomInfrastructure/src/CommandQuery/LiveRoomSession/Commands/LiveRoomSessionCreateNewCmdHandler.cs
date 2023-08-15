@@ -10,7 +10,7 @@ public class LiveRoomSessionCreateNewCmdHandler : IRequestHandler<LiveRoomSessio
 
     public async Task<LiveRoomSession> Handle(LiveRoomSessionCreateNewCmd cmd, CancellationToken cancellationToken)
     {
-        var liveRoomSession = new LiveRoomSession(cmd.Title, cmd.Height, cmd.Width, cmd.WordsToHide, cmd.LiveRoomSessionDifficulty, cmd.LiveRoomSessionCategories, cmd.LiveRoomSessionTags, cmd.KnownUserId);
+        var liveRoomSession = new LiveRoomSession(cmd.Slug, cmd.Title, cmd.KnownUserId);
         await _repository.AddAsync(liveRoomSession);
         return liveRoomSession;
     }

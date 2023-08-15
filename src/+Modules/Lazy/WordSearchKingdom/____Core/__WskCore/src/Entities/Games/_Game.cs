@@ -1,7 +1,8 @@
 namespace WskCore.Entities;
 
-public class Game : BaseEntityTracked<Guid>, IAggregateRoot
+public class Game : IAggregateRoot
 {
+    public GameKey Id { get; init; }
     public string Title { get; private set; }
     public Guid? KnownUserId { get; private set; } = null;
     public GameDifficulties GameDifficulty { get; private set; }
@@ -15,7 +16,7 @@ public class Game : BaseEntityTracked<Guid>, IAggregateRoot
     private Game() { }
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-    public Game(Guid id, string title, int height, int width, IEnumerable<HiddenWord> hiddenWords, GameDifficulties gameDifficulty, IEnumerable<GameCategory> gameCategories, IEnumerable<GameTag> gameTags, Guid? knownUserId = null) : this(title, height, width, hiddenWords, gameDifficulty, gameCategories, gameTags, knownUserId)
+    public Game(GameKey id, string title, int height, int width, IEnumerable<HiddenWord> hiddenWords, GameDifficulties gameDifficulty, IEnumerable<GameCategory> gameCategories, IEnumerable<GameTag> gameTags, Guid? knownUserId = null) : this(title, height, width, hiddenWords, gameDifficulty, gameCategories, gameTags, knownUserId)
     {
         Id = id;
     }
@@ -29,7 +30,6 @@ public class Game : BaseEntityTracked<Guid>, IAggregateRoot
         _gameTags = gameTags.ToList();
 
         Title = title;
-
         KnownUserId = knownUserId;
     }
 

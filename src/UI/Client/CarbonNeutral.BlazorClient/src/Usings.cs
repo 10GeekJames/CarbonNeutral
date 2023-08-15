@@ -33,24 +33,24 @@ global using AccountModuleCore.TestData.Entities;
 global using AccountModuleApplication.Shared.Interfaces;
 global using AccountModuleApplication.Shared.Services;
 global using AccountModuleApplication.Shared.Requests;
-global using AccountModuleClientServiceLoader;
-global using AccountModuleApplication.Shared.Interfaces;
 global using AccountModuleApplication.Shared.ViewModels;
+global using AccountModuleClientServiceLoader;
 // \AccountModule
 
 // LiveRoomModule
-global using LiveRoomModuleCore.TestData.Entities;
-global using LiveRoomModuleApplication.Shared.Interfaces;
-global using LiveRoomModuleApplication.Shared.Services;
-global using LiveRoomModuleApplication.Shared.Requests;
+global using LiveRoomCore.LiveRoomTestData.Entities;
+global using LiveRoomApplication.Shared.Interfaces;
+global using LiveRoomApplication.Shared.Services;
+global using LiveRoomApplication.Shared.Requests;
+global using LiveRoomApplication.Shared.ViewModels;             
 global using LiveRoomModuleClientServiceLoader;
-global using LiveRoomModuleApplication.Shared.Interfaces;
-global using LiveRoomModuleApplication.Shared.ViewModels;
 // \LiveRoomModule
 
 // WordSearchKingdom
 global using WskCore.WskTestData.Entities;
 global using WskApplication.Shared.Interfaces;
 global using WskApplication.Shared.Services;
+global using WskApplication.Shared.Requests;
+global using WskApplication.Shared.ViewModels;
 global using WskModuleClientServiceLoader;
 // \WordSearchKingdom

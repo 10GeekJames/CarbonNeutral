@@ -133,7 +133,7 @@ public partial class GameCheckWordCoordsQryHandler : IRequestHandler<GameCheckWo
             var hiddenWord = game.GameGrid.HiddenWords.FirstOrDefault(rs => rs.Word.ToLower() == foundWord.ToLower());
             hiddenWord.SetFound();
             foreach(var cell in rowCells) {
-                game.GameGrid.AddColoredCell(cell.x, cell.y);
+                // game.GameGrid.AddColoredCell(cell.x, cell.y); ***
             }
 
             // hiddenWord.FoundAt = DateTime.Now;

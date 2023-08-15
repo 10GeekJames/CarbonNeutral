@@ -91,8 +91,9 @@ public class Startup
             })
 
         .AddAuthorization(options => { })
-        */
         ;
+        */
+        
     }
     public void ConfigureContainer(ContainerBuilder builder)
     {

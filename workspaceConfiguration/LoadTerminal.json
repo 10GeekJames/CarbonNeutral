@@ -20,6 +20,14 @@
                         "dotnet watch build"
                     ],
                     "num": 1
+                },
+                {
+                    "name": "CarbonNeutral.SignalR",
+                    "path": "./src/++SignalR/CarbonNeutral.SignalR/src/",
+                    "cmd": [
+                        "dotnet watch run"
+                    ],
+                    "num": 1
                 }
             ]            
         },
@@ -151,8 +159,8 @@
             "enabled": true,
             "terminals": [
                 {
-                    "name": "LiveRoomModuleCore.UnitTests",
-                    "path": "./src/+Modules/Required/LiveRoomModule/____Core/LiveRoomModuleCore.UnitTests/src",
+                    "name": "LiveRoomModuleCore.UnitTests",                               
+                    "path": "./src/+Modules/Required/LiveRoomModule/____Core/_LiveRoomCore.UnitTests/src",
                     "cmd": [
                         "dotnet test"
                     ],
@@ -160,7 +168,7 @@
                 },
                 {
                     "name": "LiveRoomModuleInfrastructure.IntegrationTests",
-                    "path": "./src/+Modules/Required/LiveRoomModule/___Infrastructure/LiveRoomModuleInfrastructure.IntegrationTests/src",
+                    "path": "./src/+Modules/Required/LiveRoomModule/___Infrastructure/LiveRoomInfrastructure.IntegrationTests/src",
                     "cmd": [
                         "dotnet test"
                     ],
@@ -168,7 +176,7 @@
                 },
                 {
                     "name": "LiveRoomModuleApplication.FeatureTests",
-                    "path": "./src/+Modules/Required/LiveRoomModule/_Application/LiveRoomModuleApplication.FeatureTests/src",
+                    "path": "./src/+Modules/Required/LiveRoomModule/_Application/LiveRoomApplication.FeatureTests/src",
                     "cmd": [
                         "dotnet test"
                     ],
@@ -176,7 +184,7 @@
                 },
                 {
                     "name": "LiveRoomModuleApi.FunctionalTests",
-                    "path": "./src/+Modules/Required/LiveRoomModule/+Api/+LiveRoomModuleApi.FunctionalTests/src",
+                    "path": "./src/+Modules/Required/LiveRoomModule/+Api/LiveRoomApi.FunctionalTests/src",
                     "cmd": [
                         "echo build this"
                     ],
@@ -184,7 +192,7 @@
                 }   ,
                 {
                     "name": "LiveRoomModuleApi",                      
-                    "path": "./src/+Modules/Required/LiveRoomModule/+Api/+LiveRoomModuleApi/src",
+                    "path": "./src/+Modules/Required/LiveRoomModule/+Api/+LiveRoomApi/src",
                     "cmd": [
                         "dotnet watch run"
                     ],

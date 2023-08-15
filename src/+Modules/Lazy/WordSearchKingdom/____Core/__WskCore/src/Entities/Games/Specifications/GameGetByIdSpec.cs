@@ -8,7 +8,7 @@ public class GameGetByIdSpec : Specification<Game>, ISingleResultSpecification<G
                 .ThenInclude(rs => rs.HiddenWords)
             .Include(rs => rs.GameTags)
             .Include(rs => rs.GameCategories)
-            .Where(rs => rs.Id == id)
+            .Where(rs => rs.Id == new GameKey(id))
             .OrderBy(rs => rs.Title);
     }
 }
