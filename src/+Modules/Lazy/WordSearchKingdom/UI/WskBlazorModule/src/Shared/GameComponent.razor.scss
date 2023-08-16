@@ -104,5 +104,44 @@
     transform: scale(1.5);
 }
 
+.hide-scrollbar {
+    display: inherit;
+    white-space: nowrap;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE 10+ */
+}
 
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}
 
+.text-scroll-horizontal {
+    display: inherit;
+    white-space: nowrap;
+    animation: autoscrollHorizontal 10s ease-in-out 3 alternate;
+
+}
+
+@keyframes autoscrollHorizontal {
+    0% {
+        transform: translateX(10%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.text-scroll-vertical {
+    display: inherit;
+    white-space: nowrap;
+    animation: autoscrollVertical 10s ease-in-out 3 alternate;
+}
+
+@keyframes autoscrollVertical {
+    0% {
+        transform: translateY(10%);
+    }
+    100% {
+        transform: translateY(-150%);
+    }
+}

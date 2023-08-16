@@ -1,12 +1,25 @@
-.game__card-title {
-    animation: autoscroll 3s linear delay infinite alternate;
+.text-scroll {
+    display: inherit;
+    white-space: nowrap;
+    animation: autoscroll 5s ease-in-out 3 alternate;
+}
+
+.hide-scrollbar {
+    display: inherit;
+    white-space: nowrap;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE 10+ */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
 }
 
 @keyframes autoscroll {
-    from {
-        transform: translateX(0%);
+    0% {
+        transform: translateX(10%);
     }
-    to {
+    100% {
         transform: translateX(-100%);
     }
 }
