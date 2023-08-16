@@ -67,11 +67,11 @@
                             <MudChip Color=@isFoundStyling(word.IsFound) Style=@($"display: {(word.IsFound ? "inline-flex" : "none")};") Size="Size.Large">
                                 <MudText Class="p-8" Typo=@(IsMobile ? Typo.body1 : Typo.h5) Align="Align.Center">@word.Word</MudText>
                             </MudChip>
-                            break;
+                        } else {
+                            <MudChip Color=@isFoundStyling(word.IsFound) Size="Size.Large">
+                                <MudText Class="p-8" Typo=@(IsMobile ? Typo.body1 : Typo.h5) Align="Align.Center">@word.Word</MudText>
+                            </MudChip>
                         }
-                        <MudChip Color=@isFoundStyling(word.IsFound) Size="Size.Large">
-                            <MudText Class="p-8" Typo=@(IsMobile ? Typo.body1 : Typo.h5) Align="Align.Center">@word.Word</MudText>
-                        </MudChip>
                     }
 
                 </MudStack>

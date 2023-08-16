@@ -1,0 +1,38 @@
+@page "/wsk/purchase"
+@layout MainLayoutLanding
+@inject IStringLocalizer<PurchaseGame> Localize
+
+<PageTitle>WSK - Purchase</PageTitle>
+@if (isAuthenticated)
+{
+    <MudContainer>
+        <MudText>Purchase Options Coming Soon!</MudText>
+    </MudContainer>
+} 
+else
+{
+    <MudContainer>
+        <MudText>You must be Logged in to make a purchase.</MudText>
+    </MudContainer>
+} 
+
+
+
+
+@code {
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+    private ClaimsPrincipal user;
+    private bool isAuthenticated = false;
+    
+    protected override async Task OnInitializedAsync()
+    {
+        var authstate = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        user = authstate.User;
+        isAuthenticated = user?.Identity?.IsAuthenticated ?? false == true;
+        await base.OnInitializedAsync();                     
+    }
+
+
+
+}
