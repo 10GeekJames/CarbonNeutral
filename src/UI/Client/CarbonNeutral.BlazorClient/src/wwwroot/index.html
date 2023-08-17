@@ -18,12 +18,14 @@
 
 <body style="overflow: auto!important;">
     <div id="app">
-        <svg xmlns="http://www.w3.org/2000/svg" title="loading" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: 25% auto; background: none; display: block; shape-rendering: auto;" width="200px" height="200px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
-            <circle cx="50" cy="50" fill="none" stroke="#595d7a" stroke-width="5" r="20" stroke-dasharray="94.24777960769379 33.41592653589793">
-              <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="1s" values="0 50 50;360 50 50" keyTimes="0;1"></animateTransform>
-            </circle>
-        </svg>
+        <div class="container loading" title="loading">
+            <div class="cloud">
+
+            </div>
+        </div>
+
     </div>
+
 
     <div id="blazor-error-ui">
         An unhandled error has occurred.
@@ -58,6 +60,40 @@
             }
         })
     </script>
+    <script>
+        function randomText () {
+            const text = ("abcdefghijklmnopqrstuvwxyz❤");
+            let letter = text[Math.floor(Math.random() * text.length)];
+            return letter;
+        }
+
+        function rain(){
+            let cloud = document.querySelector('.cloud');
+            console.log(cloud);
+            let e = document.createElement('div');
+            let left = Math.floor(Math.random() * 310);
+            let size = Math.random() * 1.5;
+            let duration = Math.random() * 1;
+            if (cloud != null){
+                e.classList.add('text');
+                cloud.appendChild(e);
+                e.innerText = randomText();
+                e.style.left = left + 'px';
+                e.style.fontSize = 0.5 + size + 'em';
+                e.style.animationDuration = 1 + duration + 's';
+                setTimeout(function(){
+                    cloud.removeChild(e);
+                }, 2000)
+            }
+        }
+
+        setInterval(function(){
+            rain();
+        }, 20);
+    </script>
 </body>
 
 </html>
+
+
+
