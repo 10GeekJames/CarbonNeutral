@@ -6,33 +6,36 @@
         <MudStack Row=@(IsMobile ? false : true) Class="pa-4 rounded" AlignItems="AlignItems.Center" Justify="Justify.Center">
             @if (IsMobile)
             {
-                <div class="grid-cell__engraved-text-container d-flex">
-                    <MudText Class="highlight-shadow"  Typo="Typo.h4" Align="Align.Center">@Game?.Title</MudText>   
+                <div class="d-flex" >
+                    <MudText Class="highlight-shadow overflow-x-auto overflow-y-hidden"  Typo="Typo.h4" Align="Align.Center" Style="white-space: nowrap; max-height: 10vh; max-width: 90vw"><span class=@LongTitleAddScroll(Game.Title)>@Game?.Title</span></MudText>   
                 </div>
 
             } else {
-                <div class="grid-cell__engraved-text-container d-flex">
-                    <MudText Class="highlight-shadow" Typo="Typo.h2" Align="Align.Center" Style="writing-mode: vertical-rl; white-space: no-wrap;">@Game?.Title</MudText>   
+                <div class="d-flex">
+                    <MudText Class="highlight-shadow overflow-y-auto" Typo="Typo.h2" Align="Align.Center" Style="writing-mode: vertical-rl; white-space: nowrap; max-height: 60%"><span class=@LongTitleAddScroll(Game.Title)>@Game?.Title</span></MudText>   
                 </div>
 
             }
             <div style=@($"display: grid; grid-template-areas: \". a a \" \"b c c\" \"b c c\" ")>
-                <div style=@($"grid-area: a; display: flex; flex-direction: row;") class="mb-2">
-                    @foreach (var x in _widthLabel)
-                    {
-                        <div class=@($"grid-cell__engraved-text-container {( IsMobile ? "grid-cell-mobile" : "grid-cell" )}") style="border: 1px dotted darkgray;">
-                            <MudText Class="highlight-shadow" Typo=@(IsMobile ? Typo.caption : Typo.body1) Align="Align.Center" Style="white-space: no-wrap;">@x</MudText>   
-                        </div>
-                    }
-                </div>
-                <div style=@($"grid-area: b; display: flex; flex-direction: column;") class="mr-2">
-                    @foreach (var y in _heightLabel)
-                    {
-                        <div class=@($"grid-cell__engraved-text-container {( IsMobile ? "grid-cell-mobile" : "grid-cell" )}") style="border: 1px dotted darkgray;">
-                            <MudText Class="highlight-shadow" Typo=@(IsMobile ? Typo.caption : Typo.body1) Align="Align.Center" Style="white-space: no-wrap;">@y</MudText>   
-                        </div>
-                    }
-                </div>
+                @if(!IsMobile)
+                {
+                    <div style=@($"grid-area: a; display: flex; flex-direction: row;") class="mb-2">
+                        @foreach (var x in _widthLabel)
+                        {
+                            <div class=@($"grid-cell__engraved-text-container {( IsMobile ? "grid-cell-mobile" : "grid-cell" )}") style="border: 1px dotted darkgray;">
+                                <MudText Class="highlight-shadow" Typo=@(IsMobile ? Typo.caption : Typo.body1) Align="Align.Center" Style="white-space: no-wrap;">@x</MudText>   
+                            </div>
+                        }
+                    </div>
+                    <div style=@($"grid-area: b; display: flex; flex-direction: column;") class="mr-2">
+                        @foreach (var y in _heightLabel)
+                        {
+                            <div class=@($"grid-cell__engraved-text-container {( IsMobile ? "grid-cell-mobile" : "grid-cell" )}") style="border: 1px dotted darkgray;">
+                                <MudText Class="highlight-shadow" Typo=@(IsMobile ? Typo.caption : Typo.body1) Align="Align.Center" Style="white-space: no-wrap;">@y</MudText>   
+                            </div>
+                        }
+                    </div>
+                }
                 <div class="play-area-grid align-items-center ma-auto" Style="@(($"grid-template-rows: repeat({Game.GameGrid.Width}, 1fr); grid-template-columns: repeat({Game.GameGrid.Height}, 1fr);"))">
                     @for (var x = 0; x < Game.GameGrid.Width; x++) {
                         @for (var y = 0; y < Game.GameGrid.Height; y++) {                            
@@ -59,7 +62,7 @@
                     Hidden Words
                 </MudText>
                 <MudDivider />
-                <MudStack Class="my-6 overflow-y-auto" Style="max-height: 50vh;">
+                <MudStack Class="my-6 overflow-y-auto" Style="max-height: 30vh;">
                     @foreach (var word in Game?.GameGrid.HiddenWords)
                     {
                         if (word.Word == "WSK")
@@ -67,11 +70,11 @@
                             <MudChip Color=@isFoundStyling(word.IsFound) Style=@($"display: {(word.IsFound ? "inline-flex" : "none")};") Size="Size.Large">
                                 <MudText Class="p-8" Typo=@(IsMobile ? Typo.body1 : Typo.h5) Align="Align.Center">@word.Word</MudText>
                             </MudChip>
-                            break;
+                        } else {
+                            <MudChip Color=@isFoundStyling(word.IsFound) Size="Size.Large">
+                                <MudText Class="p-8" Typo=@(IsMobile ? Typo.body1 : Typo.h5) Align="Align.Center">@word.Word</MudText>
+                            </MudChip>
                         }
-                        <MudChip Color=@isFoundStyling(word.IsFound) Size="Size.Large">
-                            <MudText Class="p-8" Typo=@(IsMobile ? Typo.body1 : Typo.h5) Align="Align.Center">@word.Word</MudText>
-                        </MudChip>
                     }
 
                 </MudStack>
@@ -103,6 +106,25 @@
     private IEnumerable<int> _widthLabel => Enumerable.Range(1, Game.GameGrid.Width);
     private IEnumerable<string> _heightLabel => GenerateHeightLabels();
 
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();      
+                       
+    }
+
+    protected string LongTitleAddScroll(string title) {
+        if(!IsMobile) {
+            if (title.Length > 17) {
+                return "hide-scrollbar overflow-y-auto";
+            }
+            return "";
+        } else {
+            if (title.Length > 17) {
+                return "hide-scrollbar overflow-x-auto";
+            }
+            return "";
+        }
+    }
     public IEnumerable<string> GenerateHeightLabels() {
         for (int i = 1; i <= Game.GameGrid.Height; i++) {
             string label = GetLabelFromNumber(i);
@@ -134,11 +156,6 @@
         return Color.Primary;
     }
     
-    protected override async Task OnInitializedAsync()
-    {
-        await base.OnInitializedAsync();      
-                       
-    }
 
     private async Task HandleCellClick((MouseEventArgs, char, int, int) args)
     {

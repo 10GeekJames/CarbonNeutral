@@ -50,6 +50,6 @@
     protected async Task NavigateToLogout()
     {
         //await JSRuntime.InvokeVoidAsync("sessionStorage.clear");
-        NavigationManager.NavigateToLogout("/authentication/logout");
+        NavigationManager.NavigateToLogout($"/authentication/logout?returnUrl={Uri.EscapeDataString(NavigationManager.Uri)}");
     }
 }
