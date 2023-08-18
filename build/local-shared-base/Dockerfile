@@ -4,8 +4,7 @@ WORKDIR /
 
 #COPY ./local-nuget/ ./local-nuget/
 #COPY ./nuget.config ./nuget.config
-
-RUN apt-get update && apt-get install -y curl sudo
+RUN apt-get clean && apt-get update && apt-get install -y curl sudo
 RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - 
 RUN apt-get install -y nodejs
 
