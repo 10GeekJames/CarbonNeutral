@@ -102,7 +102,7 @@ COPY ./src/+Modules/Required/AccountModule/UI/AccountModuleBlazorModuleAdmin/src
 COPY ./src/+Modules/Required/LiveRoomModule/____Core/__LiveRoomCore/src/                    /src/+Modules/Required/LiveRoomModule/____Core/__LiveRoomCore/src/
 COPY ./src/+Modules/Required/LiveRoomModule/____Core/_LiveRoomCore.TestData/src/            /src/+Modules/Required/LiveRoomModule/____Core/_LiveRoomCore.TestData/src/
 COPY ./src/+Modules/Required/LiveRoomModule/___Infrastructure/LiveRoomInfrastructure/src/   /src/+Modules/Required/LiveRoomModule/___Infrastructure/LiveRoomInfrastructure/src/
-COPY ./src/+Modules/Required/LiveRoomModule/__Data/LiveRoom.Data/src/                       /src/+Modules/Required/LiveRoomModule/__Data/LiveRoom.Data/src/       
+COPY ./src/+Modules/Required/LiveRoomModule/__Data/LiveRoomApplication.Data/src/                       /src/+Modules/Required/LiveRoomModule/__Data/LiveRoomApplication.Data/src/       
 COPY ./src/+Modules/Required/LiveRoomModule/_Application/_LiveRoomApplication.Shared/src/   /src/+Modules/Required/LiveRoomModule/_Application/_LiveRoomApplication.Shared/src/
 COPY ./src/+Modules/Required/LiveRoomModule/_Application/LiveRoomApplication/src/           /src/+Modules/Required/LiveRoomModule/_Application/LiveRoomApplication/src/
 COPY ./src/+Modules/Required/LiveRoomModule/UI/_LiveRoomModuleClientServiceLoader/src/            /src/+Modules/Required/LiveRoomModule/UI/_LiveRoomModuleClientServiceLoader/src/
