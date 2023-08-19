@@ -9,6 +9,7 @@ global using MediatR.Pipeline;
 global using Microsoft.AspNetCore.Http;
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.AspNetCore.SignalR;
+global using Microsoft.AspNetCore.HttpOverrides;
 
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore.Metadata.Builders;
