@@ -4,10 +4,13 @@ namespace WskCore.Entities;
 public class GameGrid : BaseEntityTracked<Guid>
 {
     public Game Game { get; private set; }
-    public Guid? KnownUserId { get; init; }
+    public Guid KnownUserId { get; init; }
 
     private List<GameGridInstance> _gameGridInstances = new();
     public IEnumerable<GameGridInstance> GameGridInstances => _gameGridInstances.AsReadOnly();
+
+    public GameGridInstance? GameGridInstance => _gameGridInstances.FirstOrDefault();
+
     public bool IsCurrent { get; private set; } = true;
 
     public string RowCellData { get; private set; } = "";
@@ -20,12 +23,12 @@ public class GameGrid : BaseEntityTracked<Guid>
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     private GameGrid() { }
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public GameGrid(Guid gameGridId, Game game, string rowCellData = "", Guid? knownUserId = null) : this(game, rowCellData, knownUserId)
+    public GameGrid(Guid gameGridId, Game game, Guid knownUserId, string rowCellData = "") : this(game, knownUserId, rowCellData)
     {
         Id = gameGridId;
     }
 
-    public GameGrid(Game game, string rowCellData = "", Guid? knownUserId = null)
+    public GameGrid(Game game, Guid knownUserId, string rowCellData = "")
     {
         Game = game;
         KnownUserId = knownUserId;
@@ -35,10 +38,11 @@ public class GameGrid : BaseEntityTracked<Guid>
         }
         else
         {
-            RecreateGrid();
+            GetFullGrid();
         }
+        AddGameGridInstance(knownUserId);
     }
-    public void RecreateGrid() //DoNotPropigate
+    public void GetFullGrid() //DoNotPropigate
     {
         // find longest word in hidden words
         var longestWord = Game.HiddenWords.OrderByDescending(word => word.Word.Length).First();
@@ -69,14 +73,14 @@ public class GameGrid : BaseEntityTracked<Guid>
         IsCurrent = isCurrent;
     }
 
-    public void AddGameGridInstance(GameGridInstance gameGridInstance)
+    public void AddGameGridInstance(Guid knownUserId)
     {
-        if (!gameGridInstance.KnownUserId.HasValue && KnownUserId.HasValue)
+        if (_gameGridInstances.Any(rs => rs.KnownUserId == knownUserId))
         {
-            gameGridInstance = new(this, KnownUserId);
-
+            return;
         }
-        _gameGridInstances.Add(gameGridInstance);
+
+        _gameGridInstances.Add(new(this, knownUserId));
     }
 
     private void ClearGrid()

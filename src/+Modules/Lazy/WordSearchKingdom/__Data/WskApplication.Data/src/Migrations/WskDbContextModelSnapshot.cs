@@ -67,7 +67,7 @@ namespace WskApplication.Data.Migrations
                     b.Property<int>("Height")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("KnownUserId")
+                    b.Property<Guid>("KnownUserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Title")
@@ -121,6 +121,9 @@ namespace WskApplication.Data.Migrations
                     b.Property<bool>("IsCurrent")
                         .HasColumnType("bit");
 
+                    b.Property<Guid>("KnownUserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("RowCellData")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -151,7 +154,7 @@ namespace WskApplication.Data.Migrations
                     b.Property<Guid>("GameGridId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("KnownUserId")
+                    b.Property<Guid>("KnownUserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Title")

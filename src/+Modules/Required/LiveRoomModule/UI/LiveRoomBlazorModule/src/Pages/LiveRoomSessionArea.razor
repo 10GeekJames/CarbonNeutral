@@ -46,8 +46,8 @@
     }
 
     public async Task OnRecreateLiveRoomSession(){
-        var request = new LiveRoomSessionRecreateGridRequest(_chosenLiveRoomSession.Id);
-        _chosenLiveRoomSession = await LiveRoomDataService.LiveRoomSessionRecreateGridAsync(request);         
+        var request = new LiveRoomSessionGetFullGridRequest(_chosenLiveRoomSession.Id);
+        _chosenLiveRoomSession = await LiveRoomDataService.LiveRoomSessionGetFullGridAsync(request);         
         SelectedGridCells = LiveRoomSessionGridUtility.ConvertRowCellStringToArray(_chosenLiveRoomSession.LiveRoomSessionGrid.RowCellData);
         SelectedGridCellPoints = LiveRoomSessionGridUtility.ConvertSelectedWordsToPointList(_chosenLiveRoomSession.LiveRoomSessionGrid.CompletedWordCellData);               
     }

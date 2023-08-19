@@ -30,15 +30,15 @@
         var gameGetByIdRequest = new GameGetByIdRequest(GameId);
         _chosenGame = await WskDataService.GameGetByIdAsync(gameGetByIdRequest);
         SelectedGridCells = GameGridUtility.ConvertRowCellStringToArray(_chosenGame.GameGrid.RowCellData);
-        SelectedGridCellPoints = GameGridUtility.ConvertSelectedWordsToPointList(_chosenGame.GameGrid.GameGridInstances.First().CompletedWordCellData);        
+        SelectedGridCellPoints = GameGridUtility.ConvertSelectedWordsToPointList(_chosenGame.GameGrid.GameGridInstance.CompletedWordCellData);        
         _gameTitle = _chosenGame.Title;
     }
 
     public async Task OnRecreateGame(){
-        var request = new GameRecreateGridRequest(_chosenGame.Id);
-        _chosenGame = await WskDataService.GameRecreateGridAsync(request);         
+        var request = new GameGetFullGridRequest(_chosenGame.GameGrid.GameGridInstance.Id, _chosenGame.Id);
+        _chosenGame = await WskDataService.GameGetFullGridAsync(request);         
         SelectedGridCells = GameGridUtility.ConvertRowCellStringToArray(_chosenGame.GameGrid.RowCellData);
-        SelectedGridCellPoints = GameGridUtility.ConvertSelectedWordsToPointList(_chosenGame.GameGrid.GameGridInstances.First().CompletedWordCellData);               
+        SelectedGridCellPoints = GameGridUtility.ConvertSelectedWordsToPointList(_chosenGame.GameGrid.GameGridInstance.CompletedWordCellData);               
     }
 
 }

@@ -1,6 +1,8 @@
 namespace WskCore.WskTestData.Entities;
 public static class WskGameTestData
 {
+    public static Guid AnonymousUserId = new Guid("00000000-0000-0000-0000-000000000001");
+
     public static Game NormalEasyGame1;
     public static Guid NormalEasyGame1Id = new Guid("1bd736d2-da2d-48c0-b19f-a0ec98396d49");
     public static Guid NormalEasyGame1GridId = new Guid("2bd736d2-da2d-48c0-b19f-a0ec98396d49");
@@ -33,20 +35,19 @@ public static class WskGameTestData
     {
         var gameDifficulty = GameDifficulties.Easy;
 
-        NormalEasyGame1 = new(NormalEasyGame1Id, NormalEasyGame1Title, NormalEasyGame1Height, NormalEasyGame1Width, NormalEasyGame1Difficulty, NormalEasyGame1HiddenWords, NormalEasyGame1Categories, NormalEasyGame1Tags, NormalEasyGame1KnownUserId);
-        var normalEasyGame1Grid = new GameGrid(NormalEasyGame2GridId, NormalEasyGame1, NormalEasyGame1RowCellData);
-        var normalEasyGame1GridInstance = new GameGridInstance(NormalEasyGame2GridInstanceId, normalEasyGame1Grid, NormalEasyGame1KnownUserId);
-        normalEasyGame1Grid.AddGameGridInstance(normalEasyGame1GridInstance);
+        NormalEasyGame1 = new(NormalEasyGame1Id, NormalEasyGame1KnownUserId, NormalEasyGame1Title, NormalEasyGame1Height, NormalEasyGame1Width, NormalEasyGame1Difficulty, NormalEasyGame1HiddenWords, NormalEasyGame1Categories, NormalEasyGame1Tags);
+        var normalEasyGame1Grid = new GameGrid(NormalEasyGame2GridId, NormalEasyGame1, NormalEasyGame1KnownUserId, NormalEasyGame1RowCellData);
+        normalEasyGame1Grid.AddGameGridInstance(NormalEasyGame1KnownUserId);
         NormalEasyGame1.AddGameGrid(normalEasyGame1Grid);
 
-        NormalEasyGame2 = new(NormalEasyGame2Id, NormalEasyGame2Title, NormalEasyGame2Height, NormalEasyGame2Width, NormalEasyGame2Difficulty, NormalEasyGame2HiddenWords, NormalEasyGame2Categories, NormalEasyGame2Tags);
-        var normalEasyGame2Grid = new GameGrid(NormalEasyGame2);
-        var normalEasyGame2GridInstance = new GameGridInstance(normalEasyGame2Grid, null);
-        normalEasyGame2Grid.AddGameGridInstance(normalEasyGame2GridInstance);
+        NormalEasyGame2 = new(NormalEasyGame2Id, AnonymousUserId, NormalEasyGame2Title, NormalEasyGame2Height, NormalEasyGame2Width, NormalEasyGame2Difficulty, NormalEasyGame2HiddenWords, NormalEasyGame2Categories, NormalEasyGame2Tags);
+        var normalEasyGame2Grid = new GameGrid(NormalEasyGame2, AnonymousUserId);
+        normalEasyGame2Grid.AddGameGridInstance(AnonymousUserId);
         NormalEasyGame2.AddGameGrid(normalEasyGame2Grid);
 
         AllGames = new List<Game> {
-            NormalEasyGame1
+            NormalEasyGame1,
+            NormalEasyGame2
         };
     }
 }

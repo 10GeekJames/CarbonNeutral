@@ -3,7 +3,7 @@ namespace WskCore.Entities;
 public class Game : BaseEntityTracked<Guid>, IAggregateRoot
 {
     public string Title { get; private set; }
-    public Guid? KnownUserId { get; private set; } = null;
+    public Guid KnownUserId { get; private set; }
     public int Height { get; private set; } = 0;
     public int Width { get; private set; } = 0;
 
@@ -27,12 +27,12 @@ public class Game : BaseEntityTracked<Guid>, IAggregateRoot
     private Game() { }
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-    public Game(Guid id, string title, int height, int width, GameDifficulties gameDifficulty, IEnumerable<HiddenWord> hiddenWords, IEnumerable<GameCategory> gameCategories, IEnumerable<GameTag> gameTags, Guid? knownUserId = null) : this(title, height, width, gameDifficulty, hiddenWords, gameCategories, gameTags, knownUserId)
+    public Game(Guid id, Guid knownUserId, string title, int height, int width, GameDifficulties gameDifficulty, IEnumerable<HiddenWord> hiddenWords, IEnumerable<GameCategory> gameCategories, IEnumerable<GameTag> gameTags) : this(knownUserId, title, height, width, gameDifficulty, hiddenWords, gameCategories, gameTags)
     {
         Id = id;
     }
 
-    public Game(string title, int height, int width, GameDifficulties gameDifficulty, IEnumerable<HiddenWord> hiddenWords, IEnumerable<GameCategory> gameCategories, IEnumerable<GameTag> gameTags, Guid? knownUserId = null)
+    public Game(Guid knownUserId, string title, int height, int width, GameDifficulties gameDifficulty, IEnumerable<HiddenWord> hiddenWords, IEnumerable<GameCategory> gameCategories, IEnumerable<GameTag> gameTags)
     {
         Title = title;
         KnownUserId = knownUserId;
@@ -45,9 +45,9 @@ public class Game : BaseEntityTracked<Guid>, IAggregateRoot
         _gameTags = gameTags.ToList();
     }
 
-    public void CreateNewGridVersion(Guid? knownUserId)
+    public void CreateNewGridVersion(Guid knownUserId)
     {
-        var newGameGrid = new GameGrid(this, string.Empty, knownUserId);
+        var newGameGrid = new GameGrid(this, knownUserId, string.Empty);
         _gameGrids.Add(newGameGrid);
     }
     

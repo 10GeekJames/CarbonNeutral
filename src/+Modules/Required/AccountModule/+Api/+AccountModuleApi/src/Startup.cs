@@ -43,7 +43,6 @@ public class Startup
         }        
         services.AddSingleton<IAccountModuleDataService, AccountModuleDirectDataService>();
         services.AddSingleton<IAccountModuleDataServiceNotAuthed, AccountModuleDirectDataService>();
-        Console.WriteLine($"dbConnectionStrategy: {dbConnectionStrategy}, connectionString: {connectionString}");
         services.AddHttpContextAccessor();
         /* services
             .AddControllersWithViews()

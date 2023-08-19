@@ -5,7 +5,6 @@
 
 <PageTitle>WSK - @_gameTitle</PageTitle>
 
-
 <MudContainer MaxWidth="MaxWidth.ExtraExtraLarge" Class=@(IsMobile ? "pa-0 overflow-x-auto" : "")>
     @if (_tryCheat)
     {
@@ -27,6 +26,7 @@
 @code {
     [Parameter] 
     public Guid GameId { get; set; }
+    public Guid GameInstanceId { get; set; }
     private GameViewModel _chosenGame { get; set; }
     private bool _tryCheat { get; set; } = false;
     private string _gameTitle { get; set; } = "Word Search Title";
@@ -38,12 +38,13 @@
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        var gameGetByIdRequest = new GameGetByIdRequest(GameId);        
-        _chosenGame = await WskDataServiceNotAuthed.GameGetByIdAsync(gameGetByIdRequest);        
-        _chosenGame = await WskDataServiceNotAuthed.GameRecreateGridAsync(new GameRecreateGridRequest(_chosenGame.Id));
-        
+        var gameGetFullGridRequest = new GameGetFullGridRequest(GameId, GameInstanceId);        
+        _chosenGame = await WskDataServiceNotAuthed.GameGetFullGridAsync(gameGetFullGridRequest);
+        GameInstanceId = _chosenGame.GameGrid.GameGridInstance.Id;
+        Console.WriteLine($"{_chosenGame.GameGrid.GameGridInstance.Id}");
+    
         SelectedGridCells = GameGridUtility.ConvertRowCellStringToArray(_chosenGame.GameGrid.RowCellData);
-        SelectedGridCellPoints = GameGridUtility.ConvertSelectedWordsToPointList(_chosenGame.GameGrid.GameGridInstances.First().CompletedWordCellData);        
+        SelectedGridCellPoints = GameGridUtility.ConvertSelectedWordsToPointList(_chosenGame.GameGrid.GameGridInstance.CompletedWordCellData);        
         _gameTitle = _chosenGame.Title;
     }
     @* public async Task OnRecreateGame(){
@@ -51,6 +52,6 @@
         _chosenGame = await WskDataServiceNotAuthed.GameGetByIdAsync(request);         
         _chosenGame.CreateNewGridVersion();        
         SelectedGridCells = GameGridUtility.ConvertRowCellStringToArray(_chosenGame.GameGrid.RowCellData);
-        SelectedGridCellPoints = GameGridUtility.ConvertSelectedWordsToPointList(_chosenGame.GameGrid.GameGridInstances.First().CompletedWordCellData);               
+        SelectedGridCellPoints = GameGridUtility.ConvertSelectedWordsToPointList(_chosenGame.GameGrid.GameGridInstance.CompletedWordCellData);               
     } *@
 }

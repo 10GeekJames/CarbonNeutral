@@ -4,7 +4,6 @@ public class WskGamesSeedWithData : IWskSeedScript
 {
     public async Task PopulateWskTestData(IServiceProvider serviceProvider)
     {
-        Console.WriteLine($"{WskGameTestData.AllGames.First().GameGrids.First().Id}");
         var mediator = serviceProvider.GetRequiredService<IMediator>();
         var logger = serviceProvider.GetRequiredService<ILogger<WskGamesSeedWithData>>();
         using var dbContext =
