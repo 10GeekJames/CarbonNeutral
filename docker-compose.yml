@@ -115,7 +115,7 @@ services:
     depends_on:
       - carbonneutral-shared-base
       - id-carbonneutral
-  wordsearchkingdom-blazor-client:
+  carbonneutral-blazor-client:
     networks:
     - my-network
     restart: unless-stopped
