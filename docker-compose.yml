@@ -71,7 +71,7 @@ services:
       context: ./
       dockerfile: ./src/+Modules/Required/LiveRoomModule/+Api/+LiveRoomModuleApi/src/Dockerfile
     ports:
-      - "5278:5278"
+      - "5292:5292"
     depends_on:
       - carbonneutral-shared-base
       - id-carbonneutral
