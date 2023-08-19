@@ -1,4 +1,4 @@
-FROM local:wordsearchkingdom-shared-base
+FROM local:carbonneutral-shared-base
 WORKDIR /
 
 RUN apt-get update && apt-get install -y curl sudo

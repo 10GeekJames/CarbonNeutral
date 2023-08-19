@@ -1,9 +1,9 @@
 FROM nginx:alpine as final
 EXPOSE 5020/tcp
 
-FROM local:wordsearchkingdom-shared-base AS build
+FROM local:carbonneutral-shared-base AS build
 WORKDIR /
-COPY --from=local:wordsearchkingdom-shared-base .  .
+COPY --from=local:carbonneutral-shared-base .  .
 
 COPY ./src/UI/Client/CarbonNeutral.BlazorClient/src/CarbonNeutral.BlazorClient.csproj /src/UI/Client/CarbonNeutral.BlazorClient/src/CarbonNeutral.BlazorClient.csproj
 RUN dotnet restore "/src/UI/Client/CarbonNeutral.BlazorClient/src/CarbonNeutral.BlazorClient.csproj"
