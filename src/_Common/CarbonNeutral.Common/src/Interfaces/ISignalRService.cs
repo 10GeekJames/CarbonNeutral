@@ -18,5 +18,6 @@ public interface ISignalRService
     Task newRoomMessageAsync(string message);
     Task newRoomMessageFromServerAsync(string message);
     Task receiveMessageAsync(string message);
+    Task joinLiveRoom(string roomName);
     void SetUserName(string userName);
 }

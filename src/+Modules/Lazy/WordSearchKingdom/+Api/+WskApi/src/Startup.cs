@@ -148,7 +148,10 @@ public class Startup
         app.UseStaticFiles();
         app.UseCookiePolicy();
         app.UseCors();
-
+        app.UseForwardedHeaders(new ForwardedHeadersOptions
+        {
+            ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+        });
         app.UseAuthentication();
         app.UseAuthorization();
 

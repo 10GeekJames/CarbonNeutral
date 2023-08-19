@@ -5,6 +5,7 @@ global using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 global using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 global using Microsoft.AspNetCore.Components.WebAssembly.Authentication.Internal;
 global using Microsoft.AspNetCore.Components.WebAssembly.Services;
+global using Microsoft.AspNetCore.SignalR;
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
 

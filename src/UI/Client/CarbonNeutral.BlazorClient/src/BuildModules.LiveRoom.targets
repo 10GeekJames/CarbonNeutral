@@ -5,7 +5,12 @@
     <ProjectReference Include="./../../../../+Modules/Required/LiveRoomModule/____Core/LiveRoomCore.LiveRoomTestData/src/LiveRoomCore.LiveRoomTestData.csproj" />
     <ProjectReference Include="./../../../../+Modules/Required/LiveRoomModule/___Infrastructure/LiveRoomInfrastructure/src/LiveRoomInfrastructure.csproj" />                                         
     <ProjectReference Include="./../../../../+Modules/Required/LiveRoomModule/_Application/_LiveRoomApplication.Shared/src/LiveRoomApplication.Shared.csproj" />                                         
+    
     <ProjectReference Include="./../../../../+Modules/Required/LiveRoomModule/UI/_LiveRoomModuleClientServiceLoader/src/LiveRoomModuleClientServiceLoader.csproj" />
+    
+    <ProjectReference Include="./../../../../+Modules/Required/LiveRoomModule/UI/LiveRoomBlazorModule/src/LiveRoomBlazorModule.csproj" />
+    <BlazorWebAssemblyLazyLoad Include="LiveRoomBlazorModule.dll" />
+    
     <ProjectReference Include="./../../../../+Modules/Required/LiveRoomModule/UI/LiveRoomBlazorModuleAdmin/src/LiveRoomBlazorModuleAdmin.csproj" />
     <BlazorWebAssemblyLazyLoad Include="LiveRoomBlazorModuleAdmin.dll" />
   </ItemGroup>

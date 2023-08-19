@@ -60,6 +60,26 @@
             "sourceFileMap": {
                 "/Views": "${workspaceFolder}/src/+Modules/Lazy/WordSearchKingdom/__Data/WskApplication.Data/src/Views"
             }
+        },
+        {
+            "name": "CarbonNeutral.Signal",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-CarbonNeutral.Signal",
+            "program": "${workspaceFolder}/src/++SignalR/CarbonNeutral.Signal/src/bin/Debug/net7.0/CarbonNeutral.Signal.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/++SignalR/CarbonNeutral.Signal/src",
+            "stopAtEntry": false,
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/src/++SignalR/CarbonNeutral.Signal/src/Views"
+            }
         }
     ]
 }

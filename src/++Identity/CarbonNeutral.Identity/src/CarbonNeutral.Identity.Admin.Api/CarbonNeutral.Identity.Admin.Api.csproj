@@ -6,19 +6,8 @@
 		<DockerComposeProjectPath>../../docker-compose.dcproj</DockerComposeProjectPath>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 		<DockerfileContext>../..</DockerfileContext>		
+		<UserSecretsId>7bb1d295-54c5-4d09-9bd6-fa56fb74011b</UserSecretsId>
 	</PropertyGroup>
-	<Choose>
-        <When Condition="'$(Configuration)' != 'Release'">
-            <PropertyGroup>
-                <UserSecretsId>7aa1d295-54c5-4d09-9bd6-fa56fb74011b</UserSecretsId>
-            </PropertyGroup>
-        </When>
-        <When Condition="'$(Configuration)' == 'Release'">
-            <PropertyGroup>
-                <UserSecretsId>7bb1d295-54c5-4d09-9bd6-fa56fb74011b</UserSecretsId>
-            </PropertyGroup>
-        </When>
-    </Choose>
 	<ItemGroup>
 		<PackageReference Include="AspNetCore.HealthChecks.MySql" Version="6.0.2" />
 		<PackageReference Include="AspNetCore.HealthChecks.NpgSql" Version="6.0.1" />

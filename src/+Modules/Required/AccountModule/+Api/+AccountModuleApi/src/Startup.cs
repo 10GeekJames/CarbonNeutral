@@ -147,6 +147,10 @@ public class Startup
 
         app.UseRouting();
         app.UseCors();
+        app.UseForwardedHeaders(new ForwardedHeadersOptions
+        {
+            ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+        });
         app.UseAuthentication();
         app.UseAuthorization();
         // app.UseHttpsRedirection();

@@ -1,10 +1,10 @@
 namespace CarbonNeutral.Signal.Hubs;
 public class CarbonNeutralHub : Hub<ICarbonNeutralHubClient>
 {
-    public static ConcurrentDictionary<string, Guest> _roomGuests { get; set; }
+    public static ConcurrentDictionary<string, Guest> _roomGuests { get; set; } = new();
     public static ConcurrentDictionary<string, RoomSession> _roomSessions = new ConcurrentDictionary<string, RoomSession>();
 
-    public void CreateNewRoom(JObject data)
+    public void CreateNewRoomAsync(JObject data)
     {
         var roomKey = (string)data["roomKey"];
         var individual = (JObject)data["individual"];
@@ -39,16 +39,17 @@ public class CarbonNeutralHub : Hub<ICarbonNeutralHubClient>
                 return sessionData;
             }); */
             //Clients.Client(Context.ConnectionId).newRoomReady(roomSession);
-            Clients.Group(roomKey).newRoomReady(roomSession);
+            Clients.Group(roomKey).newRoomReadyAsync(roomSession);
         }
     }
-    
+
     public override Task OnConnectedAsync()
     {
+        Console.WriteLine("A new visitor!");
         _roomGuests.TryAdd(Context.ConnectionId, new Guest { ConnectionId = Context.ConnectionId, RoomKey = "-8" });
         // Clients.All.addedGuestFromTheRoomSignalR(Context.ConnectionId);
         var guestCount = _roomGuests.Count();
-        Clients.All.addedGuestFromTheRoomSignalR(guestCount);
+        Clients.All.addedGuestFromTheRoomSignalRAsync(guestCount);
         return base.OnConnectedAsync();
     }
     public override Task OnDisconnectedAsync(Exception exception)
@@ -58,7 +59,7 @@ public class CarbonNeutralHub : Hub<ICarbonNeutralHubClient>
 
         var guestCount = _roomGuests.Count();
         // Clients.All.removedGuestFromTheRoomSignalR(Context.ConnectionId);
-        Clients.All.removedGuestFromTheRoomSignalR(Context.ConnectionId);
+        Clients.All.removedGuestFromTheRoomSignalRAsync(Context.ConnectionId);
 
         return base.OnDisconnectedAsync(exception);
     }
@@ -71,9 +72,9 @@ public class CarbonNeutralHub : Hub<ICarbonNeutralHubClient>
         public string RoomKey { get; set; }
         //public DateTime LastSignal { get; set; }
     }
-    public async Task SendMessage(string user, string message)
+    public async Task SendMessageAsync(string userName, string room, string message)
     {
-        await Clients.All.receiveMessageAsync(message);
+        await Clients.Group(room).receiveMessageAsync($"{userName} says, {message}");
     }
     public async Task AddToGroupAsync(string group, string user)
     {
@@ -81,7 +82,7 @@ public class CarbonNeutralHub : Hub<ICarbonNeutralHubClient>
         System.Console.WriteLine($"Added to group {group}, {user}");
         await Clients.Group(group).receiveMessageAsync($"Added to group {group}, {user}");
     }
-    public async void RemovePersonFromRoom(Newtonsoft.Json.Linq.JObject data)
+    public async void RemovePersonFromRoomAsync(Newtonsoft.Json.Linq.JObject data)
     {
         Guest value;
         dynamic dData = data;
@@ -90,5 +91,13 @@ public class CarbonNeutralHub : Hub<ICarbonNeutralHubClient>
         //await Groups.RemoveAsync(Context.ConnectionId, roomKey);
         //Clients.All.removePersonFromRoom(data);
         Clients.Group(dData.roomKey).guestCountUpdated(_roomGuests.Count(guest => guest.Value.RoomKey.Equals(dData.roomKey)));
+    }
+    public async Task JoinLiveRoom(string roomName, string userName)
+    {
+        if (roomName == "")
+        {
+            Console.WriteLine("Room name is missing");
+        }
+        await AddToGroupAsync(roomName, userName);
     }
 }

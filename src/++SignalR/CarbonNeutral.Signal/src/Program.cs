@@ -11,9 +11,21 @@ builder.Services.AddSwaggerGen();
 {
     options.KnownProxies.Add(IPAddress.Parse("10.0.0.100"));
 }); */
-
+builder.Services.AddCors(opt =>
+    {
+        opt
+            .AddDefaultPolicy(builder =>
+            {
+                builder
+                    //.WithOrigins("https://wordsearchkingdom.com", "http://WordSearchKingdom.com:5020", "http://localhost:5020")
+                    .AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .WithExposedHeaders("*");
+            });
+    });
 var app = builder.Build();
-
+app.UseCors();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -21,7 +33,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseForwardedHeaders(new ForwardedHeadersOptions
 {
     ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto

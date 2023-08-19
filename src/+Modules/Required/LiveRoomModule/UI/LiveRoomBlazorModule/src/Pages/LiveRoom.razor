@@ -1,0 +1,39 @@
+@page "/liveroom/{roomName}"
+@implements IDisposable
+
+@layout MainLayout
+@inject IStringLocalizer<LiveRoom> Localize
+<div>
+    <div>
+        <h1>@roomName</h1>
+    </div>
+    <div>
+        <MudTextField @bind-Value="message" />
+        <button class="btn btn-primary" @onclick="MessageRoom">@Localize["Send"]</button>
+    </div>
+</div>
+@code {
+    [Parameter]
+    public string roomName { get; set; }
+    private string message { get; set; }
+    private IDisposable RoomMessageEvent { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await this.SignalRService.joinLiveRoom(roomName);
+        RoomMessageEvent = SignalRService.HubConnection.On<string>("receiveMessageAsync", (message) => 
+        {
+            Console.WriteLine($"{message}");            
+        });
+    }
+    private void MessageRoom()
+    {
+        SignalRService.sendMessageAsync(roomName, message);
+        
+        //message = "";
+    }
+    public void Dispose()
+    {
+        RoomMessageEvent.Dispose();
+    }
+}
