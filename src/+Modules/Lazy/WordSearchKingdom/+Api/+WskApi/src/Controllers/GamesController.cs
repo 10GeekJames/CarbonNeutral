@@ -2,7 +2,7 @@ namespace WskApi.Controllers;
 public partial class GamesController : BaseController
 {
     [HttpGet]
-    public async Task<IActionResult> GetAll([FromQuery] GamesGetAllRequest request)
+    public async Task<IActionResult> GetAll([FromQuery]GamesGetAllRequest request)
     {
         // alternatively
         Guid userId = new Guid("00000000-0000-0000-0000-000000000001");

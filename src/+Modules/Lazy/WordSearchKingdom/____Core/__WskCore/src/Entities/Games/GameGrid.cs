@@ -9,7 +9,7 @@ public class GameGrid : BaseEntityTracked<Guid>
     private List<GameGridInstance> _gameGridInstances = new();
     public IEnumerable<GameGridInstance> GameGridInstances => _gameGridInstances.AsReadOnly();
 
-    public GameGridInstance? GameGridInstance => _gameGridInstances.FirstOrDefault();
+    public GameGridInstance? GameGridInstance => GameGridInstances.FirstOrDefault(); //Propigate
 
     public bool IsCurrent { get; private set; } = true;
 

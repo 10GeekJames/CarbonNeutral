@@ -9,6 +9,8 @@ public class Game : BaseEntityTracked<Guid>, IAggregateRoot
 
     public GameDifficulties GameDifficulty { get; private set; }
 
+    public GameGrid? GameGrid => GameGrids.FirstOrDefault(); //Propigate
+
     private List<GameCategory> _gameCategories = new();
     public IEnumerable<GameCategory> GameCategories => _gameCategories.AsReadOnly();
 
@@ -17,8 +19,11 @@ public class Game : BaseEntityTracked<Guid>, IAggregateRoot
 
     private List<GameGrid> _gameGrids = new();
     public IEnumerable<GameGrid> GameGrids => _gameGrids.AsReadOnly();
+    
+     public string CompletedWordCellData { get; private set; } = "";
 
-    public GameGrid? GameGrid => GameGrids.FirstOrDefault();
+    [NotMapped, JsonIgnore]
+    public List<Point>? CompletedWords => !string.IsNullOrWhiteSpace(CompletedWordCellData) ? Newtonsoft.Json.JsonConvert.DeserializeObject<List<Point>?>(CompletedWordCellData) : null;
 
     public string HiddenWordsData { get; private set; } = "";
 

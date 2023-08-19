@@ -6,7 +6,7 @@ public partial class GameGetFullGridRequestMap : Profile
     
     public GameGetFullGridRequestMap()
     {
-        CreateMap<GameGetFullGridRequest, GameGetFullGridCmd>()
+        CreateMap<GameGetFullGridRequest, GameGetFullGridQry>()
         .ReverseMap();
     }
 }

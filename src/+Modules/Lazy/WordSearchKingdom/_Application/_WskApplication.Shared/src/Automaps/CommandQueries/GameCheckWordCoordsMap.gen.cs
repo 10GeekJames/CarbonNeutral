@@ -6,7 +6,7 @@ public partial class GameCheckWordCoordsRequestMap : Profile
     
     public GameCheckWordCoordsRequestMap()
     {
-        CreateMap<GameCheckWordCoordsRequest, GameCheckWordCoordsQry>()
+        CreateMap<GameCheckWordCoordsRequest, GameCheckWordCoordsCmd>()
         .ReverseMap();
     }
 }

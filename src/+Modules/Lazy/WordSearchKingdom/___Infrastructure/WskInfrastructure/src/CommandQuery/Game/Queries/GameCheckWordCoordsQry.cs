@@ -1,6 +1,6 @@
 // ag=yes
 namespace WskInfrastructure.CommandQuery; 
-public partial class GameCheckWordCoordsQry : IRequest<Game>
+public partial class GameCheckWordCoordsCmd : IRequest<Game>
 {
     public Guid Id { get; set; }
     public Guid KnownUserId { get; set; } = new Guid("00000000-0000-0000-0000-000000000001");
@@ -12,8 +12,8 @@ public partial class GameCheckWordCoordsQry : IRequest<Game>
 
 
 
-    public GameCheckWordCoordsQry() {}
-    public GameCheckWordCoordsQry(Guid id, Guid gameGridInstanceId, int x1, int y1, int x2, int y2)
+    public GameCheckWordCoordsCmd() {}
+    public GameCheckWordCoordsCmd(Guid id, Guid gameGridInstanceId, int x1, int y1, int x2, int y2)
     {
         Id = id;
         GameGridInstanceId = gameGridInstanceId;

@@ -12,7 +12,9 @@ public partial class GameViewModel : BaseViewModel<Guid>
      public List<GameTagViewModel> GameTags { get; set; } = new();
      public List<GameGridViewModel> GameGrids { get; set; } = new();
      public List<HiddenWordViewModel> HiddenWords { get; set; } = new();
-     public GameGridViewModel? GameGrid => GameGrids.FirstOrDefault();
+
+     public GameGridViewModel? GameGrid => GameGrids.FirstOrDefault(); 
+
 
 } 
         

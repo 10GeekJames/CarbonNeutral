@@ -1,14 +1,14 @@
 // ag=no
 namespace WskInfrastructure.CommandQuery;
-public partial class GameCheckWordCoordsQryHandler : IRequestHandler<GameCheckWordCoordsQry, Game>
+public partial class GameCheckWordCoordsCmdHandler : IRequestHandler<GameCheckWordCoordsCmd, Game>
 {
     private IRepository<Game> _repository;
-    public GameCheckWordCoordsQryHandler(IRepository<Game> repository)
+    public GameCheckWordCoordsCmdHandler(IRepository<Game> repository)
     {
         _repository = repository;
     }
 
-    public async Task<Game> Handle(GameCheckWordCoordsQry qry, CancellationToken cancellationToken)
+    public async Task<Game> Handle(GameCheckWordCoordsCmd qry, CancellationToken cancellationToken)
     {
         var spec = new GameGetFullGridSpec(qry.GameGridInstanceId);
         var game = await _repository.FirstOrDefaultAsync(spec, cancellationToken);
