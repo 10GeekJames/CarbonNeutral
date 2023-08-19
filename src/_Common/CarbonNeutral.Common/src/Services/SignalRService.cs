@@ -107,7 +107,7 @@ public class SignalRService : ISignalRService
         {
             HubConnection =
                 new HubConnectionBuilder()
-                    .WithUrl("https://signal-carbonneutral:5200/carbonneutralhub")
+                    .WithUrl("https://signal.wordsearchkingdom.com/carbonneutralhub")
                     //.WithUrl("https://localhost:5021/linuxcmdhub")
                     .WithAutomaticReconnect()
                     .Build();
