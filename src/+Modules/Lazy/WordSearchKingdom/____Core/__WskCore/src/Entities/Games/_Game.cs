@@ -20,8 +20,10 @@ public class Game : BaseEntityTracked<Guid>, IAggregateRoot
 
     public GameGrid? GameGrid => GameGrids.FirstOrDefault();
 
-    private List<HiddenWord> _hiddenWords = new();
-    public IEnumerable<HiddenWord> HiddenWords => _hiddenWords.AsReadOnly();
+    public string HiddenWordsData { get; private set; } = "";
+
+    [NotMapped, JsonIgnore]
+    public IEnumerable<string>? HiddenWordsDataArray => !string.IsNullOrWhiteSpace(HiddenWordsData) ? Newtonsoft.Json.JsonConvert.DeserializeObject<IEnumerable<string>?>(HiddenWordsData) : null;
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     private Game() { }
@@ -40,7 +42,7 @@ public class Game : BaseEntityTracked<Guid>, IAggregateRoot
         Width = width;
         GameDifficulty = gameDifficulty;
 
-        _hiddenWords = hiddenWords.ToList();
+        _hiddenWords = HiddenWordsDataArray;
         _gameCategories = gameCategories.ToList();
         _gameTags = gameTags.ToList();
     }

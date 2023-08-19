@@ -78,7 +78,7 @@ namespace CarbonNeutral.Identity.STS.Identity
             }
 
             app.UsePathBase(Configuration.GetValue<string>("BasePath"));
-
+            
 
             app.UseStaticFiles();
             UseAuthentication(app);

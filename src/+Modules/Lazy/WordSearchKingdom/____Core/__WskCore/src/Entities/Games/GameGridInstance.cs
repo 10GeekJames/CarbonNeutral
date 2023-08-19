@@ -5,11 +5,14 @@ public class GameGridInstance : BaseEntityTracked<Guid>, IAggregateRoot
     public string? Title { get; private set; }
     public GameGrid GameGrid { get; private set; }
     public Guid KnownUserId { get; private set; }
-    public string CompletedWordCellData { get; private set; } = "";
-
+    
     [NotMapped, JsonIgnore]
     public List<Point>? CompletedWords => !string.IsNullOrWhiteSpace(CompletedWordCellData) ? Newtonsoft.Json.JsonConvert.DeserializeObject<List<Point>?>(CompletedWordCellData) : null;
-
+    public string CompletedWordCellData { get; private set; } = "";
+    
+    [NotMapped, JsonIgnore]
+    public IEnumerable<string>? CompletedWordsDataArray => !string.IsNullOrWhiteSpace(CompletedWordsData) ? Newtonsoft.Json.JsonConvert.DeserializeObject<IEnumerable<string>?>(CompletedWordsData) : null;
+    public string CompletedWordsData { get; private set; } = "";
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     private GameGridInstance() { }
@@ -45,4 +48,6 @@ public class GameGridInstance : BaseEntityTracked<Guid>, IAggregateRoot
 
         CompletedWordCellData = Newtonsoft.Json.JsonConvert.SerializeObject(selectedCellsPointList);
     }
+    
+   
 }
