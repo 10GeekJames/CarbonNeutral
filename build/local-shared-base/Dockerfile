@@ -13,9 +13,9 @@ RUN npm upgrade --global yarn
 RUN npm install -g sass
 
 COPY ./src/__Kernel/CarbonNeutral.KernelShared/src/CarbonNeutral.KernelShared.csproj                                                    /src/__Kernel/CarbonNeutral.KernelShared/src/CarbonNeutral.KernelShared.csproj
-
-COPY ./src/++SignalR/CarbonNeutral.SignalR/src/CarbonNeutral.SignalR.csproj                                                             /src/++SignalR/CarbonNeutral.SignalR/src
-COPY ./src/++SignalR/CarbonNeutral.SignalR.Models/src/CarbonNeutral.SignalR.Models.csproj                                               /src/++SignalR/CarbonNeutral.SignalR.Models/src
+                                                                                                                                         
+COPY ./src/++SignalR/CarbonNeutral.SignalR.Models/src/CarbonNeutral.SignalR.Models.csproj                                               /src/++SignalR/CarbonNeutral.SignalR.Models/src/CarbonNeutral.SignalR.Models.csproj
+COPY ./src/++SignalR/CarbonNeutral.SignalR/src/CarbonNeutral.SignalR.csproj                                                             /src/++SignalR/CarbonNeutral.SignalR/src/CarbonNeutral.SignalR.csproj
 
 COPY ./src/+Modules/Required/AccountModule/____Core/__AccountModuleCore/src/AccountModuleCore.csproj                                    /src/+Modules/Required/AccountModule/____Core/__AccountModuleCore/src/AccountModuleCore.csproj
 COPY ./src/+Modules/Required/AccountModule/____Core/_AccountModuleCore.TestData/src/AccountModuleCore.TestData.csproj                   /src/+Modules/Required/AccountModule/____Core/_AccountModuleCore.TestData/src/AccountModuleCore.TestData.csproj
@@ -48,37 +48,37 @@ FROM copy-project-files AS restore-all
 WORKDIR /
 COPY --from=copy-project-files .  .
 
-RUN dotnet restore ./src/__Kernel/CarbonNeutral.KernelShared/src/CarbonNeutral.KernelShared.csproj
+RUN dotnet restore /src/__Kernel/CarbonNeutral.KernelShared/src/CarbonNeutral.KernelShared.csproj
+                    
+RUN dotnet restore /src/++SignalR/CarbonNeutral.SignalR.Models/src/CarbonNeutral.SignalR.Models.csproj                                               
+RUN dotnet restore /src/++SignalR/CarbonNeutral.SignalR/src/CarbonNeutral.SignalR.csproj                                                             
 
-RUN dotnet restore ./src/++SignalR/CarbonNeutral.SignalR/src/CarbonNeutral.SignalR.csproj                                                             
-RUN dotnet restore ./src/++SignalR/CarbonNeutral.SignalR.Models/src/CarbonNeutral.SignalR.Models.csproj                                               
+RUN dotnet restore /src/+Modules/Required/AccountModule/____Core/__AccountModuleCore/src/AccountModuleCore.csproj
+RUN dotnet restore /src/+Modules/Required/AccountModule/____Core/_AccountModuleCore.TestData/src/AccountModuleCore.TestData.csproj
+RUN dotnet restore /src/+Modules/Required/AccountModule/___Infrastructure/AccountModuleInfrastructure/src/AccountModuleInfrastructure.csproj
+RUN dotnet restore /src/+Modules/Required/AccountModule/_Application/_AccountModuleApplication.Shared/src/AccountModuleApplication.Shared.csproj
+RUN dotnet restore /src/+Modules/Required/AccountModule/_Application/AccountModuleApplication/src/AccountModuleApplication.csproj
+RUN dotnet restore /src/+Modules/Required/AccountModule/UI/_AccountModuleClientServiceLoader/src/AccountModuleClientServiceLoader.csproj
+RUN dotnet restore /src/+Modules/Required/AccountModule/UI/AccountModuleBlazorModuleAdmin/src/AccountModuleBlazorModuleAdmin.csproj
 
-RUN dotnet restore ./src/+Modules/Required/AccountModule/____Core/__AccountModuleCore/src/AccountModuleCore.csproj
-RUN dotnet restore ./src/+Modules/Required/AccountModule/____Core/_AccountModuleCore.TestData/src/AccountModuleCore.TestData.csproj
-RUN dotnet restore ./src/+Modules/Required/AccountModule/___Infrastructure/AccountModuleInfrastructure/src/AccountModuleInfrastructure.csproj
-RUN dotnet restore ./src/+Modules/Required/AccountModule/_Application/_AccountModuleApplication.Shared/src/AccountModuleApplication.Shared.csproj
-RUN dotnet restore ./src/+Modules/Required/AccountModule/_Application/AccountModuleApplication/src/AccountModuleApplication.csproj
-RUN dotnet restore ./src/+Modules/Required/AccountModule/UI/_AccountModuleClientServiceLoader/src/AccountModuleClientServiceLoader.csproj
-RUN dotnet restore ./src/+Modules/Required/AccountModule/UI/AccountModuleBlazorModuleAdmin/src/AccountModuleBlazorModuleAdmin.csproj
+RUN dotnet restore /src/+Modules/Required/LiveRoomModule/____Core/__LiveRoomCore/src/LiveRoomCore.csproj
+RUN dotnet restore /src/+Modules/Required/LiveRoomModule/____Core/LiveRoomCore.LiveRoomTestData/src/LiveRoomCore.LiveRoomTestData.csproj
+RUN dotnet restore /src/+Modules/Required/LiveRoomModule/___Infrastructure/LiveRoomInfrastructure/src/LiveRoomInfrastructure.csproj
+RUN dotnet restore /src/+Modules/Required/LiveRoomModule/_Application/_LiveRoomApplication.Shared/src/LiveRoomApplication.Shared.csproj
+RUN dotnet restore /src/+Modules/Required/LiveRoomModule/_Application/LiveRoomApplication/src/LiveRoomApplication.csproj
+RUN dotnet restore /src/+Modules/Required/LiveRoomModule/UI/_LiveRoomModuleClientServiceLoader/src/LiveRoomModuleClientServiceLoader.csproj
+RUN dotnet restore /src/+Modules/Required/LiveRoomModule/UI/LiveRoomBlazorModuleAdmin/src/LiveRoomBlazorModuleAdmin.csproj
 
-RUN dotnet restore ./src/+Modules/Required/LiveRoomModule/____Core/__LiveRoomCore/src/LiveRoomCore.csproj
-RUN dotnet restore ./src/+Modules/Required/LiveRoomModule/____Core/LiveRoomCore.LiveRoomTestData/src/LiveRoomCore.LiveRoomTestData.csproj
-RUN dotnet restore ./src/+Modules/Required/LiveRoomModule/___Infrastructure/LiveRoomInfrastructure/src/LiveRoomInfrastructure.csproj
-RUN dotnet restore ./src/+Modules/Required/LiveRoomModule/_Application/_LiveRoomApplication.Shared/src/LiveRoomApplication.Shared.csproj
-RUN dotnet restore ./src/+Modules/Required/LiveRoomModule/_Application/LiveRoomApplication/src/LiveRoomApplication.csproj
-RUN dotnet restore ./src/+Modules/Required/LiveRoomModule/UI/_LiveRoomModuleClientServiceLoader/src/LiveRoomModuleClientServiceLoader.csproj
-RUN dotnet restore ./src/+Modules/Required/LiveRoomModule/UI/LiveRoomBlazorModuleAdmin/src/LiveRoomBlazorModuleAdmin.csproj
+RUN dotnet restore /src/+Modules/Lazy/WordSearchKingdom/____Core/__WskCore/src/WskCore.csproj
+RUN dotnet restore /src/+Modules/Lazy/WordSearchKingdom/____Core/WskCore.WskTestData/src/WskCore.WskTestData.csproj
+RUN dotnet restore /src/+Modules/Lazy/WordSearchKingdom/___Infrastructure/WskInfrastructure/src/WskInfrastructure.csproj
+RUN dotnet restore /src/+Modules/Lazy/WordSearchKingdom/_Application/_WskApplication.Shared/src/WskApplication.Shared.csproj
+RUN dotnet restore /src/+Modules/Lazy/WordSearchKingdom/_Application/WskApplication/src/WskApplication.csproj
+RUN dotnet restore /src/+Modules/Lazy/WordSearchKingdom/UI/_WskModuleClientServiceLoader/src/WskModuleClientServiceLoader.csproj
+RUN dotnet restore /src/+Modules/Lazy/WordSearchKingdom/UI/WskBlazorModule/src/WskBlazorModule.csproj
+RUN dotnet restore /src/+Modules/Lazy/WordSearchKingdom/UI/WskBlazorModuleAdmin/src/WskBlazorModuleAdmin.csproj
 
-RUN dotnet restore ./src/+Modules/Lazy/WordSearchKingdom/____Core/__WskCore/src/WskCore.csproj
-RUN dotnet restore ./src/+Modules/Lazy/WordSearchKingdom/____Core/WskCore.WskTestData/src/WskCore.WskTestData.csproj
-RUN dotnet restore ./src/+Modules/Lazy/WordSearchKingdom/___Infrastructure/WskInfrastructure/src/WskInfrastructure.csproj
-RUN dotnet restore ./src/+Modules/Lazy/WordSearchKingdom/_Application/_WskApplication.Shared/src/WskApplication.Shared.csproj
-RUN dotnet restore ./src/+Modules/Lazy/WordSearchKingdom/_Application/WskApplication/src/WskApplication.csproj
-RUN dotnet restore ./src/+Modules/Lazy/WordSearchKingdom/UI/_WskModuleClientServiceLoader/src/WskModuleClientServiceLoader.csproj
-RUN dotnet restore ./src/+Modules/Lazy/WordSearchKingdom/UI/WskBlazorModule/src/WskBlazorModule.csproj
-RUN dotnet restore ./src/+Modules/Lazy/WordSearchKingdom/UI/WskBlazorModuleAdmin/src/WskBlazorModuleAdmin.csproj
-
-RUN dotnet restore ./src/_Common/CarbonNeutral.Common/src/CarbonNeutral.Common.csproj
+RUN dotnet restore /src/_Common/CarbonNeutral.Common/src/CarbonNeutral.Common.csproj
 
 
 FROM restore-all AS copy-the-rest-of-the-files
@@ -87,8 +87,8 @@ COPY --from=restore-all .  .
 
 COPY ./src/__Kernel/CarbonNeutral.KernelShared/src/                                             /src/__Kernel/CarbonNeutral.KernelShared/src/
 
-COPY ./src/++SignalR/CarbonNeutral.SignalR/src/                                                 /src/++SignalR/CarbonNeutral.SignalR/src
 COPY ./src/++SignalR/CarbonNeutral.SignalR.Models/src/                                          /src/++SignalR/CarbonNeutral.SignalR.Models/src
+COPY ./src/++SignalR/CarbonNeutral.SignalR/src/                                                 /src/++SignalR/CarbonNeutral.SignalR/src
 
 COPY ./src/+Modules/Required/AccountModule/____Core/__AccountModuleCore/src/                    /src/+Modules/Required/AccountModule/____Core/__AccountModuleCore/src/
 COPY ./src/+Modules/Required/AccountModule/____Core/_AccountModuleCore.TestData/src/            /src/+Modules/Required/AccountModule/____Core/_AccountModuleCore.TestData/src/

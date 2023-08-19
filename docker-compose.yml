@@ -69,7 +69,7 @@ services:
       - $HOME/.microsoft/usersecrets/7bb1d295-54c5-4d09-9bd6-fa56fb74011b:/root/.microsoft/usersecrets/7bb1d295-54c5-4d09-9bd6-fa56fb74011b
     build:
       context: ./
-      dockerfile: ./src/+Modules/Required/LiveRoomModule/+Api/+LiveRoomModuleApi/src/Dockerfile
+      dockerfile: ./src/+Modules/Required/LiveRoomModule/+Api/+LiveRoomApi/src/Dockerfile
     ports:
       - "5292:5292"
     depends_on:
