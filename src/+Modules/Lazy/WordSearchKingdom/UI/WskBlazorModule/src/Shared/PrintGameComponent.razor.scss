@@ -1,0 +1,151 @@
+//Keep first line empty
+@page {
+    size: 8.5in 5.5in portrait;
+    margin: 0;
+}
+
+.play-area-grid {
+    display: grid;
+    border-collapse: collapse;
+    aspect-ratio: 1 / 1;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+    width: fit-content;
+    gap: 0;
+}
+
+::deep .grid-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 24px;
+    height: 24px;
+    text-align: center;
+    user-select: none;
+    aspect-ratio: 1 / 1;
+    &:hover {
+        background-color: #FFFFFF;
+        transform: scale(1.2);
+        color: black;
+        cursor: pointer;
+        border-radius: 0.1em;
+        border: 2px dotted green;
+        & * {
+            color: green;
+            transform: scale(1.1);
+            text-shadow:
+                0px 1px 0px rgba(255, 255, 255, 0.3),
+                1px 1px 2px rgba(0, 0, 0, 0.7);
+        }
+    }
+}
+
+::deep .grid-cell-mobile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 18px;
+    height: 18px;
+    text-align: center;
+    user-select: none;
+    aspect-ratio: 1 / 1;
+    &:hover {
+        background-color: #FFFFFF;
+        transform: scale(1.5);
+        color: black;
+        cursor: pointer;
+        border-radius: 0.1em;
+        border: 2px dotted green;
+        & * {
+            color: green;
+            transform: scale(1.1);
+            text-shadow:
+                0px 1px 0px rgba(255, 255, 255, 0.3),
+                1px 1px 2px rgba(0, 0, 0, 0.7);
+        }
+    }
+}
+
+
+::deep .grid-cell .mud-link {
+    aspect-ratio: 1 / 1;
+    // font-family: "Monaco", monospace !important;
+    font-weight: bolder;
+    font-size: 1em;
+}
+
+.main-game-container {
+    width: fit-content; 
+    margin: 0 auto;
+    // background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(50px);
+}
+
+.full-width {
+    width: 100%;; 
+}
+
+::deep .grid-cell__engraved-text-container {
+    color: transparent;
+    background: linear-gradient(#919191 35%, #ffffff 52%, #9c9c9c 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-shadow:
+        0px 1px 0px rgba(255, 255, 255, 0.3),
+        0px -1px 0px rgba(0, 0, 0, 0.7);
+}
+
+::deep .grid-cell__pop-out-text {
+    text-shadow: 1px 0px 0px rgb(155,155,155), 2px 0px 0px rgb(0,0,0), 1px 1px 2px white;
+}
+
+::deep .grid-cell__selected-letter {
+    transform: scale(2.5);
+}
+
+::deep .grid-cell__found-word  {
+    transform: scale(1.5);
+}
+
+.hide-scrollbar {
+    display: inherit;
+    white-space: nowrap;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE 10+ */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.text-scroll-horizontal {
+    display: inherit;
+    white-space: nowrap;
+    animation: autoscrollHorizontal 10s ease-in-out 3 alternate;
+
+}
+
+@keyframes autoscrollHorizontal {
+    0% {
+        transform: translateX(10%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.text-scroll-vertical {
+    display: inherit;
+    white-space: nowrap;
+    animation: autoscrollVertical 10s ease-in-out 3 alternate;
+}
+
+@keyframes autoscrollVertical {
+    0% {
+        transform: translateY(10%);
+    }
+    100% {
+        transform: translateY(-150%);
+    }
+}

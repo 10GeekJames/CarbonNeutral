@@ -1,27 +1,27 @@
 @inject IStringLocalizer<GameComponent> Localize
 
+    
+<div  Class="pt-4 no-print d-flex justify-end gap-3">
+    @* <MudButton Style="justify-self: flex-end;" Variant="Variant.Filled" Color="Color.Dark" OnClick=OnRecreateGame>Recreate Game</MudButton>   *@
+    <MudButton Style="justify-self: flex-end;" Variant="Variant.Filled" Color="Color.Dark" OnClick=BackToAllGames >All Games</MudButton>    
+    <MudButton Style="justify-self: flex-end;" Variant="Variant.Filled" Color="Color.Dark" OnClick=CycleFont >Cycle Font</MudButton>    
+</div>
 
-<div class="border-double border-xs-none border-xs-0 border-4 mud-border-primary rounded main-game-container">
+<div class="main-game-container">
     @if(Game.GameGrid != null) {
         <MudStack Class="pa-4 rounded" AlignItems="AlignItems.Center" Justify="Justify.Center">
-
-            <div class="grid-cell__engraved-text-container d-flex">
-                <MudText Class="highlight-shadow" Typo="Typo.h2" Align="Align.Center" Style="writing-mode: vertical-rl;">@Game?.Title</MudText>  
-                <MudStack Spacing="4">
-                    <MudButton Style="justify-self: flex-end;" Variant="Variant.Filled" Color="Color.Tertiary" OnClick=OnRecreateGame FullWidth="true" >Recreate Game</MudButton>  
-                    <MudButton Style="justify-self: flex-end;" Variant="Variant.Filled" Color="Color.Tertiary" OnClick=BackToAllGames FullWidth="true" >All Games</MudButton>    
-                    <MudButton Style="justify-self: flex-end;" Variant="Variant.Filled" Color="Color.Tertiary" OnClick=CycleFont FullWidth="true" >Cycle Font</MudButton>    
-                </MudStack>
-            </div>
-
-            <div class="play-area-grid align-items-center ma-auto" Style="@(($"grid-template-rows: repeat({Game.GameGrid.Width}, 1fr); grid-template-columns: repeat({Game.GameGrid.Height}, 1fr);"))">
+            <MudText Typo="Typo.h4" Align="Align.Center">@Game?.Title</MudText>  
+            <div class="play-area-grid align-items-center ma-auto relative" Style="@(($"grid-template-rows: repeat({Game.GameGrid.Width}, 1fr); grid-template-columns: repeat({Game.GameGrid.Height}, 1fr);"))">
+                <div style=@($"position: absolute; top: 50%; left: 50%; z-index: 1; transform: translate(-50%,-50%) scale({isLargeGrid()}); opacity: 0.20")>
+                    <PrintWskLogo />
+                </div>
                 @for (var x = 0; x < Game.GameGrid.Width; x++) {
                     @for (var y = 0; y < Game.GameGrid.Height; y++) {                            
                         var storeX = x;
                         var storeY = y;
                         char rowCell = SelectedGridCells[storeX,storeY];
                     
-                        <RowCellComponent 
+                        <PrintRowCellComponent 
                             RowCell=rowCell
                             X=storeX
                             Y=storeY
@@ -31,17 +31,21 @@
                         }
                     }                
             </div>
-            <MudContainer Class="border-double border-xs-0 border-4 mud-border-primary pa-4 rounded ma-0" >
-                <MudText Class="highlight-shadow" Typo="Typo.h3" Align="Align.Center">
+            <MudContainer Class="mt-8">
+                <MudText Typo="Typo.h5" Align="Align.Center">
                     Hidden Words
                 </MudText>
                 <MudDivider />
-                <MudStack Class="my-6 overflow-y-auto" Style="max-height: 50vh;">
+                <MudGrid Class="my-6" Justify="Justify.Center">
                     @foreach (var word in Game?.GameGrid.HiddenWords)
                     {
-                        <MudText Class="p-8" Typo="Typo.h5" Align="Align.Center">@word.Word</MudText>
+                        if (word.Word != "WSK") {
+                            <MudItem xs="2">
+                                <MudText Style=@($"font-family: {_currentFont}") Class="p-8" Typo="Typo.body1" Align="Align.Center">@word.Word</MudText>
+                            </MudItem>
+                        }
                     }
-                </MudStack>
+                </MudGrid>
             </MudContainer>
         </MudStack>
     }
@@ -66,6 +70,14 @@
             return Color.Error;
         }
         return Color.Primary;
+    }
+    private string isLargeGrid() {
+        if (Game.GameGrid.Height > 20 && Game.GameGrid.Width > 20) {
+            return "5";
+        } else {
+            return "3";
+        }
+        
     }
     
     protected override async Task OnInitializedAsync()
