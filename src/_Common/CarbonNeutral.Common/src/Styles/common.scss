@@ -110,3 +110,10 @@ a,
     text-shadow: 0px 0px 7px deepskyblue !important;
 }
 
+@media print
+{    
+    .no-print, .no-print *
+    {
+        display: none !important;
+    }
+}

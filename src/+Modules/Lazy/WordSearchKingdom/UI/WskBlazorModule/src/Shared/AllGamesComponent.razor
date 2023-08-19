@@ -23,8 +23,12 @@
                         <MudChip Color="Color.Error" Size="Size.Small" Variant="@isSelectedDifficulty(game.GameDifficulty, "ExtraHard")">Ex</MudChip>
                     </MudStack>
                 </MudCardContent>
-                <MudCardActions>
+                <MudCardActions Class="justify-space-around gap-2">
                     <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="() => NavigateToGame(game.Id.ToString())" FullWidth="true">@Localize["Play"]</MudButton>
+                    @if ((game.GameGrid.Height < 25 && game.GameGrid.Width < 25) && game.GameGrid.HiddenWords.Count() < 30)
+                    {
+                        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="() => NavigateToPrint(game.Id.ToString())" FullWidth="true">@Localize["Print"]</MudButton>
+                    } 
                 </MudCardActions>
             </MudCard>
         </MudItem>
@@ -59,12 +63,16 @@
 
     protected async Task NavigateToGame(string gameId)
     {
-        Console.WriteLine(isAuthenticated);
+        @* Console.WriteLine(isAuthenticated); *@
         if (isAuthenticated) {
             NavigationManager.NavigateTo($"/wsk/game/{gameId}");
         } else {
             NavigationManager.NavigateTo($"/wsk/gamedemo/{gameId}");
         }
+    }
+    protected async Task NavigateToPrint(string gameId)
+    {
+        NavigationManager.NavigateTo($"/wsk/printgame/{gameId}");
     }
 
     private MudBlazor.Color isFoundStyling(bool isFound) {
