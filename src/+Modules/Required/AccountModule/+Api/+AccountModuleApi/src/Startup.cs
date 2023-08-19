@@ -43,7 +43,6 @@ public class Startup
         }        
         services.AddSingleton<IAccountModuleDataService, AccountModuleDirectDataService>();
         services.AddSingleton<IAccountModuleDataServiceNotAuthed, AccountModuleDirectDataService>();
-        Console.WriteLine($"dbConnectionStrategy: {dbConnectionStrategy}, connectionString: {connectionString}");
         services.AddHttpContextAccessor();
         /* services
             .AddControllersWithViews()
@@ -65,6 +64,8 @@ public class Startup
                     new CamelCasePropertyNamesContractResolver();
                 options.SerializerSettings.ReferenceLoopHandling =
                     ReferenceLoopHandling.Ignore;
+                /*options.SerializerSettings.Converters.Add(
+                    new StronglyTypedIdNewtonsoftJsonConverter());*/
                 //options.SerializerSettings.MaxDepth = 2;
             });
         services.AddCors(opt =>
@@ -146,6 +147,10 @@ public class Startup
 
         app.UseRouting();
         app.UseCors();
+        app.UseForwardedHeaders(new ForwardedHeadersOptions
+        {
+            ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+        });
         app.UseAuthentication();
         app.UseAuthorization();
         // app.UseHttpsRedirection();

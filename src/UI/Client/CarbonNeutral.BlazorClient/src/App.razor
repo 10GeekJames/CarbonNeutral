@@ -138,15 +138,33 @@
 
 
 
-        var preLoadAssemblies = await AssemblyLoader.LoadAssembliesAsync(new List<string>() { "AccountModuleBlazorModuleAdmin.dll" });
+        var preLoadAssemblies = await AssemblyLoader.LoadAssembliesAsync(new List<string>() { });
         LoadedAssemblies.AddRange(preLoadAssemblies);
 
         // AccountModule
         if (uriPath.Contains("account/"))
         {
-            // pre loaded
-        }        
+            @* var assemblies = await AssemblyLoader.LoadAssembliesAsync(new List<string> { "AccountModuleBlazorModule.dll" });
+            LoadedAssemblies.AddRange(assemblies);             *@
+        }
+        else if(uriPath.Contains("accounta/")) {
+            var assemblies = await AssemblyLoader.LoadAssembliesAsync(new List<string> { "AccountModuleBlazorModule.dll", "AccountModuleBlazorModuleAdmin.dll" });
+            LoadedAssemblies.AddRange(assemblies);
+        }
         // \AccountModule
+
+        // LiveRoomModule
+        if (uriPath.Contains("liveroom/") || uriPath.Contains("liverooms/"))
+        {
+            var assemblies = await AssemblyLoader.LoadAssembliesAsync(new List<string> { "LiveRoomBlazorModule.dll" });
+            LoadedAssemblies.AddRange(assemblies);            
+        }
+        else if(uriPath.Contains("liverooma/") || uriPath.Contains("liveroomsa/")) {
+            var assemblies = await AssemblyLoader.LoadAssembliesAsync(new List<string> { "LiveRoomBlazorModule.dll", "LiveRoomBlazorModuleAdmin.dll" });
+            LoadedAssemblies.AddRange(assemblies);             
+        }
+        // \LiveRoomModule
+
         
         // WordSearchKingdom
         if (uriPath.Contains("wsk/"))

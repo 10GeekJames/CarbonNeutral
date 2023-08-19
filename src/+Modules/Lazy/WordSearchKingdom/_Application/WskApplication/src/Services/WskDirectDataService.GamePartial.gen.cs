@@ -17,9 +17,9 @@ public partial class WskDirectDataService
         var qry = _mapper.Map<GameGetByIdQry>(request);
         return _mapper.Map<GameViewModel?>(await _mediator.Send(qry));
     }
-    public async Task<GameViewModel?> GameRecreateGridAsync(GameRecreateGridRequest request)
+    public async Task<GameViewModel?> GameGetFullGridAsync(GameGetFullGridRequest request)
     {
-        var cmd = _mapper.Map<GameRecreateGridCmd>(request);
+        var cmd = _mapper.Map<GameGetFullGridCmd>(request);
         return _mapper.Map<GameViewModel?>(await _mediator.Send(cmd));
     }
 

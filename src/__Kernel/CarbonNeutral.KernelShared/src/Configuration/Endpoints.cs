@@ -22,5 +22,14 @@ public class Endpoints
     public string WskAdminApiVersion { get; set; } = "";
     public string WskAdminApiName { get; set; } = "wsk_admin_api";
 
+
+    public string LiveRoomApiUrl { get; set; } = "";
+    public string LiveRoomApiVersion { get; set; } = "";
+    public string LiveRoomApiName { get; set; } = "liveroom_api";
+    
+    public string LiveRoomAdminApiUrl { get; set; } = "";
+    public string LiveRoomAdminApiVersion { get; set; } = "";
+    public string LiveRoomAdminApiName { get; set; } = "liveroom_admin_api";
+
     
 }

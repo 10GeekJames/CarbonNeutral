@@ -1,0 +1,49 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsPackable>false</IsPackable>
+    <PackageId>LiveRoomApplication.Data</PackageId>
+    <Version>1.1.2.3</Version>
+    <Authors>10GeekJames</Authors>
+    <Company>10GeekJames</Company>
+    <DefaultNamespace>LiveRoomApplication.Data</DefaultNamespace>
+  </PropertyGroup>
+  <Choose>
+    <When Condition="'$(Configuration)' != 'Release'">
+      <PropertyGroup>
+        <UserSecretsId>7aa1d295-54c5-4d09-9bd6-fa56fb74011b</UserSecretsId>
+      </PropertyGroup>
+    </When>
+    <When Condition="'$(Configuration)' == 'Release'">
+      <PropertyGroup>
+        <UserSecretsId>7bb1d295-54c5-4d09-9bd6-fa56fb74011b</UserSecretsId>
+      </PropertyGroup>
+    </When>
+  </Choose>
+  <ItemGroup>
+    <Content Remove="appsettings.Development.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="MediatR" Version="12.0.1" />
+
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" PrivateAssets="all" Version="7.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.8" />
+    <PackageReference Include="SQLite" Version="3.13.0" />
+    <PackageReference Include="Toolbelt.EntityFrameworkCore.IndexAttribute.SqlServer" Version="5.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="CarbonNeutral.KernelShared">
+      <HintPath>./../../../../../../__Kernel/CarbonNeutral.KernelShared/src/bin/Debug/net7.0/CarbonNeutral.KernelShared.dll</HintPath>
+    </Reference>
+    <ProjectReference Include="./../../../____Core/__LiveRoomCore/src/LiveRoomCore.csproj" />
+    <ProjectReference Include="./../../../____Core/LiveRoomCore.LiveRoomTestData/src/LiveRoomCore.LiveRoomTestData.csproj" />
+    <ProjectReference Include="./../../../___Infrastructure/LiveRoomInfrastructure/src/LiveRoomInfrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -3,6 +3,8 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
+builder.Services.AddSingleton<ISignalRService, SignalRService>();
+
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 if (!builder.HostEnvironment.IsDevelopment())
 {
@@ -33,10 +35,10 @@ builder.Services.AddOidcAuthentication(options =>
         options.ProviderOptions.ClientId = "CarbonNeutralClient";
         options.ProviderOptions.ResponseType = "code";
         options.UserOptions.RoleClaim = "role";
-        options.ProviderOptions.PostLogoutRedirectUri = "/Welcome";
+        options.ProviderOptions.PostLogoutRedirectUri = "https://wordsearchkingdom.com";
         options.AuthenticationPaths.RemoteProfilePath = $"{appSettings.Endpoints.IdentityEndpointUrl}/Account/Manage";
         options.AuthenticationPaths.RemoteRegisterPath = $"{appSettings.Endpoints.IdentityEndpointUrl}/Account/Register";
-        options.AuthenticationPaths.LogOutSucceededPath = "/Welcome";
+        options.AuthenticationPaths.LogOutSucceededPath = "https://wordsearchkingdom.com";
     }).AddAccountClaimsPrincipalFactory<AccountClaimsPrincipalFactoryEx>();
 builder.Services.AddScoped<CustomAuthorizationMessageHandler>();
 
@@ -49,7 +51,6 @@ builder.RegisterRequiredModules();
 // smash in all the resx files
 
 builder.Services.AddLocalization();
-
 builder.Services.AddApiAuthorization(options =>
 {
     options.AuthenticationPaths.LogInPath = "Account/login";

@@ -1,92 +1,122 @@
+using System.Data.Common;
+using System.Threading.Tasks.Dataflow;
 namespace WskCore.Entities;
 public class GameGrid : BaseEntityTracked<Guid>
 {
-    public int Height { get; private set; } = 0;
-    public int Width { get; private set; } = 0;
-    private List<HiddenWord> _hiddenWords = new();
-    public IEnumerable<HiddenWord> HiddenWords => _hiddenWords.AsReadOnly();
+    public Game Game { get; private set; }
+    public Guid KnownUserId { get; init; }
+
+    private List<GameGridInstance> _gameGridInstances = new();
+    public IEnumerable<GameGridInstance> GameGridInstances => _gameGridInstances.AsReadOnly();
+
+    public GameGridInstance? GameGridInstance => _gameGridInstances.FirstOrDefault();
+
+    public bool IsCurrent { get; private set; } = true;
 
     public string RowCellData { get; private set; } = "";
-    public string CompletedWordCellData { get; private set; } = "";
+
 
     [NotMapped, JsonIgnore]
     public char[,]? RowCellDataArray => !string.IsNullOrWhiteSpace(RowCellData) ? Newtonsoft.Json.JsonConvert.DeserializeObject<char[,]>(RowCellData) : null;
-    
-    [NotMapped, JsonIgnore]
-    public List<Point>? CompletedWords => !string.IsNullOrWhiteSpace(CompletedWordCellData) ? Newtonsoft.Json.JsonConvert.DeserializeObject<List<Point>?>(CompletedWordCellData) : null;
 
     Random _random = new Random();
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     private GameGrid() { }
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public GameGrid(int height, int width, IEnumerable<HiddenWord> hiddenWords)
+    public GameGrid(Guid gameGridId, Game game, Guid knownUserId, string rowCellData = "") : this(game, knownUserId, rowCellData)
     {
-        Height = height;
-        Width = width;
-        _hiddenWords = hiddenWords.ToList();
-        RecreateGrid();
+        Id = gameGridId;
     }
-    private string convertRowCellArrayToString(char[,] rowCells)
+
+    public GameGrid(Game game, Guid knownUserId, string rowCellData = "")
     {
-        return Newtonsoft.Json.JsonConvert.SerializeObject(rowCells);
+        Game = game;
+        KnownUserId = knownUserId;
+        if (rowCellData.Length > 50)
+        {
+            RowCellData = rowCellData;
+        }
+        else
+        {
+            GetFullGrid();
+        }
+        AddGameGridInstance(knownUserId);
     }
-    private char[,] convertRowCellStringToArray(string rowCellString)
-    {
-        return Newtonsoft.Json.JsonConvert.DeserializeObject<char[,]>(rowCellString);        
-    }
-    public void RecreateGrid() //DoNotPropigate
+    public void GetFullGrid() //DoNotPropigate
     {
         // find longest word in hidden words
-        var longestWord = _hiddenWords.OrderByDescending(word => word.Word.Length).First();
+        var longestWord = Game.HiddenWords.OrderByDescending(word => word.Word.Length).First();
         // find hidden words total count
-        var hiddenWordsCount = _hiddenWords.Count();
-        // if longest word is greater than height and width then throw exception
-        if (longestWord.Word.Length > Height && longestWord.Word.Length > Width)
+        var hiddenWordsCount = Game.HiddenWords.Count();
+        // if longest word is greater than height and Game.Width then throw exception
+        if (longestWord.Word.Length > Game.Height && longestWord.Word.Length > Game.Width)
         {
             throw new InvalidOperationException("The longest word is too long to fit on the grid.");
         }
-        
-        clearGrid();
-        RowCellData = convertRowCellArrayToString(setupGrid(Height, Width));
-        hideTheWordsOnGrid(HiddenWords);
-        fillEmptySpacesInTheGrid();
-        _hiddenWords.ForEach(word => word.ResetFound());
-    }
-    private void clearGrid()
-    {
-        RowCellData = convertRowCellArrayToString(setupGrid(Height, Width));
-        CompletedWordCellData = "[]";
-    }
-    private void fillEmptySpacesInTheGrid()
-    {
-        var rowCells = convertRowCellStringToArray(RowCellData);
 
-        for (var y = 0; y < Height; y++)
+        ClearGrid();
+
+        RowCellData = ConvertRowCellArrayToString(SetupGrid(Game.Height, Game.Width));
+        HideTheWordsOnGrid(Game.HiddenWords);
+        FillEmptySpacesInTheGrid();
+        Game.HiddenWords.ToList().ForEach(word => word.ResetFound());
+    }
+
+    public void SetIsCurrent(bool isCurrent = true)
+    {
+        if (isCurrent == true)
         {
-            for (var x = 0; x < Width; x++)
+            Game.GameGrids.ToList().ForEach(grid => grid.SetIsCurrent(false));
+            IsCurrent = true;
+        }
+
+        IsCurrent = isCurrent;
+    }
+
+    public void AddGameGridInstance(Guid knownUserId)
+    {
+        if (_gameGridInstances.Any(rs => rs.KnownUserId == knownUserId))
+        {
+            return;
+        }
+
+        _gameGridInstances.Add(new(this, knownUserId));
+    }
+
+    private void ClearGrid()
+    {
+        RowCellData = ConvertRowCellArrayToString(SetupGrid(Game.Height, Game.Width));
+    }
+    private void FillEmptySpacesInTheGrid()
+    {
+        var rowCells = ConvertRowCellStringToArray(RowCellData);
+
+        for (var y = 0; y < Game.Height; y++)
+        {
+            for (var x = 0; x < Game.Width; x++)
             {
                 var rowCell = rowCells[x, y];
                 if (rowCell == ' ')
                 {
-                    rowCells[x, y] = getRandomLetter();
+                    rowCells[x, y] = GetRandomLetter();
                 }
             }
         }
 
-        RowCellData = convertRowCellArrayToString(rowCells);
+        RowCellData = ConvertRowCellArrayToString(rowCells);
     }
-    private char getRandomLetter()
+    private char GetRandomLetter()
     {
         var letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         var index = _random.Next(0, letters.Length);
         return letters[index];
     }
-    private char[,] setupGrid(int height, int width)
+    private char[,] SetupGrid(int height, int width)
     {
-        char[,] rowCells = new char[height, width];
+        char[,] rowCells = new char[height, Game.Width];
         for (var y = 0; y < height; y++)
         {
-            for (var x = 0; x < width; x++)
+            for (var x = 0; x < Game.Width; x++)
             {
                 rowCells[x, y] = ' ';
             }
@@ -97,7 +127,7 @@ public class GameGrid : BaseEntityTracked<Guid>
     // overlap them where the letters are shared and they fit
     // don't overlap where letters don't match
     // go up down backwards
-    private void hideTheWordsOnGrid(IEnumerable<HiddenWord> wordsToHide)
+    private void HideTheWordsOnGrid(IEnumerable<HiddenWord> wordsToHide)
     {
         foreach (var hiddenWord in wordsToHide)
         {
@@ -108,11 +138,11 @@ public class GameGrid : BaseEntityTracked<Guid>
             while (!placed && circutBreaker++ < circutBreakerAfter)
             {
                 var directions = Enum.GetValues(typeof(Direction)).Cast<Direction>().ToList();
-                shuffle(directions); // Randomize the order of directions
+                Shuffle(directions); // Randomize the order of directions
                 var directionIndex = _random.Next(0, directions.Count);
                 var direction = directions[directionIndex];
-                var (startRow, startCol) = getRandomStartPoint(wordLength, direction);
-                if (tryPlaceWord(hiddenWord, startRow, startCol, direction))
+                var (startRow, startCol) = GetRandomStartPoint(wordLength, direction);
+                if (TryPlaceWord(hiddenWord, startRow, startCol, direction))
                 {
                     placed = true;
                     break;
@@ -124,13 +154,13 @@ public class GameGrid : BaseEntityTracked<Guid>
             }
         }
     }
-    private bool tryPlaceWord(HiddenWord hiddenWord, int startRow, int startCol, Direction direction)
+    private bool TryPlaceWord(HiddenWord hiddenWord, int startRow, int startCol, Direction direction)
     {
         var wordLength = hiddenWord.Word.Length;
         var wordChars = hiddenWord.Word.ToUpper().ToCharArray();
         int rowIncrement = 0;
         int colIncrement = 0;
-        var rowCellAsArray = convertRowCellStringToArray(RowCellData);
+        var rowCellAsArray = ConvertRowCellStringToArray(RowCellData);
         switch (direction)
         {
             case Direction.Horizontal:
@@ -148,8 +178,8 @@ public class GameGrid : BaseEntityTracked<Guid>
                 colIncrement = 1;
                 break;
         }
-        if (startRow + rowIncrement * (wordLength - 1) >= Height ||
-            startCol + colIncrement * (wordLength - 1) >= Width)
+        if (startRow + rowIncrement * (wordLength - 1) >= Game.Height ||
+            startCol + colIncrement * (wordLength - 1) >= Game.Width)
         {
             return false; // The word doesn't fit within the grid in this direction
         }
@@ -164,10 +194,10 @@ public class GameGrid : BaseEntityTracked<Guid>
             }
             rowCellAsArray[row, col] = wordChars[i];
         }
-        RowCellData = convertRowCellArrayToString(rowCellAsArray);
+        RowCellData = ConvertRowCellArrayToString(rowCellAsArray);
         return true; // Successfully placed the word on the grid
     }
-    private void shuffle<T>(List<T> list)
+    private void Shuffle<T>(List<T> list)
     {
         var random = new Random();
         for (int i = 0; i < list.Count - 1; i++)
@@ -178,26 +208,26 @@ public class GameGrid : BaseEntityTracked<Guid>
             list[j] = temp;
         }
     }
-    private (int, int) getRandomStartPoint(int wordLength, Direction direction)
+    private (int, int) GetRandomStartPoint(int wordLength, Direction direction)
     {
         int startRow, startCol;
         switch (direction)
         {
             case Direction.Horizontal:
-                startRow = _random.Next(0, Height);
-                startCol = _random.Next(0, Width - wordLength + 1);
+                startRow = _random.Next(0, Game.Height);
+                startCol = _random.Next(0, Game.Width - wordLength + 1);
                 break;
             case Direction.Vertical:
-                startRow = _random.Next(0, Height - wordLength + 1);
-                startCol = _random.Next(0, Width);
+                startRow = _random.Next(0, Game.Height - wordLength + 1);
+                startCol = _random.Next(0, Game.Width);
                 break;
             case Direction.DiagonalUp:
-                startRow = _random.Next(wordLength - 1, Height);
-                startCol = _random.Next(0, Width - wordLength + 1);
+                startRow = _random.Next(wordLength - 1, Game.Height);
+                startCol = _random.Next(0, Game.Width - wordLength + 1);
                 break;
             case Direction.DiagonalDown:
-                startRow = _random.Next(0, Height - wordLength + 1);
-                startCol = _random.Next(0, Width - wordLength + 1);
+                startRow = _random.Next(0, Game.Height - wordLength + 1);
+                startCol = _random.Next(0, Game.Width - wordLength + 1);
                 break;
             default:
                 startRow = 0;
@@ -206,41 +236,13 @@ public class GameGrid : BaseEntityTracked<Guid>
         }
         return (startRow, startCol);
     }
-    public void UpdateCharacterAtPosition(int x, int y, char newChar)
+
+    private string ConvertRowCellArrayToString(char[,] rowCells)
     {
-
-        if (RowCellData == null)
-        {
-            throw new InvalidOperationException("RowCellData has not been initialized.");
-        }
-
-        var rowCellAsArray = convertRowCellStringToArray(RowCellData);
-
-        if (x < 0 || x >= rowCellAsArray.GetLength(0) || y < 0 || y >= rowCellAsArray.GetLength(1))
-        {
-            throw new ArgumentOutOfRangeException("Position is out of range.");
-        }
-
-        rowCellAsArray[x, y] = newChar;
-        RowCellData = convertRowCellArrayToString(rowCellAsArray);
+        return Newtonsoft.Json.JsonConvert.SerializeObject(rowCells);
     }
-    public void AddColoredCell(int x, int y)
+    private char[,] ConvertRowCellStringToArray(string rowCellString)
     {
-        if (RowCellData == null)
-        {
-            throw new InvalidOperationException("RowCellData has not been initialized.");
-        }
-
-        var selectedCellsPointList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Point>?>(CompletedWordCellData);
-        if(selectedCellsPointList == null)
-        {
-            selectedCellsPointList = new();
-        }
-        if(!selectedCellsPointList.Contains(new(x, y)))
-        {            
-            selectedCellsPointList.Add(new(x, y));
-        }
-        
-        CompletedWordCellData = Newtonsoft.Json.JsonConvert.SerializeObject(selectedCellsPointList);
+        return Newtonsoft.Json.JsonConvert.DeserializeObject<char[,]>(rowCellString);
     }
 }

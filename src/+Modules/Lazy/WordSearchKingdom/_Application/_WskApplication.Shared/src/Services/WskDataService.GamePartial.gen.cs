@@ -47,7 +47,7 @@ public partial class WskHttpDataService
             .Content
             .ReadFromJsonAsync<GameViewModel>();
     }
-    public async Task<GameViewModel?> GameRecreateGridAsync(GameRecreateGridRequest request)
+    public async Task<GameViewModel?> GameGetFullGridAsync(GameGetFullGridRequest request)
     {
         var response = await _httpClient.PostAsJsonAsync(request.BuildRouteFrom(), request);
 

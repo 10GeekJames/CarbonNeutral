@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 namespace WskApplication.Data.SeedScripts;
 public class WskGamesSeedWithData : IWskSeedScript
 {
@@ -16,13 +17,14 @@ public class WskGamesSeedWithData : IWskSeedScript
             {
                 //game.
                 dbContext.Games.Add(game);
+                await dbContext.SaveChangesAsync();
                 logger?.LogInformation($"{game.Title} was created in the database.", game.Title);
             }
             else
             {
                 logger?.LogInformation($"{game.Title} already exist in the database.", game.Title);
             }
-            await dbContext.SaveChangesAsync();
+            
         }
     }
 }

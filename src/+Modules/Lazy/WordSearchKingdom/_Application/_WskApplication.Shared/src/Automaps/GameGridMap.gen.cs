@@ -1,4 +1,4 @@
-// ag=yes
+// ag=no
 namespace WskApplication.Shared.Automaps; 
 public partial class GameGridMap : Profile
 { 
@@ -7,6 +7,10 @@ public partial class GameGridMap : Profile
     public GameGridMap()
     {
         CreateMap<GameGrid, GameGridViewModel>()
-        .ReverseMap();
+        .ForMember(d => d.Game, opt => opt.Ignore());
+        
+        CreateMap<GameGridViewModel, GameGrid>()
+        .ForMember(d => d.Game, opt => opt.Ignore());
+        
     }
 }

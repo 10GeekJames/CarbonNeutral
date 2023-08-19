@@ -41,6 +41,7 @@
       <HintPath>./../../../__Kernel/CarbonNeutral.KernelShared/src/bin/Debug/net7.0/CarbonNeutral.KernelShared.dll</HintPath>
     </Reference>
     <ProjectReference Include="./../../../+Modules/Required/AccountModule/_Application/_AccountModuleApplication.Shared/src/AccountModuleApplication.Shared.csproj" />
+    <ProjectReference Include="./../../../++SignalR/CarbonNeutral.Signal.Models/src/CarbonNeutral.Signal.Models.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Watch Remove="**/*.css" />

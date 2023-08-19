@@ -17,7 +17,7 @@
         await base.OnInitializedAsync();     
         @* Make a demogames request to replace*@
         var request = new GamesGetAllRequest();
-        _games = await WskDataService.GamesGetAllAsync(request);
+        _games = await WskDataService.GamesGetAllAsync(request);        
     }
 
     protected async Task NavigateToGame(string gameId)

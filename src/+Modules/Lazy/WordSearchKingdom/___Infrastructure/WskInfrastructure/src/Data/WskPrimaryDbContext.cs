@@ -11,11 +11,12 @@ public class WskDbContext : DbContext
 
     public DbSet<Game> Games { get; set; }
     public DbSet<GameGrid> GameGrids { get; set; }
+    public DbSet<GameGridInstance> GameGridInstances { get; set; }
     public DbSet<HiddenWord> HiddenWords { get; set; }
     public DbSet<RowCell> RowCells { get; set; }
 
-    public DbSet<GameCategory> GameCategories { get; set; } 
-    public DbSet<GameTag> GameTags { get; set; } 
+    public DbSet<GameCategory> GameCategories { get; set; }
+    public DbSet<GameTag> GameTags { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -25,6 +26,9 @@ public class WskDbContext : DbContext
         modelBuilder.ApplyAllConfigurationsFromCurrentAssembly();
 
         //this.ChangeTracker.LazyLoadingEnabled = true;
+        // Configure each entity type
+
+        //AddStronglyTypedIdConversions(modelBuilder);
     }
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
     {
@@ -32,7 +36,7 @@ public class WskDbContext : DbContext
             .Entries()
             .Where(E => (E.State == EntityState.Added
                 || E.State == EntityState.Modified)
-                && E.GetType().Name.EndsWith("VO") )
+                && E.GetType().Name.EndsWith("VO"))
             .ToList())
         {
             if (entityEntry.State == EntityState.Modified)
@@ -74,4 +78,56 @@ public class WskDbContext : DbContext
     {
         return SaveChangesAsync().GetAwaiter().GetResult();
     }
+
+    /* private static void AddStronglyTypedIdConversions(ModelBuilder modelBuilder)
+    {
+        foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+        {
+            foreach (var property in entityType.GetProperties())
+            {
+                if (StronglyTypedIdHelper.IsStronglyTypedId(property.ClrType, out var valueType))
+                {
+                    var converter = StronglyTypedIdConverters.GetOrAdd(
+                        property.ClrType,
+                        _ => CreateStronglyTypedIdConverter(property.ClrType, valueType));
+                    property.SetValueConverter(converter);
+                }
+            }
+        }
+    }
+
+    private static readonly ConcurrentDictionary<Type, ValueConverter> StronglyTypedIdConverters = new();
+
+    private static ValueConverter CreateStronglyTypedIdConverter(
+        Type stronglyTypedIdType,
+        Type valueType)
+    {
+        // id => id.Value
+        var toProviderFuncType = typeof(Func<,>)
+            .MakeGenericType(stronglyTypedIdType, valueType);
+        var stronglyTypedIdParam = Expression.Parameter(stronglyTypedIdType, "id");
+        var toProviderExpression = Expression.Lambda(
+            toProviderFuncType,
+            Expression.Property(stronglyTypedIdParam, "Value"),
+            stronglyTypedIdParam);
+
+        // value => new ProductId(value)
+        var fromProviderFuncType = typeof(Func<,>)
+            .MakeGenericType(valueType, stronglyTypedIdType);
+        var valueParam = Expression.Parameter(valueType, "value");
+        var ctor = stronglyTypedIdType.GetConstructor(new[] { valueType });
+        var fromProviderExpression = Expression.Lambda(
+            fromProviderFuncType,
+            Expression.New(ctor, valueParam),
+            valueParam);
+
+        var converterType = typeof(ValueConverter<,>)
+            .MakeGenericType(stronglyTypedIdType, valueType);
+
+        return (ValueConverter)Activator.CreateInstance(
+            converterType,
+            toProviderExpression,
+            fromProviderExpression,
+            null);
+    } */
 }

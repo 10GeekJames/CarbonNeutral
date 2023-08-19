@@ -12,7 +12,7 @@ public abstract class BaseEntityTracked<T>
     private List<PropertyInfo>? properties;
     private List<FieldInfo>? fields;
 
-    public override string ToString()
+    /* public override string ToString()
     {
         var props = GetProperties();
         var buffOut = new StringBuilder(props.Count());
@@ -22,7 +22,7 @@ public abstract class BaseEntityTracked<T>
         }
 
         return buffOut.ToString();
-    }
+    } */
 
     public IEnumerable<PropertyInfo> GetProperties()
     {

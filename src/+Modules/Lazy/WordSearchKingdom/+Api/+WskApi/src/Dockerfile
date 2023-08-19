@@ -1,8 +1,8 @@
 # syntax=docker/dockerfile:1
-FROM local:wordsearchkingdom-shared-base AS build
+FROM local:carbonneutral-shared-base AS build
 WORKDIR /
 
-COPY --from=local:wordsearchkingdom-shared-base .  .
+COPY --from=local:carbonneutral-shared-base .  .
 COPY ./src/+Modules/Lazy/WordSearchKingdom/+Api/+WskApi/src/WskApi.csproj   /src/+Modules/Lazy/WordSearchKingdom/+Api/+WskApi/src/
 RUN dotnet restore "/src/+Modules/Lazy/WordSearchKingdom/+Api/+WskApi/src/WskApi.csproj"
 

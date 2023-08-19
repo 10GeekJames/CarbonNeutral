@@ -5,7 +5,7 @@ pipeline {
     stage('Docker Build Base') {
       steps {
         bat 'docker-compose down --remove-orphans'
-        bat 'docker-compose build wordsearchkingdom-shared-base'
+        bat 'docker-compose build carbonneutral-shared-base'
       }
     }
     stage('Docker Build App') {

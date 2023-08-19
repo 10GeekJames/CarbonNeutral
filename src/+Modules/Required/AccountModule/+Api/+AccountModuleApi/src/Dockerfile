@@ -1,8 +1,8 @@
 # syntax=docker/dockerfile:1
-FROM local:wordsearchkingdom-shared-base AS build
+FROM local:carbonneutral-shared-base AS build
 WORKDIR /
 
-COPY --from=local:wordsearchkingdom-shared-base .  .
+COPY --from=local:carbonneutral-shared-base .  .
 COPY ./src/+Modules/Required/AccountModule/+Api/+AccountModuleApi/src/AccountModuleApi.csproj   /src/+Modules/Required/AccountModule/+Api/+AccountModuleApi/src/
 RUN dotnet restore "/src/+Modules/Required/AccountModule/+Api/+AccountModuleApi/src/AccountModuleApi.csproj"
 

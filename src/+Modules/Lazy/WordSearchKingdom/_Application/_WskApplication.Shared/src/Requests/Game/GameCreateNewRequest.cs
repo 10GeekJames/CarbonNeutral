@@ -10,7 +10,7 @@ public class GameCreateNewRequest : IRoutable
     public GameDifficulties GameDifficulty { get; set; }
     public List<GameCategoryViewModel> GameCategories { get; set; }
     public List<GameTagViewModel> GameTags { get; set; }
-    public Guid? KnownUserId { get; set; } = null;
+    public Guid KnownUserId { get; set; }
 
     public GameCreateNewRequest() { }
     public GameCreateNewRequest(string title, int height, int width, List<HiddenWordViewModel> wordsToHide, GameDifficulties gameDifficulty, List<GameCategoryViewModel> gameCategories, List<GameTagViewModel> gameTags)

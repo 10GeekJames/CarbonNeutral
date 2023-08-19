@@ -13,43 +13,47 @@
             <MudAlert Severity="Severity.Error" Variant="Variant.Filled">
                 Ah Ah Ah! You didn't say the magic code!
                 <MudImage Class="my-4 pr-8" Style="opacity: 0.75;" Src="https://media.tenor.com/Vyg73kR334sAAAAC/jurassic-park-ah.gif" />
-                <MudButton  Color="Color.Info" Variant="Variant.Filled" OnClick="() => OnRecreateGame()">Confirm</MudButton>
+                @* <MudButton  Color="Color.Info" Variant="Variant.Filled" OnClick="() => OnRecreateGame()">Confirm</MudButton> *@
             </MudAlert>
         </div>
     }
     @if(_chosenGame != null) {
-        <GameComponent Game="@_chosenGame" OnRecreateGame=OnRecreateGame SelectedGridCells=SelectedGridCells SelectedGridCellPoints=SelectedGridCellPoints />
+        <GameComponent Game="@_chosenGame" SelectedGridCells=SelectedGridCells SelectedGridCellPoints=SelectedGridCellPoints />
     }
 </MudContainer>
 
 
 
 @code {
+    [CascadingParameter]
+    protected bool IsMobile { get; set; }
     [Parameter] 
     public Guid GameId { get; set; }
+    public Guid GameInstanceId { get; set; }    
     private GameViewModel _chosenGame { get; set; }
     private bool _tryCheat { get; set; } = false;
     private string _gameTitle { get; set; } = "Word Search Title";
     protected char[,] SelectedGridCells { get; set; }
     protected List<System.Drawing.Point> SelectedGridCellPoints { get; set; } = new();
-    [CascadingParameter]
-    protected bool IsMobile { get; set; }
-
+    
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        var gameGetByIdRequest = new GameGetByIdRequest(GameId);
-        _chosenGame = await WskDataService.GameGetByIdAsync(gameGetByIdRequest);
+        var gameGetFullGridRequest = new GameGetFullGridRequest(GameId, GameInstanceId);        
+        _chosenGame = await WskDataService.GameGetFullGridAsync(gameGetFullGridRequest);
+        GameInstanceId = _chosenGame.GameGrid.GameGridInstance.Id;
+        Console.WriteLine($"{_chosenGame.GameGrid.GameGridInstance.Id}");
+    
         SelectedGridCells = GameGridUtility.ConvertRowCellStringToArray(_chosenGame.GameGrid.RowCellData);
-        SelectedGridCellPoints = GameGridUtility.ConvertSelectedWordsToPointList(_chosenGame.GameGrid.CompletedWordCellData);        
+        SelectedGridCellPoints = GameGridUtility.ConvertSelectedWordsToPointList(_chosenGame.GameGrid.GameGridInstance.CompletedWordCellData);        
         _gameTitle = _chosenGame.Title;
     }
 
-    public async Task OnRecreateGame(){
-        var request = new GameRecreateGridRequest(_chosenGame.Id);
-        _chosenGame = await WskDataService.GameRecreateGridAsync(request);         
+    @* public async Task OnRecreateGame(){
+        var request = new GameGetFullGridRequest(_chosenGame.GameGrid.GameGridInstance.Id, _chosenGame.Id);
+        _chosenGame = await WskDataService.GameGetFullGridAsync(request);         
         SelectedGridCells = GameGridUtility.ConvertRowCellStringToArray(_chosenGame.GameGrid.RowCellData);
-        SelectedGridCellPoints = GameGridUtility.ConvertSelectedWordsToPointList(_chosenGame.GameGrid.CompletedWordCellData);               
-    }
+        SelectedGridCellPoints = GameGridUtility.ConvertSelectedWordsToPointList(_chosenGame.GameGrid.GameGridInstance.CompletedWordCellData);               
+    } *@
 
 }

@@ -4,8 +4,7 @@ WORKDIR /
 
 #COPY ./local-nuget/ ./local-nuget/
 #COPY ./nuget.config ./nuget.config
-
-RUN apt-get update && apt-get install -y curl sudo
+RUN apt-get clean && apt-get update && apt-get install -y curl sudo
 RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - 
 RUN apt-get install -y nodejs
 
@@ -14,6 +13,9 @@ RUN npm upgrade --global yarn
 RUN npm install -g sass
 
 COPY ./src/__Kernel/CarbonNeutral.KernelShared/src/CarbonNeutral.KernelShared.csproj                                                    /src/__Kernel/CarbonNeutral.KernelShared/src/CarbonNeutral.KernelShared.csproj
+                                                                                                                                         
+COPY ./src/++SignalR/CarbonNeutral.Signal.Models/src/CarbonNeutral.Signal.Models.csproj                                               /src/++SignalR/CarbonNeutral.Signal.Models/src/CarbonNeutral.Signal.Models.csproj
+COPY ./src/++SignalR/CarbonNeutral.Signal/src/CarbonNeutral.Signal.csproj                                                             /src/++SignalR/CarbonNeutral.Signal/src/CarbonNeutral.Signal.csproj
 
 COPY ./src/+Modules/Required/AccountModule/____Core/__AccountModuleCore/src/AccountModuleCore.csproj                                    /src/+Modules/Required/AccountModule/____Core/__AccountModuleCore/src/AccountModuleCore.csproj
 COPY ./src/+Modules/Required/AccountModule/____Core/_AccountModuleCore.TestData/src/AccountModuleCore.TestData.csproj                   /src/+Modules/Required/AccountModule/____Core/_AccountModuleCore.TestData/src/AccountModuleCore.TestData.csproj
@@ -22,6 +24,15 @@ COPY ./src/+Modules/Required/AccountModule/_Application/_AccountModuleApplicatio
 COPY ./src/+Modules/Required/AccountModule/_Application/AccountModuleApplication/src/AccountModuleApplication.csproj                    /src/+Modules/Required/AccountModule/_Application/AccountModuleApplication/src/AccountModuleApplication.csproj
 COPY ./src/+Modules/Required/AccountModule/UI/_AccountModuleClientServiceLoader/src/AccountModuleClientServiceLoader.csproj             /src/+Modules/Required/AccountModule/UI/_AccountModuleClientServiceLoader/src/AccountModuleClientServiceLoader.csproj
 COPY ./src/+Modules/Required/AccountModule/UI/AccountModuleBlazorModuleAdmin/src/AccountModuleBlazorModuleAdmin.csproj                  /src/+Modules/Required/AccountModule/UI/AccountModuleBlazorModuleAdmin/src/AccountModuleBlazorModuleAdmin.csproj
+
+COPY ./src/+Modules/Required/LiveRoomModule/____Core/__LiveRoomCore/src/LiveRoomCore.csproj                                    /src/+Modules/Required/LiveRoomModule/____Core/__LiveRoomCore/src/LiveRoomCore.csproj
+COPY ./src/+Modules/Required/LiveRoomModule/____Core/LiveRoomCore.LiveRoomTestData/src/LiveRoomCore.LiveRoomTestData.csproj                   /src/+Modules/Required/LiveRoomModule/____Core/LiveRoomCore.LiveRoomTestData/src/LiveRoomCore.LiveRoomTestData.csproj
+COPY ./src/+Modules/Required/LiveRoomModule/___Infrastructure/LiveRoomInfrastructure/src/LiveRoomInfrastructure.csproj         /src/+Modules/Required/LiveRoomModule/___Infrastructure/LiveRoomInfrastructure/src/LiveRoomInfrastructure.csproj
+COPY ./src/+Modules/Required/LiveRoomModule/_Application/_LiveRoomApplication.Shared/src/LiveRoomApplication.Shared.csproj     /src/+Modules/Required/LiveRoomModule/_Application/_LiveRoomApplication.Shared/src/LiveRoomApplication.Shared.csproj
+COPY ./src/+Modules/Required/LiveRoomModule/_Application/LiveRoomApplication/src/LiveRoomApplication.csproj                    /src/+Modules/Required/LiveRoomModule/_Application/LiveRoomApplication/src/LiveRoomApplication.csproj
+COPY ./src/+Modules/Required/LiveRoomModule/UI/_LiveRoomModuleClientServiceLoader/src/LiveRoomModuleClientServiceLoader.csproj /src/+Modules/Required/LiveRoomModule/UI/_LiveRoomModuleClientServiceLoader/src/LiveRoomModuleClientServiceLoader.csproj       
+COPY ./src/+Modules/Required/LiveRoomModule/UI/LiveRoomBlazorModule/src/LiveRoomBlazorModule.csproj                  /src/+Modules/Required/LiveRoomModule/UI/LiveRoomBlazorModule/src/LiveRoomBlazorModule.csproj
+COPY ./src/+Modules/Required/LiveRoomModule/UI/LiveRoomBlazorModuleAdmin/src/LiveRoomBlazorModuleAdmin.csproj                  /src/+Modules/Required/LiveRoomModule/UI/LiveRoomBlazorModuleAdmin/src/LiveRoomBlazorModuleAdmin.csproj
 
 COPY ./src/+Modules/Lazy/WordSearchKingdom/____Core/__WskCore/src/WskCore.csproj                                                        /src/+Modules/Lazy/WordSearchKingdom/____Core/__WskCore/src/WskCore.csproj
 COPY ./src/+Modules/Lazy/WordSearchKingdom/____Core/WskCore.WskTestData/src/WskCore.WskTestData.csproj                                  /src/+Modules/Lazy/WordSearchKingdom/____Core/WskCore.WskTestData/src/WskCore.WskTestData.csproj
@@ -38,26 +49,38 @@ FROM copy-project-files AS restore-all
 WORKDIR /
 COPY --from=copy-project-files .  .
 
-RUN dotnet restore ./src/__Kernel/CarbonNeutral.KernelShared/src/CarbonNeutral.KernelShared.csproj
+RUN dotnet restore /src/__Kernel/CarbonNeutral.KernelShared/src/CarbonNeutral.KernelShared.csproj
+                    
+RUN dotnet restore /src/++SignalR/CarbonNeutral.Signal.Models/src/CarbonNeutral.Signal.Models.csproj                                               
+RUN dotnet restore /src/++SignalR/CarbonNeutral.Signal/src/CarbonNeutral.Signal.csproj                                                             
 
-RUN dotnet restore ./src/+Modules/Required/AccountModule/____Core/__AccountModuleCore/src/AccountModuleCore.csproj
-RUN dotnet restore ./src/+Modules/Required/AccountModule/____Core/_AccountModuleCore.TestData/src/AccountModuleCore.TestData.csproj
-RUN dotnet restore ./src/+Modules/Required/AccountModule/___Infrastructure/AccountModuleInfrastructure/src/AccountModuleInfrastructure.csproj
-RUN dotnet restore ./src/+Modules/Required/AccountModule/_Application/_AccountModuleApplication.Shared/src/AccountModuleApplication.Shared.csproj
-RUN dotnet restore ./src/+Modules/Required/AccountModule/_Application/AccountModuleApplication/src/AccountModuleApplication.csproj
-RUN dotnet restore ./src/+Modules/Required/AccountModule/UI/_AccountModuleClientServiceLoader/src/AccountModuleClientServiceLoader.csproj
-RUN dotnet restore ./src/+Modules/Required/AccountModule/UI/AccountModuleBlazorModuleAdmin/src/AccountModuleBlazorModuleAdmin.csproj
+RUN dotnet restore /src/+Modules/Required/AccountModule/____Core/__AccountModuleCore/src/AccountModuleCore.csproj
+RUN dotnet restore /src/+Modules/Required/AccountModule/____Core/_AccountModuleCore.TestData/src/AccountModuleCore.TestData.csproj
+RUN dotnet restore /src/+Modules/Required/AccountModule/___Infrastructure/AccountModuleInfrastructure/src/AccountModuleInfrastructure.csproj
+RUN dotnet restore /src/+Modules/Required/AccountModule/_Application/_AccountModuleApplication.Shared/src/AccountModuleApplication.Shared.csproj
+RUN dotnet restore /src/+Modules/Required/AccountModule/_Application/AccountModuleApplication/src/AccountModuleApplication.csproj
+RUN dotnet restore /src/+Modules/Required/AccountModule/UI/_AccountModuleClientServiceLoader/src/AccountModuleClientServiceLoader.csproj
+RUN dotnet restore /src/+Modules/Required/AccountModule/UI/AccountModuleBlazorModuleAdmin/src/AccountModuleBlazorModuleAdmin.csproj
 
-RUN dotnet restore ./src/+Modules/Lazy/WordSearchKingdom/____Core/__WskCore/src/WskCore.csproj
-RUN dotnet restore ./src/+Modules/Lazy/WordSearchKingdom/____Core/WskCore.WskTestData/src/WskCore.WskTestData.csproj
-RUN dotnet restore ./src/+Modules/Lazy/WordSearchKingdom/___Infrastructure/WskInfrastructure/src/WskInfrastructure.csproj
-RUN dotnet restore ./src/+Modules/Lazy/WordSearchKingdom/_Application/_WskApplication.Shared/src/WskApplication.Shared.csproj
-RUN dotnet restore ./src/+Modules/Lazy/WordSearchKingdom/_Application/WskApplication/src/WskApplication.csproj
-RUN dotnet restore ./src/+Modules/Lazy/WordSearchKingdom/UI/_WskModuleClientServiceLoader/src/WskModuleClientServiceLoader.csproj
-RUN dotnet restore ./src/+Modules/Lazy/WordSearchKingdom/UI/WskBlazorModule/src/WskBlazorModule.csproj
-RUN dotnet restore ./src/+Modules/Lazy/WordSearchKingdom/UI/WskBlazorModuleAdmin/src/WskBlazorModuleAdmin.csproj
+RUN dotnet restore /src/+Modules/Required/LiveRoomModule/____Core/__LiveRoomCore/src/LiveRoomCore.csproj
+RUN dotnet restore /src/+Modules/Required/LiveRoomModule/____Core/LiveRoomCore.LiveRoomTestData/src/LiveRoomCore.LiveRoomTestData.csproj
+RUN dotnet restore /src/+Modules/Required/LiveRoomModule/___Infrastructure/LiveRoomInfrastructure/src/LiveRoomInfrastructure.csproj
+RUN dotnet restore /src/+Modules/Required/LiveRoomModule/_Application/_LiveRoomApplication.Shared/src/LiveRoomApplication.Shared.csproj
+RUN dotnet restore /src/+Modules/Required/LiveRoomModule/_Application/LiveRoomApplication/src/LiveRoomApplication.csproj
+RUN dotnet restore /src/+Modules/Required/LiveRoomModule/UI/_LiveRoomModuleClientServiceLoader/src/LiveRoomModuleClientServiceLoader.csproj                    
+RUN dotnet restore /src/+Modules/Required/LiveRoomModule/UI/LiveRoomBlazorModule/src/LiveRoomBlazorModule.csproj
+RUN dotnet restore /src/+Modules/Required/LiveRoomModule/UI/LiveRoomBlazorModuleAdmin/src/LiveRoomBlazorModuleAdmin.csproj
 
-RUN dotnet restore ./src/_Common/CarbonNeutral.Common/src/CarbonNeutral.Common.csproj
+RUN dotnet restore /src/+Modules/Lazy/WordSearchKingdom/____Core/__WskCore/src/WskCore.csproj
+RUN dotnet restore /src/+Modules/Lazy/WordSearchKingdom/____Core/WskCore.WskTestData/src/WskCore.WskTestData.csproj
+RUN dotnet restore /src/+Modules/Lazy/WordSearchKingdom/___Infrastructure/WskInfrastructure/src/WskInfrastructure.csproj
+RUN dotnet restore /src/+Modules/Lazy/WordSearchKingdom/_Application/_WskApplication.Shared/src/WskApplication.Shared.csproj
+RUN dotnet restore /src/+Modules/Lazy/WordSearchKingdom/_Application/WskApplication/src/WskApplication.csproj
+RUN dotnet restore /src/+Modules/Lazy/WordSearchKingdom/UI/_WskModuleClientServiceLoader/src/WskModuleClientServiceLoader.csproj
+RUN dotnet restore /src/+Modules/Lazy/WordSearchKingdom/UI/WskBlazorModule/src/WskBlazorModule.csproj
+RUN dotnet restore /src/+Modules/Lazy/WordSearchKingdom/UI/WskBlazorModuleAdmin/src/WskBlazorModuleAdmin.csproj
+
+RUN dotnet restore /src/_Common/CarbonNeutral.Common/src/CarbonNeutral.Common.csproj
 
 
 FROM restore-all AS copy-the-rest-of-the-files
@@ -66,23 +89,32 @@ COPY --from=restore-all .  .
 
 COPY ./src/__Kernel/CarbonNeutral.KernelShared/src/                                             /src/__Kernel/CarbonNeutral.KernelShared/src/
 
+COPY ./src/++SignalR/CarbonNeutral.Signal.Models/src/                                          /src/++SignalR/CarbonNeutral.Signal.Models/src
+COPY ./src/++SignalR/CarbonNeutral.Signal/src/                                                 /src/++SignalR/CarbonNeutral.Signal/src
+
 COPY ./src/+Modules/Required/AccountModule/____Core/__AccountModuleCore/src/                    /src/+Modules/Required/AccountModule/____Core/__AccountModuleCore/src/
 COPY ./src/+Modules/Required/AccountModule/____Core/_AccountModuleCore.TestData/src/            /src/+Modules/Required/AccountModule/____Core/_AccountModuleCore.TestData/src/
 COPY ./src/+Modules/Required/AccountModule/___Infrastructure/AccountModuleInfrastructure/src/   /src/+Modules/Required/AccountModule/___Infrastructure/AccountModuleInfrastructure/src/
 COPY ./src/+Modules/Required/AccountModule/__Data/AccountModule.Data/src/                       /src/+Modules/Required/AccountModule/__Data/AccountModule.Data/src/       
-#COPY ./src/+Modules/Required/AccountModule/__Data/Database                                      /src/+Modules/Required/AccountModule/__Data/Database       
-
 COPY ./src/+Modules/Required/AccountModule/_Application/_AccountModuleApplication.Shared/src/   /src/+Modules/Required/AccountModule/_Application/_AccountModuleApplication.Shared/src/
 COPY ./src/+Modules/Required/AccountModule/_Application/AccountModuleApplication/src/           /src/+Modules/Required/AccountModule/_Application/AccountModuleApplication/src/
 COPY ./src/+Modules/Required/AccountModule/UI/_AccountModuleClientServiceLoader/src/            /src/+Modules/Required/AccountModule/UI/_AccountModuleClientServiceLoader/src/
 COPY ./src/+Modules/Required/AccountModule/UI/AccountModuleBlazorModuleAdmin/src/               /src/+Modules/Required/AccountModule/UI/AccountModuleBlazorModuleAdmin/src/
 
+COPY ./src/+Modules/Required/LiveRoomModule/____Core/__LiveRoomCore/src/                    /src/+Modules/Required/LiveRoomModule/____Core/__LiveRoomCore/src/
+COPY ./src/+Modules/Required/LiveRoomModule/____Core/LiveRoomCore.LiveRoomTestData/src/            /src/+Modules/Required/LiveRoomModule/____Core/LiveRoomCore.LiveRoomTestData/src/
+COPY ./src/+Modules/Required/LiveRoomModule/___Infrastructure/LiveRoomInfrastructure/src/   /src/+Modules/Required/LiveRoomModule/___Infrastructure/LiveRoomInfrastructure/src/
+COPY ./src/+Modules/Required/LiveRoomModule/__Data/LiveRoomApplication.Data/src/                       /src/+Modules/Required/LiveRoomModule/__Data/LiveRoomApplication.Data/src/       
+COPY ./src/+Modules/Required/LiveRoomModule/_Application/_LiveRoomApplication.Shared/src/   /src/+Modules/Required/LiveRoomModule/_Application/_LiveRoomApplication.Shared/src/
+COPY ./src/+Modules/Required/LiveRoomModule/_Application/LiveRoomApplication/src/           /src/+Modules/Required/LiveRoomModule/_Application/LiveRoomApplication/src/
+COPY ./src/+Modules/Required/LiveRoomModule/UI/_LiveRoomModuleClientServiceLoader/src/            /src/+Modules/Required/LiveRoomModule/UI/_LiveRoomModuleClientServiceLoader/src/
+COPY ./src/+Modules/Required/LiveRoomModule/UI/LiveRoomBlazorModule/src/               /src/+Modules/Required/LiveRoomModule/UI/LiveRoomBlazorModule/src/
+COPY ./src/+Modules/Required/LiveRoomModule/UI/LiveRoomBlazorModuleAdmin/src/               /src/+Modules/Required/LiveRoomModule/UI/LiveRoomBlazorModuleAdmin/src/
+
 COPY ./src/+Modules/Lazy/WordSearchKingdom/____Core/__WskCore/src/                              /src/+Modules/Lazy/WordSearchKingdom/____Core/__WskCore/src/
 COPY ./src/+Modules/Lazy/WordSearchKingdom/____Core/WskCore.WskTestData/src/                    /src/+Modules/Lazy/WordSearchKingdom/____Core/WskCore.WskTestData/src/
 COPY ./src/+Modules/Lazy/WordSearchKingdom/___Infrastructure/WskInfrastructure/src/             /src/+Modules/Lazy/WordSearchKingdom/___Infrastructure/WskInfrastructure/src/
 COPY ./src/+Modules/Lazy/WordSearchKingdom/__Data/WskApplication.Data/src/                      /src/+Modules/Lazy/WordSearchKingdom/__Data/WskApplication.Data/src/
-#COPY ./src/+Modules/Lazy/WordSearchKingdom/__Data/Database/                                     /src/+Modules/Lazy/WordSearchKingdom/__Data/Database/
-
 COPY ./src/+Modules/Lazy/WordSearchKingdom/_Application/_WskApplication.Shared/src/             /src/+Modules/Lazy/WordSearchKingdom/_Application/_WskApplication.Shared/src/
 COPY ./src/+Modules/Lazy/WordSearchKingdom/_Application/WskApplication/src/                     /src/+Modules/Lazy/WordSearchKingdom/_Application/WskApplication/src/
 COPY ./src/+Modules/Lazy/WordSearchKingdom/UI/_WskModuleClientServiceLoader/src/                /src/+Modules/Lazy/WordSearchKingdom/UI/_WskModuleClientServiceLoader/src/

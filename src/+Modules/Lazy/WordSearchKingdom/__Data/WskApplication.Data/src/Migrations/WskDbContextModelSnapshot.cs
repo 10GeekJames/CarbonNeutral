@@ -64,10 +64,10 @@ namespace WskApplication.Data.Migrations
                     b.Property<int>("GameDifficulty")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("GameGridId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("Height")
+                        .HasColumnType("int");
 
-                    b.Property<Guid?>("KnownUserId")
+                    b.Property<Guid>("KnownUserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Title")
@@ -77,9 +77,10 @@ namespace WskApplication.Data.Migrations
                     b.Property<DateTime>("UpdatedOn")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                    b.Property<int>("Width")
+                        .HasColumnType("int");
 
-                    b.HasIndex("GameGridId");
+                    b.HasKey("Id");
 
                     b.ToTable("Games");
                 });
@@ -111,15 +112,17 @@ namespace WskApplication.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("CompletedWordCellData")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Height")
-                        .HasColumnType("int");
+                    b.Property<Guid>("GameId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsCurrent")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("KnownUserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("RowCellData")
                         .IsRequired()
@@ -128,12 +131,43 @@ namespace WskApplication.Data.Migrations
                     b.Property<DateTime>("UpdatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Width")
-                        .HasColumnType("int");
+                    b.HasKey("Id");
+
+                    b.HasIndex("GameId");
+
+                    b.ToTable("GameGrids");
+                });
+
+            modelBuilder.Entity("WskCore.Entities.GameGridInstance", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CompletedWordCellData")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("GameGridId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("KnownUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedOn")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
-                    b.ToTable("GameGrids");
+                    b.HasIndex("GameGridId");
+
+                    b.ToTable("GameGridInstances");
                 });
 
             modelBuilder.Entity("WskCore.Entities.GameTag", b =>
@@ -166,7 +200,7 @@ namespace WskApplication.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("GameGridId")
+                    b.Property<Guid?>("GameId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsFound")
@@ -181,7 +215,7 @@ namespace WskApplication.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GameGridId");
+                    b.HasIndex("GameId");
 
                     b.ToTable("HiddenWords");
                 });
@@ -256,10 +290,21 @@ namespace WskApplication.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("WskCore.Entities.Game", b =>
+            modelBuilder.Entity("WskCore.Entities.GameGrid", b =>
+                {
+                    b.HasOne("WskCore.Entities.Game", "Game")
+                        .WithMany("GameGrids")
+                        .HasForeignKey("GameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Game");
+                });
+
+            modelBuilder.Entity("WskCore.Entities.GameGridInstance", b =>
                 {
                     b.HasOne("WskCore.Entities.GameGrid", "GameGrid")
-                        .WithMany()
+                        .WithMany("GameGridInstances")
                         .HasForeignKey("GameGridId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -269,14 +314,21 @@ namespace WskApplication.Data.Migrations
 
             modelBuilder.Entity("WskCore.Entities.HiddenWord", b =>
                 {
-                    b.HasOne("WskCore.Entities.GameGrid", null)
+                    b.HasOne("WskCore.Entities.Game", null)
                         .WithMany("HiddenWords")
-                        .HasForeignKey("GameGridId");
+                        .HasForeignKey("GameId");
+                });
+
+            modelBuilder.Entity("WskCore.Entities.Game", b =>
+                {
+                    b.Navigation("GameGrids");
+
+                    b.Navigation("HiddenWords");
                 });
 
             modelBuilder.Entity("WskCore.Entities.GameGrid", b =>
                 {
-                    b.Navigation("HiddenWords");
+                    b.Navigation("GameGridInstances");
                 });
 #pragma warning restore 612, 618
         }

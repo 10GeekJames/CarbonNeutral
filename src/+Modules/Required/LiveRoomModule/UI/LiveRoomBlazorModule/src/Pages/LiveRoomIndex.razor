@@ -1,0 +1,20 @@
+@page "/liveroom/index"
+
+@layout MainLayout
+@inject IStringLocalizer<LiveRoomIndex> Localize
+<div>
+    <div>
+        <h1>@Localize["Create a live room"]</h1>        
+    </div>
+    <div>
+        <MudTextField @bind-Value="roomName" />
+        <button class="btn btn-primary" @onclick="JoinRoom">@Localize["Join Room"]</button>
+    </div>
+</div>
+@code {
+    private string roomName;
+    private void JoinRoom()
+    {
+        NavigationManager.NavigateTo($"/liveroom/{roomName}");
+    }
+}

@@ -32,9 +32,9 @@
                         </div>
                     }
                 </div>
-                <div class="play-area-grid align-items-center ma-auto" Style="@(($"grid-template-rows: repeat({Game.GameGrid.Width}, 1fr); grid-template-columns: repeat({Game.GameGrid.Height}, 1fr);"))">
-                    @for (var x = 0; x < Game.GameGrid.Width; x++) {
-                        @for (var y = 0; y < Game.GameGrid.Height; y++) {                            
+                <div class="play-area-grid align-items-center ma-auto" Style="@(($"grid-template-rows: repeat({Game.Width}, 1fr); grid-template-columns: repeat({Game.Height}, 1fr);"))">
+                    @for (var x = 0; x < Game.Width; x++) {
+                        @for (var y = 0; y < Game.Height; y++) {                            
                             var storeX = x;
                             var storeY = y;
                             char rowCell = SelectedGridCells[storeX,storeY];
@@ -58,7 +58,7 @@
                 </MudText>
                 <MudDivider />
                 <MudStack Class="my-6 overflow-y-auto" Style="max-height: 50vh;">
-                    @foreach (var word in Game?.GameGrid.HiddenWords)
+                    @foreach (var word in Game?.HiddenWords)
                     {
                         <MudChip Color=@isFoundStyling(word.IsFound) Size="Size.Large">
                             <MudText Class="p-8" Typo=@(IsMobile ? Typo.body1 : Typo.h5) Align="Align.Center">@word.Word</MudText>
@@ -88,7 +88,7 @@
     protected bool IsMobile { get; set; }
     private (int x, int y)? firstClick { get; set; }
 
-    private IEnumerable<int> _widthLabel => Enumerable.Range(1, Game.GameGrid.Width);
+    private IEnumerable<int> _widthLabel => Enumerable.Range(1, Game.Width);
     private IEnumerable<string> _heightLabel => GenerateHeightLabels();
 
     private MudBlazor.Color isFoundStyling(bool isFound) {
@@ -105,7 +105,7 @@
     }
 
     private IEnumerable<string> GenerateHeightLabels() {
-        for (int i = 1; i <= Game.GameGrid.Height; i++) {
+        for (int i = 1; i <= Game.Height; i++) {
             string label = GetLabelFromNumber(i);
             yield return label;
         }    
@@ -140,10 +140,10 @@
         }
         else
         {
-            var request = new GameCheckWordCoordsRequest(Game.Id, firstClick.Value.x, firstClick.Value.y, x, y);
+            var request = new GameCheckWordCoordsRequest(Game.Id, Game.GameGrid.GameGridInstance.Id, firstClick.Value.x, firstClick.Value.y, x, y);
             Game = await WskDataServiceNotAuthed.GameCheckWordCoordsAsync(request);
             SelectedGridCells = GameGridUtility.ConvertRowCellStringToArray(Game.GameGrid.RowCellData);
-            SelectedGridCellPoints = GameGridUtility.ConvertSelectedWordsToPointList(Game.GameGrid.CompletedWordCellData);            
+            SelectedGridCellPoints = GameGridUtility.ConvertSelectedWordsToPointList(Game.GameGrid.GameGridInstance.CompletedWordCellData);            
             firstClick = null;
         }
     }
