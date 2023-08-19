@@ -1,11 +1,10 @@
 namespace WskCore.Entities;
 
-public class GameGridInstance : IAggregateRoot
+public class GameGridInstance : BaseEntityTracked<Guid>, IAggregateRoot
 {
-    public GameGridInstanceKey Id { get; init; }
-    public string Title { get; private set; }
+    public string? Title { get; private set; }
     public GameGrid GameGrid { get; private set; }
-    public Guid KnownUserId { get; private set; }
+    public Guid? KnownUserId { get; private set; }
     public string CompletedWordCellData { get; private set; } = "";
 
     [NotMapped, JsonIgnore]
@@ -16,18 +15,18 @@ public class GameGridInstance : IAggregateRoot
     private GameGridInstance() { }
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-    public GameGridInstance(GameGrid gameGrid, Guid knownUserId)
+    public GameGridInstance(GameGrid gameGrid, Guid? knownUserId)
     {
         GameGrid = gameGrid;
         KnownUserId = knownUserId;
     }
 
-    public GameGridInstance(GameGridInstanceKey gameGridInstanceId, GameGrid gameGrid, Guid knownUserId) : this(gameGrid, knownUserId)
+    public GameGridInstance(Guid gameGridInstanceId, GameGrid gameGrid, Guid? knownUserId) : this(gameGrid, knownUserId)
     {
         Id = gameGridInstanceId;
     }
 
-    private void clearAnswers()
+    private void ClearAnswers()
     {
         CompletedWordCellData = "[]";
     }

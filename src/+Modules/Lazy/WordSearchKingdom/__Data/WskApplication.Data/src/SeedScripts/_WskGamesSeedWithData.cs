@@ -1,8 +1,10 @@
+using System.Threading.Tasks;
 namespace WskApplication.Data.SeedScripts;
 public class WskGamesSeedWithData : IWskSeedScript
 {
     public async Task PopulateWskTestData(IServiceProvider serviceProvider)
     {
+        Console.WriteLine($"{WskGameTestData.AllGames.First().GameGrids.First().Id}");
         var mediator = serviceProvider.GetRequiredService<IMediator>();
         var logger = serviceProvider.GetRequiredService<ILogger<WskGamesSeedWithData>>();
         using var dbContext =
@@ -16,13 +18,14 @@ public class WskGamesSeedWithData : IWskSeedScript
             {
                 //game.
                 dbContext.Games.Add(game);
+                await dbContext.SaveChangesAsync();
                 logger?.LogInformation($"{game.Title} was created in the database.", game.Title);
             }
             else
             {
                 logger?.LogInformation($"{game.Title} already exist in the database.", game.Title);
             }
-            await dbContext.SaveChangesAsync();
+            
         }
     }
 }

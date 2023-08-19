@@ -4,6 +4,7 @@ public class GameRecreateGridRequest : IRoutable
 {
     protected readonly static string Route = "game/recreategrid";
     public Guid Id { get; set; }
+    public Guid? KnownUserId { get; set; } = null;
     public GameRecreateGridRequest() { }
     public GameRecreateGridRequest(Guid id)
     {

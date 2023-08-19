@@ -65,6 +65,8 @@ public class Startup
                     new CamelCasePropertyNamesContractResolver();
                 options.SerializerSettings.ReferenceLoopHandling =
                     ReferenceLoopHandling.Ignore;
+                /*options.SerializerSettings.Converters.Add(
+                    new StronglyTypedIdNewtonsoftJsonConverter());*/
                 //options.SerializerSettings.MaxDepth = 2;
             });
         services.AddCors(opt =>

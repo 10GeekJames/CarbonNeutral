@@ -128,9 +128,9 @@ public partial class GameCheckWordCoordsQryHandler : IRequestHandler<GameCheckWo
         }
 
 
-        if (game.GameGrid.HiddenWords.Any(rs => rs.Word.ToLower() == foundWord.ToLower()))
+        if (game.HiddenWords.Any(rs => rs.Word.ToLower() == foundWord.ToLower()))
         {
-            var hiddenWord = game.GameGrid.HiddenWords.FirstOrDefault(rs => rs.Word.ToLower() == foundWord.ToLower());
+            var hiddenWord = game.HiddenWords.FirstOrDefault(rs => rs.Word.ToLower() == foundWord.ToLower());
             hiddenWord.SetFound();
             foreach(var cell in rowCells) {
                 // game.GameGrid.AddColoredCell(cell.x, cell.y); ***

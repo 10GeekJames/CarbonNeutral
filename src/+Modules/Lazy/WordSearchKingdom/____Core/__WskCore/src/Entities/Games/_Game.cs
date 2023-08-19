@@ -1,40 +1,59 @@
 namespace WskCore.Entities;
 
-public class Game : IAggregateRoot
+public class Game : BaseEntityTracked<Guid>, IAggregateRoot
 {
-    public GameKey Id { get; init; }
     public string Title { get; private set; }
     public Guid? KnownUserId { get; private set; } = null;
+    public int Height { get; private set; } = 0;
+    public int Width { get; private set; } = 0;
+
     public GameDifficulties GameDifficulty { get; private set; }
+
     private List<GameCategory> _gameCategories = new();
     public IEnumerable<GameCategory> GameCategories => _gameCategories.AsReadOnly();
+
     private List<GameTag> _gameTags = new();
     public IEnumerable<GameTag> GameTags => _gameTags.AsReadOnly();
-    public GameGrid GameGrid { get; private set; }
+
+    private List<GameGrid> _gameGrids = new();
+    public IEnumerable<GameGrid> GameGrids => _gameGrids.AsReadOnly();
+
+    public GameGrid? GameGrid => GameGrids.FirstOrDefault();
+
+    private List<HiddenWord> _hiddenWords = new();
+    public IEnumerable<HiddenWord> HiddenWords => _hiddenWords.AsReadOnly();
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     private Game() { }
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-    public Game(GameKey id, string title, int height, int width, IEnumerable<HiddenWord> hiddenWords, GameDifficulties gameDifficulty, IEnumerable<GameCategory> gameCategories, IEnumerable<GameTag> gameTags, Guid? knownUserId = null) : this(title, height, width, hiddenWords, gameDifficulty, gameCategories, gameTags, knownUserId)
+    public Game(Guid id, string title, int height, int width, GameDifficulties gameDifficulty, IEnumerable<HiddenWord> hiddenWords, IEnumerable<GameCategory> gameCategories, IEnumerable<GameTag> gameTags, Guid? knownUserId = null) : this(title, height, width, gameDifficulty, hiddenWords, gameCategories, gameTags, knownUserId)
     {
         Id = id;
     }
 
-    public Game(string title, int height, int width, IEnumerable<HiddenWord> hiddenWords, GameDifficulties gameDifficulty, IEnumerable<GameCategory> gameCategories, IEnumerable<GameTag> gameTags, Guid? knownUserId = null)
+    public Game(string title, int height, int width, GameDifficulties gameDifficulty, IEnumerable<HiddenWord> hiddenWords, IEnumerable<GameCategory> gameCategories, IEnumerable<GameTag> gameTags, Guid? knownUserId = null)
     {
-        GameGrid = new GameGrid(height, width, hiddenWords);
-
-        GameDifficulty = gameDifficulty;
-        _gameCategories = gameCategories.ToList();
-        _gameTags = gameTags.ToList();
-
         Title = title;
         KnownUserId = knownUserId;
+        Height = height;
+        Width = width;
+        GameDifficulty = gameDifficulty;
+
+        _hiddenWords = hiddenWords.ToList();
+        _gameCategories = gameCategories.ToList();
+        _gameTags = gameTags.ToList();
     }
 
-    public void RecreateGrid()
+    public void CreateNewGridVersion(Guid? knownUserId)
     {
-        GameGrid.RecreateGrid();
+        var newGameGrid = new GameGrid(this, string.Empty, knownUserId);
+        _gameGrids.Add(newGameGrid);
+    }
+    
+    public void AddGameGrid(GameGrid gameGrid)
+    {
+        if(!_gameGrids.Any(rs=>rs.Id == gameGrid.Id))
+            _gameGrids.Add(gameGrid);            
     }
 }

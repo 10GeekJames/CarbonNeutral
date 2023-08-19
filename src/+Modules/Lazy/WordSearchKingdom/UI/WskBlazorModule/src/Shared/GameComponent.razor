@@ -36,9 +36,9 @@
                         }
                     </div>
                 }
-                <div class="play-area-grid align-items-center ma-auto" Style="@(($"grid-template-rows: repeat({Game.GameGrid.Width}, 1fr); grid-template-columns: repeat({Game.GameGrid.Height}, 1fr);"))">
-                    @for (var x = 0; x < Game.GameGrid.Width; x++) {
-                        @for (var y = 0; y < Game.GameGrid.Height; y++) {                            
+                <div class="play-area-grid align-items-center ma-auto" Style="@(($"grid-template-rows: repeat({Game.Width}, 1fr); grid-template-columns: repeat({Game.Height}, 1fr);"))">
+                    @for (var x = 0; x < Game.Width; x++) {
+                        @for (var y = 0; y < Game.Height; y++) {                            
                             var storeX = x;
                             var storeY = y;
                             char rowCell = SelectedGridCells[storeX,storeY];
@@ -103,7 +103,7 @@
 
     private string _currentFont = "Courier New";
 
-    private IEnumerable<int> _widthLabel => Enumerable.Range(1, Game.GameGrid.Width);
+    private IEnumerable<int> _widthLabel => Enumerable.Range(1, Game.Width);
     private IEnumerable<string> _heightLabel => GenerateHeightLabels();
 
     protected override async Task OnInitializedAsync()
@@ -126,7 +126,7 @@
         }
     }
     public IEnumerable<string> GenerateHeightLabels() {
-        for (int i = 1; i <= Game.GameGrid.Height; i++) {
+        for (int i = 1; i <= Game.Height; i++) {
             string label = GetLabelFromNumber(i);
             yield return label;
         }    
@@ -171,7 +171,7 @@
             var request = new GameCheckWordCoordsRequest(Game.Id, firstClick.Value.x, firstClick.Value.y, x, y);
             Game = await WskDataServiceNotAuthed.GameCheckWordCoordsAsync(request);
             SelectedGridCells = GameGridUtility.ConvertRowCellStringToArray(Game.GameGrid.RowCellData);
-            SelectedGridCellPoints = GameGridUtility.ConvertSelectedWordsToPointList(Game.GameGrid.CompletedWordCellData);            
+            SelectedGridCellPoints = GameGridUtility.ConvertSelectedWordsToPointList(Game.GameGrid.GameGridInstances.First().CompletedWordCellData);            
             firstClick = null;
             @* StateHasChanged(); *@
         }

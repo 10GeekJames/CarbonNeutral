@@ -3,11 +3,10 @@ namespace WskApplication.Shared.ViewModels;
 public partial class GameGridViewModel : BaseViewModel<Guid>
 { 
 
-     public int Height { get; set; } = 0;
-     public int Width { get; set; } = 0;
-     public List<HiddenWordViewModel> HiddenWords { get; set; } = new();
+     public GameViewModel Game { get; set; }
+     public List<GameGridInstanceViewModel> GameGridInstances { get; set; } = new();
+     public bool IsCurrent { get; set; } = true;
      public string RowCellData { get; set; } = "";
-     public string CompletedWordCellData { get; set; } = "";
 
 
 } 

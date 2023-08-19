@@ -22,4 +22,5 @@ public partial class LiveRoomHttpDataService
             .Content
             .ReadFromJsonAsync<LiveRoomSessionViewModel>();
     }
+
 }

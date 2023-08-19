@@ -14,9 +14,9 @@
                 </MudStack>
             </div>
 
-            <div class="play-area-grid align-items-center ma-auto" Style="@(($"grid-template-rows: repeat({Game.GameGrid.Width}, 1fr); grid-template-columns: repeat({Game.GameGrid.Height}, 1fr);"))">
-                @for (var x = 0; x < Game.GameGrid.Width; x++) {
-                    @for (var y = 0; y < Game.GameGrid.Height; y++) {                            
+            <div class="play-area-grid align-items-center ma-auto" Style="@(($"grid-template-rows: repeat({Game.Width}, 1fr); grid-template-columns: repeat({Game.Height}, 1fr);"))">
+                @for (var x = 0; x < Game.Width; x++) {
+                    @for (var y = 0; y < Game.Height; y++) {                            
                         var storeX = x;
                         var storeY = y;
                         char rowCell = SelectedGridCells[storeX,storeY];
@@ -37,7 +37,7 @@
                 </MudText>
                 <MudDivider />
                 <MudStack Class="my-6 overflow-y-auto" Style="max-height: 50vh;">
-                    @foreach (var word in Game?.GameGrid.HiddenWords)
+                    @foreach (var word in Game?.HiddenWords)
                     {
                         <MudText Class="p-8" Typo="Typo.h5" Align="Align.Center">@word.Word</MudText>
                     }
@@ -88,7 +88,7 @@
             var request = new GameCheckWordCoordsRequest(Game.Id, firstClick.Value.x, firstClick.Value.y, x, y);
             Game = await WskDataService.GameCheckWordCoordsAsync(request);
             SelectedGridCells = GameGridUtility.ConvertRowCellStringToArray(Game.GameGrid.RowCellData);
-            SelectedGridCellPoints = GameGridUtility.ConvertSelectedWordsToPointList(Game.GameGrid.CompletedWordCellData);            
+            SelectedGridCellPoints = GameGridUtility.ConvertSelectedWordsToPointList(Game.GameGrid.GameGridInstances.First().CompletedWordCellData);            
             firstClick = null;
             @* StateHasChanged(); *@
         }

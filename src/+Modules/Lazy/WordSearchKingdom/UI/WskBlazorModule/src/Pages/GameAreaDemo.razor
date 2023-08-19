@@ -13,12 +13,12 @@
             <MudAlert Severity="Severity.Error" Variant="Variant.Filled">
                 Ah Ah Ah! You didn't say the magic code!
                 <MudImage Class="my-4 pr-8" Style="opacity: 0.75;" Src="https://media.tenor.com/Vyg73kR334sAAAAC/jurassic-park-ah.gif" />
-                <MudButton  Color="Color.Info" Variant="Variant.Filled" OnClick="() => OnRecreateGame()">Confirm</MudButton>
+                <MudButton  Color="Color.Info" Variant="Variant.Filled">Confirm</MudButton>
             </MudAlert>
         </div>
     }
     @if(_chosenGame != null) {
-        <GameComponentDemo Game="@_chosenGame" OnRecreateGame=OnRecreateGame SelectedGridCells=SelectedGridCells SelectedGridCellPoints=SelectedGridCellPoints />
+        <GameComponentDemo Game="@_chosenGame" SelectedGridCells=SelectedGridCells SelectedGridCellPoints=SelectedGridCellPoints />
     }
 </MudContainer>
 
@@ -38,18 +38,19 @@
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        var gameGetByIdRequest = new GameRecreateGridRequest(GameId);
-        _chosenGame = await WskDataServiceNotAuthed.GameRecreateGridAsync(gameGetByIdRequest);  
+        var gameGetByIdRequest = new GameGetByIdRequest(GameId);        
+        _chosenGame = await WskDataServiceNotAuthed.GameGetByIdAsync(gameGetByIdRequest);        
+        _chosenGame = await WskDataServiceNotAuthed.GameRecreateGridAsync(new GameRecreateGridRequest(_chosenGame.Id));
+        
         SelectedGridCells = GameGridUtility.ConvertRowCellStringToArray(_chosenGame.GameGrid.RowCellData);
-        SelectedGridCellPoints = GameGridUtility.ConvertSelectedWordsToPointList(_chosenGame.GameGrid.CompletedWordCellData);        
+        SelectedGridCellPoints = GameGridUtility.ConvertSelectedWordsToPointList(_chosenGame.GameGrid.GameGridInstances.First().CompletedWordCellData);        
         _gameTitle = _chosenGame.Title;
     }
-
-    public async Task OnRecreateGame(){
-        var request = new GameRecreateGridRequest(_chosenGame.Id);
-        _chosenGame = await WskDataServiceNotAuthed.GameRecreateGridAsync(request);         
+    @* public async Task OnRecreateGame(){
+        var request = new GameGetByIdRequest(_chosenGame.Id);
+        _chosenGame = await WskDataServiceNotAuthed.GameGetByIdAsync(request);         
+        _chosenGame.CreateNewGridVersion();        
         SelectedGridCells = GameGridUtility.ConvertRowCellStringToArray(_chosenGame.GameGrid.RowCellData);
-        SelectedGridCellPoints = GameGridUtility.ConvertSelectedWordsToPointList(_chosenGame.GameGrid.CompletedWordCellData);               
-    }
-
+        SelectedGridCellPoints = GameGridUtility.ConvertSelectedWordsToPointList(_chosenGame.GameGrid.GameGridInstances.First().CompletedWordCellData);               
+    } *@
 }

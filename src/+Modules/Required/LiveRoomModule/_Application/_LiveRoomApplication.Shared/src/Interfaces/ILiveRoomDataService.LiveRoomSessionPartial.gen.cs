@@ -4,4 +4,5 @@ public partial interface ILiveRoomDataService
 {
     Task<LiveRoomSessionViewModel?> LiveRoomSessionCreateNewAsync(LiveRoomSessionCreateNewRequest request);
     Task<LiveRoomSessionViewModel?> LiveRoomSessionGetByIdAsync(LiveRoomSessionGetByIdRequest request);
+
 }

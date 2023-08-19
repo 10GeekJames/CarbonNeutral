@@ -12,7 +12,7 @@ public class GameRecreateGridCmdHandler : IRequestHandler<GameRecreateGridCmd, G
     {
         var gameSpec = new GameGetByIdSpec(cmd.Id);
         var game = await _repository.FirstOrDefaultAsync(gameSpec);
-        game.RecreateGrid();
+        game.CreateNewGridVersion(cmd.KnownUserId);
         await _repository.UpdateAsync(game);
         return game;
     }

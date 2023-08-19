@@ -26,5 +26,6 @@ public partial class KnownUserController : BaseController
     {
         var response = await _dataService.KnownUserGetByUserIdWebsiteIdAsync(request);
         return Ok(response);
-    }  
+    }
+
 }

@@ -40,6 +40,26 @@
             "sourceFileMap": {
                 "/Views": "${workspaceFolder}/src/+Modules/Required/AccountModule/+Api/+AccountModuleApi/src/Views"
             }
+        },
+        {
+            "name": "WskApplication.Data",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-WskApplication.Data",
+            "program": "${workspaceFolder}/src/+Modules/Lazy/WordSearchKingdom/__Data/WskApplication.Data/src/bin/Debug/net7.0/WskApplication.Data.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/+Modules/Lazy/WordSearchKingdom/__Data/WskApplication.Data/src",
+            "stopAtEntry": false,
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/src/+Modules/Lazy/WordSearchKingdom/__Data/WskApplication.Data/src/Views"
+            }
         }
     ]
 }
