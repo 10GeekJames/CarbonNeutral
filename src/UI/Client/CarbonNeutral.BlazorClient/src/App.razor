@@ -148,8 +148,8 @@
             LoadedAssemblies.AddRange(assemblies);             *@
         }
         else if(uriPath.Contains("accounta/")) {
-            @* var assemblies = await AssemblyLoader.LoadAssembliesAsync(new List<string> { "AccountModuleBlazorModule.dll", "AccountModuleBlazorModuleAdmin.dll" });
-            LoadedAssemblies.AddRange(assemblies);             *@
+            var assemblies = await AssemblyLoader.LoadAssembliesAsync(new List<string> { "AccountModuleBlazorModule.dll", "AccountModuleBlazorModuleAdmin.dll" });
+            LoadedAssemblies.AddRange(assemblies);
         }
         // \AccountModule
 

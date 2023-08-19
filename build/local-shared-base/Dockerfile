@@ -31,6 +31,7 @@ COPY ./src/+Modules/Required/LiveRoomModule/___Infrastructure/LiveRoomInfrastruc
 COPY ./src/+Modules/Required/LiveRoomModule/_Application/_LiveRoomApplication.Shared/src/LiveRoomApplication.Shared.csproj     /src/+Modules/Required/LiveRoomModule/_Application/_LiveRoomApplication.Shared/src/LiveRoomApplication.Shared.csproj
 COPY ./src/+Modules/Required/LiveRoomModule/_Application/LiveRoomApplication/src/LiveRoomApplication.csproj                    /src/+Modules/Required/LiveRoomModule/_Application/LiveRoomApplication/src/LiveRoomApplication.csproj
 COPY ./src/+Modules/Required/LiveRoomModule/UI/_LiveRoomModuleClientServiceLoader/src/LiveRoomModuleClientServiceLoader.csproj /src/+Modules/Required/LiveRoomModule/UI/_LiveRoomModuleClientServiceLoader/src/LiveRoomModuleClientServiceLoader.csproj       
+COPY ./src/+Modules/Required/LiveRoomModule/UI/LiveRoomBlazorModule/src/LiveRoomBlazorModule.csproj                  /src/+Modules/Required/LiveRoomModule/UI/LiveRoomBlazorModule/src/LiveRoomBlazorModule.csproj
 COPY ./src/+Modules/Required/LiveRoomModule/UI/LiveRoomBlazorModuleAdmin/src/LiveRoomBlazorModuleAdmin.csproj                  /src/+Modules/Required/LiveRoomModule/UI/LiveRoomBlazorModuleAdmin/src/LiveRoomBlazorModuleAdmin.csproj
 
 COPY ./src/+Modules/Lazy/WordSearchKingdom/____Core/__WskCore/src/WskCore.csproj                                                        /src/+Modules/Lazy/WordSearchKingdom/____Core/__WskCore/src/WskCore.csproj
@@ -67,6 +68,7 @@ RUN dotnet restore /src/+Modules/Required/LiveRoomModule/___Infrastructure/LiveR
 RUN dotnet restore /src/+Modules/Required/LiveRoomModule/_Application/_LiveRoomApplication.Shared/src/LiveRoomApplication.Shared.csproj
 RUN dotnet restore /src/+Modules/Required/LiveRoomModule/_Application/LiveRoomApplication/src/LiveRoomApplication.csproj
 RUN dotnet restore /src/+Modules/Required/LiveRoomModule/UI/_LiveRoomModuleClientServiceLoader/src/LiveRoomModuleClientServiceLoader.csproj                    
+RUN dotnet restore /src/+Modules/Required/LiveRoomModule/UI/LiveRoomBlazorModule/src/LiveRoomBlazorModule.csproj
 RUN dotnet restore /src/+Modules/Required/LiveRoomModule/UI/LiveRoomBlazorModuleAdmin/src/LiveRoomBlazorModuleAdmin.csproj
 
 RUN dotnet restore /src/+Modules/Lazy/WordSearchKingdom/____Core/__WskCore/src/WskCore.csproj
@@ -106,6 +108,7 @@ COPY ./src/+Modules/Required/LiveRoomModule/__Data/LiveRoomApplication.Data/src/
 COPY ./src/+Modules/Required/LiveRoomModule/_Application/_LiveRoomApplication.Shared/src/   /src/+Modules/Required/LiveRoomModule/_Application/_LiveRoomApplication.Shared/src/
 COPY ./src/+Modules/Required/LiveRoomModule/_Application/LiveRoomApplication/src/           /src/+Modules/Required/LiveRoomModule/_Application/LiveRoomApplication/src/
 COPY ./src/+Modules/Required/LiveRoomModule/UI/_LiveRoomModuleClientServiceLoader/src/            /src/+Modules/Required/LiveRoomModule/UI/_LiveRoomModuleClientServiceLoader/src/
+COPY ./src/+Modules/Required/LiveRoomModule/UI/LiveRoomBlazorModule/src/               /src/+Modules/Required/LiveRoomModule/UI/LiveRoomBlazorModule/src/
 COPY ./src/+Modules/Required/LiveRoomModule/UI/LiveRoomBlazorModuleAdmin/src/               /src/+Modules/Required/LiveRoomModule/UI/LiveRoomBlazorModuleAdmin/src/
 
 COPY ./src/+Modules/Lazy/WordSearchKingdom/____Core/__WskCore/src/                              /src/+Modules/Lazy/WordSearchKingdom/____Core/__WskCore/src/
