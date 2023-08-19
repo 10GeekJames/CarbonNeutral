@@ -1,4 +1,4 @@
-// ag=no
+// ag=yes
 namespace WskApplication.Shared.Automaps; 
 public partial class GameTagMap : Profile
 { 
@@ -7,10 +7,6 @@ public partial class GameTagMap : Profile
     public GameTagMap()
     {
         CreateMap<GameTag, GameTagViewModel>()
-        .ForMember(d => d.Games, opt => opt.Ignore())
-        ;
-        CreateMap<GameTagViewModel, GameTag>()
-        .ForMember(d => d.Games, opt => opt.Ignore())
-        ;
+        .ReverseMap();
     }
 }

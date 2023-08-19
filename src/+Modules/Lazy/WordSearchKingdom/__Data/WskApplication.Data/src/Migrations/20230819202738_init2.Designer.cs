@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WskInfrastructure.Data;
 
@@ -11,9 +12,11 @@ using WskInfrastructure.Data;
 namespace WskApplication.Data.Migrations
 {
     [DbContext(typeof(WskDbContext))]
-    partial class WskDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230819202738_init2")]
+    partial class init2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,6 +24,36 @@ namespace WskApplication.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("GameGameCategory", b =>
+                {
+                    b.Property<Guid>("GameCategoriesId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("GamesId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("GameCategoriesId", "GamesId");
+
+                    b.HasIndex("GamesId");
+
+                    b.ToTable("GameGameCategory");
+                });
+
+            modelBuilder.Entity("GameGameTag", b =>
+                {
+                    b.Property<Guid>("GameTagsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("GamesId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("GameTagsId", "GamesId");
+
+                    b.HasIndex("GamesId");
+
+                    b.ToTable("GameGameTag");
+                });
 
             modelBuilder.Entity("WskCore.Entities.Game", b =>
                 {
@@ -31,29 +64,11 @@ namespace WskApplication.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("GameCategoriesData")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("GameCategoryId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<int>("GameDifficulty")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("GameTagId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("GameTagsData")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("Height")
                         .HasColumnType("int");
-
-                    b.Property<string>("HiddenWordsData")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("KnownUserId")
                         .HasColumnType("uniqueidentifier");
@@ -69,10 +84,6 @@ namespace WskApplication.Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("GameCategoryId");
-
-                    b.HasIndex("GameTagId");
 
                     b.ToTable("Games");
                 });
@@ -95,7 +106,7 @@ namespace WskApplication.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("GameCategory");
+                    b.ToTable("GameCategories");
                 });
 
             modelBuilder.Entity("WskCore.Entities.GameGrid", b =>
@@ -140,10 +151,6 @@ namespace WskApplication.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CompletedWordsData")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
@@ -184,7 +191,36 @@ namespace WskApplication.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("GameTag");
+                    b.ToTable("GameTags");
+                });
+
+            modelBuilder.Entity("WskCore.Entities.HiddenWord", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("GameId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsFound")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Word")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GameId");
+
+                    b.ToTable("HiddenWords");
                 });
 
             modelBuilder.Entity("WskCore.Entities.RowCell", b =>
@@ -227,15 +263,34 @@ namespace WskApplication.Data.Migrations
                     b.ToTable("RowCells");
                 });
 
-            modelBuilder.Entity("WskCore.Entities.Game", b =>
+            modelBuilder.Entity("GameGameCategory", b =>
                 {
                     b.HasOne("WskCore.Entities.GameCategory", null)
-                        .WithMany("Games")
-                        .HasForeignKey("GameCategoryId");
+                        .WithMany()
+                        .HasForeignKey("GameCategoriesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
+                    b.HasOne("WskCore.Entities.Game", null)
+                        .WithMany()
+                        .HasForeignKey("GamesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("GameGameTag", b =>
+                {
                     b.HasOne("WskCore.Entities.GameTag", null)
-                        .WithMany("Games")
-                        .HasForeignKey("GameTagId");
+                        .WithMany()
+                        .HasForeignKey("GameTagsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WskCore.Entities.Game", null)
+                        .WithMany()
+                        .HasForeignKey("GamesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("WskCore.Entities.GameGrid", b =>
@@ -260,24 +315,23 @@ namespace WskApplication.Data.Migrations
                     b.Navigation("GameGrid");
                 });
 
+            modelBuilder.Entity("WskCore.Entities.HiddenWord", b =>
+                {
+                    b.HasOne("WskCore.Entities.Game", null)
+                        .WithMany("HiddenWords")
+                        .HasForeignKey("GameId");
+                });
+
             modelBuilder.Entity("WskCore.Entities.Game", b =>
                 {
                     b.Navigation("GameGrids");
-                });
 
-            modelBuilder.Entity("WskCore.Entities.GameCategory", b =>
-                {
-                    b.Navigation("Games");
+                    b.Navigation("HiddenWords");
                 });
 
             modelBuilder.Entity("WskCore.Entities.GameGrid", b =>
                 {
                     b.Navigation("GameGridInstances");
-                });
-
-            modelBuilder.Entity("WskCore.Entities.GameTag", b =>
-                {
-                    b.Navigation("Games");
                 });
 #pragma warning restore 612, 618
         }

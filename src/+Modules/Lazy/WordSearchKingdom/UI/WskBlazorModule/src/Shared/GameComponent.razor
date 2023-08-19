@@ -65,14 +65,14 @@
                 <MudStack Class="my-6 overflow-y-auto" Style="max-height: 30vh;">
                     @foreach (var word in Game?.HiddenWords)
                     {
-                        if (word.Word == "WSK")
+                        if (word == "WSK")
                         {
-                            <MudChip Color=@isFoundStyling(word.IsFound) Style=@($"display: {(word.IsFound ? "inline-flex" : "none")};") Size="Size.Large">
-                                <MudText Class="p-8" Typo=@(IsMobile ? Typo.body1 : Typo.h5) Align="Align.Center">@word.Word</MudText>
+                            <MudChip Color=@isFoundStyling(Game.GameGrid.GameGridInstance.CompletedWordsData.Contains(word)) Style=@($"display: {(Game.GameGrid.GameGridInstance.CompletedWordsData.Contains(word) ? "inline-flex" : "none")};") Size="Size.Large">
+                                <MudText Class="p-8" Typo=@(IsMobile ? Typo.body1 : Typo.h5) Align="Align.Center">@word</MudText>
                             </MudChip>
                         } else {
-                            <MudChip Color=@isFoundStyling(word.IsFound) Size="Size.Large">
-                                <MudText Class="p-8" Typo=@(IsMobile ? Typo.body1 : Typo.h5) Align="Align.Center">@word.Word</MudText>
+                            <MudChip Color=@isFoundStyling(Game.GameGrid.GameGridInstance.CompletedWordsData.Contains(word)) Size="Size.Large">
+                                <MudText Class="p-8" Typo=@(IsMobile ? Typo.body1 : Typo.h5) Align="Align.Center">@word</MudText>
                             </MudChip>
                         }
                     }

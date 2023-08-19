@@ -60,8 +60,8 @@
                 <MudStack Class="my-6 overflow-y-auto" Style="max-height: 50vh;">
                     @foreach (var word in Game?.HiddenWords)
                     {
-                        <MudChip Color=@isFoundStyling(word.IsFound) Size="Size.Large">
-                            <MudText Class="p-8" Typo=@(IsMobile ? Typo.body1 : Typo.h5) Align="Align.Center">@word.Word</MudText>
+                        <MudChip Color=@isFoundStyling(Game.GameGrid.GameGridInstance.CompletedWordsData.Contains(word)) Size="Size.Large">
+                            <MudText Class="p-8" Typo=@(IsMobile ? Typo.body1 : Typo.h5) Align="Align.Center">@word</MudText>
                         </MudChip>
                     }
                 </MudStack>

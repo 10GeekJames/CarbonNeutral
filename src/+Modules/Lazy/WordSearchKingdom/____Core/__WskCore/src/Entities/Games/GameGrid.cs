@@ -45,11 +45,11 @@ public class GameGrid : BaseEntityTracked<Guid>
     public void GetFullGrid() //DoNotPropigate
     {
         // find longest word in hidden words
-        var longestWord = Game.HiddenWords.OrderByDescending(word => word.Word.Length).First();
+        var longestWord = Game.HiddenWords.OrderByDescending(word => word.Length).First();
         // find hidden words total count
         var hiddenWordsCount = Game.HiddenWords.Count();
         // if longest word is greater than height and Game.Width then throw exception
-        if (longestWord.Word.Length > Game.Height && longestWord.Word.Length > Game.Width)
+        if (longestWord.Length > Game.Height && longestWord.Length > Game.Width)
         {
             throw new InvalidOperationException("The longest word is too long to fit on the grid.");
         }
@@ -59,7 +59,7 @@ public class GameGrid : BaseEntityTracked<Guid>
         RowCellData = ConvertRowCellArrayToString(SetupGrid(Game.Height, Game.Width));
         HideTheWordsOnGrid(Game.HiddenWords);
         FillEmptySpacesInTheGrid();
-        Game.HiddenWords.ToList().ForEach(word => word.ResetFound());
+        
     }
 
     public void SetIsCurrent(bool isCurrent = true)
@@ -127,12 +127,12 @@ public class GameGrid : BaseEntityTracked<Guid>
     // overlap them where the letters are shared and they fit
     // don't overlap where letters don't match
     // go up down backwards
-    private void HideTheWordsOnGrid(IEnumerable<HiddenWord> wordsToHide)
+    private void HideTheWordsOnGrid(IEnumerable<string> wordsToHide)
     {
         foreach (var hiddenWord in wordsToHide)
         {
             bool placed = false;
-            var wordLength = hiddenWord.Word.Length;
+            var wordLength = hiddenWord.Length;
             var circutBreakerAfter = 100;
             var circutBreaker = 0;
             while (!placed && circutBreaker++ < circutBreakerAfter)
@@ -154,10 +154,10 @@ public class GameGrid : BaseEntityTracked<Guid>
             }
         }
     }
-    private bool TryPlaceWord(HiddenWord hiddenWord, int startRow, int startCol, Direction direction)
+    private bool TryPlaceWord(string hiddenWord, int startRow, int startCol, Direction direction)
     {
-        var wordLength = hiddenWord.Word.Length;
-        var wordChars = hiddenWord.Word.ToUpper().ToCharArray();
+        var wordLength = hiddenWord.Length;
+        var wordChars = hiddenWord.ToUpper().ToCharArray();
         int rowIncrement = 0;
         int colIncrement = 0;
         var rowCellAsArray = ConvertRowCellStringToArray(RowCellData);

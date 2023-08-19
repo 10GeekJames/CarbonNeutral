@@ -4,9 +4,6 @@ public class GameGetByIdSpec : Specification<Game>, ISingleResultSpecification<G
     public GameGetByIdSpec(Guid id)
     {
         Query
-            .Include(rs=>rs.HiddenWords)
-            .Include(rs => rs.GameTags)
-            .Include(rs => rs.GameCategories)
             .Where(rs => rs.Id == id)
             .OrderBy(rs => rs.Title);
     }

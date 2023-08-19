@@ -7,7 +7,7 @@ public class GameGridInstance : BaseEntityTracked<Guid>, IAggregateRoot
     public Guid KnownUserId { get; private set; }
     
     [NotMapped, JsonIgnore]
-    public List<Point>? CompletedWords => !string.IsNullOrWhiteSpace(CompletedWordCellData) ? Newtonsoft.Json.JsonConvert.DeserializeObject<List<Point>?>(CompletedWordCellData) : null;
+    public List<Point>?  CompletedWordCellDataPoints => !string.IsNullOrWhiteSpace(CompletedWordCellData) ? Newtonsoft.Json.JsonConvert.DeserializeObject<List<Point>?>(CompletedWordCellData) : null;
     public string CompletedWordCellData { get; private set; } = "";
     
     [NotMapped, JsonIgnore]
@@ -48,6 +48,19 @@ public class GameGridInstance : BaseEntityTracked<Guid>, IAggregateRoot
 
         CompletedWordCellData = Newtonsoft.Json.JsonConvert.SerializeObject(selectedCellsPointList);
     }
-    
+    public void AddFoundWord(string foundWord)
+    {
+        var completedWords = Newtonsoft.Json.JsonConvert.DeserializeObject<List<string>?>(CompletedWordsData);
+        if (completedWords == null)
+        {
+            completedWords = new();
+        }
+        if (!completedWords.Contains(foundWord))
+        {
+            completedWords.Add(foundWord);
+        }
+
+        CompletedWordsData = Newtonsoft.Json.JsonConvert.SerializeObject(completedWords);
+    }    
    
 }

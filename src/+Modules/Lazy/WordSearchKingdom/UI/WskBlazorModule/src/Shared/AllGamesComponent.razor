@@ -12,7 +12,7 @@
                     <MudStack Style="height: 100px;" Spacing="0" Class="overflow-y-auto overflow-x-hidden">
                         @foreach (var word in game.HiddenWords)
                         {   
-                            <MudChip Color=@isFoundStyling(word.IsFound) Class="m-1" Size="Size.Small">@word.Word</MudChip>
+                            <MudChip Color=@isFoundStyling(game.GameGrid.GameGridInstance.CompletedWordsData.Contains(word)) Class="m-1" Size="Size.Small">@word</MudChip>
                         }
                     </MudStack>
                     <MudText Typo="Typo.caption">@Localize["Difficulty"]</MudText>

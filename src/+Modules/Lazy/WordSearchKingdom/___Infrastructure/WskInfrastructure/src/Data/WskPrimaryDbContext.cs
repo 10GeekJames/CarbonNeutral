@@ -12,11 +12,7 @@ public class WskDbContext : DbContext
     public DbSet<Game> Games { get; set; }
     public DbSet<GameGrid> GameGrids { get; set; }
     public DbSet<GameGridInstance> GameGridInstances { get; set; }
-    public DbSet<HiddenWord> HiddenWords { get; set; }
     public DbSet<RowCell> RowCells { get; set; }
-
-    public DbSet<GameCategory> GameCategories { get; set; }
-    public DbSet<GameTag> GameTags { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -79,7 +79,7 @@
             return;
         }
         _wordsToHide = "WSK," + _wordsToHide;
-        List<HiddenWordViewModel> hiddenWords = _wordsToHide.Split(new[] { "\r\n", "\r", "\n", "," }, StringSplitOptions.RemoveEmptyEntries)
+        List<string> hiddenWords = _wordsToHide.Split(new[] { "\r\n", "\r", "\n", "," }, StringSplitOptions.RemoveEmptyEntries)
             .Select(word => {
                 var pattern = @"\p{L}+";
                 var rx = new Regex(pattern);
@@ -89,23 +89,27 @@
                 {
                     cleanWord.Append(match.Value);
                 }
-                return new HiddenWordViewModel { Word = cleanWord.ToString().ToUpper() };
+                    return cleanWord.ToString().ToUpper() ;
                 })
             .ToList();
 
-        List<GameCategoryViewModel> categories = _categories.Split(new[] { "\r\n", "\r", "\n", "," }, StringSplitOptions.RemoveEmptyEntries)
-            .Select(category => new GameCategoryViewModel { Title = category.Trim().Replace(" ", "_").ToUpper() })
+        List<string> categories = _categories.Split(new[] { "\r\n", "\r", "\n", "," }, StringSplitOptions.RemoveEmptyEntries)
+            .Select(category => category.Trim().Replace(" ", "_").ToUpper() )
             .ToList();
 
-        List<GameTagViewModel> tags = _tags.Split(new[] { "\r\n", "\r", "\n", "," }, StringSplitOptions.RemoveEmptyEntries)
-            .Select(tag => new GameTagViewModel { Title = tag.Trim().Replace(" ", "_").ToUpper() })
+        List<string> tags = _tags.Split(new[] { "\r\n", "\r", "\n", "," }, StringSplitOptions.RemoveEmptyEntries)
+            .Select(tag => tag.Trim().Replace(" ", "_").ToUpper())
             .ToList();
 
         @* hiddenWords = hiddenWords.Append(new HiddenWordViewModel { Word = "WSK" }); *@
         @* Console.WriteLine(hiddenWords.Count()); *@
-        hiddenWords.ForEach(word => Console.WriteLine(word.Word));
+        hiddenWords.ForEach(word => Console.WriteLine(word));
 
-        var request = new GameCreateNewRequest(_gameTitle, _gridSizeHeight, _gridSizeWidth, hiddenWords, _difficulty, categories, tags);
+        var hiddenWordsAsData = Newtonsoft.Json.JsonConvert.SerializeObject(hiddenWords);
+        var categoriesAsData = Newtonsoft.Json.JsonConvert.SerializeObject(categories);
+        var tagsAsData = Newtonsoft.Json.JsonConvert.SerializeObject(tags);
+
+        var request = new GameCreateNewRequest(_gameTitle, _gridSizeHeight, _gridSizeWidth, _difficulty, hiddenWordsAsData, categoriesAsData, tagsAsData);
         try 
         {
             GameViewModel game = await WskDataService.GameCreateNewAsync(request); 

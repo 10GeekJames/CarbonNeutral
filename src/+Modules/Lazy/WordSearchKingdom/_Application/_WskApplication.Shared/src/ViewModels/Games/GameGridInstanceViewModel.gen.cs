@@ -7,6 +7,8 @@ public partial class GameGridInstanceViewModel : BaseViewModel<Guid>
      public GameGridViewModel GameGrid { get; set; }
      public Guid KnownUserId { get; set; }
      public string CompletedWordCellData { get; set; } = "";
+     public List<string> CompletedWordsDataArray { get; set; } = new();
+     public string CompletedWordsData { get; set; } = "";
 
 
 } 

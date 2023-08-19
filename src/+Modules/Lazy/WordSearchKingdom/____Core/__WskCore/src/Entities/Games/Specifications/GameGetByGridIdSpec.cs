@@ -5,8 +5,6 @@ public class GameGetByGridIdSpec : Specification<Game>, ISingleResultSpecificati
     {
         Query
             .Include(rs => rs.HiddenWords)
-            .Include(rs => rs.GameTags)
-            .Include(rs => rs.GameCategories)
             .Where(rs => rs.GameGrids.Any(rs => rs.Id == gameGridId))
             .OrderBy(rs => rs.Title);
     }

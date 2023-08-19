@@ -6,14 +6,14 @@ public class GameCreateNewRequest : IRoutable
     public string Title { get; set; }
     public int Height { get; set; }
     public int Width { get; set; }
-    public List<HiddenWordViewModel> WordsToHide { get; set; }
     public GameDifficulties GameDifficulty { get; set; }
-    public List<GameCategoryViewModel> GameCategories { get; set; }
-    public List<GameTagViewModel> GameTags { get; set; }
+    public string WordsToHide { get; set; }
+    public string GameCategories { get; set; }
+    public string GameTags { get; set; }
     public Guid KnownUserId { get; set; }
 
     public GameCreateNewRequest() { }
-    public GameCreateNewRequest(string title, int height, int width, List<HiddenWordViewModel> wordsToHide, GameDifficulties gameDifficulty, List<GameCategoryViewModel> gameCategories, List<GameTagViewModel> gameTags)
+    public GameCreateNewRequest(string title, int height, int width, GameDifficulties gameDifficulty, string wordsToHide, string gameCategories, string gameTags)
     {
         Title = title;
         Height = height;

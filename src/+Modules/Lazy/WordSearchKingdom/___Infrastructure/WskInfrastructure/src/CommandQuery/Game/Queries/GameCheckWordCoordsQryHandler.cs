@@ -128,10 +128,11 @@ public partial class GameCheckWordCoordsCmdHandler : IRequestHandler<GameCheckWo
         }
 
 
-        if (game.HiddenWords.Any(rs => rs.Word.ToLower() == foundWord.ToLower()))
+        if (game.HiddenWords.Any(rs => rs.ToLower() == foundWord.ToLower()))
         {
-            var hiddenWord = game.HiddenWords.FirstOrDefault(rs => rs.Word.ToLower() == foundWord.ToLower());
-            hiddenWord.SetFound();
+            var hiddenWord = game.HiddenWords.FirstOrDefault(rs => rs.ToLower() == foundWord.ToLower());
+            
+            game.GameGrid.GameGridInstance.AddFoundWord(hiddenWord);
             foreach(var cell in rowCells) {
                 game.GameGrid.GameGridInstance.AddColoredCell(cell.x, cell.y);
             }
