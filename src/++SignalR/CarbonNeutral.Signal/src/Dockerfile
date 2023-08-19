@@ -19,5 +19,5 @@ COPY ./src/++SignalR/CarbonNeutral.Signal/src/entrypoint.sh .
 RUN chmod +x ./entrypoint.sh
 
 ENV ASPNETCORE_FORWARDEDHEADERS_ENABLED=true
-CMD ["dotnet", "SignalApi.dll"]
+CMD ["dotnet", "CarbonNeutral.Signal.dll"]
 #CMD /bin/bash ./entrypoint.sh
