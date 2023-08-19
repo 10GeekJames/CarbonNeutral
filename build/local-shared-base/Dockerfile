@@ -26,7 +26,7 @@ COPY ./src/+Modules/Required/AccountModule/UI/_AccountModuleClientServiceLoader/
 COPY ./src/+Modules/Required/AccountModule/UI/AccountModuleBlazorModuleAdmin/src/AccountModuleBlazorModuleAdmin.csproj                  /src/+Modules/Required/AccountModule/UI/AccountModuleBlazorModuleAdmin/src/AccountModuleBlazorModuleAdmin.csproj
 
 COPY ./src/+Modules/Required/LiveRoomModule/____Core/__LiveRoomCore/src/LiveRoomCore.csproj                                    /src/+Modules/Required/LiveRoomModule/____Core/__LiveRoomCore/src/LiveRoomCore.csproj
-COPY ./src/+Modules/Required/LiveRoomModule/____Core/_LiveRoomCore.LiveRoomTestData/src/LiveRoomCore.LiveRoomTestData.csproj                   /src/+Modules/Required/LiveRoomModule/____Core/_LiveRoomCore.LiveRoomTestData/src/LiveRoomCore.LiveRoomTestData.csproj
+COPY ./src/+Modules/Required/LiveRoomModule/____Core/LiveRoomCore.LiveRoomTestData/src/LiveRoomCore.LiveRoomTestData.csproj                   /src/+Modules/Required/LiveRoomModule/____Core/LiveRoomCore.LiveRoomTestData/src/LiveRoomCore.LiveRoomTestData.csproj
 COPY ./src/+Modules/Required/LiveRoomModule/___Infrastructure/LiveRoomInfrastructure/src/LiveRoomInfrastructure.csproj         /src/+Modules/Required/LiveRoomModule/___Infrastructure/LiveRoomInfrastructure/src/LiveRoomInfrastructure.csproj
 COPY ./src/+Modules/Required/LiveRoomModule/_Application/_LiveRoomApplication.Shared/src/LiveRoomApplication.Shared.csproj     /src/+Modules/Required/LiveRoomModule/_Application/_LiveRoomApplication.Shared/src/LiveRoomApplication.Shared.csproj
 COPY ./src/+Modules/Required/LiveRoomModule/_Application/LiveRoomApplication/src/LiveRoomApplication.csproj                    /src/+Modules/Required/LiveRoomModule/_Application/LiveRoomApplication/src/LiveRoomApplication.csproj
@@ -62,7 +62,7 @@ RUN dotnet restore ./src/+Modules/Required/AccountModule/UI/_AccountModuleClient
 RUN dotnet restore ./src/+Modules/Required/AccountModule/UI/AccountModuleBlazorModuleAdmin/src/AccountModuleBlazorModuleAdmin.csproj
 
 RUN dotnet restore ./src/+Modules/Required/LiveRoomModule/____Core/__LiveRoomCore/src/LiveRoomCore.csproj
-RUN dotnet restore ./src/+Modules/Required/LiveRoomModule/____Core/_LiveRoomCore.LiveRoomTestData/src/LiveRoomCore.LiveRoomTestData.csproj
+RUN dotnet restore ./src/+Modules/Required/LiveRoomModule/____Core/LiveRoomCore.LiveRoomTestData/src/LiveRoomCore.LiveRoomTestData.csproj
 RUN dotnet restore ./src/+Modules/Required/LiveRoomModule/___Infrastructure/LiveRoomInfrastructure/src/LiveRoomInfrastructure.csproj
 RUN dotnet restore ./src/+Modules/Required/LiveRoomModule/_Application/_LiveRoomApplication.Shared/src/LiveRoomApplication.Shared.csproj
 RUN dotnet restore ./src/+Modules/Required/LiveRoomModule/_Application/LiveRoomApplication/src/LiveRoomApplication.csproj
@@ -100,7 +100,7 @@ COPY ./src/+Modules/Required/AccountModule/UI/_AccountModuleClientServiceLoader/
 COPY ./src/+Modules/Required/AccountModule/UI/AccountModuleBlazorModuleAdmin/src/               /src/+Modules/Required/AccountModule/UI/AccountModuleBlazorModuleAdmin/src/
 
 COPY ./src/+Modules/Required/LiveRoomModule/____Core/__LiveRoomCore/src/                    /src/+Modules/Required/LiveRoomModule/____Core/__LiveRoomCore/src/
-COPY ./src/+Modules/Required/LiveRoomModule/____Core/_LiveRoomCore.LiveRoomTestData/src/            /src/+Modules/Required/LiveRoomModule/____Core/_LiveRoomCore.LiveRoomTestData/src/
+COPY ./src/+Modules/Required/LiveRoomModule/____Core/LiveRoomCore.LiveRoomTestData/src/            /src/+Modules/Required/LiveRoomModule/____Core/LiveRoomCore.LiveRoomTestData/src/
 COPY ./src/+Modules/Required/LiveRoomModule/___Infrastructure/LiveRoomInfrastructure/src/   /src/+Modules/Required/LiveRoomModule/___Infrastructure/LiveRoomInfrastructure/src/
 COPY ./src/+Modules/Required/LiveRoomModule/__Data/LiveRoomApplication.Data/src/                       /src/+Modules/Required/LiveRoomModule/__Data/LiveRoomApplication.Data/src/       
 COPY ./src/+Modules/Required/LiveRoomModule/_Application/_LiveRoomApplication.Shared/src/   /src/+Modules/Required/LiveRoomModule/_Application/_LiveRoomApplication.Shared/src/
