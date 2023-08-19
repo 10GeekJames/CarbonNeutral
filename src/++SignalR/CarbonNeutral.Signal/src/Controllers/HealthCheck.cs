@@ -1,4 +1,4 @@
-namespace CarbonNeutral.SignalR.Controllers;
+namespace CarbonNeutral.Signal.Controllers;
 public class HealthCheck : Controller
 {
     [HttpGet]

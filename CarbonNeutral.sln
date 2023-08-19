@@ -6,7 +6,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarbonNeutral.KernelShared"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarbonNeutral.Common", "src\_Common\CarbonNeutral.Common\src\CarbonNeutral.Common.csproj", "{CCC907A3-64FF-4037-9B8E-4FB0E3CAB2A8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarbonNeutral.SignalR", "src\++SignalR\CarbonNeutral.SignalR\src\CarbonNeutral.SignalR.csproj", "{890D8932-9EEE-4AA1-B715-8790B6139C58}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarbonNeutral.Signal", "src\++SignalR\CarbonNeutral.Signal\src\CarbonNeutral.Signal.csproj", "{890D8932-9EEE-4AA1-B715-8790B6139C58}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WskCore.UnitTests", "src\+Modules\Lazy\WordSearchKingdom\____Core\_WskCore.UnitTests\src\WskCore.UnitTests.csproj", "{79E60F1E-9333-4A36-B69B-BED2A6863B67}"
 EndProject

@@ -22,8 +22,8 @@
                     "num": 1
                 },
                 {
-                    "name": "CarbonNeutral.SignalR",
-                    "path": "./src/++SignalR/CarbonNeutral.SignalR/src/",
+                    "name": "CarbonNeutral.Signal",
+                    "path": "./src/++SignalR/CarbonNeutral.Signal/src/",
                     "cmd": [
                         "dotnet watch run"
                     ],

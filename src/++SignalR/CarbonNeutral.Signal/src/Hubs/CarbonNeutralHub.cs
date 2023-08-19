@@ -1,4 +1,4 @@
-namespace CarbonNeutral.SignalR.Hubs;
+namespace CarbonNeutral.Signal.Hubs;
 public class CarbonNeutralHub : Hub<ICarbonNeutralHubClient>
 {
     public static ConcurrentDictionary<string, Guest> _roomGuests { get; set; }

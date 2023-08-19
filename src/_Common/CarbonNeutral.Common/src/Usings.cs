@@ -13,7 +13,7 @@ global using Microsoft.JSInterop;
 
 global using CarbonNeutral.KernelShared.Configuration;
 
-global using CarbonNeutral.SignalR.Models;
+global using CarbonNeutral.Signal.Models;
 
 global using CarbonNeutral.Common;
 global using CarbonNeutral.Common.Interfaces;

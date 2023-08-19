@@ -14,8 +14,8 @@ RUN npm install -g sass
 
 COPY ./src/__Kernel/CarbonNeutral.KernelShared/src/CarbonNeutral.KernelShared.csproj                                                    /src/__Kernel/CarbonNeutral.KernelShared/src/CarbonNeutral.KernelShared.csproj
                                                                                                                                          
-COPY ./src/++SignalR/CarbonNeutral.SignalR.Models/src/CarbonNeutral.SignalR.Models.csproj                                               /src/++SignalR/CarbonNeutral.SignalR.Models/src/CarbonNeutral.SignalR.Models.csproj
-COPY ./src/++SignalR/CarbonNeutral.SignalR/src/CarbonNeutral.SignalR.csproj                                                             /src/++SignalR/CarbonNeutral.SignalR/src/CarbonNeutral.SignalR.csproj
+COPY ./src/++SignalR/CarbonNeutral.Signal.Models/src/CarbonNeutral.Signal.Models.csproj                                               /src/++SignalR/CarbonNeutral.Signal.Models/src/CarbonNeutral.Signal.Models.csproj
+COPY ./src/++SignalR/CarbonNeutral.Signal/src/CarbonNeutral.Signal.csproj                                                             /src/++SignalR/CarbonNeutral.Signal/src/CarbonNeutral.Signal.csproj
 
 COPY ./src/+Modules/Required/AccountModule/____Core/__AccountModuleCore/src/AccountModuleCore.csproj                                    /src/+Modules/Required/AccountModule/____Core/__AccountModuleCore/src/AccountModuleCore.csproj
 COPY ./src/+Modules/Required/AccountModule/____Core/_AccountModuleCore.TestData/src/AccountModuleCore.TestData.csproj                   /src/+Modules/Required/AccountModule/____Core/_AccountModuleCore.TestData/src/AccountModuleCore.TestData.csproj
@@ -50,8 +50,8 @@ COPY --from=copy-project-files .  .
 
 RUN dotnet restore /src/__Kernel/CarbonNeutral.KernelShared/src/CarbonNeutral.KernelShared.csproj
                     
-RUN dotnet restore /src/++SignalR/CarbonNeutral.SignalR.Models/src/CarbonNeutral.SignalR.Models.csproj                                               
-RUN dotnet restore /src/++SignalR/CarbonNeutral.SignalR/src/CarbonNeutral.SignalR.csproj                                                             
+RUN dotnet restore /src/++SignalR/CarbonNeutral.Signal.Models/src/CarbonNeutral.Signal.Models.csproj                                               
+RUN dotnet restore /src/++SignalR/CarbonNeutral.Signal/src/CarbonNeutral.Signal.csproj                                                             
 
 RUN dotnet restore /src/+Modules/Required/AccountModule/____Core/__AccountModuleCore/src/AccountModuleCore.csproj
 RUN dotnet restore /src/+Modules/Required/AccountModule/____Core/_AccountModuleCore.TestData/src/AccountModuleCore.TestData.csproj
@@ -87,8 +87,8 @@ COPY --from=restore-all .  .
 
 COPY ./src/__Kernel/CarbonNeutral.KernelShared/src/                                             /src/__Kernel/CarbonNeutral.KernelShared/src/
 
-COPY ./src/++SignalR/CarbonNeutral.SignalR.Models/src/                                          /src/++SignalR/CarbonNeutral.SignalR.Models/src
-COPY ./src/++SignalR/CarbonNeutral.SignalR/src/                                                 /src/++SignalR/CarbonNeutral.SignalR/src
+COPY ./src/++SignalR/CarbonNeutral.Signal.Models/src/                                          /src/++SignalR/CarbonNeutral.Signal.Models/src
+COPY ./src/++SignalR/CarbonNeutral.Signal/src/                                                 /src/++SignalR/CarbonNeutral.Signal/src
 
 COPY ./src/+Modules/Required/AccountModule/____Core/__AccountModuleCore/src/                    /src/+Modules/Required/AccountModule/____Core/__AccountModuleCore/src/
 COPY ./src/+Modules/Required/AccountModule/____Core/_AccountModuleCore.TestData/src/            /src/+Modules/Required/AccountModule/____Core/_AccountModuleCore.TestData/src/

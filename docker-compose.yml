@@ -35,6 +35,26 @@ services:
       - 'AdvancedConfiguration__IssuerUri=https://id.wordsearchkingdom.com'
       - DockerConfiguration__UpdateCaCertificate=true
       - ASPNETCORE_ENVIRONMENT=Development
+  signal-carbonneutral:
+    networks:
+    - my-network
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-file: 5
+        max-size: 10m
+    volumes:
+      - $APPDATA/Microsoft/UserSecrets/7bb1d295-54c5-4d09-9bd6-fa56fb74011b:/root/.microsoft/usersecrets/7bb1d295-54c5-4d09-9bd6-fa56fb74011b
+      - $HOME/.microsoft/usersecrets/7bb1d295-54c5-4d09-9bd6-fa56fb74011b:/root/.microsoft/usersecrets/7bb1d295-54c5-4d09-9bd6-fa56fb74011b
+    build:
+      context: ./
+      dockerfile: ./src/++SignalR/CarbonNeutral.Signal/src/Dockerfile
+    ports:
+      - "5200:5200"
+    depends_on:
+      - carbonneutral-shared-base
+      - id-carbonneutral
   account-api-carbonneutral:
     networks:
     - my-network

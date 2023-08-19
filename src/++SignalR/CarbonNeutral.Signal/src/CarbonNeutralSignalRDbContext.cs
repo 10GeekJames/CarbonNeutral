@@ -1,4 +1,4 @@
-namespace CarbonNeutral.SignalR;
+namespace CarbonNeutral.Signal;
 public class CarbonNeutralSignalRDbContext : DbContext
 {
     private readonly IMediator _mediator;

@@ -24,5 +24,5 @@ global using System.Collections.Concurrent;
 
 global using CarbonNeutral.KernelShared;
 
-global using CarbonNeutral.SignalR.Hubs;
-global using CarbonNeutral.SignalR.Models;
+global using CarbonNeutral.Signal.Hubs;
+global using CarbonNeutral.Signal.Models;

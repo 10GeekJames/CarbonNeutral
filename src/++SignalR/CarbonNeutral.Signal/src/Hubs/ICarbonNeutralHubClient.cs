@@ -1,4 +1,4 @@
-namespace CarbonNeutral.SignalR.Models;
+namespace CarbonNeutral.Signal.Hubs;
 public interface ICarbonNeutralHubClient
 {
     Task sendMessage(string user, string message);

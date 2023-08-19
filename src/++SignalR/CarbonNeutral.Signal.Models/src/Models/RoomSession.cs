@@ -1,4 +1,4 @@
-﻿namespace CarbonNeutral.SignalR.Models;
+﻿namespace CarbonNeutral.Signal.Models;
 public class RoomSession : IRoomSession
 {
     public JArray? Options { get; set; }
