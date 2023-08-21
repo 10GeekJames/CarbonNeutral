@@ -101,9 +101,6 @@
             .Select(tag => tag.Trim().Replace(" ", "_").ToUpper())
             .ToList();
 
-        @* hiddenWords = hiddenWords.Append(new HiddenWordViewModel { Word = "WSK" }); *@
-        @* Console.WriteLine(hiddenWords.Count()); *@
-        hiddenWords.ForEach(word => Console.WriteLine(word));
 
         var hiddenWordsAsData = Newtonsoft.Json.JsonConvert.SerializeObject(hiddenWords);
         var categoriesAsData = Newtonsoft.Json.JsonConvert.SerializeObject(categories);
@@ -113,7 +110,6 @@
         try 
         {
             GameViewModel game = await WskDataService.GameCreateNewAsync(request); 
-            await WskDataService.GameCreateNewAsync(request);
             NavigationManager.NavigateTo($"/wsk/game/{game.Id}"); 
             errorThrown = false;
         }
@@ -129,7 +125,6 @@
                 errorMessage = ex.Message;
             }
             errorThrown = true;
-            @* errorMessage = ex.Message; *@
         }
     }
 

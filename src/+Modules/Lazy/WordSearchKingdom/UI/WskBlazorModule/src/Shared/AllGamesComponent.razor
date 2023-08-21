@@ -12,7 +12,12 @@
                     <MudStack Style="height: 100px;" Spacing="0" Class="overflow-y-auto overflow-x-hidden">
                         @foreach (var word in game.HiddenWords)
                         {   
-                            <MudChip Color=@isFoundStyling(game.GameGrid?.GameGridInstance?.CompletedWordsData.Contains(word) ?? false) Class="m-1" Size="Size.Small">@word</MudChip>
+                            @* foreach (var wordInstance in game.GameGrid?.GameGridInstance?.CompletedWordsData)
+                            {
+                                Console.WriteLine(wordInstance);
+
+                            } *@
+                            <MudChip Color=@isFoundStyling(game.GameGrid?.GameGridInstance?.CompletedWordsDataArray.Contains(word) ?? false) Class="m-1" Size="Size.Small">@word</MudChip>
                         }
                     </MudStack>
                     <MudText Typo="Typo.caption">@Localize["Difficulty"]</MudText>
@@ -30,6 +35,9 @@
                         <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="() => NavigateToPrint(game.Id.ToString())" FullWidth="true">@Localize["Print"]</MudButton>
                     } 
                 </MudCardActions>
+                    Id: @game.Id
+                    GameGridId: @game.GameGrid?.Id
+                    GameGridInstanceId: @game.GameGrid?.GameGridInstance?.Id
             </MudCard>
         </MudItem>
     }

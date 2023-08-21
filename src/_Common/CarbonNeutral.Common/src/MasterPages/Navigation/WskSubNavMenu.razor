@@ -9,37 +9,40 @@
     }
 </style>
 
-<CascadingAuthenticationState>
-    <AuthorizeView>
-        <Authorized>
-            <div class=@(IsMobile ? "" : "sub-nav-menu-container")>
-                <MudStack Row="true" Class=@(IsMobile ? "ml-4 mt-4" : "")>
-                    <MudButton StartIcon="@Icons.Material.Filled.Logout" OnClick=@NavigateToLogout><MudText>Logout</MudText></MudButton>
-                    <MudButton StartIcon="@Icons.Material.Filled.Share"><MudText Class="highlight-shadow">Share</MudText></MudButton>
-                </MudStack>
-                <MudText Class="mr-2" Typo="Typo.caption">Welcome, @Localize["User"]</MudText>
-            </div>
-        </Authorized>
-        <NotAuthorized>
-            <div class=@(IsMobile ? "" : "sub-nav-menu-container")>
-                <MudStack Row="true" Class=@(IsMobile ? "ml-4 mt-4" : "")>
-                    <MudButton StartIcon="@Icons.Material.Filled.Login" OnClick=NavigateToLogin><MudText>Login</MudText></MudButton>
-                    <MudButton StartIcon="@Icons.Material.Filled.ShoppingCart"><MudText Class="highlight-shadow">Buy</MudText></MudButton>
-                </MudStack>
-            </div>
-        </NotAuthorized>
-    </AuthorizeView>
-</CascadingAuthenticationState> 
+@if (isAuthenticated)
+{
+    <div class=@(IsMobile ? "" : "sub-nav-menu-container")>
+        <MudStack Row="true" Class=@(IsMobile ? "ml-4 mt-4" : "")>
+            <MudButton StartIcon="@Icons.Material.Filled.Logout" OnClick=@NavigateToLogout><MudText>Logout</MudText></MudButton>
+            <MudButton StartIcon="@Icons.Material.Filled.Share"><MudText Class="highlight-shadow">Share</MudText></MudButton>
+        </MudStack>
+        <MudText Class="mr-2" Typo="Typo.caption">Welcome, @user.Identity.Name </MudText>
+    </div>
+}
+else
+{
+    <div class=@(IsMobile ? "" : "sub-nav-menu-container")>
+        <MudStack Row="true" Class=@(IsMobile ? "ml-4 mt-4" : "")>
+            <MudButton StartIcon="@Icons.Material.Filled.Login" OnClick=NavigateToLogin><MudText>Login</MudText></MudButton>
+            <MudButton StartIcon="@Icons.Material.Filled.ShoppingCart"><MudText Class="highlight-shadow">Buy</MudText></MudButton>
+        </MudStack>
+    </div>
+}
 
 
 @code {
     [CascadingParameter]
     protected bool IsMobile { get; set; }
-
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+    private ClaimsPrincipal user;
+    private bool isAuthenticated = false;
     protected override async Task OnInitializedAsync()
     {
+        var authstate = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        user = authstate.User;
+        isAuthenticated = user?.Identity?.IsAuthenticated ?? false == true;
         await base.OnInitializedAsync();      
-                       
     }
 
     private void NavigateToLogin()
