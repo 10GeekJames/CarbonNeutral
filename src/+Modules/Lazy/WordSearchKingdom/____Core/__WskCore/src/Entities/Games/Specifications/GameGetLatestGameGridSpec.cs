@@ -5,7 +5,8 @@ public class GameGetLatestGameGridSpec : Specification<Game>, ISingleResultSpeci
     {
         Query
             .Include(rs => rs.GameGrids)
-            .OrderBy(rs=>rs.GameGrids.OrderByDescending(rs=>rs.CreatedOn).FirstOrDefault().CreatedOn)            
+            .Where(rs => rs.Id == gameId)
+            .OrderBy(rs => rs.GameGrids.OrderByDescending(rs => rs.CreatedOn).FirstOrDefault().CreatedOn)
         ;
     }
 }
