@@ -1,4 +1,4 @@
-// ag=no
+// ag=yes
 namespace WskInfrastructure.CommandQuery; 
 public partial class GamesGetAllQryHandler : IRequestHandler<GamesGetAllQry, List<Game>>
 {
@@ -10,7 +10,7 @@ public partial class GamesGetAllQryHandler : IRequestHandler<GamesGetAllQry, Lis
 
     public async Task<List<Game>> Handle(GamesGetAllQry qry, CancellationToken cancellationToken)
     {
-        var spec = new GamesGetAllSpec(qry.KnownUserId, qry.UserOnly);
+        var spec = new GamesGetAllSpec(qry.KnownUserId);
         return await _repository.ListAsync(spec, cancellationToken);
     }
 }

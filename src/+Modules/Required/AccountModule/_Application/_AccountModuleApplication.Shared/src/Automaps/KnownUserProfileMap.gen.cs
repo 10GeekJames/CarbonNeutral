@@ -7,7 +7,7 @@ public partial class KnownUserProfileMap : Profile
     public KnownUserProfileMap()
     {
         CreateMap<KnownUserProfile, KnownUserProfileViewModel>()
-        .ForMember(rs => rs.KnownUser, opt => opt.Ignore()) 
+        .ForMember(rs=>rs.KnownUser, rs=>rs.Ignore())
         .ReverseMap();
     }
 }

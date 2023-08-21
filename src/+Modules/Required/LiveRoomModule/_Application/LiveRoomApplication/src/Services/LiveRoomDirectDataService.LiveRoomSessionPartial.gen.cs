@@ -1,4 +1,4 @@
-// ag=no ******
+// ag=yes
 namespace LiveRoomApplication.Services; 
 public partial class LiveRoomDirectDataService
 {
@@ -12,4 +12,5 @@ public partial class LiveRoomDirectDataService
         var qry = _mapper.Map<LiveRoomSessionGetByIdQry>(request);
         return _mapper.Map<LiveRoomSessionViewModel?>(await _mediator.Send(qry));
     }
+
 }

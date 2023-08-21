@@ -1,4 +1,4 @@
-// ag=no
+// ag=yes
 namespace AccountModuleApplication.Shared.Automaps; 
 public partial class KnownUserMap : Profile
 { 

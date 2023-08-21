@@ -7,9 +7,9 @@ public partial class GameGridInstanceMap : Profile
     public GameGridInstanceMap()
     {
         CreateMap<GameGridInstance, GameGridInstanceViewModel>()
-        .ForMember(d => d.GameGrid, opt => opt.Ignore());
+        .ForMember(d => d.GameGrid, o => o.Ignore());
         
         CreateMap<GameGridInstanceViewModel, GameGridInstance>()
-        .ForMember(d => d.GameGrid, opt => opt.Ignore());
+        .ForMember(d => d.GameGrid, o => o.Ignore());
     }
 }

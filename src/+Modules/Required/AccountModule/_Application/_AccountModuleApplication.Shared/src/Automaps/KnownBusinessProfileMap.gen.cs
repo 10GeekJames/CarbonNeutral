@@ -1,4 +1,4 @@
-// ag=yes
+// ag=no
 namespace AccountModuleApplication.Shared.Automaps; 
 public partial class KnownBusinessProfileMap : Profile
 { 
@@ -7,6 +7,7 @@ public partial class KnownBusinessProfileMap : Profile
     public KnownBusinessProfileMap()
     {
         CreateMap<KnownBusinessProfile, KnownBusinessProfileViewModel>()
+        .ForMember(rs=>rs.KnownBusiness, rs=>rs.Ignore())   
         .ReverseMap();
     }
 }

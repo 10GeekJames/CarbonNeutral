@@ -7,10 +7,9 @@ public partial class GameGridMap : Profile
     public GameGridMap()
     {
         CreateMap<GameGrid, GameGridViewModel>()
-        .ForMember(d => d.Game, opt => opt.Ignore());
+        .ForMember(d => d.Game, o => o.Ignore());
         
         CreateMap<GameGridViewModel, GameGrid>()
-        .ForMember(d => d.Game, opt => opt.Ignore());
-        
+        .ForMember(d => d.Game, o => o.Ignore());
     }
 }

@@ -29,6 +29,7 @@ public class SignalRService : ISignalRService
     }
     public async Task joinLiveRoom(string roomName)
     {
+        GetActiveConnection();
         if (roomName == "")
         {
             Console.WriteLine("Room name is missing");
@@ -70,6 +71,7 @@ public class SignalRService : ISignalRService
 
     public async Task sendMessageAsync(string roomName, string message)
     {
+        GetActiveConnection();
         await HubConnection.SendAsync("sendMessageAsync", UserName, roomName, message);
     }
     public async Task removeFromGroupAsync(string group)

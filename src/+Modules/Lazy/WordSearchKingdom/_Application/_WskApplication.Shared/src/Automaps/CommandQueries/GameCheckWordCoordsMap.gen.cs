@@ -1,4 +1,4 @@
-// ag=no *******
+// ag=yes
 namespace WskApplication.Automaps; 
 public partial class GameCheckWordCoordsRequestMap : Profile
 { 
