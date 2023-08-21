@@ -12,6 +12,10 @@ public class GameGetFullGridQryHandler : IRequestHandler<GameGetFullGridQry, Gam
     {
         var latestGameGridSpec = new GameGetLatestGameGridSpec(qry.Id);
         var latestGame = await _repository.FirstOrDefaultAsync(latestGameGridSpec);
+        if(latestGame.GameGrids.Count() == 0)
+        {
+            latestGame.CreateNewGridVersion(qry.KnownUserId);
+        }
         var latestGameGrid = latestGame.GameGrids.OrderByDescending(rs => rs.CreatedOn).FirstOrDefault();
 
         var gameSpec = new GameGetByGridIdByUserIdFullSpec(latestGameGrid.Id, qry.KnownUserId);
