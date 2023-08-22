@@ -5,16 +5,20 @@ public partial class GameController : BaseController
     public async Task<IActionResult> CreateNew(GameCreateNewRequest request)
     {
         Guid userId = new Guid("00000000-0000-0000-0000-000000000001");
-        try
+        var deserializedTags = Newtonsoft.Json.JsonConvert.DeserializeObject<string[]>(request.GameTags);
+        if (!deserializedTags.Contains("public", StringComparer.OrdinalIgnoreCase))
         {
-            var claimsIdentity = HttpContext.User.Identity as ClaimsIdentity;
-            Guid? claimUserId = new Guid(claimsIdentity?.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-            if (claimUserId.HasValue)
+            try
             {
-                request.KnownUserId = claimUserId.Value;
+                var claimsIdentity = HttpContext.User.Identity as ClaimsIdentity;
+                Guid? claimUserId = new Guid(claimsIdentity?.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+                if (claimUserId.HasValue)
+                {
+                    request.KnownUserId = claimUserId.Value;
+                }
             }
+            catch (Exception) { }
         }
-        catch (Exception) { }
 
         try
         {
