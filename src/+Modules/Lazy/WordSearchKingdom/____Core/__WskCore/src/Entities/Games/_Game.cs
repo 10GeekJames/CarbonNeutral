@@ -48,7 +48,7 @@ public class Game : BaseEntityTracked<Guid>, IAggregateRoot
         HiddenWordsData = hiddenWords;
         GameCategoriesData = gameCategories;
         GameTagsData = gameTags;
-        CreateNewGridVersion(knownUserId);
+        // CreateNewGridVersion(knownUserId);
     }
 
     public void CreateNewGridVersion(Guid knownUserId)

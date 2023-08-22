@@ -16,6 +16,7 @@ public class GameGetFullGridQryHandler : IRequestHandler<GameGetFullGridQry, Gam
         {
             latestGame.CreateNewGridVersion(qry.KnownUserId);
         }
+        // OrderByDescending doesn't do anything as the created on is not set
         var latestGameGrid = latestGame.GameGrids.OrderByDescending(rs => rs.CreatedOn).FirstOrDefault();
 
         var gameSpec = new GameGetByGridIdByUserIdFullSpec(latestGameGrid.Id, qry.KnownUserId);

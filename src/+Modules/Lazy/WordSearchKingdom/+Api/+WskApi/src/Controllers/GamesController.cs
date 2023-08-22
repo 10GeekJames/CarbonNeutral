@@ -6,16 +6,20 @@ public partial class GamesController : BaseController
     {
         // alternatively
         Guid userId = new Guid("00000000-0000-0000-0000-000000000001");
-        try
+        if (request.UserOnly)
         {
-            var claimsIdentity = HttpContext.User.Identity as ClaimsIdentity;
-            Guid? claimUserId = new Guid(claimsIdentity?.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-            if (claimUserId.HasValue)
+            try
             {
-                request.KnownUserId = claimUserId.Value;
+                var claimsIdentity = HttpContext.User.Identity as ClaimsIdentity;
+                Guid? claimUserId = new Guid(claimsIdentity?.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+                if (claimUserId.HasValue)
+                {
+                    request.KnownUserId = claimUserId.Value;
+                }
             }
+            catch (Exception) { }
         }
-        catch (Exception) { }
+
         var response = await _dataService.GamesGetAllAsync(request);
         return Ok(response);
     }
