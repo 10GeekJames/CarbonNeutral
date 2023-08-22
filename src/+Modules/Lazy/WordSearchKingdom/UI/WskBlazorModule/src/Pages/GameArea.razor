@@ -42,7 +42,7 @@
         var gameGetFullGridRequest = new GameGetFullGridRequest(GameId, GameInstanceId);        
         _chosenGame = await WskDataService.GameGetFullGridAsync(gameGetFullGridRequest);
         GameInstanceId = _chosenGame.GameGrid.GameGridInstance.Id;
-        Console.WriteLine($"{_chosenGame.GameGrid.GameGridInstance.Id}");
+        @* Console.WriteLine($"{_chosenGame.GameGrid.GameGridInstance.Id}"); *@
     
         SelectedGridCells = GameGridUtility.ConvertRowCellStringToArray(_chosenGame.GameGrid.RowCellData);
         SelectedGridCellPoints = GameGridUtility.ConvertSelectedWordsToPointList(_chosenGame.GameGrid.GameGridInstance.CompletedWordCellData);        

@@ -12,12 +12,10 @@
                     <MudStack Style="height: 100px;" Spacing="0" Class="overflow-y-auto overflow-x-hidden">
                         @foreach (var word in game.HiddenWords)
                         {   
-                            @* foreach (var wordInstance in game.GameGrid?.GameGridInstance?.CompletedWordsData)
+                            if (!(word == "WSK"))
                             {
-                                Console.WriteLine(wordInstance);
-
-                            } *@
-                            <MudChip Color=@isFoundStyling(game.GameGrid?.GameGridInstance?.CompletedWordsDataArray.Contains(word) ?? false) Class="m-1" Size="Size.Small">@word</MudChip>
+                                <MudChip Color=@isFoundStyling(game.GameGrid?.GameGridInstance?.CompletedWordsDataArray.Contains(word) ?? false) Class="m-1" Size="Size.Small">@word</MudChip>
+                            }
                         }
                     </MudStack>
                     <MudText Typo="Typo.caption">@Localize["Difficulty"]</MudText>
