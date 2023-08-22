@@ -33,9 +33,9 @@
                         <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="() => NavigateToPrint(game.Id.ToString())" FullWidth="true">@Localize["Print"]</MudButton>
                     } 
                 </MudCardActions>
-                    Id: @game.Id
+                    @* Id: @game.Id
                     GameGridId: @game.GameGrid?.Id
-                    GameGridInstanceId: @game.GameGrid?.GameGridInstance?.Id
+                    GameGridInstanceId: @game.GameGrid?.GameGridInstance?.Id *@
             </MudCard>
         </MudItem>
     }
