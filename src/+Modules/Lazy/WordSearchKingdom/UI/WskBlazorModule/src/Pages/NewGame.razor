@@ -14,23 +14,23 @@
     <MudPaper Class="pa-4">
         <MudForm @ref="form" @bind-IsValid="@success">
             <MudField Label="Game Info" Variant="Variant.Outlined">
-                <MudTextField @bind-Value=_gameTitle T="string" MaxLength=34 Label="Game Title" Required="true" RequiredError="Game Title is required!" />
-                <MudStack Row=@(IsMobile ? false : true) AlignItems="AlignItems.Stretch" Justify="Justify.Center" Class="flex-auto">
+                <MudTextField Class="mb-4" @bind-Value=_gameTitle T="string" MaxLength=34 Label="Game Title" Required="true" RequiredError="Game Title is required!" />
+                <MudStack Row=@(IsMobile ? false : true) AlignItems="AlignItems.Stretch" Justify="Justify.Center" Class="flex-auto mb-4">
                     <MudNumericField @bind-Value=_gridSizeHeight Min=0 Max=100 Label="Grid Size Height" Required="true" RequiredError="Grid Size is required!" HelperText="Recommended: Mobile(20), Max(100)" />
                     <MudNumericField @bind-Value=_gridSizeWidth Min=0 Max=100 Label="Grid Size Width" Required="true" RequiredError="Grid Size is required!" HelperText="Recommended: Mobile(20), Max(100)"  />
                     <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick=@(() => { _gridSizeHeight = 20; _gridSizeWidth = 20; })>Set Mobile</MudButton>
                 </MudStack>
-                <MudTextField @bind-Value=_themeWord Immediate="true" T="string" Label="Theme Word" Lines="1"  Required="false" HelperText=@($"Definition: {_themeWordDefinition}, Pronunciation: {_themeWordPronunciation} ")/>
-                <MudButton Variant="Variant.Filled" Color="Color.Secondary" OnClick=@(() => GetRandomWords(_themeWord)) >Generate Words</MudButton>
-                <MudTextField @bind-Value=_wordsToHide TextChanged=@HandleTextChange Immediate="true" T="string" Label="Words To Hide" Lines="6"  Required="true" HelperText=@($"Seperate list by , or new lines (Current Word Count: {_wordsToHideCount})") RequiredError="Words are required!" Counter="0"/>
-                <MudSelect @bind-Value=_difficulty T="GameDifficulties" Label="Difficulty" AnchorOrigin="Origin.BottomCenter">
+                <MudTextField @bind-Value=_themeWord Immediate="true" T="string" Label="Theme Word (Only used in word generation)" Lines="1"  Required="false" HelperText=@($"Definition: {_themeWordDefinition}, Pronunciation: {_themeWordPronunciation} ")/>
+                <MudButton Class="mb-4" Variant="Variant.Filled" Color="Color.Secondary" OnClick=@(() => GetRandomWords(_themeWord)) >Generate Words</MudButton>
+                <MudTextField Class="mb-4" @bind-Value=_wordsToHide TextChanged=@HandleTextChange Immediate="true" T="string" Label="Words To Hide" Lines="6"  Required="true" HelperText=@($"Seperate list by , or new lines (Current Word Count: {_wordsToHideCount})") RequiredError="Words are required!" Counter="0"/>
+                <MudSelect Class="mb-4" @bind-Value=_difficulty T="GameDifficulties" Label="Difficulty" AnchorOrigin="Origin.BottomCenter">
                     <MudSelectItem Value=GameDifficulties.Easy >Easy</MudSelectItem>
                     <MudSelectItem Value=GameDifficulties.Medium >Medium</MudSelectItem>
                     <MudSelectItem Value=GameDifficulties.Hard >Hard</MudSelectItem>
                     <MudSelectItem Value=GameDifficulties.ExtraHard >Extreme</MudSelectItem>
                 </MudSelect>
-                <MudTextField @bind-Value=_categories T="string" Label="Categories" />
-                <MudTextField  @bind-Value=_tags T="string" Label="Tags" />
+                <MudTextField Class="mb-4" @bind-Value=_categories T="string" Label="Categories" />
+                <MudTextField Class="mb-4"  @bind-Value=_tags T="string" Label="Tags" />
             </MudField>
             @* <div class="d-flex align-center justify-space-between mt-4"> *@
                 <MudStack Row=@(IsMobile ? false : true) Class="mt-4">
