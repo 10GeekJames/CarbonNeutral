@@ -18,7 +18,7 @@
         </div>
     }
     @if(_chosenGame != null) {
-        <GameComponent Game="@_chosenGame" SelectedGridCells=SelectedGridCells SelectedGridCellPoints=SelectedGridCellPoints />
+        <GameComponent Game="@_chosenGame" OnRecreateGame=OnRecreateGame SelectedGridCells=SelectedGridCells SelectedGridCellPoints=SelectedGridCellPoints />
     }
 </MudContainer>
 
@@ -49,11 +49,11 @@
         _gameTitle = _chosenGame.Title;
     }
 
-    @* public async Task OnRecreateGame(){
+    public async Task OnRecreateGame(){
         var request = new GameGetFullGridRequest(_chosenGame.GameGrid.GameGridInstance.Id, _chosenGame.Id);
         _chosenGame = await WskDataService.GameGetFullGridAsync(request);         
         SelectedGridCells = GameGridUtility.ConvertRowCellStringToArray(_chosenGame.GameGrid.RowCellData);
         SelectedGridCellPoints = GameGridUtility.ConvertSelectedWordsToPointList(_chosenGame.GameGrid.GameGridInstance.CompletedWordCellData);               
-    } *@
+    }
 
 }

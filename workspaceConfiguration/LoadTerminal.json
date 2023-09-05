@@ -199,6 +199,55 @@
                     "num": 3
                 }             
             ]
+        },
+        {
+            "name": "AllData",
+            "enabled": true,
+            "terminals": [
+                {
+                    "name": "WskApplication.Data",
+                    "path": "./src/+Modules/Lazy/WordSearchKingdom/__Data/WskApplication.Data/src",
+                    "cmd": [
+                        "dotnet ef database update",
+                        "dotnet run"
+                    ],
+                    "num": 6
+                },
+                {
+                    "name": "AccountModule.Data",
+                    "path": "./src/+Modules/Required/AccountModule/__Data/AccountModule.Data/src",
+                    "cmd": [
+                        "dotnet ef database update",
+                        "dotnet run"
+                    ],
+                    "num": 6
+                },
+                {
+                    "name": "LiveRoomModule.Data",
+                    "path": "./src/+Modules/Required/LiveRoomModule/__Data/LiveRoomApplication.Data/src",
+                    "cmd": [
+                        "dotnet ef database update",
+                        "dotnet run"
+                    ],
+                    "num": 6
+                },
+                {
+                    "name": "CarbonNeutral.Identity.Admin",
+                    "path": "./src/++Identity/CarbonNeutral.Identity/src/CarbonNeutral.Identity.Admin",
+                    "cmd": [
+                        "dotnet run"
+                    ],
+                    "num": 6
+                },
+                {
+                    "name": "CarbonNeutral.Identity.Admin.Api",
+                    "path": "./src/++Identity/CarbonNeutral.Identity/src/CarbonNeutral.Identity.Admin.Api",
+                    "cmd": [
+                        "dotnet run"
+                    ],
+                    "num": 6
+                }
+            ]
         }
     ]
 }

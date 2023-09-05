@@ -79,7 +79,7 @@
 
                 </MudStack>
                 <MudStack Spacing="4">
-                    @* <MudButton Style="justify-self: flex-end;" Variant="Variant.Filled" Color="Color.Tertiary" OnClick=OnRecreateGame FullWidth="true" >Recreate Game</MudButton>   *@
+                    <MudButton Style="justify-self: flex-end;" Variant="Variant.Filled" Color="Color.Tertiary" OnClick=OnRecreateGame FullWidth="true" >Recreate Game</MudButton>  
                     <MudButton Style="justify-self: flex-end;" Variant="Variant.Filled" Color="Color.Tertiary" OnClick=CycleFont FullWidth="true" >Cycle Font</MudButton>    
                     <MudButton Style="justify-self: flex-end;" Variant="Variant.Filled" Color="Color.Tertiary" OnClick=BackToAllGames FullWidth="true" >All Games</MudButton>    
                 </MudStack>
@@ -160,7 +160,7 @@
     private async Task HandleCellClick((MouseEventArgs, char, int, int) args)
     {
         var (e, letter, x, y) = args;
-        @* Console.WriteLine($"Clicked Cell X={x} Y={y} {letter}");         *@
+        Console.WriteLine($"Clicked Cell X={x} Y={y} {letter}");      
         if (firstClick == null)
         {
             firstClick = new(x, y);            
