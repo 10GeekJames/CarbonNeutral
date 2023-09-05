@@ -12,7 +12,6 @@
 }
 <MudContainer>
     <MudPaper Class="pa-4">
-        @_themeWordNewDefinition
         <MudForm @ref="form" @bind-IsValid="@success">
             <MudField Label="Game Info" Variant="Variant.Outlined">
                 <MudTextField @bind-Value=_gameTitle T="string" MaxLength=34 Label="Game Title" Required="true" RequiredError="Game Title is required!" />
@@ -55,8 +54,7 @@
     private string _themeWord { get; set; } = "";
     private string _themeWordDefinition { get; set; } = "";
     private string _themeWordPronunciation { get; set; } = "";
-    private string _themeWordNewDefinition { get; set; } = "";
-
+    private string _randomThemeWord { get; set; } = "";
     private int _wordsToHideCount { get; set; } = 0;
     private GameDifficulties _difficulty { get; set; } = GameDifficulties.Easy;
     private string _categories { get; set; } = "General";
@@ -71,10 +69,11 @@
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        var randomThemeWord = await FetchRandomWordsUtility.getRandomDefaultTheme();
-        _themeWord = randomThemeWord.Word;
-        _themeWordDefinition = randomThemeWord.Definition;
-        _themeWordPronunciation = randomThemeWord.Pronunciation;
+        var randomThemeWordResponse = await FetchRandomWordsUtility.getRandomDefaultTheme();
+        _randomThemeWord = randomThemeWordResponse.Word;
+        _themeWord = randomThemeWordResponse.Word;
+        _themeWordDefinition = randomThemeWordResponse.Definition;
+        _themeWordPronunciation = randomThemeWordResponse.Pronunciation;
     }
 
     public void HandleTextChange()
@@ -141,9 +140,15 @@
     }
 
     public async Task GetRandomWords(string themeWord) {
-        var newThemeDefResponse = await FetchRandomWordsUtility.getThemeWordDefinition(themeWord);
-        _themeWordDefinition = newThemeDefResponse.Split("#")[0];
-        _themeWordPronunciation = newThemeDefResponse.Split("#")[1];
+        if (_themeWord != _randomThemeWord) {
+            var newThemeDefResponse = await FetchRandomWordsUtility.getThemeWordDefinition(themeWord);
+            _themeWordDefinition = newThemeDefResponse.Split("#")[0];
+            _themeWordPronunciation = newThemeDefResponse.Split("#")[1];
+            if (_themeWordPronunciation == "")
+            {
+                _themeWordPronunciation = "No Pronunciation Found";
+            }
+        }
         _wordsToHide = await FetchRandomWordsUtility.getRandomWordsFromApi(themeWord);
     }
 }

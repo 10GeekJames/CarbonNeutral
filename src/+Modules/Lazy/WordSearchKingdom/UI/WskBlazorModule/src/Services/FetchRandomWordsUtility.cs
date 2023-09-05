@@ -71,7 +71,7 @@ public class FetchRandomWordsUtility
             {
                 for (var i = 0; i < wordCount && i < _randomWords.Count; i++)
                 {
-                    wordString += _randomWords[i].Word + ",";
+                    wordString += _randomWords[i].Word + ", ";
                 }
                 return wordString;
             }
@@ -111,8 +111,24 @@ public class FetchRandomWordsUtility
         }
         else
         {
-            // Handle the case where the API request was not successful
-            return new ThemeData() { Word = "API request failed." };
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+            Console.WriteLine(jsonResponse);
+            var _randomWord = jsonResponse.Replace("[", "").Replace("]", "").Replace("\"", "");
+
+            var definitionResponse = await client.GetAsync("https://api.dictionaryapi.dev/api/v2/entries/en/" + _randomWord);
+            if (definitionResponse.IsSuccessStatusCode)
+            {
+                var definitionJsonResponse = await definitionResponse.Content.ReadAsStringAsync();
+
+                Console.WriteLine(definitionJsonResponse);
+                var wordDefinitions = JsonConvert.DeserializeObject<List<WordDefinition>>(definitionJsonResponse);
+                return new ThemeData() { Word = _randomWord, Definition = wordDefinitions[0].Meanings[0].Definitions[0].Definition, Pronunciation = wordDefinitions[0].Phonetic };
+            }
+            else
+            {
+                // Handle the case where no words were found
+                return new ThemeData() { Word = "No random theme word found, please add one here." };
+            }
         }
     }
     public static async Task<string> getThemeWordDefinition(string themeWord)
