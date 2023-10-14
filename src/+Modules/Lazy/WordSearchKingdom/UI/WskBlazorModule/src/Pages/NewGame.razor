@@ -51,10 +51,10 @@
     private int _gridSizeHeight { get; set; } = 25;
     private int _gridSizeWidth { get; set; } = 25;
     private string _wordsToHide { get; set; } = "";
-    private string _themeWord { get; set; } = "";
-    private string _themeWordDefinition { get; set; } = "";
-    private string _themeWordPronunciation { get; set; } = "";
-    private string _randomThemeWord { get; set; } = "";
+    private string _themeWord { get; set; } = "Kingdom";
+    private string _themeWordDefinition { get; set; } = "A realm having a king and/or queen as its actual or nominal sovereign";
+    private string _themeWordPronunciation { get; set; } = "/ˈkɪŋdəm/";
+    private string _randomThemeWord { get; set; } = "Kingdom";
     private int _wordsToHideCount { get; set; } = 0;
     private GameDifficulties _difficulty { get; set; } = GameDifficulties.Easy;
     private string _categories { get; set; } = "General";
@@ -69,11 +69,11 @@
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        var randomThemeWordResponse = await FetchRandomWordsUtility.getRandomDefaultTheme();
-        _randomThemeWord = randomThemeWordResponse.Word;
-        _themeWord = randomThemeWordResponse.Word;
-        _themeWordDefinition = randomThemeWordResponse.Definition;
-        _themeWordPronunciation = randomThemeWordResponse.Pronunciation;
+        //var randomThemeWordResponse = await FetchRandomWordsUtility.getRandomDefaultTheme();
+        //_randomThemeWord = randomThemeWordResponse.Word;
+        //_themeWord = randomThemeWordResponse.Word;
+        //_themeWordDefinition = randomThemeWordResponse.Definition;
+        //_themeWordPronunciation = randomThemeWordResponse.Pronunciation;
     }
 
     public void HandleTextChange()
