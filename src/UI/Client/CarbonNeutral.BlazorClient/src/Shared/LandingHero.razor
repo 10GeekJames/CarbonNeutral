@@ -8,7 +8,14 @@
     </MudText>
     <MudStack Row="true" class="mt-6">
         <MudButton Href="/wsk/purchase" Class="pulse rounded-lg" Variant="Variant.Filled" Color="Color.Success" FullWidth="false" Style="width:200px;height:50px;">Buy Now</MudButton>
-        <MudButton Href="/wsk/allgames" Class="rounded-lg" Variant="Variant.Outlined" Color="Color.Success" FullWidth="false" Style="width:200px;height:50px;">Try Free</MudButton>
+        @if  (isAuthenticated) 
+        {
+            <MudButton Href="/wsk/allgames" Class="rounded-lg" Variant="Variant.Outlined" Color="Color.Success" FullWidth="false" Style="width:200px;height:50px;">Play Now</MudButton>
+        }
+        else 
+        {
+            <MudButton Href="/wsk/allgames" Class="rounded-lg" Variant="Variant.Outlined" Color="Color.Success" FullWidth="false" Style="width:200px;height:50px;">Try Free</MudButton>
+        }
         @* <MudButton Href="/wsk/demogames" Class="rounded-lg" Variant="Variant.Outlined" Color="Color.Success" FullWidth="false" Style="width:200px;height:50px;" OnClick="@(() => SetCurrentPageClass("play"))">Try Free</MudButton> *@
     </MudStack>
     <div class="mt-16">
@@ -24,10 +31,14 @@
 </MudContainer>
 
 @code {
-    @* [CascadingParameter]
-    public EventCallback<string> OnPageLinkClick { get; set; }
-    private void SetCurrentPageClass(string page) {
-        Console.WriteLine("SetCurrentPageClass: " + page);
-        OnPageLinkClick.InvokeAsync(page);
-    } *@
+    private bool isAuthenticated = false;
+    private ClaimsPrincipal user;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authstate = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        user = authstate.User;
+        isAuthenticated = user?.Identity?.IsAuthenticated ?? false == true;
+        await base.OnInitializedAsync();      
+    }
 }
