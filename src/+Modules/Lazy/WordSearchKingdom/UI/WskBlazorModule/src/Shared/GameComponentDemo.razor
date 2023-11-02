@@ -60,13 +60,13 @@
                 <MudStack Class="my-6 overflow-y-auto" Style="max-height: 50vh;">
                     @foreach (var word in Game?.HiddenWords)
                     {
-                        <MudChip Color=@isFoundStyling(Game.GameGrid.GameGridInstance.CompletedWordsData.Contains(word)) Size="Size.Large">
+                        <MudChip Color=@isFoundStyling(Game.GameGrid.GameGridInstance.CompletedWordsDataArray.Contains(word)) Size="Size.Large">
                             <MudText Class="p-8" Typo=@(IsMobile ? Typo.body1 : Typo.h5) Align="Align.Center">@word</MudText>
                         </MudChip>
                     }
                 </MudStack>
                 <MudStack Spacing="4">
-                    <MudButton Disabled="true" Style="justify-self: flex-end;" Variant="Variant.Filled" Color="Color.Tertiary" OnClick=OnRecreateGame FullWidth="true" >Recreate Game</MudButton>  
+                    @* <MudButton Disabled="true" Style="justify-self: flex-end;" Variant="Variant.Filled" Color="Color.Tertiary" OnClick=OnRecreateGame FullWidth="true" >Recreate Game</MudButton>   *@
                     <MudButton Disabled="true" Style="justify-self: flex-end;" Variant="Variant.Filled" Color="Color.Tertiary" FullWidth="true" >Cycle Font</MudButton>    
                     <MudButton Style="justify-self: flex-end;" Variant="Variant.Filled" Color="Color.Tertiary" OnClick=BackToPublicGames FullWidth="true" >Public Games</MudButton>    
                 </MudStack>

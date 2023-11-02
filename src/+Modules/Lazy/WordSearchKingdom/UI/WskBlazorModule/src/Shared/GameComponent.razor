@@ -65,10 +65,9 @@
                 <MudStack Class="my-6 overflow-y-auto" Style="max-height: 30vh;">
                     @foreach (var word in Game?.HiddenWords)
                     {
-                        Console.WriteLine($"word: {word}");
                         if (word == "WSK")
                         {
-                            <MudChip Color=@isFoundStyling(Game.GameGrid.GameGridInstance.CompletedWordsDataArray.Contains(word)) Style=@($"display: {(Game.GameGrid.GameGridInstance.CompletedWordsData.Contains(word) ? "inline-flex" : "none")};") Size="Size.Large">
+                            <MudChip Color=@isFoundStyling(Game.GameGrid.GameGridInstance.CompletedWordsDataArray.Contains(word)) Style=@($"display: {(Game.GameGrid.GameGridInstance.CompletedWordsDataArray.Contains(word) ? "inline-flex" : "none")};") Size="Size.Large">
                                 <MudText Class="p-8" Typo=@(IsMobile ? Typo.body1 : Typo.h5) Align="Align.Center">@word</MudText>
                             </MudChip>
                         } else {
@@ -80,9 +79,21 @@
 
                 </MudStack>
                 <MudStack Spacing="4">
-                    <MudButton Style="justify-self: flex-end;" Variant="Variant.Filled" Color="Color.Tertiary" OnClick=OnRecreateGame FullWidth="true" >Recreate Game</MudButton>  
-                    <MudButton Style="justify-self: flex-end;" Variant="Variant.Filled" Color="Color.Tertiary" OnClick=CycleFont FullWidth="true" >Cycle Font</MudButton>    
+                    <MudButton Style="justify-self: flex-end;" Variant="Variant.Filled" Color="Color.Tertiary" OnClick=OnRecreateGame FullWidth="true" Disabled>Recreate Game</MudButton>  
+                    @* <MudButton Style="justify-self: flex-end;" Variant="Variant.Filled" Color="Color.Tertiary" OnClick=CycleFont FullWidth="true" >Cycle Font</MudButton> *@
                     <MudButton Style="justify-self: flex-end;" Variant="Variant.Filled" Color="Color.Tertiary" OnClick=BackToAllGames FullWidth="true" >All Games</MudButton>    
+                    <MudSelect T="string" @bind-Value="@_currentFont" Label="Font Style" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter" Dense="true">
+                        <MudSelectItem T="string" Value="@("Times New Roman")" />
+                        <MudSelectItem T="string" Value="@("Arial")" />
+                        <MudSelectItem T="string" Value="@("Comic Sans MS")" />
+                        <MudSelectItem T="string" Value="@("Verdana")" />
+                        <MudSelectItem T="string" Value="@("Impact")" />
+                        <MudSelectItem T="string" Value="@("Georgia")" />
+                        <MudSelectItem T="string" Value="@("Trebuchet MS")" />
+                        <MudSelectItem T="string" Value="@("Arial Black")" />
+                        <MudSelectItem T="string" Value="@("Lucida Console")" />
+                        <MudSelectItem T="string" Value="@("Courier New")" />
+                    </MudSelect>    
                 </MudStack>
             </MudContainer>
         </MudStack>
